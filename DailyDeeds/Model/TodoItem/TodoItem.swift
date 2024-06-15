@@ -48,7 +48,6 @@ struct TodoItem: Identifiable, Equatable {
     var modificationDate: Date?
     
     /// Инициализирует новый экземпляр задачи TodoItem.
-    ///
     /// - Parameters:
     ///   - id: Уникальный идентификатор задачи. По умолчанию генерируется новый UUID.
     ///   - text: Описание задачи.
@@ -70,7 +69,6 @@ struct TodoItem: Identifiable, Equatable {
         self.text = text
         self.importance = importance
         self.isDone = isDone
-        // !!!: FIXME: - change to what? to String? -
         self.deadline = deadline
         self.creationDate = creationDate
         self.modificationDate = modificationDate
