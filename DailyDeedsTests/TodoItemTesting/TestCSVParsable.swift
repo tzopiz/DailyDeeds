@@ -58,5 +58,21 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(TodoItem.string(from: parsedItem.deadline), "2023-06-16 12:00:00")
         XCTAssertEqual(TodoItem.string(from: parsedItem.modificationDate), "2023-06-17 12:00:00")
     }
+    func testCSVDeserialization2() {
+        let csvString = "456,Задача для распарсинга,неважная,true,2023-06-15 12:00:00,,2023-06-17 12:00:00"
+        
+        guard let parsedItem = TodoItem.parse(csv: csvString) else {
+            XCTFail("Failed to parse CSV string")
+            return
+        }
+        
+        XCTAssertEqual(parsedItem.id, "456")
+        XCTAssertEqual(parsedItem.text, "Задача для распарсинга")
+        XCTAssertEqual(parsedItem.importance, .low)
+        XCTAssertTrue(parsedItem.isDone)
+        XCTAssertEqual(TodoItem.string(from: parsedItem.creationDate), "2023-06-15 12:00:00")
+        XCTAssertNil(parsedItem.deadline)
+        XCTAssertEqual(TodoItem.string(from: parsedItem.modificationDate), "2023-06-17 12:00:00")
+    }
 
 }

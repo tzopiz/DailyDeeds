@@ -22,7 +22,7 @@ extension TodoItem: CSVParsable {
             isDone ? "true" : "false",
             TodoItem.string(from: creationDate)
         ]
-        // FIXME: create differents? -
+
         csvArray.append(TodoItem.string(from: deadline))
         csvArray.append(TodoItem.string(from: modificationDate))
         
@@ -30,7 +30,7 @@ extension TodoItem: CSVParsable {
     }
     
     static func parse(csv: String) -> TodoItem? {
-        let csvArray = csv.split(separator: ",").map(String.init)
+        let csvArray = csv.components(separatedBy: ",")
         
         guard let id = csvArray[safe: 0],
               let text = csvArray[safe: 1],
@@ -61,7 +61,6 @@ extension TodoItem: CSVParsable {
     }
 }
 
-// Safe array access
 extension Array {
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
