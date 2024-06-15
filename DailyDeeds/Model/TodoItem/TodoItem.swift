@@ -7,8 +7,7 @@
 
 import Foundation
 
-/// Возможные уровни важности задачи.
-enum Importance: String, Comparable, Equatable {
+enum Importance: String, Comparable, Equatable, Codable {
     case low = "неважная"
     case medium = "обычная"
     case high = "важная"
@@ -24,38 +23,24 @@ enum Importance: String, Comparable, Equatable {
     }
 }
 
-/// Структура представляет задачу с определенными характеристиками.
-struct TodoItem: Identifiable, Equatable {
-    /// Уникальный идентификатор задачи.
+struct TodoItem: Identifiable, Equatable, Codable, KeyPathComparable {
     let id: String
-    
-    /// Описание задачи.
-    let text: String
-    
-    /// Уровень важности задачи.
-    let importance: Importance
-    
-    /// Флаг, указывающий выполнена ли задача.
+    var text: String
+    var importance: Importance
     var isDone: Bool
-    
-    /// Дата создания задачи. Обязательное поле.
     let creationDate: Date
-    
-    /// Дедлайн задачи. Может быть nil, если дедлайн не задан.
-    let deadline: Date?
-    
-    /// Дата последнего изменения задачи. Может быть nil, если задача не изменялась.
+    var deadline: Date?
     var modificationDate: Date?
     
-    /// Инициализирует новый экземпляр задачи TodoItem.
+    /// Initializes a new instance of the TodoItem task.
     /// - Parameters:
-    ///   - id: Уникальный идентификатор задачи. По умолчанию генерируется новый UUID.
-    ///   - text: Описание задачи.
-    ///   - importance: Уровень важности задачи (low, medium, high).
-    ///   - isDone: Флаг, указывающий выполнена ли задача. По умолчанию false.
-    ///   - creationDate: Дата создания задачи. По умолчанию текущая дата и время.
-    ///   - deadline: Дедлайн задачи. По умолчанию nil.
-    ///   - modificationDate: Дата последнего изменения задачи. По умолчанию nil.
+    ///   - id: The unique identifier of the task. By default, a new UUID is generated.
+    ///   - text: Description of the task.
+    ///   - importance: The level of importance of the task (low, medium, high).
+    ///   - isDone: A flag indicating whether the task has been completed. By default, false.
+    ///   - creationDate: The date the task was created. By default, the current date and time.
+    ///   - deadline: The deadline for the task. By default, nil.
+    ///   - modificationDate: The date the issue was last modified. By default, nil.
     init(
         id: String = UUID().uuidString,
         text: String,
@@ -87,7 +72,6 @@ struct TodoItem: Identifiable, Equatable {
         return dateFormatter.string(from: date)
     }
 }
-
 
 // MARK: - CustomStringConvertible
 extension TodoItem: CustomStringConvertible, CustomDebugStringConvertible {
