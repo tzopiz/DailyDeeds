@@ -12,8 +12,8 @@ protocol CSVParsable {
     static func parse(csv: String) -> Self?
 }
 
-// MARK: - CSVParsable
 extension TodoItem: CSVParsable {
+    /// CSV representation of the current TodoItem object.
     var csv: String {
         var csvArray = [
             id,
@@ -29,6 +29,9 @@ extension TodoItem: CSVParsable {
         return csvArray.joined(separator: ",")
     }
     
+    /// A function for parsing SCV and creating a TodoItem object.
+    /// - Parameter dict: A SCV object in the form of a `String'.
+    /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
     static func parse(csv: String) -> TodoItem? {
         let csvArray = csv.components(separatedBy: ",")
         

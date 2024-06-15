@@ -8,9 +8,6 @@
 import Foundation
 
 protocol KeyPathComparable {
-    associatedtype ComparableType: Comparable
-    var keyPath: KeyPath<Self, ComparableType> { get }
-    
     static func compareBy<T: Comparable>(_ keyPath: KeyPath<Self, T>) -> (Self, Self) -> Bool
 }
 
@@ -22,15 +19,48 @@ extension KeyPathComparable {
     }
 }
 
-// MARK: - KeyPathComparable
-extension TodoItem: KeyPathComparable {
-    var keyPath: KeyPath<TodoItem, String> {
-        return \TodoItem.id
-    }
-}
-
 extension Sequence where Element: KeyPathComparable {
-    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>) -> [Element] {
-        self.sorted(by: Element.compareBy(keyPath))
+    /**
+     Sorts the elements of a sequence based on the values at a specified key path with ascending order by default.
+     
+     This function allows sorting of any sequence where the elements conform to the `KeyPathComparable` protocol by a specified key path. The key path must point to a value that conforms to the `Comparable` protocol.
+     
+     - Parameter keyPath: A key path to a property of `Element` that conforms to `Comparable`.
+     - Returns: A sorted array of the sequence elements, sorted by the values at the specified key path with ascending order by default
+     - Complexity: O(n log n), where n is the length of the collection.
+     
+     Usage example:
+     ```swift
+     struct TodoItem: KeyPathComparable {
+         let id: String
+         var text: String
+         var importance: Int
+         var isDone: Bool
+         let creationDate: Date
+     }
+     
+     var todoItems: [TodoItem] = [
+         TodoItem(id: "3", text: "Task 3", importance: 0, isDone: false, creationDate: Date()),
+         TodoItem(id: "1", text: "Task 1", importance: 2, isDone: false, creationDate: Date()),
+         TodoItem(id: "2", text: "Task 2", importance: 10, isDone: false, creationDate: Date())
+     ]
+     
+     let sortedItems = todoItems.sorted(by: \.id)
+     let filterItems = todoItems.filter(by: \.isDone) { $0 == true }
+     print(sortedItems) // Will print items sorted by their id in ascending order
+     print(filterItems) // Will print items filter by their isDone state
+     ```
+     */
+    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) -> [Element] {
+        if ascending {
+            return self.sorted(by: Element.compareBy(keyPath))
+        } else {
+            return self.sorted(by: Element.compareBy(keyPath)).reversed()
+        }
+    }
+    func filter<T>(by keyPath: KeyPath<Element, T>, predicate: @escaping (T) -> Bool) -> [Element] {
+        return self.filter { element in
+            predicate(element[keyPath: keyPath])
+        }
     }
 }

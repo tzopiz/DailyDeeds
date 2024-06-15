@@ -7,20 +7,14 @@
 
 import Foundation
 
-/// Протокол для объектов, которые могут быть инициализированы из JSON и представлены в JSON формате.
 protocol JSONParsable {
     associatedtype JSONType
-    /// Функция для разбора JSON и создания объекта.
-    /// - Parameter json: JSON объект в виде Any.
-    /// - Returns: Возвращает объект, инициализированный из JSON, или nil, если разбор не удался.
-    static func parse(json: JSONType) -> Self?
-    
-    /// Вычислимое свойство, возвращающее JSON представление текущего объекта.
     var json: JSONType { get }
+    
+    static func parse(json: JSONType) -> Self?
 }
 
 extension JSONParsable {
-    /// Преобразует объект в JSON строку.
     var jsonString: String? {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: json),
               let jsonString = String(data: jsonData, encoding: .utf8) 
@@ -28,9 +22,9 @@ extension JSONParsable {
         return jsonString
     }
     
-    /// Преобразует JSON строку в объект.
-    /// - Parameter jsonString: JSON строка.
-    /// - Returns: Возвращает объект, созданный из JSON строки, или nil, если преобразование не удалось.
+    /// Converts a JSON string to an object.
+    /// - Parameter jsonString: JSON string.
+    /// - Returns: Returns an object created from a JSON string, or null if the conversion failed.
     static func from(jsonString: String) -> Self? {
         guard let jsonData = jsonString.data(using: .utf8),
               let jsonObject = try? JSONSerialization.jsonObject(with: jsonData),
@@ -41,10 +35,9 @@ extension JSONParsable {
     }
 }
 
-// MARK: - JSONParsable
 extension TodoItem: JSONParsable {
     typealias JSONType = [String: Any]
-    /// Вычислимое свойство, которое возвращает JSON представление текущего объекта TodoItem.
+    /// JSON representation of the current TodoItem object.
     var json: JSONType {
         var jsonDict: [String: Any] = [
             "id": id,
@@ -68,9 +61,9 @@ extension TodoItem: JSONParsable {
         return jsonDict
     }
     
-    /// Функция для разбора JSON и создания объекта TodoItem.
-    /// - Parameter json: JSON объект в виде Any.
-    /// - Returns: Возвращает объект TodoItem, если разбор удался, иначе возвращает nil.
+    /// A function for parsing JSON and creating a TodoItem object.
+    /// - Parameter dict: A JSON object in the form of `[String:Any]'.
+    /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
     static func parse(json dict: JSONType) -> TodoItem? {
         guard let id = dict["id"] as? String,
               let text = dict["text"] as? String,
