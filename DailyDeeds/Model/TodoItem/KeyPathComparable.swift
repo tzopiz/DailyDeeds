@@ -31,7 +31,7 @@ extension Sequence where Element: KeyPathComparable {
      
      Usage example:
      ```swift
-     struct TodoItem: KeyPathComparable {
+     struct TodoItem2: KeyPathComparable {
          let id: String
          var text: String
          var importance: Int
@@ -39,14 +39,15 @@ extension Sequence where Element: KeyPathComparable {
          let creationDate: Date
      }
      
-     var todoItems: [TodoItem] = [
-         TodoItem(id: "3", text: "Task 3", importance: 0, isDone: false, creationDate: Date()),
-         TodoItem(id: "1", text: "Task 1", importance: 2, isDone: false, creationDate: Date()),
-         TodoItem(id: "2", text: "Task 2", importance: 10, isDone: false, creationDate: Date())
+     var todoItems: [TodoItem2] = [
+         TodoItem2(id: "3", text: "Task 3", importance: 10, isDone: false, creationDate: Date()),
+         TodoItem2(id: "1", text: "Task 1", importance: 2, isDone: false, creationDate: Date()),
+         TodoItem2(id: "2", text: "Task 2", importance: 4, isDone: false, creationDate: Date())
      ]
      
      let sortedItems = todoItems.sorted(by: \.id)
      let filterItems = todoItems.filter(by: \.isDone) { $0 == true }
+     todoItems.sort(by: \.importance)
      print(sortedItems) // Will print items sorted by their id in ascending order
      print(filterItems) // Will print items filter by their isDone state
      ```
@@ -56,6 +57,16 @@ extension Sequence where Element: KeyPathComparable {
             return self.sorted(by: Element.compareBy(keyPath))
         } else {
             return self.sorted(by: Element.compareBy(keyPath)).reversed()
+        }
+    }
+    mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) {
+        guard let sorted = self.sorted(by: Element.compareBy(keyPath)) as? Self
+        else { return }
+        if ascending { self = sorted }
+        else {
+            guard let reversed = sorted.reversed() as? Self
+            else { return }
+            self = reversed
         }
     }
     func filter<T>(by keyPath: KeyPath<Element, T>, predicate: @escaping (T) -> Bool) -> [Element] {

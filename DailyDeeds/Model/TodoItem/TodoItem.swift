@@ -58,19 +58,6 @@ struct TodoItem: Identifiable, Equatable, Codable, KeyPathComparable {
         self.creationDate = creationDate
         self.modificationDate = modificationDate
     }
-    
-    private static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        return formatter
-    }()
-    static func date(from dateString: String) -> Date? {
-        return dateFormatter.date(from: dateString)
-    }
-    static func string(from date: Date?) -> String {
-        guard let date = date else { return "" }
-        return dateFormatter.string(from: date)
-    }
 }
 
 // MARK: - CustomStringConvertible
@@ -80,9 +67,9 @@ extension TodoItem: CustomStringConvertible, CustomDebugStringConvertible {
         desc += "\ttext: \"\(text)\",\n"
         desc += "\timportance: \(importance.rawValue),\n"
         desc += "\tisDone: \(isDone),\n"
-        desc += "\tcreationDate: \(TodoItem.string(from: creationDate)),\n"
-        desc += "\tdeadline: \(TodoItem.string(from: deadline)),\n"
-        desc += "\tmodificationDate: \(TodoItem.string(from: modificationDate)))"
+        desc += "\tcreationDate: \(creationDate.toString()),\n"
+        desc += "\tdeadline: \(deadline.toString()),\n"
+        desc += "\tmodificationDate: \(modificationDate.toString()))"
         return desc
     }
     var debugDescription: String {

@@ -17,6 +17,7 @@
 		0A3202DE2C1C6A0B00427B05 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */; };
 		0A3202E02C1C6A1500427B05 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DF2C1C6A1500427B05 /* README.md */; };
 		0A3202E22C1C6A8900427B05 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202E12C1C6A8900427B05 /* .gitignore */; };
+		0A554E642C1ED4D30068360C /* TestFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A554E632C1ED4D30068360C /* TestFileCache.swift */; };
 		0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC642C1CC091005ED49D /* TodoItem.swift */; };
 		0A63EC672C1CC091005ED49D /* JSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC632C1CC091005ED49D /* JSONParsable.swift */; };
 		0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */; };
@@ -27,6 +28,9 @@
 		0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */; };
 		0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */; };
 		0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */; };
+		0AF6F20C2C2087FF0043866B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F20B2C2087FF0043866B /* Date.swift */; };
+		0AF6F2182C208D3F0043866B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2172C208D3F0043866B /* String.swift */; };
+		0AF6F21D2C208F760043866B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F21C2C208F760043866B /* Collection.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,7 @@
 		0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		0A3202DF2C1C6A1500427B05 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3202E12C1C6A8900427B05 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		0A554E632C1ED4D30068360C /* TestFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileCache.swift; sourceTree = "<group>"; };
 		0A63EC632C1CC091005ED49D /* JSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC642C1CC091005ED49D /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathComparable.swift; sourceTree = "<group>"; };
@@ -70,6 +75,9 @@
 		0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCSVParsable.swift; sourceTree = "<group>"; };
 		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
+		0AF6F20B2C2087FF0043866B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0AF6F2172C208D3F0043866B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		0AF6F21C2C208F760043866B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +141,7 @@
 		0A3202B22C1C67C800427B05 /* DailyDeeds */ = {
 			isa = PBXGroup;
 			children = (
+				0AF6F2082C2087F20043866B /* Extensions */,
 				0A63EC6A2C1CCB36005ED49D /* Model */,
 				0A3202B32C1C67C800427B05 /* DailyDeedsApp.swift */,
 				0A3202B52C1C67C800427B05 /* ContentView.swift */,
@@ -153,6 +162,7 @@
 		0A3202C32C1C67C900427B05 /* DailyDeedsTests */ = {
 			isa = PBXGroup;
 			children = (
+				0A554E612C1ED49D0068360C /* FileCacheTesting */,
 				0A63EC702C1CD93D005ED49D /* TodoItemTesting */,
 			);
 			path = DailyDeedsTests;
@@ -165,6 +175,14 @@
 				0A3202D02C1C67C900427B05 /* DailyDeedsUITestsLaunchTests.swift */,
 			);
 			path = DailyDeedsUITests;
+			sourceTree = "<group>";
+		};
+		0A554E612C1ED49D0068360C /* FileCacheTesting */ = {
+			isa = PBXGroup;
+			children = (
+				0A554E632C1ED4D30068360C /* TestFileCache.swift */,
+			);
+			path = FileCacheTesting;
 			sourceTree = "<group>";
 		};
 		0A63EC652C1CC091005ED49D /* TodoItem */ = {
@@ -197,6 +215,16 @@
 				0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */,
 			);
 			path = TodoItemTesting;
+			sourceTree = "<group>";
+		};
+		0AF6F2082C2087F20043866B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0AF6F20B2C2087FF0043866B /* Date.swift */,
+				0AF6F2172C208D3F0043866B /* String.swift */,
+				0AF6F21C2C208F760043866B /* Collection.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,8 +369,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A63EC6F2C1CD43B005ED49D /* CSVParsable.swift in Sources */,
+				0AF6F21D2C208F760043866B /* Collection.swift in Sources */,
 				0A3202B62C1C67C800427B05 /* ContentView.swift in Sources */,
 				0A1DCE082C1D9A4000E98993 /* FileCache.swift in Sources */,
+				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
+				0AF6F20C2C2087FF0043866B /* Date.swift in Sources */,
 				0A3202B42C1C67C800427B05 /* DailyDeedsApp.swift in Sources */,
 				0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */,
 				0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */,
@@ -358,6 +389,7 @@
 				0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */,
 				0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */,
 				0A63EC742C1CE1BC005ED49D /* TestTodoItem.swift in Sources */,
+				0A554E642C1ED4D30068360C /* TestFileCache.swift in Sources */,
 				0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

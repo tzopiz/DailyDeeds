@@ -11,14 +11,17 @@ import XCTest
 final class TestJSONParsable: XCTestCase {
 
     func testParseJSON() {
+        let date1 = Date(timeIntervalSince1970: TimeInterval(1674990000))
+        let date2 = Date(timeIntervalSince1970: TimeInterval(1675000000))
+        let date3 = Date(timeIntervalSince1970: TimeInterval(1674991000))
         let json: [String: Any] = [
             "id": "123",
             "text": "Задача из JSON",
             "importance": "важная",
             "isDone": true,
-            "creationDate": TimeInterval(1674990000),
-            "deadline": TimeInterval(1675000000),
-            "modificationDate": TimeInterval(1674991000)
+            "creationDate": date1.toString(),
+            "deadline": date2.toString(),
+            "modificationDate": date3.toString()
         ]
         
         guard let item = TodoItem.parse(json: json) else {
@@ -30,9 +33,9 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.text, "Задача из JSON")
         XCTAssertEqual(item.importance, .high)
         XCTAssertEqual(item.isDone, true)
-        XCTAssertEqual(item.creationDate.timeIntervalSince1970, 1674990000)
-        XCTAssertEqual(item.deadline?.timeIntervalSince1970, 1675000000)
-        XCTAssertEqual(item.modificationDate?.timeIntervalSince1970, 1674991000)
+        XCTAssertEqual(item.creationDate, date1)
+        XCTAssertEqual(item.deadline, date2)
+        XCTAssertEqual(item.modificationDate, date3)
     }
     
     func testJSONRepresentation() {
@@ -55,27 +58,30 @@ final class TestJSONParsable: XCTestCase {
             "text": "Еще одна задача из JSON",
             "importance": "неважная",
             "isDone": false,
-            "creationDate": creationDate.timeIntervalSince1970,
-            "deadline": deadline.timeIntervalSince1970,
-            "modificationDate": modificationDate.timeIntervalSince1970
+            "creationDate": creationDate.toString(),
+            "deadline": deadline.toString(),
+            "modificationDate": modificationDate.toString()
         ]
         
         XCTAssertTrue(dictionariesAreEqual(item.json, expectedJSON))
     }
     func testFromJSONString() {
+        let date1 = Date(timeIntervalSince1970: TimeInterval(1675990000))
+        let date2 = Date(timeIntervalSince1970: TimeInterval(1676000000))
+        let date3 = Date(timeIntervalSince1970: TimeInterval(1675991000))
         let jsonString = """
             {
                 "id": "789",
                 "text": "Еще одна задача из JSON строка",
-                "importance": "обычная",
                 "isDone": true,
-                "creationDate": 1675990000,
-                "deadline": 1676000000,
-                "modificationDate": 1675991000
+                "creationDate": "\(date1.toString())",
+                "deadline": "\(date2.toString())",
+                "modificationDate": "\(date3.toString())"
             }
             """
         
-        guard let item = TodoItem.from(jsonString: jsonString) else {
+        guard let item = TodoItem.from(jsonString: jsonString) 
+        else {
             XCTFail("Failed to parse JSON string into TodoItem")
             return
         }
@@ -84,10 +90,11 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.text, "Еще одна задача из JSON строка")
         XCTAssertEqual(item.importance, .medium)
         XCTAssertEqual(item.isDone, true)
-        XCTAssertEqual(item.creationDate.timeIntervalSince1970, 1675990000)
-        XCTAssertEqual(item.deadline?.timeIntervalSince1970, 1676000000)
-        XCTAssertEqual(item.modificationDate?.timeIntervalSince1970, 1675991000)
+        XCTAssertEqual(item.creationDate, date1)
+        XCTAssertEqual(item.deadline, date2)
+        XCTAssertEqual(item.modificationDate, date3)
     }
+    
     private func dictionariesAreEqual(_ dict1: [String: Any], _ dict2: [String: Any]) -> Bool {
         // Проверяем количество ключей
         guard dict1.count == dict2.count else {
@@ -132,5 +139,4 @@ final class TestJSONParsable: XCTestCase {
         }
         return true
     }
-
 }

@@ -12,17 +12,18 @@ final class TestCSVParsable: XCTestCase {
 
     func testCSVSerialization() {
         let creationDate = Date()
+        let otherDate = creationDate.advanced(by: 200)
         let item = TodoItem(
             id: "123",
             text: "Задача для тестирования CSV",
             importance: .high,
             isDone: false,
             creationDate: creationDate,
-            deadline: creationDate.advanced(by: 200),
+            deadline: otherDate,
             modificationDate: nil
         )
         
-        let expectedCSV = "123,Задача для тестирования CSV,важная,false,\(TodoItem.string(from: creationDate)),\(TodoItem.string(from: creationDate.advanced(by: 200))),"
+        let expectedCSV = "123,Задача для тестирования CSV,важная,false,\(creationDate.toString()),\(otherDate.toString()),"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
@@ -38,7 +39,7 @@ final class TestCSVParsable: XCTestCase {
             modificationDate: Date()
         )
         
-        let expectedCSV = "123,Задача для тестирования CSV,важная,false,\(TodoItem.string(from: creationDate)),,\(TodoItem.string(from: creationDate))"
+        let expectedCSV = "123,Задача для тестирования CSV,важная,false,\(creationDate.toString()),,\(creationDate.toString())"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
@@ -54,9 +55,9 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(parsedItem.text, "Задача для распарсинга")
         XCTAssertEqual(parsedItem.importance, .low)
         XCTAssertTrue(parsedItem.isDone)
-        XCTAssertEqual(TodoItem.string(from: parsedItem.creationDate), "2023-06-15 12:00:00")
-        XCTAssertEqual(TodoItem.string(from: parsedItem.deadline), "2023-06-16 12:00:00")
-        XCTAssertEqual(TodoItem.string(from: parsedItem.modificationDate), "2023-06-17 12:00:00")
+        XCTAssertEqual(parsedItem.creationDate.toString(), "2023-06-15 12:00:00")
+        XCTAssertEqual(parsedItem.deadline?.toString(), "2023-06-16 12:00:00")
+        XCTAssertEqual(parsedItem.modificationDate?.toString(), "2023-06-17 12:00:00")
     }
     func testCSVDeserialization2() {
         let csvString = "456,Задача для распарсинга,неважная,true,2023-06-15 12:00:00,,2023-06-17 12:00:00"
@@ -70,9 +71,9 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(parsedItem.text, "Задача для распарсинга")
         XCTAssertEqual(parsedItem.importance, .low)
         XCTAssertTrue(parsedItem.isDone)
-        XCTAssertEqual(TodoItem.string(from: parsedItem.creationDate), "2023-06-15 12:00:00")
+        XCTAssertEqual(parsedItem.creationDate.toString(), "2023-06-15 12:00:00")
         XCTAssertNil(parsedItem.deadline)
-        XCTAssertEqual(TodoItem.string(from: parsedItem.modificationDate), "2023-06-17 12:00:00")
+        XCTAssertEqual(parsedItem.modificationDate?.toString(), "2023-06-17 12:00:00")
     }
 
 }
