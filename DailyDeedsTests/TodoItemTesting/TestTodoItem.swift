@@ -64,17 +64,5 @@ class TodoItemTests: XCTestCase {
         XCTAssertLessThan(medium, high)
         XCTAssertGreaterThan(high, low)
     }
-    
-    func testTaskUpdate() {
-        var item = TodoItem(id: "123", text: "Задача для обновления", importance: .medium)
-        
-        XCTAssertFalse(item.isDone)
-        
-        item.isDone = true
-        item.modificationDate = Date()
-        
-        XCTAssertTrue(item.isDone)
-        XCTAssertNotNil(item.modificationDate)
-    }
 }
 

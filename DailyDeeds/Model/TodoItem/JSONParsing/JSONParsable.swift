@@ -7,6 +7,7 @@
 
 import Foundation
 
+typealias JSONType = [String: Any]
 protocol JSONParsable {
     associatedtype JSONType
     var json: JSONType { get }
@@ -15,6 +16,7 @@ protocol JSONParsable {
 }
 
 extension JSONParsable {
+    static func buildJSON(@JSONBuilder build: () -> JSONType) -> JSONType { build() }
     var jsonString: String? {
         guard let jsonData = try? JSONSerialization.data(withJSONObject: json),
               let jsonString = String(data: jsonData, encoding: .utf8) 
@@ -36,29 +38,18 @@ extension JSONParsable {
 }
 
 extension TodoItem: JSONParsable {
-    typealias JSONType = [String: Any]
+
     /// JSON representation of the current TodoItem object.
     var json: JSONType {
-        var jsonDict: JSONType = [
-            "id": id,
-            "text": text,
-            "isDone": isDone,
-            "creationDate": creationDate.toString()
-        ]
-        
-        if importance != .medium {
-            jsonDict["importance"] = importance.rawValue
+        return TodoItem.buildJSON {
+            ("id", id)
+            ("text", text)
+            ("isDone", isDone)
+            ("importance", importance)
+            ("creationDate", creationDate)
+            ("deadline", deadline)
+            ("modificationDate", modificationDate)
         }
-        
-        if let deadline = deadline {
-            jsonDict["deadline"] = deadline.toString()
-        }
-        
-        if let modificationDate = modificationDate {
-            jsonDict["modificationDate"] = modificationDate.toString()
-        }
-        
-        return jsonDict
     }
     
     /// A function for parsing JSON and creating a TodoItem object.
@@ -74,35 +65,21 @@ extension TodoItem: JSONParsable {
         
         let isDone = isDoneValue
         
-        let importance: Importance
-        if let importanceRawValue = dict["importance"] as? String,
-           let importanceValue = Importance(rawValue: importanceRawValue) {
-            importance = importanceValue
-        } else {
-            importance = .medium
-        }
-        
-        let deadline: Date?
-        let deadlineTimestamp = dict["deadline"] as? String
-        if let deadlineTimestamp = deadlineTimestamp {
-            deadline = deadlineTimestamp.toDate()
-        } else {
-            deadline = nil
-        }
-        
-        let modificationDate: Date?
-        let modificationTimestamp = dict["modificationDate"] as? String
-        if let modificationTimestamp = modificationTimestamp {
-            modificationDate = modificationTimestamp.toDate()
-        } else {
-            modificationDate = nil
-        }
-        
+        let importance: Importance = {
+            guard let importanceRawValue = dict["importance"] as? String,
+                  let importanceValue = Importance(rawValue: importanceRawValue) 
+            else { return .medium }
+            return importanceValue
+        }()
+
+        let deadline = (dict["deadline"] as? String)?.toDate()
+        let modificationDate = (dict["modificationDate"] as? String)?.toDate()
+
         return TodoItem(
             id: id,
             text: text,
-            importance: importance,
             isDone: isDone,
+            importance: importance,
             creationDate: creationDate,
             deadline: deadline,
             modificationDate: modificationDate

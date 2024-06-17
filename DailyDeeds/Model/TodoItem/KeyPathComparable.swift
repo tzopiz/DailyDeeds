@@ -59,16 +59,16 @@ extension Sequence where Element: KeyPathComparable {
             return self.sorted(by: Element.compareBy(keyPath)).reversed()
         }
     }
+    
     mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) {
-        guard let sorted = self.sorted(by: Element.compareBy(keyPath)) as? Self
-        else { return }
-        if ascending { self = sorted }
+        guard let sorted = self.sorted(by: keyPath, ascending: ascending) as? Self
         else {
-            guard let reversed = sorted.reversed() as? Self
-            else { return }
-            self = reversed
+            assertionFailure("Failed to sort the collection.")
+            return
         }
+        self = sorted
     }
+    
     func filter<T>(by keyPath: KeyPath<Element, T>, predicate: @escaping (T) -> Bool) -> [Element] {
         return self.filter { element in
             predicate(element[keyPath: keyPath])
