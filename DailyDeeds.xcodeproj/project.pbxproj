@@ -31,6 +31,8 @@
 		0AF6F20C2C2087FF0043866B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F20B2C2087FF0043866B /* Date.swift */; };
 		0AF6F2182C208D3F0043866B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2172C208D3F0043866B /* String.swift */; };
 		0AF6F21D2C208F760043866B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F21C2C208F760043866B /* Collection.swift */; };
+		0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */; };
+		0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2312C20B59E0043866B /* CSVBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		0AF6F20B2C2087FF0043866B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0AF6F2172C208D3F0043866B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0AF6F21C2C208F760043866B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBuilder.swift; sourceTree = "<group>"; };
+		0AF6F2312C20B59E0043866B /* CSVBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,8 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				0A63EC642C1CC091005ED49D /* TodoItem.swift */,
-				0A63EC632C1CC091005ED49D /* JSONParsable.swift */,
-				0A63EC6E2C1CD434005ED49D /* CSVParsable.swift */,
+				0AF6F2342C20B5F10043866B /* JSONParsing */,
+				0AF6F2352C20B6000043866B /* CSVParsing */,
 				0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */,
 			);
 			path = TodoItem;
@@ -225,6 +229,24 @@
 				0AF6F21C2C208F760043866B /* Collection.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0AF6F2342C20B5F10043866B /* JSONParsing */ = {
+			isa = PBXGroup;
+			children = (
+				0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */,
+				0A63EC632C1CC091005ED49D /* JSONParsable.swift */,
+			);
+			path = JSONParsing;
+			sourceTree = "<group>";
+		};
+		0AF6F2352C20B6000043866B /* CSVParsing */ = {
+			isa = PBXGroup;
+			children = (
+				0AF6F2312C20B59E0043866B /* CSVBuilder.swift */,
+				0A63EC6E2C1CD434005ED49D /* CSVParsable.swift */,
+			);
+			path = CSVParsing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,6 +394,8 @@
 				0AF6F21D2C208F760043866B /* Collection.swift in Sources */,
 				0A3202B62C1C67C800427B05 /* ContentView.swift in Sources */,
 				0A1DCE082C1D9A4000E98993 /* FileCache.swift in Sources */,
+				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
+				0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */,
 				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
 				0AF6F20C2C2087FF0043866B /* Date.swift in Sources */,
 				0A3202B42C1C67C800427B05 /* DailyDeedsApp.swift in Sources */,

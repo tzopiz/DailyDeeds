@@ -11,6 +11,7 @@ enum Importance: String, Comparable, Equatable, Codable {
     case low = "неважная"
     case medium = "обычная"
     case high = "важная"
+    
     private var order: Int {
         switch self {
         case .low: return 0
@@ -25,12 +26,12 @@ enum Importance: String, Comparable, Equatable, Codable {
 
 struct TodoItem: Identifiable, Equatable, Codable, KeyPathComparable {
     let id: String
-    var text: String
-    var importance: Importance
-    var isDone: Bool
+    let text: String
+    let isDone: Bool
+    let importance: Importance
     let creationDate: Date
-    var deadline: Date?
-    var modificationDate: Date?
+    let deadline: Date?
+    let modificationDate: Date?
     
     /// Initializes a new instance of the TodoItem task.
     /// - Parameters:
@@ -44,8 +45,8 @@ struct TodoItem: Identifiable, Equatable, Codable, KeyPathComparable {
     init(
         id: String = UUID().uuidString,
         text: String,
-        importance: Importance,
         isDone: Bool = false,
+        importance: Importance,
         creationDate: Date = Date(),
         deadline: Date? = nil,
         modificationDate: Date? = nil
@@ -74,5 +75,27 @@ extension TodoItem: CustomStringConvertible, CustomDebugStringConvertible {
     }
     var debugDescription: String {
         return description
+    }
+}
+
+extension TodoItem {
+    var timeUntilDeadline: String? {
+        guard let deadline = deadline else { return nil }
+        let timeRemaining = Calendar.current.dateComponents([.day, .hour, .minute], from: Date(), to: deadline)
+        var components: [String] = []
+        if let days = timeRemaining.day, days > 0 {
+            components.append("\(days) day(s)")
+        }
+        if let hours = timeRemaining.hour, hours > 0 {
+            components.append("\(hours) hour(s)")
+        }
+        if let minutes = timeRemaining.minute, minutes > 0 {
+            components.append("\(minutes) minute(s)")
+        }
+        return components.joined(separator: " ")
+    }
+    var isPastDue: Bool {
+        guard let deadline = deadline else { return false }
+        return deadline < Date()
     }
 }

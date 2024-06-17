@@ -15,8 +15,8 @@ struct TodoItemTesting {
         let item = TodoItem(
             id: "1",
             text: "Test Task",
-            importance: .medium,
             isDone: false,
+            importance: .medium,
             creationDate: Date(),
             deadline: nil,
             modificationDate: nil
@@ -30,7 +30,7 @@ struct TodoItemTesting {
         #expect(item.modificationDate == nil)
     }
     @Test func testCSVParsing() {
-        let csvString = "3,Finish Project with deadline,обычная,true,2021-06-15 12:10:00,2021-06-15 12:10:00,"
+        let csvString = "3,Finish Project with deadline,true,обычная,2021-06-15 12:10:00,2021-06-15 12:10:00,"
 
         guard let item = TodoItem.parse(csv: csvString) else {
             Issue.record("cant parsing csv file")
@@ -46,7 +46,7 @@ struct TodoItemTesting {
         #expect(item.modificationDate == nil)
     }
     @Test func testCSVParsing2() {
-        let csvString = "3,Finish Project without deadline,обычная,true,2021-06-15 12:10:00,,2021-06-15 12:10:00,"
+        let csvString = "3,Finish Project without deadline,true,обычная,2021-06-15 12:10:00,,2021-06-15 12:10:00,"
 
         guard let item = TodoItem.parse(csv: csvString) else {
             Issue.record("cant parsing csv file test2")
@@ -62,7 +62,7 @@ struct TodoItemTesting {
         #expect(item.modificationDate != nil)
     }
     @Test func testCSVParsing3() {
-        let csvString = "3,Finish Project without other info,обычная,true,2021-06-15 12:10:00,,"
+        let csvString = "3,Finish Project without other info,true,обычная,2021-06-15 12:10:00,,"
 
         guard let item = TodoItem.parse(csv: csvString) else {
             Issue.record("cant parsing csv file test3")

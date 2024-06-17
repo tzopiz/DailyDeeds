@@ -18,6 +18,9 @@ struct FileCache {
         case parseFailed
         case writeToFileFailed
         case directoryNotFound
+        case loadFromJSONFileFaild
+        case loadFromCSVFileFaild
+        case fileAlreadyExists
         case unknown
     }
     private(set) var todoItems: Array<TodoItem> = []
@@ -84,7 +87,7 @@ extension FileCache {
             let items = jsonArray.compactMap { TodoItem.parse(json: $0) }
             return .success(items)
         } catch {
-            return .failure(.unknown)
+            return .failure(.loadFromJSONFileFaild)
         }
     }
     
@@ -99,9 +102,10 @@ extension FileCache {
             let items = csvString.split(separator: "\n").compactMap { TodoItem.parse(csv: String($0)) }
             return .success(items)
         } catch {
-            return .failure(.unknown)
+            return .failure(.loadFromCSVFileFaild)
         }
     }
+
 }
 
 // MARK: - Save
@@ -117,6 +121,7 @@ extension FileCache {
 
      - Note: If the specified file format is `.json`, the data will be saved in JSON format. If `.csv` is specified, the data will be saved in CSV format.
      */
+    // FIXME: file exist with data
     @discardableResult
     func saveToFile(named fileName: String, format: FileFormat = .json) -> FileError? {
         switch format {
@@ -132,6 +137,10 @@ extension FileCache {
             let jsonArray = todoItems.map { $0.json }
             let jsonData = try JSONSerialization.data(withJSONObject: jsonArray, options: .prettyPrinted)
             let url = try getDocumentsDirectory().appendingPathComponent(fileName)
+            
+            guard !FileManager.default.fileExists(atPath: url.path)
+            else { return .fileAlreadyExists }
+            
             try jsonData.write(to: url)
             return nil
         } catch {
@@ -143,6 +152,8 @@ extension FileCache {
         do {
             let csvString = todoItems.map { $0.csv }.joined(separator: "\n")
             let url = try getDocumentsDirectory().appendingPathComponent(fileName)
+            guard !FileManager.default.fileExists(atPath: url.path)
+            else { return .fileAlreadyExists }
             try csvString.write(to: url, atomically: true, encoding: .utf8)
             return nil
         } catch {

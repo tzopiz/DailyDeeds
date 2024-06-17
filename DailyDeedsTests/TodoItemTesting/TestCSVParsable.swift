@@ -16,14 +16,14 @@ final class TestCSVParsable: XCTestCase {
         let item = TodoItem(
             id: "123",
             text: "Задача для тестирования CSV",
-            importance: .high,
             isDone: false,
+            importance: .high,
             creationDate: creationDate,
             deadline: otherDate,
             modificationDate: nil
         )
         
-        let expectedCSV = "123,Задача для тестирования CSV,важная,false,\(creationDate.toString()),\(otherDate.toString()),"
+        let expectedCSV = "123,Задача для тестирования CSV,false,важная,\(creationDate.toString()),\(otherDate.toString()),"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
@@ -32,19 +32,19 @@ final class TestCSVParsable: XCTestCase {
         let item = TodoItem(
             id: "123",
             text: "Задача для тестирования CSV",
-            importance: .high,
             isDone: false,
+            importance: .high,
             creationDate: creationDate,
             deadline: nil,
             modificationDate: Date()
         )
         
-        let expectedCSV = "123,Задача для тестирования CSV,важная,false,\(creationDate.toString()),,\(creationDate.toString())"
+        let expectedCSV = "123,Задача для тестирования CSV,false,важная,\(creationDate.toString()),,\(creationDate.toString())"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
     func testCSVDeserialization() {
-        let csvString = "456,Задача для распарсинга,неважная,true,2023-06-15 12:00:00,2023-06-16 12:00:00,2023-06-17 12:00:00"
+        let csvString = "456,Задача для распарсинга,true,неважная,2023-06-15 12:00:00,2023-06-16 12:00:00,2023-06-17 12:00:00"
         
         guard let parsedItem = TodoItem.parse(csv: csvString) else {
             XCTFail("Failed to parse CSV string")
@@ -60,7 +60,7 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(parsedItem.modificationDate?.toString(), "2023-06-17 12:00:00")
     }
     func testCSVDeserialization2() {
-        let csvString = "456,Задача для распарсинга,неважная,true,2023-06-15 12:00:00,,2023-06-17 12:00:00"
+        let csvString = "456,Задача для распарсинга,true,неважная,2023-06-15 12:00:00,,2023-06-17 12:00:00"
         
         guard let parsedItem = TodoItem.parse(csv: csvString) else {
             XCTFail("Failed to parse CSV string")
