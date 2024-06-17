@@ -20,7 +20,7 @@ struct FileCache {
         case directoryNotFound
         case unknown
     }
-    private(set) var todoItems: [TodoItem] = []
+    private(set) var todoItems: Array<TodoItem> = []
 }
 
 // MARK: - Create
@@ -52,11 +52,13 @@ extension FileCache {
      */
     @discardableResult
     mutating func loadFromFile(named fileName: String, format: FileFormat = .json) -> FileError? {
-        var result: Result<[TodoItem], FileError>
         
+        var result: Result<[TodoItem], FileError>
         switch format {
-        case .json: result = loadFromJSONFile(named: fileName)
-        case .csv: result = loadFromCSVFile(named: fileName)
+        case .json: 
+            result = loadFromJSONFile(named: fileName)
+        case .csv: 
+            result = loadFromCSVFile(named: fileName)
         }
         
         switch result {
@@ -71,12 +73,14 @@ extension FileCache {
     private func loadFromJSONFile(named fileName: String) -> Result<[TodoItem], FileError> {
         do {
             let url = try getDocumentsDirectory().appendingPathComponent(fileName)
-            guard FileManager.default.fileExists(atPath: url.path) 
+            
+            guard FileManager.default.fileExists(atPath: url.path)
             else { return .failure(.fileNotFound) }
+            
             let data = try Data(contentsOf: url)
-            guard let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [TodoItem.JSONType] else {
-                return .failure(.dataCorrupted)
-            }
+            guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [TodoItem.JSONType]
+            else { return .failure(.dataCorrupted) }
+            
             let items = jsonArray.compactMap { TodoItem.parse(json: $0) }
             return .success(items)
         } catch {
@@ -87,8 +91,10 @@ extension FileCache {
     private func loadFromCSVFile(named fileName: String) -> Result<[TodoItem], FileError> {
         do {
             let url = try getDocumentsDirectory().appendingPathComponent(fileName)
-            guard FileManager.default.fileExists(atPath: url.path) 
+            
+            guard FileManager.default.fileExists(atPath: url.path)
             else { return .failure(.fileNotFound) }
+            
             let csvString = try String(contentsOf: url)
             let items = csvString.split(separator: "\n").compactMap { TodoItem.parse(csv: String($0)) }
             return .success(items)
@@ -164,7 +170,7 @@ extension FileCache {
 
 // MARK: - Supporting
 extension FileCache {
-    private func getDocumentsDirectory() throws -> URL {
+    func getDocumentsDirectory() throws -> URL {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let first = urls.first else { throw FileError.directoryNotFound }
         return first

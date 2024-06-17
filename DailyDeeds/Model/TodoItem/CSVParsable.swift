@@ -20,11 +20,10 @@ extension TodoItem: CSVParsable {
             text,
             importance.rawValue,
             isDone ? "true" : "false",
-            TodoItem.string(from: creationDate)
+            creationDate.toString()
         ]
-
-        csvArray.append(TodoItem.string(from: deadline))
-        csvArray.append(TodoItem.string(from: modificationDate))
+        csvArray.append(deadline.toString())
+        csvArray.append(modificationDate.toString())
         
         return csvArray.joined(separator: ",")
     }
@@ -41,16 +40,26 @@ extension TodoItem: CSVParsable {
               let importance = Importance(rawValue: importanceRawValue),
               let isDoneString = csvArray[safe: 3],
               let creationDateString = csvArray[safe: 4],
-              let creationDate = date(from: creationDateString)
+              let creationDate = creationDateString.toDate()
         else { return nil }
         
         let isDone = isDoneString == "true"
         
         let deadlineString = csvArray[safe: 5]
-        let deadline = deadlineString != nil ? date(from: deadlineString!) : nil
+        let deadline: Date?
+        if let deadlineString = deadlineString {
+            deadline = deadlineString.toDate()
+        } else {
+            deadline = nil
+        }
         
         let modificationDateString = csvArray[safe: 6]
-        let modificationDate = modificationDateString != nil ? date(from: modificationDateString!) : nil
+        let modificationDate: Date?
+        if let modificationDateString = modificationDateString {
+            modificationDate = modificationDateString.toDate()
+        } else {
+            modificationDate = nil
+        }
         
         return TodoItem(
             id: id,
@@ -61,11 +70,5 @@ extension TodoItem: CSVParsable {
             deadline: deadline,
             modificationDate: modificationDate
         )
-    }
-}
-
-extension Array {
-    subscript(safe index: Index) -> Element? {
-        return indices.contains(index) ? self[index] : nil
     }
 }

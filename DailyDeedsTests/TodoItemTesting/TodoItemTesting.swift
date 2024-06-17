@@ -73,7 +73,7 @@ struct TodoItemTesting {
         #expect(item.text == "Finish Project without other info")
         #expect(item.importance == .medium)
         #expect(item.isDone)
-        #expect(item.creationDate == TodoItem.date(from: "2021-06-15 12:10:00"))
+        #expect(item.creationDate == "2021-06-15 12:10:00".toDate())
         #expect(item.deadline == nil)
         #expect(item.modificationDate == nil)
     }

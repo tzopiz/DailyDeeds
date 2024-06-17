@@ -39,23 +39,23 @@ extension TodoItem: JSONParsable {
     typealias JSONType = [String: Any]
     /// JSON representation of the current TodoItem object.
     var json: JSONType {
-        var jsonDict: [String: Any] = [
+        var jsonDict: JSONType = [
             "id": id,
             "text": text,
             "isDone": isDone,
-            "creationDate": creationDate.timeIntervalSince1970
+            "creationDate": creationDate.toString()
         ]
-        
-        if let deadline = deadline {
-            jsonDict["deadline"] = deadline.timeIntervalSince1970
-        }
-        
-        if let modificationDate = modificationDate {
-            jsonDict["modificationDate"] = modificationDate.timeIntervalSince1970
-        }
         
         if importance != .medium {
             jsonDict["importance"] = importance.rawValue
+        }
+        
+        if let deadline = deadline {
+            jsonDict["deadline"] = deadline.toString()
+        }
+        
+        if let modificationDate = modificationDate {
+            jsonDict["modificationDate"] = modificationDate.toString()
         }
         
         return jsonDict
@@ -67,23 +67,43 @@ extension TodoItem: JSONParsable {
     static func parse(json dict: JSONType) -> TodoItem? {
         guard let id = dict["id"] as? String,
               let text = dict["text"] as? String,
-              let importanceRawValue = dict["importance"] as? String,
-              let importance = Importance(rawValue: importanceRawValue),
-              let creationTimestamp = dict["creationDate"] as? TimeInterval
+              let creationTimestamp = dict["creationDate"] as? String,
+              let isDoneValue = dict["isDone"] as? Bool,
+              let creationDate = creationTimestamp.toDate()
         else { return nil }
         
-        let deadlineTimestamp = dict["deadline"] as? TimeInterval
-        let deadline: Date? = deadlineTimestamp != nil ? Date(timeIntervalSince1970: deadlineTimestamp!) : nil
-        let isDone = dict["isDone"] as? Bool ?? false
-        let modificationTimestamp = dict["modificationDate"] as? TimeInterval
-        let modificationDate: Date? = modificationTimestamp != nil ? Date(timeIntervalSince1970: modificationTimestamp!) : nil
+        let isDone = isDoneValue
+        
+        let importance: Importance
+        if let importanceRawValue = dict["importance"] as? String,
+           let importanceValue = Importance(rawValue: importanceRawValue) {
+            importance = importanceValue
+        } else {
+            importance = .medium
+        }
+        
+        let deadline: Date?
+        let deadlineTimestamp = dict["deadline"] as? String
+        if let deadlineTimestamp = deadlineTimestamp {
+            deadline = deadlineTimestamp.toDate()
+        } else {
+            deadline = nil
+        }
+        
+        let modificationDate: Date?
+        let modificationTimestamp = dict["modificationDate"] as? String
+        if let modificationTimestamp = modificationTimestamp {
+            modificationDate = modificationTimestamp.toDate()
+        } else {
+            modificationDate = nil
+        }
         
         return TodoItem(
             id: id,
             text: text,
             importance: importance,
             isDone: isDone,
-            creationDate: Date(timeIntervalSince1970: creationTimestamp),
+            creationDate: creationDate,
             deadline: deadline,
             modificationDate: modificationDate
         )

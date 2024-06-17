@@ -39,7 +39,7 @@ class TodoItemTests: XCTestCase {
             \ttext: "Задача для тестирования",
             \timportance: важная,
             \tisDone: false,
-            \tcreationDate: \(TodoItem.string(from: creationDate)),
+            \tcreationDate: \(creationDate.toString()),
             \tdeadline: ,
             \tmodificationDate: )
             """
@@ -49,8 +49,8 @@ class TodoItemTests: XCTestCase {
     
     func testDateConversion() {
         let dateString = "2023-06-14 12:00:00"
-        let expectedDate = TodoItem.date(from: dateString)
-        let formattedString = TodoItem.string(from: expectedDate)
+        let expectedDate = dateString.toDate()
+        let formattedString = expectedDate.toString()
         
         XCTAssertEqual(formattedString, dateString)
     }
