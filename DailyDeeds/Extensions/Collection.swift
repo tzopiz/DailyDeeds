@@ -12,3 +12,11 @@ extension Collection {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+extension Collection where Element: JSONParsable {
+    var jsonArray: [Self.Element.JSONType] {
+        self.reduce(into: []) { partialResult, element in
+            partialResult.append(element.json)
+        }
+    }
+}
