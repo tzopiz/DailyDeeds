@@ -46,8 +46,8 @@ extension TodoItem: CSVParsable {
         else { return nil }
         
         let isDone = isDoneString == "true"
-        let deadline: Date? = csvArray[safe: 5]?.toDate()
-        let modificationDate: Date? = csvArray[safe: 6]?.toDate()
+        let deadline = csvArray[safe: 5]?.toDate()
+        let modificationDate = csvArray[safe: 6]?.toDate()
         
         return TodoItem(
             id: id,

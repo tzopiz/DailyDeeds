@@ -29,6 +29,7 @@ struct TodoItemTesting {
         #expect(item.creationDate != nil)
         #expect(item.modificationDate == nil)
     }
+    
     @Test func testCSVParsing() {
         let csvString = "3,Finish Project with deadline,true,обычная,2021-06-15 12:10:00,2021-06-15 12:10:00,"
 
@@ -45,6 +46,7 @@ struct TodoItemTesting {
         #expect(item.deadline != nil)
         #expect(item.modificationDate == nil)
     }
+    
     @Test func testCSVParsing2() {
         let csvString = "3,Finish Project without deadline,true,обычная,2021-06-15 12:10:00,,2021-06-15 12:10:00,"
 
@@ -61,6 +63,7 @@ struct TodoItemTesting {
         #expect(item.deadline == nil)
         #expect(item.modificationDate != nil)
     }
+    
     @Test func testCSVParsing3() {
         let csvString = "3,Finish Project without other info,true,обычная,2021-06-15 12:10:00,,"
 

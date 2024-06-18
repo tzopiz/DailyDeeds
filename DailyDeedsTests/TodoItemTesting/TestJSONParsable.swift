@@ -69,6 +69,7 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.creationDate, parsedItem.creationDate)
         
     }
+    
     func testFromJSONString() {
         let date1 = Date(timeIntervalSince1970: TimeInterval(1675990000))
         let date2 = Date(timeIntervalSince1970: TimeInterval(1676000000))
@@ -97,5 +98,28 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.creationDate, date1)
         XCTAssertEqual(item.deadline, date2)
         XCTAssertEqual(item.modificationDate, date3)
+    }
+    
+    func testMinimalJSON() {
+        let date = Date(timeIntervalSince1970: TimeInterval(1675990000))
+        let json = TodoItem.buildJSON {
+            ("id", "12345")
+            ("text", "Минимальная задача")
+            ("isDone", false)
+            ("creationDate", date)
+        }
+        
+        guard let item = TodoItem.parse(json: json) else {
+            XCTFail("Failed to parse minimal JSON into TodoItem")
+            return
+        }
+        
+        XCTAssertEqual(item.id, "12345")
+        XCTAssertEqual(item.text, "Минимальная задача")
+        XCTAssertEqual(item.isDone, false)
+        XCTAssertEqual(item.creationDate, date)
+        XCTAssertEqual(item.importance, .medium)
+        XCTAssertNil(item.deadline)
+        XCTAssertNil(item.modificationDate)
     }
 }

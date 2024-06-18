@@ -58,12 +58,13 @@ extension TodoItem: JSONParsable {
     static func parse(json dict: JSONType) -> TodoItem? {
         guard let id = dict["id"] as? String,
               let text = dict["text"] as? String,
+              let isDone = dict["isDone"] as? Bool,
               let creationTimestamp = dict["creationDate"] as? String,
-              let isDoneValue = dict["isDone"] as? Bool,
               let creationDate = creationTimestamp.toDate()
         else { return nil }
         
-        let isDone = isDoneValue
+        let deadline = (dict["deadline"] as? String)?.toDate()
+        let modificationDate = (dict["modificationDate"] as? String)?.toDate()
         
         let importance: Importance = {
             guard let importanceRawValue = dict["importance"] as? String,
@@ -71,9 +72,6 @@ extension TodoItem: JSONParsable {
             else { return .medium }
             return importanceValue
         }()
-
-        let deadline = (dict["deadline"] as? String)?.toDate()
-        let modificationDate = (dict["modificationDate"] as? String)?.toDate()
 
         return TodoItem(
             id: id,
