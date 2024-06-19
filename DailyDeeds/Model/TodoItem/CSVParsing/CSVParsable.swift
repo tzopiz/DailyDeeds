@@ -34,11 +34,13 @@ extension TodoItem: CSVParsable {
     /// - Parameter dict: A SCV object in the form of a `String'.
     /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
     static func parse(csv: String) -> TodoItem? {
-        let csvArray = csv.components(separatedBy: ",")
-        
+        let csvArray = csv.splitByUnescaped(separator: ",")
+        print(csv, csvArray)
+        // FIXME: - text ,
         guard let id = csvArray[safe: 0],
               let text = csvArray[safe: 1],
               let isDoneString = csvArray[safe: 2],
+              isDoneString == "true" || isDoneString == "false",
               let importanceRawValue = csvArray[safe: 3],
               let importance = Importance(rawValue: importanceRawValue),
               let creationDateString = csvArray[safe: 4],

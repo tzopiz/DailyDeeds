@@ -9,19 +9,24 @@ import XCTest
 @testable import DailyDeeds
 
 final class TestJSONParsable: XCTestCase {
+    typealias Keys = TodoItem.ItemKeys
+    private let creationDate = Date(timeIntervalSince1970: TimeInterval(1674990000))
+    private let deadline = Date(timeIntervalSince1970: TimeInterval(1675000000))
+    private let modificationDate = Date(timeIntervalSince1970: TimeInterval(1674991000))
     
     func testParseJSON() {
-        let date1 = Date(timeIntervalSince1970: TimeInterval(1674990000))
-        let date2 = Date(timeIntervalSince1970: TimeInterval(1675000000))
-        let date3 = Date(timeIntervalSince1970: TimeInterval(1674991000))
+        let id = "1"
+        let text = "Задача из JSON"
+        let isDone = true
+        let importance = Importance.high
         let json = TodoItem.buildJSON {
-            ("id", "123")
-            ("text", "Задача из JSON")
-            ("isDone", true)
-            ("importance", .high)
-            ("creationDate", date1)
-            ("deadline", date2)
-            ("modificationDate", date3)
+            (Keys.id.stringValue, id)
+            (Keys.text.stringValue, text)
+            (Keys.isDone.stringValue, isDone)
+            (Keys.importance.stringValue, importance)
+            (Keys.creationDate.stringValue, creationDate)
+            (Keys.deadline.stringValue, deadline)
+            (Keys.modificationDate.stringValue, modificationDate)
         }
 
         
@@ -30,25 +35,23 @@ final class TestJSONParsable: XCTestCase {
             return
         }
         
-        XCTAssertEqual(item.id, "123")
-        XCTAssertEqual(item.text, "Задача из JSON")
-        XCTAssertEqual(item.importance, .high)
-        XCTAssertEqual(item.isDone, true)
-        XCTAssertEqual(item.creationDate, date1)
-        XCTAssertEqual(item.deadline, date2)
-        XCTAssertEqual(item.modificationDate, date3)
+        XCTAssertEqual(item.id, id)
+        XCTAssertEqual(item.text, text)
+        XCTAssertEqual(item.importance, importance)
+        XCTAssertEqual(item.isDone, isDone)
+        XCTAssertEqual(item.creationDate, creationDate)
+        XCTAssertEqual(item.deadline, deadline)
+        XCTAssertEqual(item.modificationDate, modificationDate)
     }
     
     func testJSONRepresentation() {
-        let creationDate = Date(timeIntervalSince1970: 1674990000)
-        let modificationDate = Date(timeIntervalSince1970: 1674991000)
-        let deadline = Date(timeIntervalSince1970: 1675000000)
-        
+        let id = "1"
+        let text = "Задача из JSON"
+        let isDone = false
+        let importance = Importance.medium
         let item = TodoItem(
-            id: "456",
-            text: "Еще одна задача из JSON",
-            isDone: false,
-            importance: .low,
+            id: id, text: text, isDone: isDone,
+            importance: importance,
             creationDate: creationDate,
             deadline: deadline,
             modificationDate: modificationDate
@@ -67,21 +70,23 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.isDone, parsedItem.isDone)
         XCTAssertEqual(item.importance, parsedItem.importance)
         XCTAssertEqual(item.creationDate, parsedItem.creationDate)
+        XCTAssertEqual(item.deadline, parsedItem.deadline)
+        XCTAssertEqual(item.modificationDate, parsedItem.modificationDate)
         
     }
     
     func testFromJSONString() {
-        let date1 = Date(timeIntervalSince1970: TimeInterval(1675990000))
-        let date2 = Date(timeIntervalSince1970: TimeInterval(1676000000))
-        let date3 = Date(timeIntervalSince1970: TimeInterval(1675991000))
+        let id = "789"
+        let text = "Еще одна задача из JSON строка"
+        let isDone = true
         let jsonString = """
             {
-                "id": "789",
-                "text": "Еще одна задача из JSON строка",
-                "isDone": true,
-                "creationDate": "\(date1.toString())",
-                "deadline": "\(date2.toString())",
-                "modificationDate": "\(date3.toString())"
+                "id": "\(id)",
+                "text": "\(text)",
+                "isDone": \(isDone),
+                "creationDate": "\(creationDate.toString())",
+                "deadline": "\(deadline.toString())",
+                "modificationDate": "\(modificationDate.toString())"
             }
             """
         
@@ -91,34 +96,39 @@ final class TestJSONParsable: XCTestCase {
             return
         }
         
-        XCTAssertEqual(item.id, "789")
-        XCTAssertEqual(item.text, "Еще одна задача из JSON строка")
+        XCTAssertEqual(item.id, id)
+        XCTAssertEqual(item.text, text)
+        XCTAssertEqual(item.isDone, isDone)
         XCTAssertEqual(item.importance, .medium)
-        XCTAssertEqual(item.isDone, true)
-        XCTAssertEqual(item.creationDate, date1)
-        XCTAssertEqual(item.deadline, date2)
-        XCTAssertEqual(item.modificationDate, date3)
+        XCTAssertEqual(item.creationDate, creationDate)
+        XCTAssertEqual(item.deadline, deadline)
+        XCTAssertEqual(item.modificationDate, modificationDate)
     }
     
     func testMinimalJSON() {
-        let date = Date(timeIntervalSince1970: TimeInterval(1675990000))
+        let id = "1"
+        let text = "Задача из JSON"
+        let isDone = true
+        let importance = Importance.high
         let json = TodoItem.buildJSON {
-            ("id", "12345")
-            ("text", "Минимальная задача")
-            ("isDone", false)
-            ("creationDate", date)
+            (Keys.id.stringValue, id)
+            (Keys.text.stringValue, text)
+            (Keys.isDone.stringValue, isDone)
+            (Keys.importance.stringValue, importance)
+            (Keys.creationDate.stringValue, creationDate)
         }
+
         
         guard let item = TodoItem.parse(json: json) else {
             XCTFail("Failed to parse minimal JSON into TodoItem")
             return
         }
         
-        XCTAssertEqual(item.id, "12345")
-        XCTAssertEqual(item.text, "Минимальная задача")
-        XCTAssertEqual(item.isDone, false)
-        XCTAssertEqual(item.creationDate, date)
-        XCTAssertEqual(item.importance, .medium)
+        XCTAssertEqual(item.id, id)
+        XCTAssertEqual(item.text, text)
+        XCTAssertEqual(item.isDone, isDone)
+        XCTAssertEqual(item.importance, importance)
+        XCTAssertEqual(item.creationDate, creationDate)
         XCTAssertNil(item.deadline)
         XCTAssertNil(item.modificationDate)
     }

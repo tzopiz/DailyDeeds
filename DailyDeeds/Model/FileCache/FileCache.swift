@@ -18,8 +18,8 @@ struct FileCache {
         case parseFailed
         case writeToFileFailed
         case directoryNotFound
-        case loadFromJSONFileFaild
-        case loadFromCSVFileFaild
+        case loadFromJSONFileFailed
+        case loadFromCSVFileFailed
         case fileAlreadyExists
         case unknown
     }
@@ -41,11 +41,7 @@ extension FileCache {
     /// Adds a new todo items to the cache if an items with the same identifiers do not already exist.
     /// - Parameter items: The array of `TodoItem` to add to the cache.
     mutating func addTodoItems(_ items: TodoItem...) {
-        for item in items {
-            if !todoItems.contains(where: { $0.id == item.id }) {
-                todoItems.append(item)
-            }
-        }
+        items.forEach { addTodoItem($0) }
     }
 }
 
@@ -53,42 +49,33 @@ extension FileCache {
 extension FileCache {
     /**
      Loads todo items from a file with the specified name and format into the `todoItems` array.
-
+     
      - Parameters:
-        - fileName: The name of the file from which to load data.
-        - format: The file format from which to load data (default is `.json`).
-
+     - fileName: The name of the file from which to load data.
+     - format: The file format from which to load data (default is `.json`).
+     
      - Returns: An optional `FileError` indicating an error that occurred during the loading process, or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or data corruption.
-
+     
      - Note: If the specified file format is `.json`, the function expects JSON formatted data. If `.csv` is specified, the function expects CSV formatted data.
      */
-    @discardableResult
-    mutating func loadFromFile(named fileName: String, format: FileFormat = .json) -> FileError? {
-        
-        var result: Result<[TodoItem], FileError>
-        switch format {
-        case .json: 
-            result = loadFromJSONFile(named: fileName)
-        case .csv: 
-            result = loadFromCSVFile(named: fileName)
-        }
-        
-        switch result {
-        case .success(let items):
-            self.todoItems = items
-            return nil
-        case .failure(let error):
-            return error
+    mutating func loadFromFile(named fileName: String, format: FileFormat) -> Result<[TodoItem], FileError> {
+        do {
+            let url = try getDocumentsDirectory().appendingPathComponent(fileName)
+            guard FileManager.default.fileExists(atPath: url.path) else { return .failure(.fileNotFound) }
+            
+            let result: Result<[TodoItem], FileError>
+            switch format {
+            case .json: result = loadFromJSONFile(with: url)
+            case .csv: result = loadFromCSVFile(with: url)
+            }
+            return result
+        } catch {
+            return .failure(error)
         }
     }
     
-    private func loadFromJSONFile(named fileName: String) -> Result<[TodoItem], FileError> {
+    private func loadFromJSONFile(with url: URL) -> Result<[TodoItem], FileError> {
         do {
-            let url = try getDocumentsDirectory().appendingPathComponent(fileName)
-            
-            guard FileManager.default.fileExists(atPath: url.path)
-            else { return .failure(.fileNotFound) }
-            
             let data = try Data(contentsOf: url)
             guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [TodoItem.JSONType]
             else { return .failure(.dataCorrupted) }
@@ -96,22 +83,17 @@ extension FileCache {
             let items = jsonArray.compactMap { TodoItem.parse(json: $0) }
             return .success(items)
         } catch {
-            return .failure(.loadFromJSONFileFaild)
+            return .failure(.loadFromJSONFileFailed)
         }
     }
     
-    private func loadFromCSVFile(named fileName: String) -> Result<[TodoItem], FileError> {
+    private func loadFromCSVFile(with url: URL) -> Result<[TodoItem], FileError> {
         do {
-            let url = try getDocumentsDirectory().appendingPathComponent(fileName)
-            
-            guard FileManager.default.fileExists(atPath: url.path)
-            else { return .failure(.fileNotFound) }
-            
             let csvString = try String(contentsOf: url)
             let items = csvString.split(separator: "\n").compactMap { TodoItem.parse(csv: String($0)) }
             return .success(items)
         } catch {
-            return .failure(.loadFromCSVFileFaild)
+            return .failure(.loadFromCSVFileFailed)
         }
     }
 }
@@ -120,34 +102,33 @@ extension FileCache {
 extension FileCache {
     /**
      Saves the current `todoItems` array to a file with the specified name and format.
-
+     
      - Parameters:
-        - fileName: The name of the file to which the data should be saved.
-        - format: The file format in which the data should be saved (default is `.json`).
-
+     - fileName: The name of the file to which the data should be saved.
+     - format: The file format in which the data should be saved (default is `.json`).
+     
      - Returns: An optional `FileError` indicating an error that occurred during the saving process, or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or failure to write.
-
+     
      - Note: If the specified file format is `.json`, the data will be saved in JSON format. If `.csv` is specified, the data will be saved in CSV format.
      */
     @discardableResult
     func saveToFile(named fileName: String, format: FileFormat = .json) -> FileError? {
-        switch format {
-        case .json:
-            return saveToJSONFile(named: fileName)
-        case .csv:
-            return saveToCSVFile(named: fileName)
+        do {
+            let url = try getDocumentsDirectory().appendingPathComponent(fileName)
+            
+            switch format {
+            case .json: return saveToJSONFile(url: url)
+            case .csv: return saveToCSVFile(url: url)
+            }
+        } catch {
+            return error
         }
     }
-
-    private func saveToJSONFile(named fileName: String) -> FileError? {
+    
+    private func saveToJSONFile(url: URL) -> FileError? {
         do {
             let jsonArray = todoItems.jsonArray
             let jsonData = try JSONSerialization.data(withJSONObject: jsonArray, options: .prettyPrinted)
-            let url = try getDocumentsDirectory().appendingPathComponent(fileName)
-            
-            guard !FileManager.default.fileExists(atPath: url.path)
-            else { return .fileAlreadyExists }
-            
             try jsonData.write(to: url)
             return nil
         } catch {
@@ -155,14 +136,9 @@ extension FileCache {
         }
     }
     
-    private func saveToCSVFile(named fileName: String) -> FileError? {
+    private func saveToCSVFile(url: URL) -> FileError? {
         do {
             let csvString = todoItems.map { $0.csv }.joined(separator: "\n")
-            let url = try getDocumentsDirectory().appendingPathComponent(fileName)
-            
-            guard !FileManager.default.fileExists(atPath: url.path)
-            else { return .fileAlreadyExists }
-            
             try csvString.write(to: url, atomically: true, encoding: .utf8)
             return nil
         } catch {
@@ -171,9 +147,6 @@ extension FileCache {
     }
 }
 
-// MARK: - Update
-extension FileCache { }
-
 // MARK: - Delete
 extension FileCache {
     /// Removes a todo item from the cache based on its identifier.
@@ -181,7 +154,7 @@ extension FileCache {
     mutating func removeTodoItem(by id: String) {
         todoItems.removeAll { $0.id == id }
     }
-
+    
     /// Removes all todo items from the cache.
     mutating func removeAllTodoItems() {
         todoItems.removeAll()
@@ -190,7 +163,7 @@ extension FileCache {
 
 // MARK: - Supporting
 extension FileCache {
-    func getDocumentsDirectory() throws -> URL {
+    func getDocumentsDirectory() throws(FileError) -> URL {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let first = urls.first else { throw FileError.directoryNotFound }
         return first

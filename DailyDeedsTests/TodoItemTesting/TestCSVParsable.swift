@@ -9,73 +9,99 @@ import XCTest
 @testable import DailyDeeds
 
 final class TestCSVParsable: XCTestCase {
-
+    private let creationDate = Date()
+    private let deadline = Date().advanced(by: 200)
+    private let modificationDate = Date().advanced(by: 10)
+    
     func testCSVSerialization() {
-        let creationDate = Date()
-        let otherDate = creationDate.advanced(by: 200)
+        let id = "1"
+        let text = "Задача для тестирования CSV"
+        let isDone = false
+        let importance = Importance.high
         let item = TodoItem(
-            id: "123",
-            text: "Задача для тестирования CSV",
-            isDone: false,
-            importance: .high,
+            id: id,
+            text: text,
+            isDone: isDone,
+            importance: importance,
             creationDate: creationDate,
-            deadline: otherDate,
-            modificationDate: nil
+            deadline: deadline,
+            modificationDate: modificationDate
         )
-        
-        let expectedCSV = "123,Задача для тестирования CSV,false,важная,\(creationDate.toString()),\(otherDate.toString()),"
+        let expectedCSV =
+        "\(id),\(text),\(isDone),\(importance.rawValue),\(self.creationDate.toString()),\(self.deadline.toString()),\(self.modificationDate.toString())"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
     
     func testCSVSerialization2() {
-        let creationDate = Date()
+        let id = "1"
+        let text = "Задача для тестирования CSV"
+        let isDone = false
+        let importance = Importance.high
         let item = TodoItem(
-            id: "123",
-            text: "Задача для тестирования CSV",
-            isDone: false,
-            importance: .high,
-            creationDate: creationDate,
-            deadline: nil,
-            modificationDate: Date()
+            id: id,
+            text: text,
+            isDone: isDone,
+            importance: importance,
+            creationDate: creationDate
         )
-        
-        let expectedCSV = "123,Задача для тестирования CSV,false,важная,\(creationDate.toString()),,\(creationDate.toString())"
+        let expectedCSV =
+        "\(id),\(text),\(isDone),\(importance.rawValue),\(self.creationDate.toString()),,"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
     
     func testCSVDeserialization() {
-        let csvString = "456,Задача для распарсинга,true,неважная,2023-06-15 12:00:00,2023-06-16 12:00:00,2023-06-17 12:00:00"
+        let id = "123-234-4455"
+        let text = "Задача для распарсинга"
+        let isDone = true
+        let importance = Importance.low
+        let csvString = "\(id),\(text),\(isDone),\(importance.rawValue),\(creationDate.toString()),\(deadline.toString()),\(modificationDate.toString())"
         
         guard let parsedItem = TodoItem.parse(csv: csvString) else {
             XCTFail("Failed to parse CSV string")
             return
         }
         
-        XCTAssertEqual(parsedItem.id, "456")
-        XCTAssertEqual(parsedItem.text, "Задача для распарсинга")
-        XCTAssertEqual(parsedItem.importance, .low)
-        XCTAssertTrue(parsedItem.isDone)
-        XCTAssertEqual(parsedItem.creationDate.toString(), "2023-06-15 12:00:00")
-        XCTAssertEqual(parsedItem.deadline?.toString(), "2023-06-16 12:00:00")
-        XCTAssertEqual(parsedItem.modificationDate?.toString(), "2023-06-17 12:00:00")
+        XCTAssertEqual(parsedItem.id, id)
+        XCTAssertEqual(parsedItem.text, text)
+        XCTAssertEqual(parsedItem.importance, importance)
+        XCTAssertEqual(parsedItem.isDone, isDone)
+        XCTAssertEqual(parsedItem.creationDate.toString(), creationDate.toString())
+        XCTAssertEqual(parsedItem.deadline?.toString(), deadline.toString())
+        XCTAssertEqual(parsedItem.modificationDate?.toString(), modificationDate.toString())
     }
     
-    func testCSVDeserialization2() {
-        let csvString = "456,Задача для распарсинга,true,неважная,2023-06-15 12:00:00,,2023-06-17 12:00:00"
+    func testCSVDeserializationEscapeText() {
+        let id = "1"
+        let text = "Задача,для,распарсинга"
+        let isDone = false
+        let importance = Importance.high
+        let csvString = "\(id),\(text.escapeSpecialCharacters(",")),\(isDone),\(importance.rawValue),\(creationDate.toString()),,"
         
         guard let parsedItem = TodoItem.parse(csv: csvString) else {
             XCTFail("Failed to parse CSV string")
             return
         }
         
-        XCTAssertEqual(parsedItem.id, "456")
-        XCTAssertEqual(parsedItem.text, "Задача для распарсинга")
-        XCTAssertEqual(parsedItem.importance, .low)
-        XCTAssertTrue(parsedItem.isDone)
-        XCTAssertEqual(parsedItem.creationDate.toString(), "2023-06-15 12:00:00")
+        XCTAssertEqual(parsedItem.id, id)
+        XCTAssertEqual(parsedItem.text, text)
+        XCTAssertEqual(parsedItem.importance, importance)
+        XCTAssertEqual(parsedItem.isDone, isDone)
+        XCTAssertEqual(parsedItem.creationDate.toString(), creationDate.toString())
         XCTAssertNil(parsedItem.deadline)
-        XCTAssertEqual(parsedItem.modificationDate?.toString(), "2023-06-17 12:00:00")
+        XCTAssertNil(parsedItem.modificationDate)
+    }
+    
+    func testFailedCSVDeserialization() {
+        let text = "Задача,для,распарсинга"
+        let isDone = false
+        let importance = Importance.high
+        let csvString = ",\(text),\(isDone),\(importance.rawValue),\(creationDate.toString()),,"
+        
+        if let items = TodoItem.parse(csv: csvString) {
+            let _ = print(items)
+            XCTFail("Unexpected success in a false test")
+        }
     }
 }

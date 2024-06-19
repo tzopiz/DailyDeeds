@@ -13,7 +13,20 @@ final class FileCacheTests: XCTestCase {
     private var fileCache: FileCache!
     private let fileNameJSON = "test_tasks.json"
     private let fileNameCSV = "test_tasks.csv"
-    
+    private let todoitem = TodoItem(
+        id: "1", text: "test text for test task",
+        isDone: false, importance: .high,
+        creationDate: .now, deadline: nil,
+        modificationDate: .now
+    )
+    override func setUp() async throws {
+        try await super.setUp()
+        fileCache = FileCache()
+    }
+    override func tearDown() {
+        super.tearDown()
+        fileCache = nil
+    }
     override func setUpWithError() throws {
         try super.setUpWithError()
         fileCache = FileCache()
@@ -25,37 +38,39 @@ final class FileCacheTests: XCTestCase {
     }
     
     func testAddTodoItem() {
-        let todoitem = TodoItem(
-            id: "1", text: "test text for test task",
-            isDone: false, importance: .high,
-            creationDate: .now, deadline: nil,
-            modificationDate: .now
-        )
         fileCache.addTodoItem(todoitem)
         XCTAssertEqual(fileCache.todoItems.count, 1)
         XCTAssertEqual(fileCache.todoItems.first?.id, "1")
     }
     
     func testAddTodoItem_Duplicate() {
-        let todoitem = TodoItem(id: "1", text: "test text for test task", isDone: false, importance: .high, creationDate: .now, deadline: nil, modificationDate: .now)
         fileCache.addTodoItem(todoitem)
         fileCache.addTodoItem(todoitem)
         XCTAssertEqual(fileCache.todoItems.count, 1)
     }
     
     func testRemoveTodoItem() {
-        let todoitem = TodoItem(id: "1", text: "test text for test task", isDone: false, importance: .high, creationDate: .now, deadline: nil, modificationDate: .now)
-        let todoitem2 = TodoItem(id: "2", text: "test text for test task", isDone: false, importance: .high, creationDate: .now, deadline: nil, modificationDate: .now)
+        let id = "2"
+        let todoitem2 = TodoItem(
+            id: id, text: "test text for test task",
+            isDone: false, importance: .medium,
+            creationDate: .now, deadline: nil,
+            modificationDate: .now
+        )
         fileCache.addTodoItem(todoitem)
         fileCache.addTodoItem(todoitem2)
         fileCache.removeTodoItem(by: "1")
         XCTAssertEqual(fileCache.todoItems.count, 1)
-        XCTAssertEqual(fileCache.todoItems.first?.id, "2")
+        XCTAssertEqual(fileCache.todoItems.first?.id, id)
     }
     
     func testRemoveAllTodoItems() {
-        let todoitem = TodoItem(id: "1", text: "test text for test task", isDone: false, importance: .high, creationDate: .now, deadline: nil, modificationDate: .now)
-        let todoitem2 = TodoItem(id: "2", text: "test text for test task", isDone: false, importance: .high, creationDate: .now, deadline: nil, modificationDate: .now)
+        let todoitem2 = TodoItem(
+            id: "2", text: "test text for test task",
+            isDone: false, importance: .high,
+            creationDate: .now, deadline: nil,
+            modificationDate: .now
+        )
         fileCache.addTodoItem(todoitem)
         fileCache.addTodoItem(todoitem2)
         fileCache.removeAllTodoItems()
@@ -63,9 +78,18 @@ final class FileCacheTests: XCTestCase {
     }
     
     func testSaveToFile_JSON() throws {
-        let todoitem = TodoItem(id: "1", text: "test text for test task", isDone: false, importance: .high, creationDate: .now, deadline: nil, modificationDate: .now)
-        let todoitem2 = TodoItem(id: "2", text: "test text for test task", isDone: false, importance: .low, creationDate: .now, deadline: nil, modificationDate: .now)
-        let todoitem3 = TodoItem(id: "3", text: "test text for test task", isDone: false, importance: .medium, creationDate: .now, deadline: nil, modificationDate: .now)
+        let todoitem2 = TodoItem(
+            id: "2", text: "test text for test task",
+            isDone: false, importance: .low,
+            creationDate: .now, deadline: nil,
+            modificationDate: .now
+        )
+        let todoitem3 = TodoItem(
+            id: "3", text: "test text for test task",
+            isDone: false, importance: .medium,
+            creationDate: .now, deadline: nil,
+            modificationDate: .now
+        )
         
         fileCache.addTodoItem(todoitem)
         fileCache.addTodoItem(todoitem2)
@@ -78,13 +102,19 @@ final class FileCacheTests: XCTestCase {
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)
         let data = try Data(contentsOf: url)
         let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [TodoItem.JSONType]
+        
         XCTAssertEqual(jsonArray?.count, 3)
         try FileManager.default.removeItem(at: url)
     }
     
     func testSaveToFile_CSV() throws {
         let date = Date.now
-        let todoitem = TodoItem(id: "3", text: "test text for test task", isDone: false, importance: .medium, creationDate: date, deadline: nil, modificationDate: date)
+        let todoitem = TodoItem(
+            id: "3", text: "test text for test task",
+            isDone: false, importance: .medium,
+            creationDate: date, deadline: nil,
+            modificationDate: date
+        )
         
         fileCache.addTodoItem(todoitem)
         
@@ -102,9 +132,10 @@ final class FileCacheTests: XCTestCase {
     
     func testLoadFromFile_JSON() throws {
         let date = Date.now
+        let id = "1231231"
         let json = """
         [{
-            "id": "1231231",
+            "id": "\(id)",
             "text": "Test Task",
             "isDone": false,
             "creationDate": "\(date.toString())"
@@ -113,13 +144,16 @@ final class FileCacheTests: XCTestCase {
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)
         try json.data(using: .utf8)?.write(to: url)
 
-        let error = fileCache.loadFromFile(named: fileNameJSON, format: .json)
-        
-        XCTAssertNil(error)
-        XCTAssertEqual(fileCache.todoItems.count, 1)
-        XCTAssertEqual(fileCache.todoItems.first?.id, "1231231")
-        XCTAssertEqual(fileCache.todoItems.first?.importance, .medium)
-        XCTAssertNil(fileCache.todoItems.first?.deadline)
+        let result = fileCache.loadFromFile(named: fileNameJSON, format: .json)
+        switch result {
+        case .success(let item):
+            XCTAssertEqual(item.count, 1)
+            XCTAssertEqual(item.first?.id , id)
+            XCTAssertEqual(item.first?.importance, .medium)
+            XCTAssertNil(item.first?.deadline)
+        case .failure(_):
+            XCTFail()
+        }
         
         try FileManager.default.removeItem(at: url)
     }
@@ -130,12 +164,16 @@ final class FileCacheTests: XCTestCase {
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         try csv.write(to: url, atomically: true, encoding: .utf8)
         
-        let error = fileCache.loadFromFile(named: fileNameCSV, format: .csv)
+        let result = fileCache.loadFromFile(named: fileNameCSV, format: .csv)
         
-        XCTAssertNil(error)
-        XCTAssertEqual(fileCache.todoItems.count, 1)
-        XCTAssertEqual(fileCache.todoItems.first?.id, "1")
-        XCTAssertNil(fileCache.todoItems.first?.deadline)
+        switch result {
+        case .success(let items):
+            XCTAssertEqual(items.count, 1)
+            XCTAssertEqual(items.first?.id, "1")
+            XCTAssertNil(items.first?.deadline)
+        case .failure(_):
+            XCTFail()
+        }
         
         try FileManager.default.removeItem(at: url)
     }

@@ -14,7 +14,7 @@ struct CSVBuilder {
     }
     
     static func buildExpression(_ expression: String) -> String {
-        return expression
+        return expression.escapeSpecialCharacters(",")
     }
     static func buildExpression(_ expression: Importance) -> String {
         return expression.rawValue

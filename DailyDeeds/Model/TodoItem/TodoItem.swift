@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Importance: String, Comparable, Equatable, Codable {
+enum Importance: String, Comparable, Equatable {
     case low = "неважная"
     case medium = "обычная"
     case high = "важная"
@@ -24,7 +24,7 @@ enum Importance: String, Comparable, Equatable, Codable {
     }
 }
 
-struct TodoItem: Identifiable, Equatable, Codable, KeyPathComparable {
+struct TodoItem: Identifiable, Equatable, KeyPathComparable {
     let id: String
     let text: String
     let isDone: Bool
@@ -32,6 +32,11 @@ struct TodoItem: Identifiable, Equatable, Codable, KeyPathComparable {
     let creationDate: Date
     let deadline: Date?
     let modificationDate: Date?
+    enum ItemKeys: String, CodingKey {
+        case id, text, isDone, importance, creationDate
+        case deadline, modificationDate
+    }
+
     
     /// Initializes a new instance of the TodoItem task.
     /// - Parameters:
@@ -75,27 +80,5 @@ extension TodoItem: CustomStringConvertible, CustomDebugStringConvertible {
     }
     var debugDescription: String {
         return description
-    }
-}
-
-extension TodoItem {
-    var timeUntilDeadline: String? {
-        guard let deadline = deadline else { return nil }
-        let timeRemaining = Calendar.current.dateComponents([.day, .hour, .minute], from: Date(), to: deadline)
-        var components: [String] = []
-        if let days = timeRemaining.day, days > 0 {
-            components.append("\(days) day(s)")
-        }
-        if let hours = timeRemaining.hour, hours > 0 {
-            components.append("\(hours) hour(s)")
-        }
-        if let minutes = timeRemaining.minute, minutes > 0 {
-            components.append("\(minutes) minute(s)")
-        }
-        return components.joined(separator: " ")
-    }
-    var isPastDue: Bool {
-        guard let deadline = deadline else { return false }
-        return deadline < Date()
     }
 }

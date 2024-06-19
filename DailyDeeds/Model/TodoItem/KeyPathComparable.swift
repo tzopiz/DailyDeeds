@@ -28,29 +28,6 @@ extension Sequence where Element: KeyPathComparable {
      - Parameter keyPath: A key path to a property of `Element` that conforms to `Comparable`.
      - Returns: A sorted array of the sequence elements, sorted by the values at the specified key path with ascending order by default
      - Complexity: O(n log n), where n is the length of the collection.
-     
-     Usage example:
-     ```swift
-     struct TodoItem2: KeyPathComparable {
-         let id: String
-         var text: String
-         var importance: Int
-         var isDone: Bool
-         let creationDate: Date
-     }
-     
-     var todoItems: [TodoItem2] = [
-         TodoItem2(id: "3", text: "Task 3", importance: 10, isDone: false, creationDate: Date()),
-         TodoItem2(id: "1", text: "Task 1", importance: 2, isDone: false, creationDate: Date()),
-         TodoItem2(id: "2", text: "Task 2", importance: 4, isDone: false, creationDate: Date())
-     ]
-     
-     let sortedItems = todoItems.sorted(by: \.id)
-     let filterItems = todoItems.filter(by: \.isDone) { $0 == true }
-     todoItems.sort(by: \.importance)
-     print(sortedItems) // Will print items sorted by their id in ascending order
-     print(filterItems) // Will print items filter by their isDone state
-     ```
      */
     func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) -> [Element] {
         if ascending {
@@ -62,10 +39,7 @@ extension Sequence where Element: KeyPathComparable {
     
     mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) {
         guard let sorted = self.sorted(by: keyPath, ascending: ascending) as? Self
-        else {
-            assertionFailure("Failed to sort the collection.")
-            return
-        }
+        else { return }
         self = sorted
     }
     
