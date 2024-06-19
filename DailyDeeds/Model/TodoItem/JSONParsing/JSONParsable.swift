@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias JSONType = [String: Any]
+typealias JSONDictionary = [String: Any]
 protocol JSONParsable {
     associatedtype JSONType
     var json: JSONType { get }
@@ -38,37 +38,36 @@ extension JSONParsable {
 }
 
 extension TodoItem: JSONParsable {
-
     /// JSON representation of the current TodoItem object.
-    var json: JSONType {
+    var json: JSONDictionary {
         return TodoItem.buildJSON {
-            ("id", id)
-            ("text", text)
-            ("isDone", isDone)
-            ("importance", importance)
-            ("creationDate", creationDate)
-            ("deadline", deadline)
-            ("modificationDate", modificationDate)
+            (ItemKeys.id.stringValue, id)
+            (ItemKeys.text.stringValue, text)
+            (ItemKeys.isDone.stringValue, isDone)
+            (ItemKeys.importance.stringValue, importance)
+            (ItemKeys.creationDate.stringValue, creationDate)
+            (ItemKeys.deadline.stringValue, deadline)
+            (ItemKeys.modificationDate.stringValue, modificationDate)
         }
     }
     
     /// A function for parsing JSON and creating a TodoItem object.
-    /// - Parameter dict: A JSON object in the form of `[String:Any]'.
+    /// - Parameter json: A JSON object in the form of `Any'.
     /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
-    static func parse(json dict: JSONType) -> TodoItem? {
-        guard let id = dict["id"] as? String,
-              let text = dict["text"] as? String,
-              let isDone = dict["isDone"] as? Bool,
-              let creationTimestamp = dict["creationDate"] as? String,
+    static func parse(json dict: JSONDictionary) -> TodoItem? {
+        guard let id = dict[ItemKeys.id.stringValue] as? String,
+              let text = dict[ItemKeys.text.stringValue] as? String,
+              let isDone = dict[ItemKeys.isDone.stringValue] as? Bool,
+              let creationTimestamp = dict[ItemKeys.creationDate.stringValue] as? String,
               let creationDate = creationTimestamp.toDate()
         else { return nil }
         
-        let deadline = (dict["deadline"] as? String)?.toDate()
-        let modificationDate = (dict["modificationDate"] as? String)?.toDate()
+        let deadline = (dict[ItemKeys.deadline.stringValue] as? String)?.toDate()
+        let modificationDate = (dict[ItemKeys.modificationDate.stringValue] as? String)?.toDate()
         
         let importance: Importance = {
-            guard let importanceRawValue = dict["importance"] as? String,
-                  let importanceValue = Importance(rawValue: importanceRawValue) 
+            guard let importanceRawValue = dict[ItemKeys.importance.stringValue] as? String,
+                  let importanceValue = Importance(rawValue: importanceRawValue)
             else { return .medium }
             return importanceValue
         }()
