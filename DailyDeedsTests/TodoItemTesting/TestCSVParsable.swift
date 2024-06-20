@@ -99,8 +99,7 @@ final class TestCSVParsable: XCTestCase {
         let importance = Importance.high
         let csvString = ",\(text),\(isDone),\(importance.rawValue),\(creationDate.toString()),,"
         
-        if let items = TodoItem.parse(csv: csvString) {
-            let _ = print(items)
+        if let _ = TodoItem.parse(csv: csvString) {
             XCTFail("Unexpected success in a false test")
         }
     }

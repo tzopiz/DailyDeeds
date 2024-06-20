@@ -8,7 +8,6 @@
 import Foundation
 
 extension String {
-    // FIXME: - converter
     func toDate(format: String = "yyyy-MM-dd HH:mm:ss") -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format

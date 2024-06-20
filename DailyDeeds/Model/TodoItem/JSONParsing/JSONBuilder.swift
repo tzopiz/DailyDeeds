@@ -29,6 +29,7 @@ struct JSONBuilder {
         guard expression.value != .medium else { return [:] }
         return [expression.key: expression.value.rawValue]
     }
+    
     static func buildExpression(_ expression: (key: String, value: Bool)) -> JSONDictionary {
         return [expression.key: expression.value]
     }

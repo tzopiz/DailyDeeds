@@ -23,8 +23,6 @@ extension Sequence where Element: KeyPathComparable {
     /**
      Sorts the elements of a sequence based on the values at a specified key path with ascending order by default.
      
-     This function allows sorting of any sequence where the elements conform to the `KeyPathComparable` protocol by a specified key path. The key path must point to a value that conforms to the `Comparable` protocol.
-     
      - Parameter keyPath: A key path to a property of `Element` that conforms to `Comparable`.
      - Returns: A sorted array of the sequence elements, sorted by the values at the specified key path with ascending order by default
      - Complexity: O(n log n), where n is the length of the collection.
