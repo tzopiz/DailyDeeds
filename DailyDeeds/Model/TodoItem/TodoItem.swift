@@ -25,6 +25,11 @@ enum Importance: String, Comparable, Equatable {
 }
 
 struct TodoItem: Identifiable, Equatable, KeyPathComparable {
+    enum ItemKeys: String, CodingKey {
+        case id, text, isDone, importance, creationDate
+        case deadline, modificationDate
+    }
+    
     let id: String
     let text: String
     let isDone: Bool
@@ -32,12 +37,7 @@ struct TodoItem: Identifiable, Equatable, KeyPathComparable {
     let creationDate: Date
     let deadline: Date?
     let modificationDate: Date?
-    enum ItemKeys: String, CodingKey {
-        case id, text, isDone, importance, creationDate
-        case deadline, modificationDate
-    }
 
-    
     /// Initializes a new instance of the TodoItem task.
     /// - Parameters:
     ///   - id: The unique identifier of the task. By default, a new UUID is generated.
@@ -50,9 +50,9 @@ struct TodoItem: Identifiable, Equatable, KeyPathComparable {
     init(
         id: String = UUID().uuidString,
         text: String,
-        isDone: Bool = false,
+        isDone: Bool,
         importance: Importance,
-        creationDate: Date = Date(),
+        creationDate: Date,
         deadline: Date? = nil,
         modificationDate: Date? = nil
     ) {
@@ -69,14 +69,17 @@ struct TodoItem: Identifiable, Equatable, KeyPathComparable {
 // MARK: - CustomStringConvertible
 extension TodoItem: CustomStringConvertible, CustomDebugStringConvertible {
     var description: String {
-        var desc = "TodoItem(id: \(id),\n"
-        desc += "\ttext: \"\(text)\",\n"
-        desc += "\timportance: \(importance.rawValue),\n"
-        desc += "\tisDone: \(isDone),\n"
-        desc += "\tcreationDate: \(creationDate.toString()),\n"
-        desc += "\tdeadline: \(deadline.toString()),\n"
-        desc += "\tmodificationDate: \(modificationDate.toString()))"
-        return desc
+        return """
+        TodoItem(
+        \tid: \(id),
+        \ttext: \"\(text)\",
+        \tisDone: \(isDone),
+        \timportance: \(importance.rawValue),
+        \tcreationDate: \(creationDate.toString()),
+        \tdeadline: \(deadline.toString()),
+        \tmodificationDate: \(modificationDate.toString())
+        )
+        """
     }
     var debugDescription: String {
         return description

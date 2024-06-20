@@ -26,7 +26,7 @@ struct FileCache {
     private(set) var todoItems: Array<TodoItem> = []
 }
 
-// MARK: - Create
+// MARK: - Update
 extension FileCache {
     /// Adds a new todo item to the cache if an item with the same identifier does not already exist.
     /// - Parameter item: The `TodoItem` to add to the cache.
@@ -54,9 +54,11 @@ extension FileCache {
      - fileName: The name of the file from which to load data.
      - format: The file format from which to load data (default is `.json`).
      
-     - Returns: An optional `FileError` indicating an error that occurred during the loading process, or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or data corruption.
+     - Returns: An optional `FileError` indicating an error that occurred during the loading process,
+     or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or data corruption.
      
-     - Note: If the specified file format is `.json`, the function expects JSON formatted data. If `.csv` is specified, the function expects CSV formatted data.
+     - Note: If the specified file format is `.json`, the function expects JSON formatted data. If `.csv` is specified,
+     the function expects CSV formatted data.
      */
     mutating func loadFromFile(named fileName: String, format: FileFormat) -> Result<[TodoItem], FileError> {
         do {
@@ -107,28 +109,28 @@ extension FileCache {
      - fileName: The name of the file to which the data should be saved.
      - format: The file format in which the data should be saved (default is `.json`).
      
-     - Returns: An optional `FileError` indicating an error that occurred during the saving process, or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or failure to write.
+     - Returns: An optional `FileError` indicating an error that occurred during the saving process,
+     or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or failure to write.
      
-     - Note: If the specified file format is `.json`, the data will be saved in JSON format. If `.csv` is specified, the data will be saved in CSV format.
+     - Note: If the specified file format is `.json`, the data will be saved in JSON format. If `.csv` is specified,
+     the data will be saved in CSV format.
      */
     @discardableResult
     func saveToFile(named fileName: String, format: FileFormat = .json) -> FileError? {
         do {
             let url = try getDocumentsDirectory().appendingPathComponent(fileName)
-            
             switch format {
-            case .json: return saveToJSONFile(url: url)
-            case .csv: return saveToCSVFile(url: url)
+            case .json: return saveToJSONFile(with: url)
+            case .csv: return saveToCSVFile(with: url)
             }
         } catch {
             return error
         }
     }
     
-    private func saveToJSONFile(url: URL) -> FileError? {
+    private func saveToJSONFile(with url: URL) -> FileError? {
         do {
-            let jsonArray = todoItems.jsonArray
-            let jsonData = try JSONSerialization.data(withJSONObject: jsonArray, options: .prettyPrinted)
+            let jsonData = try JSONSerialization.data(withJSONObject: todoItems.jsonArray, options: .prettyPrinted)
             try jsonData.write(to: url)
             return nil
         } catch {
@@ -136,7 +138,7 @@ extension FileCache {
         }
     }
     
-    private func saveToCSVFile(url: URL) -> FileError? {
+    private func saveToCSVFile(with url: URL) -> FileError? {
         do {
             let csvString = todoItems.map { $0.csv }.joined(separator: "\n")
             try csvString.write(to: url, atomically: true, encoding: .utf8)

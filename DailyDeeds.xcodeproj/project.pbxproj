@@ -166,6 +166,7 @@
 		0A3202C32C1C67C900427B05 /* DailyDeedsTests */ = {
 			isa = PBXGroup;
 			children = (
+				0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */,
 				0A554E612C1ED49D0068360C /* FileCacheTesting */,
 				0A63EC702C1CD93D005ED49D /* TodoItemTesting */,
 			);
@@ -216,7 +217,6 @@
 				0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */,
 				0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */,
 				0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */,
-				0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */,
 			);
 			path = TodoItemTesting;
 			sourceTree = "<group>";

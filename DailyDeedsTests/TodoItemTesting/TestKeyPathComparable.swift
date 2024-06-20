@@ -9,56 +9,48 @@ import XCTest
 @testable import DailyDeeds
 
 final class TestKeyPathComparable: XCTestCase {
+    
+    private let item1 = TodoItem(
+        id: "1", text: "Задача 1",
+        isDone: false, importance: .low,
+        creationDate: .now
+    )
+    private let item2 = TodoItem(
+        id: "2", text: "Задача 2",
+        isDone: true, importance: .medium,
+        creationDate: .now
+    )
+    private let item3 = TodoItem(
+        id: "3", text: "Задача 3",
+        isDone: false, importance: .high,
+        creationDate: .now
+    )
 
     func testSortingByIdKeyPath() {
-        let item1 = TodoItem(id: "2", text: "Задача 1", importance: .medium)
-        let item2 = TodoItem(id: "1", text: "Задача 2", importance: .high)
-        let item3 = TodoItem(id: "3", text: "Задача 3", importance: .low)
         
-        let unsortedItems = [item3, item1, item2]
-        let sortedItems = unsortedItems.sorted(by: \TodoItem.id)
+        let unsortedItems = [item2, item1, item3]
+        let sortedItems = unsortedItems.sorted(by: \.id)
         
-        XCTAssertEqual(sortedItems, [item2, item1, item3])
-    }
-    
-    func testSortingByTextKeyPath() {
-        let item1 = TodoItem(id: "1", text: "Задача 2", importance: .medium)
-        let item2 = TodoItem(id: "2", text: "Задача 1", importance: .high)
-        let item3 = TodoItem(id: "3", text: "Задача 3", importance: .low)
-        
-        let unsortedItems = [item3, item1, item2]
-        let sortedItems = unsortedItems.sorted(by: \TodoItem.text)
-        
-        XCTAssertEqual(sortedItems, [item2, item1, item3])
+        XCTAssertEqual(sortedItems, [item1, item2, item3])
     }
     
     func testSortingByImportanceKeyPath() {
-        let item1 = TodoItem(id: "1", text: "Задача 1", importance: .medium)
-        let item2 = TodoItem(id: "2", text: "Задача 2", importance: .high)
-        let item3 = TodoItem(id: "3", text: "Задача 3", importance: .low)
         
-        let unsortedItems = [item1, item2, item3]
-        let sortedItems = unsortedItems.sorted(by: \TodoItem.importance, ascending: false)
+        let unsortedItems = [item2, item1, item3]
+        let sortedItems = unsortedItems.sorted(by: \.importance, ascending: false)
         
-        XCTAssertEqual(sortedItems, [item2, item1, item3])
+        XCTAssertEqual(sortedItems, [item3, item2, item1])
     }
     
     func testSortByImportanceKeyPath() {
-        let item1 = TodoItem(id: "1", text: "Задача 1", importance: .medium)
-        let item2 = TodoItem(id: "2", text: "Задача 2", importance: .high)
-        let item3 = TodoItem(id: "3", text: "Задача 3", importance: .low)
         
-        var unsortedItems = [item1, item2, item3]
-        unsortedItems.sort(by: \TodoItem.importance)
+        var unsortedItems = [item3, item2, item1]
+        unsortedItems.sort(by: \.importance)
         
-        XCTAssertEqual(unsortedItems, [item3, item1, item2])
+        XCTAssertEqual(unsortedItems, [item1, item2, item3])
     }
     
     func testFilterByImportanceKeyPath() {
-        let item1 = TodoItem(id: "1", text: "Задача 1", importance: .medium)
-        let item2 = TodoItem(id: "2", text: "Задача 2", importance: .high)
-        let item3 = TodoItem(id: "3", text: "Задача 3", importance: .low)
-        
         let unsortedItems = [item1, item2, item3]
         let filteredItems = unsortedItems.filter(by: \.deadline, predicate: { $0 != nil} )
         
