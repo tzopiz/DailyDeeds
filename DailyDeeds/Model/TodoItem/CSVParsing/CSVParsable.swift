@@ -8,8 +8,9 @@
 import Foundation
 
 protocol CSVParsable {
-    var csv: String { get }
-    static func parse(csv: String) -> Self?
+    associatedtype CSVType
+    var csv: CSVType { get }
+    static func parse(csv: CSVType) -> Self?
 }
 
 extension CSVParsable {
@@ -35,8 +36,7 @@ extension TodoItem: CSVParsable {
     /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
     static func parse(csv: String) -> TodoItem? {
         let csvArray = csv.splitByUnescaped(separator: ",")
-        print(csv, csvArray)
-        // FIXME: - text ,
+
         guard let id = csvArray[safe: 0],
               let text = csvArray[safe: 1],
               let isDoneString = csvArray[safe: 2],

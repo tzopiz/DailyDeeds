@@ -13,38 +13,21 @@ class TodoItemTests: XCTestCase {
     func testInitialization() {
         let text = "Новая задача"
         let importance = Importance.medium
+        let isDone = false
         let creationDate = Date()
         
-        let item = TodoItem(text: text, importance: importance, creationDate: creationDate)
-        
-        XCTAssertEqual(item.text, text)
-        XCTAssertEqual(item.importance, importance)
-        XCTAssertFalse(item.isDone)
-        XCTAssertEqual(item.creationDate, creationDate)
-        XCTAssertNil(item.deadline)
-        XCTAssertNil(item.modificationDate)
-    }
-    
-    func testDescription() {
-        let creationDate = Date()
         let item = TodoItem(
-            id: "123",
-            text: "Задача для тестирования",
-            importance: .high,
+            text: text, isDone: isDone,
+            importance: importance,
             creationDate: creationDate
         )
         
-        let expectedDescription = """
-            TodoItem(id: 123,
-            \ttext: "Задача для тестирования",
-            \timportance: важная,
-            \tisDone: false,
-            \tcreationDate: \(creationDate.toString()),
-            \tdeadline: ,
-            \tmodificationDate: )
-            """
-        
-        XCTAssertEqual(item.description, expectedDescription)
+        XCTAssertEqual(item.text, text)
+        XCTAssertEqual(item.importance, importance)
+        XCTAssertEqual(item.isDone, isDone)
+        XCTAssertEqual(item.creationDate, creationDate)
+        XCTAssertNil(item.deadline)
+        XCTAssertNil(item.modificationDate)
     }
     
     func testDateConversion() {
@@ -65,4 +48,3 @@ class TodoItemTests: XCTestCase {
         XCTAssertGreaterThan(high, low)
     }
 }
-

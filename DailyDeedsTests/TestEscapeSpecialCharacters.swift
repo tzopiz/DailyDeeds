@@ -22,12 +22,13 @@ final class TestEscapeSpecialCharacters: XCTestCase {
         XCTAssertEqual(newText, "text, where user use comma.")
     }
     
-    func testFullCircle() {
+    func testFullCycle() {
         let text = "text, where user use comma."
         let escapeText = text.escapeSpecialCharacters(",")
         let unescapeText = escapeText.unescapeSpecialCharacters(",")
         XCTAssertEqual(text, unescapeText)
     }
+    
     func testSplitByUnescaped() {
         let text = "text, where user use comma."
         let escapeText = text.escapeSpecialCharacters(",")
