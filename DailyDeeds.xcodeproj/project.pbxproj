@@ -7,32 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A04DA272C242A2F008F4793 /* TestEscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */; };
-		0A1DCE082C1D9A4000E98993 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DCE072C1D9A4000E98993 /* FileCache.swift */; };
 		0A3202B42C1C67C800427B05 /* DailyDeedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202B32C1C67C800427B05 /* DailyDeedsApp.swift */; };
 		0A3202B62C1C67C800427B05 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202B52C1C67C800427B05 /* ContentView.swift */; };
 		0A3202B82C1C67C900427B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202B72C1C67C900427B05 /* Assets.xcassets */; };
 		0A3202BB2C1C67C900427B05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */; };
+		0A3202C52C1C67C900427B05 /* DailyDeedsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202C42C1C67C900427B05 /* DailyDeedsTests.swift */; };
 		0A3202CF2C1C67C900427B05 /* DailyDeedsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202CE2C1C67C900427B05 /* DailyDeedsUITests.swift */; };
 		0A3202D12C1C67C900427B05 /* DailyDeedsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202D02C1C67C900427B05 /* DailyDeedsUITestsLaunchTests.swift */; };
 		0A3202DE2C1C6A0B00427B05 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */; };
 		0A3202E02C1C6A1500427B05 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DF2C1C6A1500427B05 /* README.md */; };
 		0A3202E22C1C6A8900427B05 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202E12C1C6A8900427B05 /* .gitignore */; };
-		0A554E642C1ED4D30068360C /* TestFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A554E632C1ED4D30068360C /* TestFileCache.swift */; };
-		0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC642C1CC091005ED49D /* TodoItem.swift */; };
-		0A63EC672C1CC091005ED49D /* JSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC632C1CC091005ED49D /* JSONParsable.swift */; };
-		0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */; };
-		0A63EC6D2C1CD38D005ED49D /* RswiftLibrary in Frameworks */ = {isa = PBXBuildFile; productRef = 0A63EC6C2C1CD38D005ED49D /* RswiftLibrary */; };
-		0A63EC6F2C1CD43B005ED49D /* CSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC6E2C1CD434005ED49D /* CSVParsable.swift */; };
-		0A63EC742C1CE1BC005ED49D /* TestTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC732C1CE1BC005ED49D /* TestTodoItem.swift */; };
-		0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */; };
-		0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */; };
-		0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */; };
-		0AF6F20C2C2087FF0043866B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F20B2C2087FF0043866B /* Date.swift */; };
-		0AF6F2182C208D3F0043866B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2172C208D3F0043866B /* String.swift */; };
-		0AF6F21D2C208F760043866B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F21C2C208F760043866B /* Collection.swift */; };
-		0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */; };
-		0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2312C20B59E0043866B /* CSVBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,35 +37,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEscapeSpecialCharacters.swift; sourceTree = "<group>"; };
-		0A1DCE072C1D9A4000E98993 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		0A3202B02C1C67C800427B05 /* DailyDeeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyDeeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3202B32C1C67C800427B05 /* DailyDeedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsApp.swift; sourceTree = "<group>"; };
 		0A3202B52C1C67C800427B05 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0A3202B72C1C67C900427B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0A3202C02C1C67C900427B05 /* DailyDeedsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyDeedsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0A3202C42C1C67C900427B05 /* DailyDeedsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsTests.swift; sourceTree = "<group>"; };
 		0A3202CA2C1C67C900427B05 /* DailyDeedsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyDeedsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3202CE2C1C67C900427B05 /* DailyDeedsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsUITests.swift; sourceTree = "<group>"; };
 		0A3202D02C1C67C900427B05 /* DailyDeedsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		0A3202DF2C1C6A1500427B05 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3202E12C1C6A8900427B05 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		0A554E632C1ED4D30068360C /* TestFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileCache.swift; sourceTree = "<group>"; };
-		0A63EC632C1CC091005ED49D /* JSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParsable.swift; sourceTree = "<group>"; };
-		0A63EC642C1CC091005ED49D /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
-		0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyPathComparable.swift; sourceTree = "<group>"; };
-		0A63EC6E2C1CD434005ED49D /* CSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVParsable.swift; sourceTree = "<group>"; };
-		0A63EC732C1CE1BC005ED49D /* TestTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestTodoItem.swift; sourceTree = "<group>"; };
-		0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeyPathComparable.swift; sourceTree = "<group>"; };
-		0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCSVParsable.swift; sourceTree = "<group>"; };
-		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
-		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
-		0AF6F20B2C2087FF0043866B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		0AF6F2172C208D3F0043866B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		0AF6F21C2C208F760043866B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
-		0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBuilder.swift; sourceTree = "<group>"; };
-		0AF6F2312C20B59E0043866B /* CSVBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +57,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A63EC6D2C1CD38D005ED49D /* RswiftLibrary in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,18 +77,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0A1DCE062C1D9A3A00E98993 /* FileCache */ = {
-			isa = PBXGroup;
-			children = (
-				0A1DCE072C1D9A4000E98993 /* FileCache.swift */,
-			);
-			path = FileCache;
-			sourceTree = "<group>";
-		};
 		0A3202A72C1C67C800427B05 = {
 			isa = PBXGroup;
 			children = (
-				0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */,
 				0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */,
 				0A3202E12C1C6A8900427B05 /* .gitignore */,
 				0A3202DF2C1C6A1500427B05 /* README.md */,
@@ -145,8 +103,6 @@
 		0A3202B22C1C67C800427B05 /* DailyDeeds */ = {
 			isa = PBXGroup;
 			children = (
-				0AF6F2082C2087F20043866B /* Extensions */,
-				0A63EC6A2C1CCB36005ED49D /* Model */,
 				0A3202B32C1C67C800427B05 /* DailyDeedsApp.swift */,
 				0A3202B52C1C67C800427B05 /* ContentView.swift */,
 				0A3202B72C1C67C900427B05 /* Assets.xcassets */,
@@ -166,8 +122,7 @@
 		0A3202C32C1C67C900427B05 /* DailyDeedsTests */ = {
 			isa = PBXGroup;
 			children = (
-				0A554E612C1ED49D0068360C /* FileCacheTesting */,
-				0A63EC702C1CD93D005ED49D /* TodoItemTesting */,
+				0A3202C42C1C67C900427B05 /* DailyDeedsTests.swift */,
 			);
 			path = DailyDeedsTests;
 			sourceTree = "<group>";
@@ -179,74 +134,6 @@
 				0A3202D02C1C67C900427B05 /* DailyDeedsUITestsLaunchTests.swift */,
 			);
 			path = DailyDeedsUITests;
-			sourceTree = "<group>";
-		};
-		0A554E612C1ED49D0068360C /* FileCacheTesting */ = {
-			isa = PBXGroup;
-			children = (
-				0A554E632C1ED4D30068360C /* TestFileCache.swift */,
-			);
-			path = FileCacheTesting;
-			sourceTree = "<group>";
-		};
-		0A63EC652C1CC091005ED49D /* TodoItem */ = {
-			isa = PBXGroup;
-			children = (
-				0A63EC642C1CC091005ED49D /* TodoItem.swift */,
-				0AF6F2342C20B5F10043866B /* JSONParsing */,
-				0AF6F2352C20B6000043866B /* CSVParsing */,
-				0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */,
-			);
-			path = TodoItem;
-			sourceTree = "<group>";
-		};
-		0A63EC6A2C1CCB36005ED49D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0A1DCE062C1D9A3A00E98993 /* FileCache */,
-				0A63EC652C1CC091005ED49D /* TodoItem */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		0A63EC702C1CD93D005ED49D /* TodoItemTesting */ = {
-			isa = PBXGroup;
-			children = (
-				0A63EC732C1CE1BC005ED49D /* TestTodoItem.swift */,
-				0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */,
-				0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */,
-				0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */,
-				0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */,
-			);
-			path = TodoItemTesting;
-			sourceTree = "<group>";
-		};
-		0AF6F2082C2087F20043866B /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				0AF6F20B2C2087FF0043866B /* Date.swift */,
-				0AF6F2172C208D3F0043866B /* String.swift */,
-				0AF6F21C2C208F760043866B /* Collection.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		0AF6F2342C20B5F10043866B /* JSONParsing */ = {
-			isa = PBXGroup;
-			children = (
-				0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */,
-				0A63EC632C1CC091005ED49D /* JSONParsable.swift */,
-			);
-			path = JSONParsing;
-			sourceTree = "<group>";
-		};
-		0AF6F2352C20B6000043866B /* CSVParsing */ = {
-			isa = PBXGroup;
-			children = (
-				0AF6F2312C20B59E0043866B /* CSVBuilder.swift */,
-				0A63EC6E2C1CD434005ED49D /* CSVParsable.swift */,
-			);
-			path = CSVParsing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,12 +150,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				0AE35ED22C1E3C83003628BC /* PBXTargetDependency */,
 			);
 			name = DailyDeeds;
-			packageProductDependencies = (
-				0A63EC6C2C1CD38D005ED49D /* RswiftLibrary */,
-			);
 			productName = DailyDeeds;
 			productReference = 0A3202B02C1C67C800427B05 /* DailyDeeds.app */;
 			productType = "com.apple.product-type.application";
@@ -284,7 +167,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				0A1DCE0A2C1DD4E100E98993 /* PBXTargetDependency */,
 				0A3202C22C1C67C900427B05 /* PBXTargetDependency */,
 			);
 			name = DailyDeedsTests;
@@ -342,9 +224,6 @@
 				Base,
 			);
 			mainGroup = 0A3202A72C1C67C800427B05;
-			packageReferences = (
-				0A63EC6B2C1CD38D005ED49D /* XCRemoteSwiftPackageReference "R" */,
-			);
 			productRefGroup = 0A3202B12C1C67C800427B05 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -390,18 +269,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A63EC6F2C1CD43B005ED49D /* CSVParsable.swift in Sources */,
-				0AF6F21D2C208F760043866B /* Collection.swift in Sources */,
 				0A3202B62C1C67C800427B05 /* ContentView.swift in Sources */,
-				0A1DCE082C1D9A4000E98993 /* FileCache.swift in Sources */,
-				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
-				0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */,
-				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
-				0AF6F20C2C2087FF0043866B /* Date.swift in Sources */,
 				0A3202B42C1C67C800427B05 /* DailyDeedsApp.swift in Sources */,
-				0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */,
-				0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */,
-				0A63EC672C1CC091005ED49D /* JSONParsable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,12 +278,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */,
-				0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */,
-				0A63EC742C1CE1BC005ED49D /* TestTodoItem.swift in Sources */,
-				0A554E642C1ED4D30068360C /* TestFileCache.swift in Sources */,
-				0A04DA272C242A2F008F4793 /* TestEscapeSpecialCharacters.swift in Sources */,
-				0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */,
+				0A3202C52C1C67C900427B05 /* DailyDeedsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,10 +294,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		0A1DCE0A2C1DD4E100E98993 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 0A1DCE092C1DD4E100E98993 /* RswiftGenerateInternalResources */;
-		};
 		0A3202C22C1C67C900427B05 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 0A3202AF2C1C67C800427B05 /* DailyDeeds */;
@@ -443,10 +303,6 @@
 			isa = PBXTargetDependency;
 			target = 0A3202AF2C1C67C800427B05 /* DailyDeeds */;
 			targetProxy = 0A3202CB2C1C67C900427B05 /* PBXContainerItemProxy */;
-		};
-		0AE35ED22C1E3C83003628BC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = 0AE35ED12C1E3C83003628BC /* RswiftGenerateInternalResources */;
 		};
 /* End PBXTargetDependency section */
 
@@ -644,7 +500,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 653PNCT9WW;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeedsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -663,7 +519,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 653PNCT9WW;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeedsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -748,35 +604,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		0A63EC6B2C1CD38D005ED49D /* XCRemoteSwiftPackageReference "R" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/mac-cain13/R.swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.5.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		0A1DCE092C1DD4E100E98993 /* RswiftGenerateInternalResources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A63EC6B2C1CD38D005ED49D /* XCRemoteSwiftPackageReference "R" */;
-			productName = "plugin:RswiftGenerateInternalResources";
-		};
-		0A63EC6C2C1CD38D005ED49D /* RswiftLibrary */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A63EC6B2C1CD38D005ED49D /* XCRemoteSwiftPackageReference "R" */;
-			productName = RswiftLibrary;
-		};
-		0AE35ED12C1E3C83003628BC /* RswiftGenerateInternalResources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0A63EC6B2C1CD38D005ED49D /* XCRemoteSwiftPackageReference "R" */;
-			productName = "plugin:RswiftGenerateInternalResources";
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0A3202A82C1C67C800427B05 /* Project object */;
 }
