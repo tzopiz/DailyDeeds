@@ -46,7 +46,7 @@ final class TestCSVParsable: XCTestCase {
             creationDate: creationDate
         )
         let expectedCSV =
-        "\(id),\(text),\(isDone),\(importance.rawValue),\(self.creationDate.toString()),,"
+        "\(id),\(text),\(isDone),\(importance.rawValue),\(creationDate.toString()),,"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }

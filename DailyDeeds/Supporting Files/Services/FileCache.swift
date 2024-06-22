@@ -17,6 +17,7 @@ struct FileCache {
         case dataCorrupted
         case parseFailed
         case writeToFileFailed
+        case incorrectFileName
         case directoryNotFound
         case loadFromJSONFileFailed
         case loadFromCSVFileFailed
@@ -34,10 +35,13 @@ extension FileCache {
     /// If a task with the same identifier (`id`) already exists in the cache, the new item is not added.
     /// This ensures uniqueness of tasks in the cache based on their identifier.
     mutating func addTodoItem(_ item: TodoItem) {
-        if !todoItems.contains(where: { $0.id == item.id }) {
+        if let index = todoItems.firstIndex(where: { $0.id == item.id }) {
+            todoItems[index] = item
+        } else {
             todoItems.append(item)
         }
     }
+    
     /// Adds a new todo items to the cache if an items with the same identifiers do not already exist.
     /// - Parameter items: The array of `TodoItem` to add to the cache.
     mutating func addTodoItems(_ items: TodoItem...) {
@@ -60,7 +64,7 @@ extension FileCache {
      - Note: If the specified file format is `.json`, the function expects JSON formatted data. If `.csv` is specified,
      the function expects CSV formatted data.
      */
-    mutating func loadFromFile(named fileName: String, format: FileFormat) -> Result<[TodoItem], FileError> {
+    func loadFromFile(named fileName: String, format: FileFormat) -> Result<[TodoItem], FileError> {
         do {
             let url = try getDocumentsDirectory().appendingPathComponent(fileName)
             guard FileManager.default.fileExists(atPath: url.path) else { return .failure(.fileNotFound) }
@@ -153,8 +157,10 @@ extension FileCache {
 extension FileCache {
     /// Removes a todo item from the cache based on its identifier.
     /// - Parameter id: The identifier of the todo item to remove.
-    mutating func removeTodoItem(by id: String) {
+    mutating func removeTodoItem(by id: String) -> TodoItem? {
+        let item = todoItems.first(where: { $0.id == id })
         todoItems.removeAll { $0.id == id }
+        return item
     }
     
     /// Removes all todo items from the cache.
@@ -169,5 +175,14 @@ extension FileCache {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let first = urls.first else { throw FileError.directoryNotFound }
         return first
+    }
+}
+
+extension FileCache {
+    mutating func removeTodoItem(at offsets: IndexSet) {
+        todoItems.remove(atOffsets: offsets)
+    }
+    mutating func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
+        todoItems.move(fromOffsets: indices, toOffset: newOffset)
     }
 }

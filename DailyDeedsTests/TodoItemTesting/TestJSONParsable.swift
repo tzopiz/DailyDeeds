@@ -84,14 +84,13 @@ final class TestJSONParsable: XCTestCase {
                 "id": "\(id)",
                 "text": "\(text)",
                 "isDone": \(isDone),
-                "creationDate": "\(creationDate.toString())",
                 "deadline": "\(deadline.toString())",
+                "creationDate": "\(creationDate.toString())",
                 "modificationDate": "\(modificationDate.toString())"
             }
             """
         
-        guard let item = TodoItem.from(jsonString: jsonString)
-        else {
+        guard let item = TodoItem.from(jsonString: jsonString) else {
             XCTFail("Failed to parse JSON string into TodoItem")
             return
         }

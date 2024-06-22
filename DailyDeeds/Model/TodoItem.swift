@@ -52,7 +52,7 @@ struct TodoItem: Identifiable, Equatable, KeyPathComparable {
         text: String,
         isDone: Bool,
         importance: Importance,
-        creationDate: Date,
+        creationDate: Date = .now,
         deadline: Date? = nil,
         modificationDate: Date? = nil
     ) {

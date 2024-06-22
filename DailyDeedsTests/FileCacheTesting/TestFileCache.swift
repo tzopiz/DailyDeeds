@@ -19,14 +19,17 @@ final class FileCacheTests: XCTestCase {
         creationDate: .now, deadline: nil,
         modificationDate: .now
     )
+    
     override func setUp() async throws {
         try await super.setUp()
         fileCache = FileCache()
     }
+    
     override func tearDown() {
         super.tearDown()
         fileCache = nil
     }
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
         fileCache = FileCache()
