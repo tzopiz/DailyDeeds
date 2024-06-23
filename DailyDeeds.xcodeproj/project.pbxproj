@@ -10,8 +10,6 @@
 		0A04DA272C242A2F008F4793 /* TestEscapeSpecialCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */; };
 		0A04ED142C27303400AF7097 /* TodoItemsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04ED132C27303400AF7097 /* TodoItemsListView.swift */; };
 		0A04ED162C27308000AF7097 /* DetailTodoItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04ED152C27308000AF7097 /* DetailTodoItemView.swift */; };
-		0A1DCE082C1D9A4000E98993 /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DCE072C1D9A4000E98993 /* FileCache.swift */; };
-		0A3202B42C1C67C800427B05 /* DailyDeedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202B32C1C67C800427B05 /* DailyDeedsApp.swift */; };
 		0A3202B82C1C67C900427B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202B72C1C67C900427B05 /* Assets.xcassets */; };
 		0A3202BB2C1C67C900427B05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */; };
 		0A3202CF2C1C67C900427B05 /* DailyDeedsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202CE2C1C67C900427B05 /* DailyDeedsUITests.swift */; };
@@ -19,6 +17,9 @@
 		0A3202DE2C1C6A0B00427B05 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */; };
 		0A3202E02C1C6A1500427B05 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DF2C1C6A1500427B05 /* README.md */; };
 		0A3202E22C1C6A8900427B05 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202E12C1C6A8900427B05 /* .gitignore */; };
+		0A373A942C28B9F800A9290B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A932C28B9F800A9290B /* Date.swift */; };
+		0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */; };
+		0A373A9C2C28BADB00A9290B /* FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A9B2C28BADB00A9290B /* FileCache.swift */; };
 		0A554E642C1ED4D30068360C /* TestFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A554E632C1ED4D30068360C /* TestFileCache.swift */; };
 		0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC642C1CC091005ED49D /* TodoItem.swift */; };
 		0A63EC672C1CC091005ED49D /* JSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC632C1CC091005ED49D /* JSONParsable.swift */; };
@@ -40,7 +41,6 @@
 		0A8926212C28B130001C39F2 /* TextEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8926202C28B130001C39F2 /* TextEditorView.swift */; };
 		0A8926252C28B1F0001C39F2 /* DataPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8926242C28B1F0001C39F2 /* DataPickerView.swift */; };
 		0AAF43FF2C27389F000FE268 /* ListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF43FE2C27389F000FE268 /* ListItemView.swift */; };
-		0AF6F20C2C2087FF0043866B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F20B2C2087FF0043866B /* Date.swift */; };
 		0AF6F2182C208D3F0043866B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2172C208D3F0043866B /* String.swift */; };
 		0AF6F21D2C208F760043866B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F21C2C208F760043866B /* Collection.swift */; };
 		0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */; };
@@ -68,9 +68,7 @@
 		0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestEscapeSpecialCharacters.swift; sourceTree = "<group>"; };
 		0A04ED132C27303400AF7097 /* TodoItemsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemsListView.swift; sourceTree = "<group>"; };
 		0A04ED152C27308000AF7097 /* DetailTodoItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTodoItemView.swift; sourceTree = "<group>"; };
-		0A1DCE072C1D9A4000E98993 /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		0A3202B02C1C67C800427B05 /* DailyDeeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyDeeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		0A3202B32C1C67C800427B05 /* DailyDeedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsApp.swift; sourceTree = "<group>"; };
 		0A3202B72C1C67C900427B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0A3202C02C1C67C900427B05 /* DailyDeedsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyDeedsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +78,9 @@
 		0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		0A3202DF2C1C6A1500427B05 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3202E12C1C6A8900427B05 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		0A373A932C28B9F800A9290B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsApp.swift; sourceTree = "<group>"; };
+		0A373A9B2C28BADB00A9290B /* FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCache.swift; sourceTree = "<group>"; };
 		0A554E632C1ED4D30068360C /* TestFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestFileCache.swift; sourceTree = "<group>"; };
 		0A63EC632C1CC091005ED49D /* JSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC642C1CC091005ED49D /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
@@ -101,7 +102,6 @@
 		0A8926202C28B130001C39F2 /* TextEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextEditorView.swift; sourceTree = "<group>"; };
 		0A8926242C28B1F0001C39F2 /* DataPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPickerView.swift; sourceTree = "<group>"; };
 		0AAF43FE2C27389F000FE268 /* ListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListItemView.swift; sourceTree = "<group>"; };
-		0AF6F20B2C2087FF0043866B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0AF6F2172C208D3F0043866B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0AF6F21C2C208F760043866B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBuilder.swift; sourceTree = "<group>"; };
@@ -250,7 +250,7 @@
 		0A7994F92C275CAF0097B18E /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				0A1DCE072C1D9A4000E98993 /* FileCache.swift */,
+				0A373A9B2C28BADB00A9290B /* FileCache.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -298,7 +298,7 @@
 		0AAF44062C273D69000FE268 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				0A3202B32C1C67C800427B05 /* DailyDeedsApp.swift */,
+				0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */,
 				0A3202B72C1C67C900427B05 /* Assets.xcassets */,
 			);
 			path = Application;
@@ -307,10 +307,10 @@
 		0AF6F2082C2087F20043866B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				0AF6F20B2C2087FF0043866B /* Date.swift */,
 				0AF6F2172C208D3F0043866B /* String.swift */,
 				0AF6F21C2C208F760043866B /* Collection.swift */,
 				0A7F54A82C2769CF009CDD8F /* RswiftResources.swift */,
+				0A373A932C28B9F800A9290B /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -477,10 +477,10 @@
 				0A63EC6F2C1CD43B005ED49D /* CSVParsable.swift in Sources */,
 				0A04ED142C27303400AF7097 /* TodoItemsListView.swift in Sources */,
 				0AF6F21D2C208F760043866B /* Collection.swift in Sources */,
-				0A1DCE082C1D9A4000E98993 /* FileCache.swift in Sources */,
 				0A7F54A92C2769CF009CDD8F /* RswiftResources.swift in Sources */,
 				0A8926122C28A9B0001C39F2 /* CreateTodoItemButton.swift in Sources */,
 				0A04ED162C27308000AF7097 /* DetailTodoItemView.swift in Sources */,
+				0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */,
 				0A7F54A52C275D65009CDD8F /* Resources.swift in Sources */,
 				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
 				0A89261C2C28AE01001C39F2 /* ImportanceView.swift in Sources */,
@@ -490,15 +490,14 @@
 				0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */,
 				0A8926162C28AC7F001C39F2 /* DeadlineView.swift in Sources */,
 				0A8925E82C287397001C39F2 /* TodoItemViewModel.swift in Sources */,
-				0AF6F20C2C2087FF0043866B /* Date.swift in Sources */,
 				0A8926212C28B130001C39F2 /* TextEditorView.swift in Sources */,
 				0A8925FE2C28850E001C39F2 /* ImportancePicker.swift in Sources */,
-				0A3202B42C1C67C800427B05 /* DailyDeedsApp.swift in Sources */,
+				0A373A942C28B9F800A9290B /* Date.swift in Sources */,
 				0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */,
 				0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */,
 				0AAF43FF2C27389F000FE268 /* ListItemView.swift in Sources */,
+				0A373A9C2C28BADB00A9290B /* FileCache.swift in Sources */,
 				0A63EC672C1CC091005ED49D /* JSONParsable.swift in Sources */,
-				0A04ED182C27310700AF7097 /* TodoListViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
