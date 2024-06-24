@@ -15,6 +15,7 @@ struct ImportancePicker: View {
         Picker(selection: $selectedSegment, label: Text("")) {
             Image("arrow.down")
                 .tag(0)
+            // да, текст пустой (так нравится больше)
             Text("")
                 .tag(1)
             Image("exclamationmark.2")

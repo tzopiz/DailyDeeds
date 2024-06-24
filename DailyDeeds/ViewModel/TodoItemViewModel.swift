@@ -9,11 +9,12 @@ import SwiftUI
 
 class TodoItemViewModel: ObservableObject {
     @Published
-    fileprivate(set) var model = FileCache()
+    private(set) var model = FileCache()
     
     var items: Array<TodoItem> {
         return model.todoItems
     }
+    
     init(model: FileCache = FileCache(), items: Array<TodoItem> = []) {
         self.model = model
         self.addTodoItems(items)
@@ -70,6 +71,9 @@ class TodoItemViewModel: ObservableObject {
     // MARK: -
     // TODO: Sorting
     
+    
+}
+extension TodoItemViewModel {
     static func createTodoItems(_ n: Int) -> [TodoItem] {
         var items = [TodoItem]()
 
@@ -108,5 +112,4 @@ class TodoItemViewModel: ObservableObject {
 
         return items
     }
-
 }

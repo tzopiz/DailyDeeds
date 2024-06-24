@@ -24,7 +24,7 @@ struct FileCache {
         case fileAlreadyExists
         case unknown
     }
-    fileprivate(set) var todoItems: Array<TodoItem> = []
+    private(set) var todoItems: Array<TodoItem> = []
 }
 
 // MARK: - Update
@@ -69,12 +69,14 @@ extension FileCache {
             case .csv: result = loadFromCSVFile(with: url)
             }
             return result
-        } catch {
+        } catch let error as FileError {
             return .failure(error)
+        } catch {
+            return .failure(.unknown)
         }
     }
     
-    fileprivate func loadFromJSONFile(with url: URL) -> Result<[TodoItem], FileError> {
+    private func loadFromJSONFile(with url: URL) -> Result<[TodoItem], FileError> {
         do {
             let data = try Data(contentsOf: url)
             guard let jsonArray = try JSONSerialization.jsonObject(with: data) as? [TodoItem.JSONType]
@@ -87,7 +89,7 @@ extension FileCache {
         }
     }
     
-    fileprivate func loadFromCSVFile(with url: URL) -> Result<[TodoItem], FileError> {
+    private func loadFromCSVFile(with url: URL) -> Result<[TodoItem], FileError> {
         do {
             let csvString = try String(contentsOf: url)
             let items = csvString.split(separator: "\n").compactMap { TodoItem.parse(csv: String($0)) }
@@ -121,12 +123,14 @@ extension FileCache {
             case .json: return saveToJSONFile(with: url)
             case .csv: return saveToCSVFile(with: url)
             }
-        } catch {
+        } catch let error as FileError {
             return error
+        } catch {
+            return .unknown
         }
     }
     
-    fileprivate func saveToJSONFile(with url: URL) -> FileError? {
+    private func saveToJSONFile(with url: URL) -> FileError? {
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: todoItems.jsonArray, options: .prettyPrinted)
             try jsonData.write(to: url)
@@ -136,7 +140,7 @@ extension FileCache {
         }
     }
     
-    fileprivate func saveToCSVFile(with url: URL) -> FileError? {
+    private func saveToCSVFile(with url: URL) -> FileError? {
         do {
             let csvString = todoItems.map { $0.csv }.joined(separator: "\n")
             try csvString.write(to: url, atomically: true, encoding: .utf8)
@@ -169,7 +173,7 @@ extension FileCache {
 
 // MARK: - Supporting
 extension FileCache {
-    func getDocumentsDirectory() throws(FileError) -> URL {
+    func getDocumentsDirectory() throws -> URL {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let first = urls.first else { throw FileError.directoryNotFound }
         return first

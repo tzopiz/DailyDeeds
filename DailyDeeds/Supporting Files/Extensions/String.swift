@@ -46,7 +46,7 @@ extension String {
         }
 
         results.append(String(self[lastIndex...]))
-        results = results.map { $0.replacingOccurrences(of: "\\\(separator)", with: String(separator)) }
+        results = results.map { $0.unescapeSpecialCharacters(separator) }
     
         return results
     }

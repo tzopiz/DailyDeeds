@@ -10,9 +10,10 @@ import SwiftUI
 struct CheckmarkView: View {
     var isDone: Bool
     var importance: Importance
+    
     var body: some View {
         if isDone {
-            Image(systemName: isDone ? "checkmark.circle.fill" : "circle")
+            Image(systemName: "checkmark.circle.fill")
                 .resizable()
                 .frame(width: 24, height: 24)
                 .foregroundStyle(Res.Color.green)
@@ -36,20 +37,21 @@ struct CheckmarkView: View {
 #Preview {
     CheckmarkView(isDone: false, importance: .low)
         .padding()
-        .background(Rectangle().stroke(Color.green))
+        .background(Rectangle().stroke(Color.black))
     CheckmarkView(isDone: false, importance: .medium)
         .padding()
-        .background(Rectangle().stroke(Color.green))
+        .background(Rectangle().stroke(Color.black))   
     CheckmarkView(isDone: false, importance: .high)
         .padding()
-        .background(Rectangle().stroke(Color.green))
+        .background(Rectangle().stroke(Color.black))  
     CheckmarkView(isDone: true, importance: .low)
         .padding()
-        .background(Rectangle().stroke(Color.green))
+        .background(Rectangle().stroke(Color.black))   
     CheckmarkView(isDone: true, importance: .medium)
         .padding()
-        .background(Rectangle().stroke(Color.green))
+        .background(Rectangle().stroke(Color.black))   
     CheckmarkView(isDone: true, importance: .high)
         .padding()
-        .background(Rectangle().stroke(Color.green))
+        .background(Rectangle().stroke(Color.black))
 }
+

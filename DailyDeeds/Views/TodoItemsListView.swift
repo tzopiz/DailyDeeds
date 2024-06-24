@@ -12,13 +12,13 @@ struct TodoItemsListView: View {
     var viewModel: TodoItemViewModel
     
     @Namespace
-    var sorting
+    private var sorting
     
     @Environment(\.dismiss)
-    var dismiss
+    private var dismiss
     
     @State
-    var selectedItem: TodoItem?
+    private var selectedItem: TodoItem?
     
     var body: some View {
         NavigationStack {
@@ -28,50 +28,86 @@ struct TodoItemsListView: View {
             }
         }
     }
-
-     var todoItemsList: some View {
+    
+    var todoItemsList: some View {
         List {
+            Section() {
+                listHeaderView
+                .listRowBackground(Res.Color.Back.iOSPrimary)
+            }
+            
             ForEach(viewModel.items) { item in
-                ListItemView(item: item)
-                    .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                        Button { print("complete button tapped") }
-                        label: { Image(systemName: "checkmark.circle") }
-                    }
-                    .tint(Res.Color.green)
-                
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button { print("delete button tapped") }
-                        label: { Image(systemName: "trash") }
-                    }
-                    .tint(Res.Color.red)
-                
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button { print("info button tapped") }
-                        label: { Image(systemName: "info.circle") }
-                    }
-                    .tint(Res.Color.gray)
-                    .gesture(
-                        TapGesture().onEnded { a in
-                            selectedItem = item
-                        }
-                    )
+                listRow(for: item)
             }
             .onMove(perform: viewModel.move)
+            .onDelete(perform: viewModel.remove)
         }
+        .listSectionSpacing(0)
+        .scrollIndicators(.hidden)
         .navigationTitle("Мои дела")
         .sheet(item: $selectedItem) { item in
             DetailTodoItemView(item: item)
         }
         .toolbar {
-            Button { print(#function) }
+            Button { print("sorted button pressed") }
             label: {
                 Image(systemName: "line.3.horizontal.decrease.circle")
             }
             EditButton()
         }
     }
+    
+    func listRow(for item: TodoItem) -> some View {
+        ListItemView(item: item)
+            .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                Button {
+                    print("complete button tapped")
+                }
+                label: {
+                    Image(systemName: "checkmark.circle")
+                }
+            }
+            .tint(Res.Color.green)
+        
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) {
+                    viewModel.remove(with: item.id)
+                } label: {
+                    Image(systemName: "trash")
+                }
+            }
+            .tint(Res.Color.red)
+        
+            .swipeActions(edge: .trailing) {
+                Button {
+                    print(item.description)
+                }
+                label: {
+                    Image(systemName: "info.circle")
+                }
+            }
+            .tint(Res.Color.gray)
+            .gesture(
+                TapGesture().onEnded { a in
+                    selectedItem = item
+                }
+            )
+    }
+    
+    private var listHeaderView: some View {
+        HStack {
+            Text("Выполнено – 5")
+                .foregroundStyle(Res.Color.Label.tertiary)
+            Spacer()
+            Button {
+                print("Показать выполненые задачи")
+            } label: {
+                Text("Показать")
+            }
+        }
+    }
     func addNewItem() {
-        guard let newItem = TodoItemViewModel.createTodoItems(5).randomElement() 
+        guard let newItem = TodoItemViewModel.createTodoItems(5).randomElement()
         else { return }
         viewModel.append(newItem)
     }

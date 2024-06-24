@@ -11,15 +11,17 @@ struct ImportanceView: View {
     @State
     var importance: Importance
     
+    private var imageName: String {
+        switch importance {
+        case .low: "arrow.down"
+        case .high: "exclamationmark.2"
+        default: ""
+        }
+    }
+    
     var body: some View {
-        if importance == .high {
-            Text(Image(systemName: "exclamationmark.2"))
-                .foregroundStyle(Res.Color.red)
-                .bold()
-        } else if importance == .low {
-            Text(Image(systemName: "arrow.down"))
-                .foregroundStyle(Res.Color.gray)
-                .bold()
+        if importance != .medium {
+            Text(Image(imageName))
         }
     }
 }

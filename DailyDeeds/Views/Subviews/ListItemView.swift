@@ -19,7 +19,14 @@ struct ListItemView: View {
                     ImportanceView(importance: item.importance)
                     textView
                 }
-                DeadlineView(deadline: item.deadline)
+                if let deadline = item.deadline {
+                    HStack {
+                        Image(systemName: "calendar")
+                        Text(deadline, style: .date)
+                            .font(.subheadline)
+                    }
+                    .foregroundColor(Res.Color.Label.secondary)
+                }
             }
             Image(systemName: "chevron.right")
                 .foregroundStyle(Res.Color.gray)

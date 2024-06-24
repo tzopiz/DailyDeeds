@@ -41,14 +41,14 @@ final class FileCacheTests: XCTestCase {
     }
     
     func testAddTodoItem() {
-        fileCache.addTodoItem(todoitem)
+        fileCache.append(todoitem)
         XCTAssertEqual(fileCache.todoItems.count, 1)
         XCTAssertEqual(fileCache.todoItems.first?.id, "1")
     }
     
     func testAddTodoItem_Duplicate() {
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem)
+        fileCache.append(todoitem)
+        fileCache.append(todoitem)
         XCTAssertEqual(fileCache.todoItems.count, 1)
     }
     
@@ -60,9 +60,9 @@ final class FileCacheTests: XCTestCase {
             creationDate: .now, deadline: nil,
             modificationDate: .now
         )
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem2)
-        fileCache.removeTodoItem(by: "1")
+        fileCache.append(todoitem)
+        fileCache.append(todoitem2)
+        fileCache.remove(with: todoitem.id)
         XCTAssertEqual(fileCache.todoItems.count, 1)
         XCTAssertEqual(fileCache.todoItems.first?.id, id)
     }
@@ -74,9 +74,11 @@ final class FileCacheTests: XCTestCase {
             creationDate: .now, deadline: nil,
             modificationDate: .now
         )
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem2)
-        fileCache.removeAllTodoItems()
+        fileCache.append(todoitem)
+        fileCache.append(todoitem2)
+        for item in fileCache.todoItems {
+            fileCache.remove(with: item.id)
+        }
         XCTAssertTrue(fileCache.todoItems.isEmpty)
     }
     
@@ -94,9 +96,9 @@ final class FileCacheTests: XCTestCase {
             modificationDate: .now
         )
         
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem2)
-        fileCache.addTodoItem(todoitem3)
+        fileCache.append(todoitem)
+        fileCache.append(todoitem2)
+        fileCache.append(todoitem3)
         
         let error = fileCache.saveToFile(named: fileNameJSON, format: .json)
         
@@ -119,7 +121,7 @@ final class FileCacheTests: XCTestCase {
             modificationDate: date
         )
         
-        fileCache.addTodoItem(todoitem)
+        fileCache.append(todoitem)
         
         let error = fileCache.saveToFile(named: fileNameCSV, format: .csv)
         

@@ -12,7 +12,7 @@ enum Importance: String, Comparable, Equatable {
     case medium = "обычная"
     case high = "важная"
     
-    private var order: Int {
+    var order: Int {
         switch self {
         case .low: return 0
         case .medium: return 1
@@ -26,14 +26,15 @@ enum Importance: String, Comparable, Equatable {
 
 struct TodoItem: Identifiable, Equatable, KeyPathComparable {
     enum ItemKeys: String, CodingKey {
-        case id, text, isDone, importance, creationDate
-        case deadline, modificationDate
+        case id, text, isDone, importance, hexColor
+        case creationDate, deadline, modificationDate
     }
     
     let id: String
     let text: String
     let isDone: Bool
     let importance: Importance
+    let hexColor: String
     let creationDate: Date
     let deadline: Date?
     let modificationDate: Date?
@@ -52,22 +53,24 @@ struct TodoItem: Identifiable, Equatable, KeyPathComparable {
         text: String,
         isDone: Bool,
         importance: Importance,
+        hexColor: String = "#FFFFFF",
         creationDate: Date = .now,
         deadline: Date? = nil,
         modificationDate: Date? = nil
     ) {
         self.id = id
         self.text = text
-        self.importance = importance
         self.isDone = isDone
-        self.deadline = deadline
+        self.importance = importance
+        self.hexColor = hexColor
         self.creationDate = creationDate
+        self.deadline = deadline
         self.modificationDate = modificationDate
     }
 }
 
 // MARK: - CustomStringConvertible
-extension TodoItem: CustomStringConvertible, CustomDebugStringConvertible {
+extension TodoItem: CustomStringConvertible {
     var description: String {
         return """
         TodoItem(
@@ -75,13 +78,11 @@ extension TodoItem: CustomStringConvertible, CustomDebugStringConvertible {
         \ttext: \"\(text)\",
         \tisDone: \(isDone),
         \timportance: \(importance.rawValue),
+        \thexColor: \(hexColor),
         \tcreationDate: \(creationDate.toString()),
-        \tdeadline: \(deadline.toString()),
-        \tmodificationDate: \(modificationDate.toString())
+        \tdeadline: \(deadline != nil ? deadline.toString() : "nil"),
+        \tmodificationDate: \(modificationDate != nil ? modificationDate.toString() : "nil")
         )
         """
-    }
-    var debugDescription: String {
-        return description
     }
 }
