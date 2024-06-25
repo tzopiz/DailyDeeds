@@ -28,6 +28,7 @@ struct ListItemView: View {
                     .foregroundColor(Res.Color.Label.secondary)
                 }
             }
+            Spacer(minLength: 0)
             Image(systemName: "chevron.right")
                 .foregroundStyle(Res.Color.gray)
         }

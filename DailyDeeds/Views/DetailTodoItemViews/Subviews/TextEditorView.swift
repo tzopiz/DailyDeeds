@@ -8,17 +8,42 @@
 import SwiftUI
 
 struct TextEditorView: View {
-    @State
+    
+    @Binding
     var text: String
+    @State
+    var textEditorHeight : CGFloat = 120
     
     var body: some View {
-        TextEditor(text: $text)
-            .font(.system(size: 16))
+        ZStack(alignment: .leading) {
+            Text(text)
+                .font(.system(.body))
+                .foregroundColor(.clear)
+                .padding(10)
+                .background(
+                    GeometryReader {
+                        Color.clear.preference(
+                            key: ViewHeightKey.self,
+                            value: $0.frame(in: .local).size.height
+                        )
+                })
+            
+            TextEditor(text: $text)
+                .font(.system(.body))
+                .frame(height: max(40,textEditorHeight))
+                .cornerRadius(10.0)
+                .shadow(radius: 1.0)
+        }
+        .onPreferenceChange(ViewHeightKey.self) {
+            textEditorHeight = $0
+        }
     }
 }
 
-#Preview {
-    TextEditorView(text: "123")
-        .padding()
-        .background(Res.Color.Back.iOSPrimary)
+
+struct ViewHeightKey: PreferenceKey {
+    static var defaultValue: CGFloat { 0 }
+    static func reduce(value: inout Value, nextValue: () -> Value) {
+        value = value + nextValue()
+    }
 }

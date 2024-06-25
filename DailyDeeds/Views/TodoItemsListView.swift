@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct TodoItemsListView: View {
+    // FIXME: -
+    // - [ ] animation sorting: contentTransition(.symbolEffect(.replace))
+    // - [ ] ObservedObject -> Observable
+    // - [ ] different orientation
     @ObservedObject
     var viewModel: TodoItemViewModel
     
