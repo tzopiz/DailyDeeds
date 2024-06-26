@@ -33,12 +33,15 @@ struct DetailTodoItemView: View {
     private var isOn: Bool
     @State
     private var text: String
+    @State
+    private var selectedColor: Color
     
     init(item: TodoItem) {
         self.item = item
         self.isOn = item.deadline != nil
         self.text = item.text
         self.selectedState = item.importance.order
+        self.selectedColor = .init(hex: item.hexColor)
     }
     
     var body: some View {
@@ -121,11 +124,14 @@ struct DetailTodoItemView: View {
     private func baseFormItems() -> some View {
         Section {
             importanceView
-                .padding(4)
+            ColorPicker(
+                "Цвет \(selectedColor.hexString)",
+                selection: $selectedColor
+            )
+            .padding(8)
             DeadlineView(
                 manager: DeadlineManager(deadline: item.deadline)
             )
-            .padding(4)
         }
         Section {
             deleteButton
@@ -139,7 +145,7 @@ struct DetailTodoItemView: View {
             Spacer()
             ImportancePicker(selectedSegment: selectedState)
         }
-        .padding(4)
+        .padding(8)
     }
     
     private var deleteButton: some View {

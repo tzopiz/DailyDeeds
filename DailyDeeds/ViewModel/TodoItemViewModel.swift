@@ -12,31 +12,36 @@ class TodoItemViewModel: ObservableObject {
     private(set) var model = FileCache()
     
     @Published 
-    var sortType: SortType = .none
-
+    var sortType: TaskCriteria.SortType = .byCreationDate(.descending)
+    
+    @Published
+    var filterType: TaskCriteria.FilterType = .notCompletedOnly
+    
     var items: Array<TodoItem> {
+        let items: Array<TodoItem>
+        switch filterType {
+        case .notCompletedOnly:
+            items = model.todoItems.filter(by: \.isDone, predicate: { !$0 })
+        case .all:
+            items = model.todoItems
+        }
         switch sortType {
         case .byCreationDate(let order):
-            return model.todoItems.sorted(by: \.creationDate, ascending: order.isAscending)
+            return items.sorted(by: \.creationDate, ascending: order.isAscending)
         case .byDeadline(let order):
-            return model.todoItems.sorted(by: \.deadline, ascending: order.isAscending)
-        case .byDateModified(let order):
-            return model.todoItems.sorted(by: \.modificationDate, ascending: order.isAscending)
+            return items.sorted(by: \.deadline, ascending: order.isAscending)
+        case .byLastModifiedDate(let order):
+            return items.sorted(by: \.modificationDate, ascending: order.isAscending)
         case .byImportance(let order):
-            return model.todoItems.sorted(by: \.importance, ascending: order.isAscending)
-        case .byIsDone(let order):
-            return model.todoItems.sorted(by: \.isDone, ascending: order.isAscending)
-        case .isDoneOnly(let order):
-            return model.todoItems.filter(by: \.isDone) { order == .ascending ? $0 : !$0 }
-        case .none:
-            return model.todoItems
+            return items.sorted(by: \.importance, ascending: order.isAscending)
+        case .byCompletionStatus(let order):
+            return items.sorted(by: \.isDone, ascending: order.isAscending)
         }
     }
     
     var completeTodoItemsCount: Int {
-        items.filter(by: \.isDone, predicate: { $0 }).count
+        model.todoItems.filter(by: \.isDone, predicate: { $0 }).count
     }
-
     
     init(model: FileCache = FileCache(), items: Array<TodoItem> = []) {
         self.model = model
@@ -92,11 +97,19 @@ class TodoItemViewModel: ObservableObject {
     }
     
     // MARK: - Sorting
-    func setSortType(_ sortType: SortType) {
+    func setSortType(_ sortType: TaskCriteria.SortType) {
         self.sortType = sortType
     }
+    
+    func toggleFilter() {
+        switch filterType {
+        case .notCompletedOnly:
+            filterType = .all
+        case .all:
+            filterType = .notCompletedOnly
+        }
+    }
 }
-
 extension TodoItemViewModel {
     static func createTodoItems(_ n: Int) -> [TodoItem] {
         var items = [TodoItem]()
@@ -120,15 +133,17 @@ extension TodoItemViewModel {
             let text = texts[i % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
-            let creationDate: Date = .now
-            let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil // случайный дедлайн
+            let modificationDate = Date().addingTimeInterval(Double(Int.random(in: 0...n)) * 86400)
+            let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil
+            let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
 
             let item = TodoItem(
                 text: text,
                 isDone: isDone,
                 importance: importance,
-                creationDate: creationDate,
-                deadline: deadline
+                hexColor: hexColor,
+                deadline: deadline,
+                modificationDate: modificationDate
             )
 
             items.append(item)

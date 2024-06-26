@@ -11,6 +11,7 @@ enum Res {
     enum Image {
         static let arrowDown = R.image.arrowDown.image
         static let exclamationmark2 = R.image.exclamationmark2.image
+        static let chevronRight = R.image.chevronRight.image
     }
     enum Color {
         enum Label {

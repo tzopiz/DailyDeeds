@@ -10,10 +10,12 @@ import SwiftUI
 struct ListItemView: View {
     
     let item: TodoItem
-    
+
     var body: some View {
         HStack {
             CheckmarkView(isDone: item.isDone, importance: item.importance)
+            Color(hex: item.hexColor)
+                .frame(width: 5)
             VStack(alignment: .leading) {
                 HStack {
                     ImportanceView(importance: item.importance)
@@ -28,9 +30,8 @@ struct ListItemView: View {
                     .foregroundColor(Res.Color.Label.secondary)
                 }
             }
-            Spacer(minLength: 0)
+            Spacer(minLength: 4)
             Image(systemName: "chevron.right")
-                .foregroundStyle(Res.Color.gray)
         }
         .padding([.top, .bottom], 8)
     }
@@ -43,7 +44,7 @@ struct ListItemView: View {
                 item.isDone ? Res.Color.Label.disable : Res.Color.Label
                     .primary
             )
-            .strikethrough(item.isDone, color: Res.Color.Label.disable)
+            .strikethrough(item.isDone)
     }
 }
 

@@ -43,6 +43,11 @@
 		0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */; };
 		0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */; };
 		0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA162C2C4C72002FF476 /* Bool.swift */; };
+		0AD1BA2A2C2CB552002FF476 /* CustomContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA292C2CB552002FF476 /* CustomContextMenu.swift */; };
+		0AD1BA322C2CC256002FF476 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA312C2CC256002FF476 /* Color.swift */; };
+		0AD1BA3A2C2CCB2D002FF476 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA392C2CCB2D002FF476 /* Coordinator.swift */; };
+		0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA4B2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift */; };
+		0AD1BA542C2D6AE1002FF476 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA532C2D6AE1002FF476 /* ColorPickerView.swift */; };
 		0AF6F2182C208D3F0043866B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2172C208D3F0043866B /* String.swift */; };
 		0AF6F21D2C208F760043866B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F21C2C208F760043866B /* Collection.swift */; };
 		0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */; };
@@ -106,6 +111,11 @@
 		0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTodoItem.swift; sourceTree = "<group>"; };
 		0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTodoItems.swift; sourceTree = "<group>"; };
 		0AD1BA162C2C4C72002FF476 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		0AD1BA292C2CB552002FF476 /* CustomContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContextMenu.swift; sourceTree = "<group>"; };
+		0AD1BA312C2CC256002FF476 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		0AD1BA392C2CCB2D002FF476 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		0AD1BA4B2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewTodoItemRowView.swift; sourceTree = "<group>"; };
+		0AD1BA532C2D6AE1002FF476 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		0AF6F2172C208D3F0043866B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0AF6F21C2C208F760043866B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBuilder.swift; sourceTree = "<group>"; };
@@ -141,7 +151,8 @@
 		0A04ED192C27355400AF7097 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0A8925F02C287CA9001C39F2 /* Subviews */,
+				0AD1BA382C2CCB21002FF476 /* CustomContextMenu */,
+				0AD1BA3B2C2CCB9C002FF476 /* ListItemView */,
 				0A7F54AE2C276E6C009CDD8F /* DetailTodoItemViews */,
 				0A04ED132C27303400AF7097 /* TodoItemsListView.swift */,
 			);
@@ -288,22 +299,41 @@
 			path = DetailTodoItemViews;
 			sourceTree = "<group>";
 		};
-		0A8925F02C287CA9001C39F2 /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
-				0AAF43FE2C27389F000FE268 /* ListItemView.swift */,
-				0A89261B2C28AE01001C39F2 /* ImportanceView.swift */,
-				0A8925F32C287CBC001C39F2 /* CheckmarkView.swift */,
-				0A8926112C28A9AF001C39F2 /* CreateTodoItemButton.swift */,
-			);
-			path = Subviews;
-			sourceTree = "<group>";
-		};
 		0A8926182C28ADDE001C39F2 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
 				0A8925FD2C28850E001C39F2 /* ImportancePicker.swift */,
 				0A57A4C32C2AC73000F57F43 /* DeadlineView.swift */,
+				0AD1BA532C2D6AE1002FF476 /* ColorPickerView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		0AD1BA382C2CCB21002FF476 /* CustomContextMenu */ = {
+			isa = PBXGroup;
+			children = (
+				0AD1BA392C2CCB2D002FF476 /* Coordinator.swift */,
+				0AD1BA292C2CB552002FF476 /* CustomContextMenu.swift */,
+			);
+			path = CustomContextMenu;
+			sourceTree = "<group>";
+		};
+		0AD1BA3B2C2CCB9C002FF476 /* ListItemView */ = {
+			isa = PBXGroup;
+			children = (
+				0AD1BA3C2C2CCBC5002FF476 /* Subviews */,
+				0AAF43FE2C27389F000FE268 /* ListItemView.swift */,
+				0AD1BA4B2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift */,
+			);
+			path = ListItemView;
+			sourceTree = "<group>";
+		};
+		0AD1BA3C2C2CCBC5002FF476 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				0A89261B2C28AE01001C39F2 /* ImportanceView.swift */,
+				0A8925F32C287CBC001C39F2 /* CheckmarkView.swift */,
+				0A8926112C28A9AF001C39F2 /* CreateTodoItemButton.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -312,6 +342,7 @@
 			isa = PBXGroup;
 			children = (
 				0AF6F2172C208D3F0043866B /* String.swift */,
+				0AD1BA312C2CC256002FF476 /* Color.swift */,
 				0AF6F21C2C208F760043866B /* Collection.swift */,
 				0A7F54A82C2769CF009CDD8F /* RswiftResources.swift */,
 				0A373A932C28B9F800A9290B /* Date.swift */,
@@ -489,15 +520,20 @@
 				0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */,
 				0A7F54A52C275D65009CDD8F /* Resources.swift in Sources */,
 				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
+				0AD1BA322C2CC256002FF476 /* Color.swift in Sources */,
 				0A89261C2C28AE01001C39F2 /* ImportanceView.swift in Sources */,
 				0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */,
+				0AD1BA542C2D6AE1002FF476 /* ColorPickerView.swift in Sources */,
+				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,
 				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
 				0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */,
 				0A8925E82C287397001C39F2 /* TodoItemViewModel.swift in Sources */,
 				0A8925FE2C28850E001C39F2 /* ImportancePicker.swift in Sources */,
 				0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */,
 				0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */,
+				0AD1BA3A2C2CCB2D002FF476 /* Coordinator.swift in Sources */,
 				0A373A942C28B9F800A9290B /* Date.swift in Sources */,
+				0AD1BA2A2C2CB552002FF476 /* CustomContextMenu.swift in Sources */,
 				0A57A4C22C2AC4F900F57F43 /* SizeReader.swift in Sources */,
 				0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */,
 				0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */,

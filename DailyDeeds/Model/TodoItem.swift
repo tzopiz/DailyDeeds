@@ -51,8 +51,8 @@ struct TodoItem: Identifiable, Equatable, KeyPathComparable {
     init(
         id: String = UUID().uuidString,
         text: String,
-        isDone: Bool,
-        importance: Importance,
+        isDone: Bool = false,
+        importance: Importance = .medium,
         hexColor: String = "#FFFFFF",
         creationDate: Date = .now,
         deadline: Date? = nil,

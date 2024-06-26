@@ -7,14 +7,14 @@
 
 import Foundation
 
-
-struct MutableTodoItem {
-    private let id: String
+@Observable
+class MutableTodoItem: Identifiable {
+    private(set) var id: String
     var text: String
     var isDone: Bool
     var importance: Importance
     var hexColor: String
-    private let creationDate: Date
+    private(set) var creationDate: Date
     var deadline: Date?
     var modificationDate: Date?
     

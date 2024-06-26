@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct TodoItemsListView: View {
+    typealias SortType = TaskCriteria.SortType
+    typealias FilterType = TaskCriteria.FilterType
     // TODO: -
     // - [ ] ObservedObject -> Observable
     // - [ ] combine
-    // - [ ] last line such as button to add new item
+    // - [x] last line such as button to add new item
     @ObservedObject
     var viewModel: TodoItemViewModel
     
@@ -21,51 +23,47 @@ struct TodoItemsListView: View {
     @Environment(\.dismiss)
     private var dismiss
     
+    @FocusState
+    private var isActive: Bool
+    
     @State
     private var selectedItem: TodoItem?
     
-    private let sortingOptions: [SortType] = [
-        .byCreationDate(),
-        .byDeadline(),
-        .byDateModified(),
-        .byImportance(),
-        .byIsDone()
-    ]
-    
-    private let orderOptions: [SortType.Order] = [
-        .ascending,
-        .descending
-    ]
+    @State
+    private var onEnded = false
     
     var body: some View {
         NavigationStack {
             ZStack(alignment: .bottom) {
                 todoItemsList
-                CreateTodoItemButton(action: addNewItem)
+                if !isActive {
+                    CreateTodoItemButton(action: addNewItem)
+                }
             }
         }
     }
     
-    var todoItemsList: some View {
+    private var todoItemsList: some View {
         List {
-            Section() {
-                listHeaderView
-                    .listRowBackground(Res.Color.Back.iOSPrimary)
-            }
-            
-            ForEach(viewModel.items) { item in
-                listRow(for: item)
-            }
-            .onMove(perform: viewModel.move)
-            .onDelete(perform: viewModel.remove)
-            
             Section {
+                ForEach(viewModel.items) { item in
+                    listRow(for: item)
+                }
+                .onMove(perform: viewModel.move)
+                .onDelete(perform: viewModel.remove)
+                CreateNewTodoItemRowView(text: "")
+                    .focused($isActive)
+            } header: {
+                listHeaderView
+            } footer: {
                 Text(viewModel.sortType.fullDescription)
-                    .foregroundStyle(Res.Color.Label.tertiary)
-                    .listRowBackground(Res.Color.Back.iOSPrimary)
             }
+            Section {
+                Color.clear
+                    .frame(height: 200)
+            }
+            .listRowBackground(Color.clear)
         }
-        .listSectionSpacing(0)
         .scrollIndicators(.hidden)
         .navigationTitle("Мои дела")
         .sheet(item: $selectedItem) { item in
@@ -77,70 +75,6 @@ struct TodoItemsListView: View {
         }
     }
     
-    func listRow(for item: TodoItem) -> some View {
-        ListItemView(item: item)
-            .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                Button {
-                    print("complete button tapped")
-                }
-                label: {
-                    Image(systemName: "checkmark.circle")
-                }
-            }
-            .tint(Res.Color.green)
-        
-            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                Button(role: .destructive) {
-                    viewModel.remove(with: item.id)
-                } label: {
-                    Image(systemName: "trash")
-                }
-            }
-            .tint(Res.Color.red)
-        
-            .swipeActions(edge: .trailing) {
-                Button {
-                    print(item.description)
-                }
-                label: {
-                    Image(systemName: "info.circle")
-                }
-            }
-            .tint(Res.Color.gray)
-            .gesture(
-                TapGesture().onEnded { a in
-                    selectedItem = item
-                }
-            )
-    }
-    
-    private var sortingButton: some View {
-        Menu {
-            ForEach(sortingOptions, id: \.self) { option in
-                Menu(option.shortDescription) {
-                    ForEach(orderOptions, id: \.self) { order in
-                        let sortType = SortType(option, order: order)
-                        Button {
-                            viewModel.setSortType(sortType)
-                        } label: {
-                            Text(sortType.description)
-                        }
-                    }
-                }
-            }
-            Button {
-                viewModel.setSortType(.none)
-            } label: {
-                Text(SortType.none.shortDescription)
-            }
-        } label: {
-            Image(
-                systemName: viewModel.sortType == .none ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill"
-            )
-            .symbolEffect(.bounce.down, value: viewModel.sortType)
-        }
-    }
-    
     private var listHeaderView: some View {
         HStack {
             Text("Выполнено – \(viewModel.completeTodoItemsCount)")
@@ -148,19 +82,141 @@ struct TodoItemsListView: View {
             Spacer()
             Button {
                 withAnimation {
-                    viewModel.setSortType(
-                        viewModel.sortType == .isDoneOnly(.ascending) ? .isDoneOnly(.descending) : .isDoneOnly(.ascending)
-                    )
+                    viewModel.toggleFilter()
                 }
             } label: {
-                Text(
-                    viewModel.sortType == .isDoneOnly(.ascending) ? "Скрыть" : "Показать"
-                )
+                Text(viewModel.filterType == .all ? "Скрыть" : "Показать")
             }
         }
     }
     
-    func addNewItem() {
+    private var sortingButton: some View {
+        let sortingOptions: [SortType] = [
+            .byCreationDate(),
+            .byDeadline(),
+            .byLastModifiedDate(),
+            .byImportance(),
+            .byCompletionStatus()
+        ]
+        let orderOptions: [SortType.Order] = [
+            .ascending,
+            .descending
+        ]
+        return Menu {
+            ForEach(sortingOptions, id: \.self) { option in
+                Menu(option.shortDescription) {
+                    ForEach(orderOptions, id: \.self) { order in
+                        let sortType = SortType(option, order: order)
+                        Button {
+                            withAnimation {
+                                viewModel.setSortType(sortType)
+                            }
+                        } label: {
+                            Text(sortType.description)
+                        }
+                    }
+                }
+            }
+        } label: {
+            Image(systemName: "line.3.horizontal.decrease.circle")
+                .symbolEffect(.bounce.down, value: viewModel.sortType)
+        }
+    }
+    
+    private func listRow(for item: TodoItem) -> some View {
+        CustomContextMenu {
+            ListItemView(item: item)
+        } preview: {
+            previewTodoItem(for: item)
+        } actoions: {
+            let copyAction = UIAction(
+                title: "Copy",
+                image: UIImage(systemName: "doc.on.doc")
+            ) { action in
+                UIPasteboard.general.string = item.description
+            }
+            let shareAction = UIAction(
+                title: "Share",
+                image: UIImage(systemName: "square.and.arrow.up")
+            ) { action in
+                print("share")
+            }
+            return UIMenu(title: "Меню", children: [copyAction, shareAction])
+        } onEnd: {
+            withAnimation {
+                onEnded.toggle()
+            }
+        }
+        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+            Button {
+                print("complete button tapped")
+            }
+            label: {
+                Image(systemName: "checkmark.circle")
+            }
+        }
+        .tint(Res.Color.green)
+        
+        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+            Button(role: .destructive) {
+                viewModel.remove(with: item.id)
+            } label: {
+                Image(systemName: "trash")
+            }
+        }
+        .tint(Res.Color.red)
+        .onTapGesture {
+            selectedItem = item
+        }
+    }
+    
+    private func previewTodoItem(for item: TodoItem) -> some View {
+        VStack(alignment: .leading) {
+            Text("TodoItem")
+            Divider()
+            Text("id: \(item.id)")
+            Divider()
+            Text("text: \(item.text)")
+            Divider()
+            HStack {
+                Text("isDone: \(item.isDone)")
+                CheckmarkView(
+                    isDone: item.isDone,
+                    importance: item.importance
+                )
+            }
+            Divider()
+            HStack {
+                Text("importance: \(item.importance)")
+                ImportanceView(importance: item.importance)
+            }
+            Divider()
+            HStack {
+                Text("hexColor: \(item.hexColor)")
+                Color(hex: item.hexColor)
+                    .frame(width: 90, height: 30)
+                    .border(Res.Color.Label.primary, width: 2)
+            }
+            Divider()
+            Text("createdDate: \(item.creationDate)")
+            Divider()
+            Text("deadline: \(item.deadline.toString())")
+            Divider()
+            Text("modificationDate: \(item.modificationDate.toString())")
+        }
+        .font(.system(size: 21))
+        .font(.headline)
+        .padding(16)
+        .overlay(alignment: .topTrailing) {
+            Image(systemName: "xmark")
+                .resizable()
+                .foregroundStyle(Color.secondary)
+                .frame(width: 25, height: 25)
+                .padding(8)
+        }
+    }
+    
+    private func addNewItem() {
         guard let newItem = TodoItemViewModel.createTodoItems(5).randomElement()
         else { return }
         viewModel.append(newItem)
