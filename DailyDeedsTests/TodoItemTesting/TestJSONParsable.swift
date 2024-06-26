@@ -9,7 +9,7 @@ import XCTest
 @testable import DailyDeeds
 
 final class TestJSONParsable: XCTestCase {
-    typealias Keys = TodoItem.ItemKeys
+    typealias Keys = TodoItem.CodingKeys
     private let creationDate = Date(timeIntervalSince1970: TimeInterval(1674990000))
     private let deadline = Date(timeIntervalSince1970: TimeInterval(1675000000))
     private let modificationDate = Date(timeIntervalSince1970: TimeInterval(1674991000))
@@ -19,11 +19,13 @@ final class TestJSONParsable: XCTestCase {
         let text = "Задача из JSON"
         let isDone = true
         let importance = Importance.high
+        let hexColor = "#FFFFFF"
         let json = TodoItem.buildJSON {
             (Keys.id.stringValue, id)
             (Keys.text.stringValue, text)
             (Keys.isDone.stringValue, isDone)
             (Keys.importance.stringValue, importance)
+            (Keys.hexColor.stringValue, hexColor)
             (Keys.creationDate.stringValue, creationDate)
             (Keys.deadline.stringValue, deadline)
             (Keys.modificationDate.stringValue, modificationDate)
@@ -79,14 +81,16 @@ final class TestJSONParsable: XCTestCase {
         let id = "789"
         let text = "Еще одна задача из JSON строка"
         let isDone = true
+        let hexColor = "#FFFFFF"
         let jsonString = """
             {
-                "id": "\(id)",
-                "text": "\(text)",
-                "isDone": \(isDone),
-                "deadline": "\(deadline.toString())",
-                "creationDate": "\(creationDate.toString())",
-                "modificationDate": "\(modificationDate.toString())"
+                "\(Keys.id.stringValue)": "\(id)",
+                "\(Keys.text.stringValue)": "\(text)",
+                "\(Keys.isDone.stringValue)": \(isDone),
+                "\(Keys.deadline.stringValue)": "\(deadline.toString())",
+                "\(Keys.hexColor.stringValue)": "\(hexColor)",
+                "\(Keys.creationDate.stringValue)": "\(creationDate.toString())",
+                "\(Keys.modificationDate.stringValue)": "\(modificationDate.toString())"
             }
             """
         
@@ -108,12 +112,14 @@ final class TestJSONParsable: XCTestCase {
         let id = "1"
         let text = "Задача из JSON"
         let isDone = true
+        let hexColor = "#FFFFFF"
         let importance = Importance.high
         let json = TodoItem.buildJSON {
             (Keys.id.stringValue, id)
             (Keys.text.stringValue, text)
             (Keys.isDone.stringValue, isDone)
             (Keys.importance.stringValue, importance)
+            (Keys.hexColor.stringValue, hexColor)
             (Keys.creationDate.stringValue, creationDate)
         }
 

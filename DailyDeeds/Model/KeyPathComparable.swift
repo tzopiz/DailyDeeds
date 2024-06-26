@@ -8,13 +8,45 @@
 import Foundation
 
 protocol KeyPathComparable {
-    static func compareBy<T: Comparable>(_ keyPath: KeyPath<Self, T>) -> (Self, Self) -> Bool
+    static func compareBy<T: Comparable>(
+        _ keyPath: KeyPath<Self,T>,
+        ascending: Bool
+    ) -> (Self, Self) -> Bool
+    
+    static func compareBy<T: Comparable>(
+        _ keyPath: KeyPath<Self, T?>,
+        ascending: Bool
+    ) -> (Self, Self) -> Bool
 }
 
 extension KeyPathComparable {
-    static func compareBy<T: Comparable>(_ keyPath: KeyPath<Self, T>) -> (Self, Self) -> Bool {
+    static func compareBy<T: Comparable>(
+        _ keyPath: KeyPath<Self, T>,
+        ascending: Bool = true
+    ) -> (Self, Self) -> Bool {
         return { (lhs, rhs) in
-            lhs[keyPath: keyPath] < rhs[keyPath: keyPath]
+            if ascending {
+                return lhs[keyPath: keyPath] < rhs[keyPath: keyPath]
+            } else {
+                return lhs[keyPath: keyPath] > rhs[keyPath: keyPath]
+            }
+        }
+    }
+    
+    static func compareBy<T: Comparable>(
+        _ keyPath: KeyPath<Self, T?>,
+        ascending: Bool = true
+    ) -> (Self, Self) -> Bool {
+        return { (lhs, rhs) in
+            guard let lhsValue = lhs[keyPath: keyPath], let rhsValue = rhs[keyPath: keyPath] 
+            else {
+                return lhs[keyPath: keyPath] != nil
+            }
+            if ascending {
+                return lhsValue < rhsValue
+            } else {
+                return lhsValue > rhsValue
+            }
         }
     }
 }
@@ -28,17 +60,15 @@ extension Sequence where Element: KeyPathComparable {
      - Complexity: O(n log n), where n is the length of the collection.
      */
     func sorted<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) -> [Element] {
-        if ascending {
-            return self.sorted(by: Element.compareBy(keyPath))
-        } else {
-            return self.sorted(by: Element.compareBy(keyPath)).reversed()
-        }
+        return self.sorted(
+            by: Element.compareBy(keyPath, ascending: ascending)
+        )
     }
     
-    mutating func sort<T: Comparable>(by keyPath: KeyPath<Element, T>, ascending: Bool = true) {
-        guard let sorted = self.sorted(by: keyPath, ascending: ascending) as? Self
-        else { return }
-        self = sorted
+    func sorted<T: Comparable>(by keyPath: KeyPath<Element, T?>, ascending: Bool = true) -> [Element] {
+        return self.sorted(
+            by: Element.compareBy(keyPath, ascending: ascending)
+        )
     }
     
     func filter<T>(by keyPath: KeyPath<Element, T>, predicate: @escaping (T) -> Bool) -> [Element] {

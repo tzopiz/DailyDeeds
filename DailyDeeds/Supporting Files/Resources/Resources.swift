@@ -8,6 +8,10 @@
 import SwiftUI
 
 enum Res {
+    enum Image {
+        static let arrowDown = R.image.arrowDown.image
+        static let exclamationmark2 = R.image.exclamationmark2.image
+    }
     enum Color {
         enum Label {
             static let primary = R.color.labelPrimary.color

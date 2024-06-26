@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct DetailTodoItemView: View {
-    // FIXME: -
-    // - [ ] navigation stack?
+    // TODO: -
     // - [ ] scroll textview in .compact mode
     // - [ ] button delete and save
     let item: TodoItem
@@ -74,7 +73,7 @@ struct DetailTodoItemView: View {
     }
 
     private var regularView: some View {
-        // FIXME: - -16?)))
+        // FIXME: - -16?(WTF) -
         HStack(alignment: .top, spacing: -16) {
             GeometryReader { geometry in
                 Form {
@@ -149,7 +148,7 @@ struct DetailTodoItemView: View {
             HStack {
                 Spacer()
                 Text("Удалить")
-                    .tint(Color.red)
+                    .tint(Res.Color.red)
                     .font(.system(size: 19))
                 Spacer()
             }

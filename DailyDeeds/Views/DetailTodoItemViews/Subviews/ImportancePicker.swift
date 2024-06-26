@@ -13,12 +13,12 @@ struct ImportancePicker: View {
     
     var body: some View {
         Picker(selection: $selectedSegment, label: Text("")) {
-            Image("arrow.down")
+            Res.Image.arrowDown
                 .tag(0)
-            // да, текст пустой (так нравится больше)
+            // да, текст пустой (мне так нравится больше)
             Text("")
                 .tag(1)
-            Image("exclamationmark.2")
+            Res.Image.exclamationmark2
                 .tag(2)
         }
         .pickerStyle(.segmented)

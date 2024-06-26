@@ -45,12 +45,12 @@ struct DeadlineView: View {
                     } label: {
                         Text(deadline, style: .date)
                     }
-                    .tint(Color.blue)
+                    .tint(Res.Color.blue)
                 }
             }
         }
         .padding(4)
-        .tint(Color.green)
+        .tint(Res.Color.green)
         .onChange(of: isDeadlineEnabled) {
             withAnimation {
                 if !isDeadlineEnabled {

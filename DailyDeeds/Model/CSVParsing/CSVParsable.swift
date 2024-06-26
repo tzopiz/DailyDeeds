@@ -25,6 +25,7 @@ extension TodoItem: CSVParsable {
             text
             isDone
             importance
+            hexColor
             creationDate
             deadline
             modificationDate
@@ -43,19 +44,21 @@ extension TodoItem: CSVParsable {
               isDoneString == "true" || isDoneString == "false",
               let importanceRawValue = csvArray[safe: 3],
               let importance = Importance(rawValue: importanceRawValue),
-              let creationDateString = csvArray[safe: 4],
+              let hexColor = csvArray[safe: 4],
+              let creationDateString = csvArray[safe: 5],
               let creationDate = creationDateString.toDate()
         else { return nil }
         
         let isDone = isDoneString == "true"
-        let deadline = csvArray[safe: 5]?.toDate()
-        let modificationDate = csvArray[safe: 6]?.toDate()
+        let deadline = csvArray[safe: 6]?.toDate()
+        let modificationDate = csvArray[safe: 7]?.toDate()
         
         return TodoItem(
             id: id,
             text: text,
             isDone: isDone,
             importance: importance,
+            hexColor: hexColor,
             creationDate: creationDate,
             deadline: deadline,
             modificationDate: modificationDate

@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct TodoItemsListView: View {
-    // FIXME: -
-    // - [ ] animation sorting: contentTransition(.symbolEffect(.replace))
+    // TODO: -
     // - [ ] ObservedObject -> Observable
-    // - [ ] different orientation
+    // - [ ] combine
+    // - [ ] last line such as button to add new item
     @ObservedObject
     var viewModel: TodoItemViewModel
     
@@ -23,6 +23,19 @@ struct TodoItemsListView: View {
     
     @State
     private var selectedItem: TodoItem?
+    
+    private let sortingOptions: [SortType] = [
+        .byCreationDate(),
+        .byDeadline(),
+        .byDateModified(),
+        .byImportance(),
+        .byIsDone()
+    ]
+    
+    private let orderOptions: [SortType.Order] = [
+        .ascending,
+        .descending
+    ]
     
     var body: some View {
         NavigationStack {
@@ -37,7 +50,7 @@ struct TodoItemsListView: View {
         List {
             Section() {
                 listHeaderView
-                .listRowBackground(Res.Color.Back.iOSPrimary)
+                    .listRowBackground(Res.Color.Back.iOSPrimary)
             }
             
             ForEach(viewModel.items) { item in
@@ -45,6 +58,12 @@ struct TodoItemsListView: View {
             }
             .onMove(perform: viewModel.move)
             .onDelete(perform: viewModel.remove)
+            
+            Section {
+                Text(viewModel.sortType.fullDescription)
+                    .foregroundStyle(Res.Color.Label.tertiary)
+                    .listRowBackground(Res.Color.Back.iOSPrimary)
+            }
         }
         .listSectionSpacing(0)
         .scrollIndicators(.hidden)
@@ -53,10 +72,7 @@ struct TodoItemsListView: View {
             DetailTodoItemView(item: item)
         }
         .toolbar {
-            Button { print("sorted button pressed") }
-            label: {
-                Image(systemName: "line.3.horizontal.decrease.circle")
-            }
+            sortingButton
             EditButton()
         }
     }
@@ -98,18 +114,52 @@ struct TodoItemsListView: View {
             )
     }
     
+    private var sortingButton: some View {
+        Menu {
+            ForEach(sortingOptions, id: \.self) { option in
+                Menu(option.shortDescription) {
+                    ForEach(orderOptions, id: \.self) { order in
+                        let sortType = SortType(option, order: order)
+                        Button {
+                            viewModel.setSortType(sortType)
+                        } label: {
+                            Text(sortType.description)
+                        }
+                    }
+                }
+            }
+            Button {
+                viewModel.setSortType(.none)
+            } label: {
+                Text(SortType.none.shortDescription)
+            }
+        } label: {
+            Image(
+                systemName: viewModel.sortType == .none ? "line.3.horizontal.decrease.circle" : "line.3.horizontal.decrease.circle.fill"
+            )
+            .symbolEffect(.bounce.down, value: viewModel.sortType)
+        }
+    }
+    
     private var listHeaderView: some View {
         HStack {
-            Text("Выполнено – 5")
+            Text("Выполнено – \(viewModel.completeTodoItemsCount)")
                 .foregroundStyle(Res.Color.Label.tertiary)
             Spacer()
             Button {
-                print("Показать выполненые задачи")
+                withAnimation {
+                    viewModel.setSortType(
+                        viewModel.sortType == .isDoneOnly(.ascending) ? .isDoneOnly(.descending) : .isDoneOnly(.ascending)
+                    )
+                }
             } label: {
-                Text("Показать")
+                Text(
+                    viewModel.sortType == .isDoneOnly(.ascending) ? "Скрыть" : "Показать"
+                )
             }
         }
     }
+    
     func addNewItem() {
         guard let newItem = TodoItemViewModel.createTodoItems(5).randomElement()
         else { return }

@@ -18,17 +18,19 @@ final class TestCSVParsable: XCTestCase {
         let text = "Задача для тестирования CSV"
         let isDone = false
         let importance = Importance.high
+        let hexColor = "#FFFFFF"
         let item = TodoItem(
             id: id,
             text: text,
             isDone: isDone,
             importance: importance,
+            hexColor: hexColor,
             creationDate: creationDate,
             deadline: deadline,
             modificationDate: modificationDate
         )
         let expectedCSV =
-        "\(id),\(text),\(isDone),\(importance.rawValue),\(self.creationDate.toString()),\(self.deadline.toString()),\(self.modificationDate.toString())"
+        "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(self.creationDate.toString()),\(self.deadline.toString()),\(self.modificationDate.toString())"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
@@ -38,6 +40,7 @@ final class TestCSVParsable: XCTestCase {
         let text = "Задача для тестирования CSV"
         let isDone = false
         let importance = Importance.high
+        let hexColor = "#FFFFFF"
         let item = TodoItem(
             id: id,
             text: text,
@@ -46,7 +49,7 @@ final class TestCSVParsable: XCTestCase {
             creationDate: creationDate
         )
         let expectedCSV =
-        "\(id),\(text),\(isDone),\(importance.rawValue),\(creationDate.toString()),,"
+        "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(creationDate.toString()),,"
         
         XCTAssertEqual(item.csv, expectedCSV)
     }
@@ -56,7 +59,8 @@ final class TestCSVParsable: XCTestCase {
         let text = "Задача для распарсинга"
         let isDone = true
         let importance = Importance.low
-        let csvString = "\(id),\(text),\(isDone),\(importance.rawValue),\(creationDate.toString()),\(deadline.toString()),\(modificationDate.toString())"
+        let hexColor = "#FFFFFF"
+        let csvString = "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(creationDate.toString()),\(deadline.toString()),\(modificationDate.toString())"
         
         guard let parsedItem = TodoItem.parse(csv: csvString) else {
             XCTFail("Failed to parse CSV string")
@@ -67,6 +71,7 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(parsedItem.text, text)
         XCTAssertEqual(parsedItem.importance, importance)
         XCTAssertEqual(parsedItem.isDone, isDone)
+        XCTAssertEqual(parsedItem.hexColor, hexColor)
         XCTAssertEqual(parsedItem.creationDate.toString(), creationDate.toString())
         XCTAssertEqual(parsedItem.deadline?.toString(), deadline.toString())
         XCTAssertEqual(parsedItem.modificationDate?.toString(), modificationDate.toString())
@@ -77,7 +82,8 @@ final class TestCSVParsable: XCTestCase {
         let text = "Задача,для,распарсинга"
         let isDone = false
         let importance = Importance.high
-        let csvString = "\(id),\(text.escapeSpecialCharacters(",")),\(isDone),\(importance.rawValue),\(creationDate.toString()),,"
+        let hexColor = "#FFFFFF"
+        let csvString = "\(id),\(text.escapeSpecialCharacters(",")),\(isDone),\(importance.rawValue),\(hexColor),\(creationDate.toString()),,"
         
         guard let parsedItem = TodoItem.parse(csv: csvString) else {
             XCTFail("Failed to parse CSV string")
@@ -88,6 +94,7 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(parsedItem.text, text)
         XCTAssertEqual(parsedItem.importance, importance)
         XCTAssertEqual(parsedItem.isDone, isDone)
+        XCTAssertEqual(parsedItem.hexColor, hexColor)
         XCTAssertEqual(parsedItem.creationDate.toString(), creationDate.toString())
         XCTAssertNil(parsedItem.deadline)
         XCTAssertNil(parsedItem.modificationDate)

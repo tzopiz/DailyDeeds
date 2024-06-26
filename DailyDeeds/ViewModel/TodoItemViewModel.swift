@@ -11,9 +11,32 @@ class TodoItemViewModel: ObservableObject {
     @Published
     private(set) var model = FileCache()
     
+    @Published 
+    var sortType: SortType = .none
+
     var items: Array<TodoItem> {
-        return model.todoItems
+        switch sortType {
+        case .byCreationDate(let order):
+            return model.todoItems.sorted(by: \.creationDate, ascending: order.isAscending)
+        case .byDeadline(let order):
+            return model.todoItems.sorted(by: \.deadline, ascending: order.isAscending)
+        case .byDateModified(let order):
+            return model.todoItems.sorted(by: \.modificationDate, ascending: order.isAscending)
+        case .byImportance(let order):
+            return model.todoItems.sorted(by: \.importance, ascending: order.isAscending)
+        case .byIsDone(let order):
+            return model.todoItems.sorted(by: \.isDone, ascending: order.isAscending)
+        case .isDoneOnly(let order):
+            return model.todoItems.filter(by: \.isDone) { order == .ascending ? $0 : !$0 }
+        case .none:
+            return model.todoItems
+        }
     }
+    
+    var completeTodoItemsCount: Int {
+        items.filter(by: \.isDone, predicate: { $0 }).count
+    }
+
     
     init(model: FileCache = FileCache(), items: Array<TodoItem> = []) {
         self.model = model
@@ -68,11 +91,12 @@ class TodoItemViewModel: ObservableObject {
         }
     }
     
-    // MARK: -
-    // TODO: Sorting
-    
-    
+    // MARK: - Sorting
+    func setSortType(_ sortType: SortType) {
+        self.sortType = sortType
+    }
 }
+
 extension TodoItemViewModel {
     static func createTodoItems(_ n: Int) -> [TodoItem] {
         var items = [TodoItem]()
@@ -96,7 +120,7 @@ extension TodoItemViewModel {
             let text = texts[i % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
-            let creationDate = Date().addingTimeInterval(Double(i) * 86400) // каждый элемент на день позже
+            let creationDate: Date = .now
             let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil // случайный дедлайн
 
             let item = TodoItem(
