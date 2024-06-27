@@ -35,9 +35,7 @@ extension FileCache {
     /// If a task with the same identifier (`id`) already exists in the cache, the new item is not added.
     /// This ensures uniqueness of tasks in the cache based on their identifier.
     mutating func append(_ item: TodoItem) {
-        if let index = todoItems.firstIndex(where: { $0.id == item.id }) {
-            todoItems[index] = item
-        } else {
+        if !todoItems.contains(where: { $0.id == item.id }) {
             todoItems.append(item)
         }
     }
@@ -153,6 +151,14 @@ extension FileCache {
 
 // MARK: - Update
 extension FileCache {
+    mutating func update(_ item: TodoItem) {
+        if let index = todoItems.firstIndex(where: { $0.id == item.id }) {
+            todoItems[index] = item
+        } else {
+            todoItems.append(item)
+        }
+    }
+    
     mutating func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
         todoItems.move(fromOffsets: indices, toOffset: newOffset)
     }

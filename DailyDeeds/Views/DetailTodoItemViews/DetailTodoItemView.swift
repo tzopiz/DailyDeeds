@@ -8,57 +8,33 @@
 import SwiftUI
 
 struct DetailTodoItemView: View {
-    // TODO: -
-    // - [ ] scroll textview in .compact mode
-    // - [ ] button delete and save
-    let item: TodoItem
+    
+    @ObservedObject
+    var todoItem: MutableTodoItem
+    var onUpdate: (TodoItem?) -> Void
     
     @Environment(\.dismiss)
     private var dismiss
-    @Environment(\.horizontalSizeClass)
-    private var horizontalSizeClass
-    
-    private enum TextEditorFocus: Int {
-        case text
-    }
-    
-    @FocusState
-    private var textEditorFocus: TextEditorFocus?
-    
-    @State
-    private var selectedState: Int
-    @State
-    private var selectedDate = Date()
-    @State
-    private var isOn: Bool
-    @State
-    private var text: String
-    @State
-    private var selectedColor: Color
-    
-    init(item: TodoItem) {
-        self.item = item
-        self.isOn = item.deadline != nil
-        self.text = item.text
-        self.selectedState = item.importance.order
-        self.selectedColor = .init(hex: item.hexColor)
+    @Environment(\.verticalSizeClass)
+    private var verticalSizeClass
+
+    init(todoItem: MutableTodoItem, onUpdate: @escaping (TodoItem?) -> Void) {
+        self.todoItem = todoItem
+        self.onUpdate = onUpdate
     }
     
     var body: some View {
         NavigationStack {
             content
-                .listSectionSpacing(16)
-                .scrollIndicators(.hidden)
                 .navigationTitle("Дело")
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Отменить") {
-                            dismiss()
-                        }
+                        Button("Отменить") { dismiss() }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Сохранить") {
+                            onUpdate(todoItem.immutable)
                             dismiss()
                         }
                     }
@@ -68,101 +44,33 @@ struct DetailTodoItemView: View {
     
     @ViewBuilder
     private var content: some View {
-        if horizontalSizeClass == .compact {
-            compactView
-        } else if horizontalSizeClass == .regular {
-            regularView
-        }
-    }
-
-    private var regularView: some View {
-        // FIXME: - -16?(WTF) -
-        HStack(alignment: .top, spacing: -16) {
-            GeometryReader { geometry in
-                Form {
-                    ScrollView {
-                        TextEditor(text: $text)
-                            .frame(height: geometry.size.height - 80)
-                            .focused($textEditorFocus, equals: .text)
-                    }
-                }
-            }
-            .scrollDisabled(true)
-            Form {
-                baseFormItems()
-            }
-        }
-        .background(Res.Color.Back.iOSPrimary)
-    }
-    
-    private var compactView: some View {
-        Form {
-            Section {
-                TextEditor(text: $text)
-                    .frame(minHeight: 120)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .focused($textEditorFocus, equals: .text)
-            }
-            baseFormItems()
-        }
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                HStack {
-                    Button {
-                        textEditorFocus = nil
-                    } label: {
-                        Text("Close")
-                    }
-                    Divider()
-                    Spacer()
-                }
-            }
+        if verticalSizeClass == .compact {
+            compactVerticalDetailView
+        } else if verticalSizeClass == .regular {
+            regularVerticalDetailView
         }
     }
     
-    @ViewBuilder
-    private func baseFormItems() -> some View {
-        Section {
-            importanceView
-            ColorPicker(
-                "Цвет \(selectedColor.hexString)",
-                selection: $selectedColor
-            )
-            .padding(8)
-            DeadlineView(
-                manager: DeadlineManager(deadline: item.deadline)
-            )
-        }
-        Section {
+    private var regularVerticalDetailView: some View {
+        RegularVerticalDetailView(todoItem: todoItem) {
             deleteButton
         }
     }
     
-    private var importanceView: some View {
-        HStack {
-            Text("Важность")
-                .font(.system(size: 19))
-            Spacer()
-            ImportancePicker(selectedSegment: selectedState)
+    private var compactVerticalDetailView: some View {
+        CompactVerticalDetailView(todoItem: todoItem) {
+            deleteButton
         }
-        .padding(8)
     }
     
     private var deleteButton: some View {
-        Button { }
-        label: {
-            HStack {
-                Spacer()
-                Text("Удалить")
-                    .tint(Res.Color.red)
-                    .font(.system(size: 19))
-                Spacer()
-            }
+        Button(role: .destructive) {
+            onUpdate(nil)
+            dismiss()
+        } label: {
+            Text("Удалить")
+                .frame(maxWidth: .infinity)
+                .frame(height: 56)
         }
     }
-}
-
-#Preview {
-    let item = TodoItemViewModel.createTodoItems(5).randomElement()!
-    DetailTodoItemView(item: item)
 }

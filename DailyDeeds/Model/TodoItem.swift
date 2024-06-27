@@ -12,6 +12,14 @@ enum Importance: String, Comparable, Equatable {
     case medium = "обычная"
     case high = "важная"
     
+    init(_ value: Int) {
+        switch value {
+        case 0: self = .low
+        case 2: self = .high
+        default: self = .medium
+        }
+    }
+    
     var order: Int {
         switch self {
         case .low: return 0
@@ -19,12 +27,13 @@ enum Importance: String, Comparable, Equatable {
         case .high: return 2
         }
     }
+    
     static func < (lhs: Importance, rhs: Importance) -> Bool {
         return lhs.order < rhs.order
     }
 }
 
-struct TodoItem: Identifiable, Equatable, KeyPathComparable {
+struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
     enum CodingKeys: String, CodingKey {
         case id, text, isDone, importance, hexColor
         case creationDate, deadline, modificationDate
@@ -66,6 +75,10 @@ struct TodoItem: Identifiable, Equatable, KeyPathComparable {
         self.creationDate = creationDate
         self.deadline = deadline
         self.modificationDate = modificationDate
+    }
+    
+    var mutable: MutableTodoItem {
+        return MutableTodoItem(from: self)
     }
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct DailyDeedsApp: App {
-    private let items = TodoItemViewModel.createTodoItems(20)
+    private let items = TodoItemViewModel.createTodoItems(4)
     
     var body: some Scene {
         WindowGroup {

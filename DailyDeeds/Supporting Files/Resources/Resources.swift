@@ -12,6 +12,9 @@ enum Res {
         static let arrowDown = R.image.arrowDown.image
         static let exclamationmark2 = R.image.exclamationmark2.image
         static let chevronRight = R.image.chevronRight.image
+        static let circleRed = R.image.circleRed.image
+        static let circle = R.image.circle.image
+        static let checkmarkCircle = R.image.checkmarkCircle.image
     }
     enum Color {
         enum Label {
@@ -23,7 +26,7 @@ enum Res {
         
         enum Back {
             static let elevated = R.color.backElevated.color
-            static let Primary = R.color.backPrimary.color
+            static let primary = R.color.backPrimary.color
             static let iOSPrimary = R.color.backiOSPrimary.color
             static let secondary = R.color.backSecondary.color
         }

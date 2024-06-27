@@ -8,24 +8,24 @@
 import SwiftUI
 
 struct ImportancePicker: View {
-    @State
+    @Binding
     var selectedSegment: Int
     
     var body: some View {
-        Picker(selection: $selectedSegment, label: Text("")) {
-            Res.Image.arrowDown
-                .tag(0)
-            // да, текст пустой (мне так нравится больше)
-            Text("")
-                .tag(1)
-            Res.Image.exclamationmark2
-                .tag(2)
+        HStack {
+            Text("Важность")
+            Spacer()
+            Picker(selection: $selectedSegment, label: Text("")) {
+                Res.Image.arrowDown
+                    .tag(0)
+                Text("") // как будто без 'нет' симпотней 😄
+                    .tag(1)
+                Res.Image.exclamationmark2
+                    .tag(2)
+            }
+            .frame(width: 150)
+            .pickerStyle(.segmented)
         }
-        .pickerStyle(.segmented)
-        .scaledToFit()
+        .frame(height: 56)
     }
-}
-
-#Preview {
-    ImportancePicker(selectedSegment: 2)
 }

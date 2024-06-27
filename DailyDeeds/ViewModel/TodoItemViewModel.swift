@@ -11,7 +11,7 @@ class TodoItemViewModel: ObservableObject {
     @Published
     private(set) var model = FileCache()
     
-    @Published 
+    @Published
     var sortType: TaskCriteria.SortType = .byCreationDate(.descending)
     
     @Published
@@ -39,7 +39,7 @@ class TodoItemViewModel: ObservableObject {
         }
     }
     
-    var completeTodoItemsCount: Int {
+    var completedTodoItemsCount: Int {
         model.todoItems.filter(by: \.isDone, predicate: { $0 }).count
     }
     
@@ -65,7 +65,9 @@ class TodoItemViewModel: ObservableObject {
     
     // MARK: - Create
     func append(_ item: TodoItem) {
-        model.append(item)
+        if item.text.count > 0 {
+            model.append(item)
+        }
     }
     
     func addTodoItems(_ items: Array<TodoItem>) {
@@ -75,6 +77,21 @@ class TodoItemViewModel: ObservableObject {
     // MARK: - Update
     func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
         model.move(fromOffsets: indices, toOffset: newOffset)
+    }
+    func update(oldItem: TodoItem, to newItem: TodoItem?) {
+        guard let newItem = newItem else {
+            model.remove(with: oldItem.id)
+            return
+        }
+        if newItem.id == oldItem.id, newItem.text.count > 0 {
+            model.update(newItem)
+        }
+    }
+    
+    func complete(_ item: TodoItem) {
+        let newItem = MutableTodoItem(from: item)
+        newItem.isDone.toggle()
+        update(oldItem: item, to: newItem.immutable)
     }
     
     // MARK: - Save
@@ -110,12 +127,13 @@ class TodoItemViewModel: ObservableObject {
         }
     }
 }
+
 extension TodoItemViewModel {
     static func createTodoItems(_ n: Int) -> [TodoItem] {
         var items = [TodoItem]()
 
         let texts = [
-            "Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
+            "!!! Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
             "Call mom to check in and see how she's doing. Don't forget to ask about her recent doctor's appointment.",
             "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
             "Clean the house thoroughly, including dusting all the furniture, vacuuming the carpets, and mopping the floors.",
@@ -133,7 +151,7 @@ extension TodoItemViewModel {
             let text = texts[i % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
-            let modificationDate = Date().addingTimeInterval(Double(Int.random(in: 0...n)) * 86400)
+            let creationDate = Date()
             let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil
             let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
 
@@ -142,8 +160,8 @@ extension TodoItemViewModel {
                 isDone: isDone,
                 importance: importance,
                 hexColor: hexColor,
-                deadline: deadline,
-                modificationDate: modificationDate
+                creationDate: creationDate,
+                deadline: deadline
             )
 
             items.append(item)

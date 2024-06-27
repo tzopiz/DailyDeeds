@@ -16,14 +16,25 @@ enum TaskCriteria {
         case all
     }
 
-    enum SortType: Hashable {
-        case byCreationDate(Order = .ascending)
-        case byDeadline(Order = .ascending)
-        case byImportance(Order = .ascending)
-        case byLastModifiedDate(Order = .ascending)
-        case byCompletionStatus(Order = .ascending)
+    enum SortType: Hashable, CaseIterable {
 
-        enum Order {
+        case byCreationDate(Order)
+        case byDeadline(Order)
+        case byImportance(Order)
+        case byLastModifiedDate(Order)
+        case byCompletionStatus(Order)
+        
+        static var allCases: [TaskCriteria.SortType] {
+            return [
+                .byCreationDate(.ascending),
+                .byDeadline(.ascending),
+                .byImportance(.ascending),
+                .byLastModifiedDate(.ascending),
+                .byCompletionStatus(.ascending)
+            ]
+        }
+
+        enum Order: CaseIterable {
             case ascending
             case descending
 
@@ -81,11 +92,11 @@ enum TaskCriteria {
         var description: String {
             switch self {
             case .byCreationDate(let order):
-                return order.isAscending ? "Сначала старые" : "Сначала новые"
+                return order.isAscending ? "Сначала новые" : "Сначала старые"
             case .byDeadline(let order):
                 return order.isAscending ? "Скоро дедлайн" : "Дедлайн не скоро"
             case .byLastModifiedDate(let order):
-                return order.isAscending ? "Недавно измененные" : "Давно измененные"
+                return order.isAscending ? "Давно измененные" : "Недавно измененные"
             case .byImportance(let order):
                 return order.isAscending ? "Сначала неважные" : "Сначала важные"
             case .byCompletionStatus(let order):
