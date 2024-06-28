@@ -16,51 +16,62 @@ struct TodoItemsListView: View {
     
     @Environment(\.dismiss)
     private var dismiss
+    @Environment(\.verticalSizeClass)
+    private var verticalSizeClass
+    @Environment(\.horizontalSizeClass)
+    private var horizontalSizeClass
     
     @FocusState
     private var isActive: Bool
     
     @State
     private var selectedItem: TodoItem?
+    @State
+    private var isSideBarList: Bool = true
     
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .bottom) {
-                todoItemsList
-                if !isActive {
-                    CreateTodoItemButton(action: addNewItem)
+        NavigationSplitView {
+            todoItemsListView
+                .overlay(alignment: isSideBarList ? .bottomLeading : .bottom) {
+                    if !isActive {
+                        CreateTodoItemButton(action: addNewItem)
+                            .padding(32)
+                    }
                 }
+        } detail: {
+            if let selectedItem = selectedItem, isSideBarList {
+                DetailTodoItemView(todoItem: selectedItem.mutable) { item in
+                    viewModel.update(oldItem: selectedItem, to: item)
+                    self.selectedItem = nil
+                }
+            } else if isSideBarList {
+                Text("Выберите задачу для просмотра деталей")
+                    .foregroundStyle(Res.Color.Label.secondary)
             }
         }
     }
     
-    private var todoItemsList: some View {
-        List {
-            Section {
-                ForEach(viewModel.items) { item in
-                    listRow(for: item)
-                }
-                .onDelete(perform: viewModel.remove)
-                
-                CreateNewTodoItemRowView(text: "") { text in
-                    viewModel.append(TodoItem(text: text))
-                }
-                .focused($isActive)
-            } header: {
-                listHeaderView
-            } footer: {
-                Text(viewModel.sortType.fullDescription)
-                    .foregroundStyle(Res.Color.Label.tertiary)
+    @ViewBuilder
+    private var listView: some View {
+        if isSideBarList {
+            List(selection: $selectedItem) {
+                listContent
             }
-            .listRowBackground(Res.Color.Back.secondary)
-            .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
-            .listRowSeparatorTint(Res.Color.Support.separator)
+            .listStyle(.sidebar)
+        } else {
+            List {
+                listContent
+            }
         }
+    }
+
+    private var todoItemsListView: some View {
+        listView
         .scrollContentBackground(.hidden)
         .background(Res.Color.Back.iOSPrimary)
         .scrollIndicators(.hidden)
         .navigationTitle("Мои дела")
-        .sheet(item: $selectedItem) { item in
+        .customSheet(isPresented: !isSideBarList, item: $selectedItem) { item in
             DetailTodoItemView(todoItem: item.mutable) { newItem in
                 viewModel.update(oldItem: item, to: newItem)
             }
@@ -68,6 +79,31 @@ struct TodoItemsListView: View {
         .toolbar {
             sortingButton
         }
+        .onAppear {
+            isSideBarList = horizontalSizeClass == .regular && verticalSizeClass == .regular
+        }
+    }
+    
+    private var listContent: some View {
+        Section {
+            ForEach(viewModel.items) { item in
+                listRow(for: item)
+            }
+            .onDelete(perform: viewModel.remove)
+            
+            CreateNewTodoItemRowView(text: "") { text in
+                viewModel.append(TodoItem(text: text))
+            }
+            .focused($isActive)
+        } header: {
+            listHeaderView
+        } footer: {
+            Text(viewModel.sortType.fullDescription)
+                .foregroundStyle(Res.Color.Label.tertiary)
+        }
+        .listRowBackground(Res.Color.Back.secondary)
+        .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
+        .listRowSeparatorTint(Res.Color.Support.separator)
     }
     
     private var listHeaderView: some View {
