@@ -9,7 +9,7 @@ import XCTest
 @testable import DailyDeeds
 
 final class FileCacheTests: XCTestCase {
-    
+    typealias Keys = TodoItem.CodingKeys
     private var fileCache: FileCache!
     private let fileNameJSON = "test_tasks.json"
     private let fileNameCSV = "test_tasks.csv"
@@ -19,14 +19,17 @@ final class FileCacheTests: XCTestCase {
         creationDate: .now, deadline: nil,
         modificationDate: .now
     )
+    
     override func setUp() async throws {
         try await super.setUp()
         fileCache = FileCache()
     }
+    
     override func tearDown() {
         super.tearDown()
         fileCache = nil
     }
+    
     override func setUpWithError() throws {
         try super.setUpWithError()
         fileCache = FileCache()
@@ -38,14 +41,14 @@ final class FileCacheTests: XCTestCase {
     }
     
     func testAddTodoItem() {
-        fileCache.addTodoItem(todoitem)
+        fileCache.append(todoitem)
         XCTAssertEqual(fileCache.todoItems.count, 1)
         XCTAssertEqual(fileCache.todoItems.first?.id, "1")
     }
     
     func testAddTodoItem_Duplicate() {
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem)
+        fileCache.append(todoitem)
+        fileCache.append(todoitem)
         XCTAssertEqual(fileCache.todoItems.count, 1)
     }
     
@@ -57,9 +60,9 @@ final class FileCacheTests: XCTestCase {
             creationDate: .now, deadline: nil,
             modificationDate: .now
         )
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem2)
-        fileCache.removeTodoItem(by: "1")
+        fileCache.append(todoitem)
+        fileCache.append(todoitem2)
+        fileCache.remove(with: todoitem.id)
         XCTAssertEqual(fileCache.todoItems.count, 1)
         XCTAssertEqual(fileCache.todoItems.first?.id, id)
     }
@@ -71,9 +74,11 @@ final class FileCacheTests: XCTestCase {
             creationDate: .now, deadline: nil,
             modificationDate: .now
         )
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem2)
-        fileCache.removeAllTodoItems()
+        fileCache.append(todoitem)
+        fileCache.append(todoitem2)
+        for item in fileCache.todoItems {
+            fileCache.remove(with: item.id)
+        }
         XCTAssertTrue(fileCache.todoItems.isEmpty)
     }
     
@@ -91,9 +96,9 @@ final class FileCacheTests: XCTestCase {
             modificationDate: .now
         )
         
-        fileCache.addTodoItem(todoitem)
-        fileCache.addTodoItem(todoitem2)
-        fileCache.addTodoItem(todoitem3)
+        fileCache.append(todoitem)
+        fileCache.append(todoitem2)
+        fileCache.append(todoitem3)
         
         let error = fileCache.saveToFile(named: fileNameJSON, format: .json)
         
@@ -109,14 +114,19 @@ final class FileCacheTests: XCTestCase {
     
     func testSaveToFile_CSV() throws {
         let date = Date.now
+        let id = "3"
+        let text = "test text for test task"
+        let importance: Importance = .high
+        let hexColor = "#FFFFFF"
+        let isDone = false
         let todoitem = TodoItem(
-            id: "3", text: "test text for test task",
-            isDone: false, importance: .medium,
+            id: id, text: text, isDone: isDone,
+            importance: importance, hexColor: hexColor,
             creationDate: date, deadline: nil,
             modificationDate: date
         )
         
-        fileCache.addTodoItem(todoitem)
+        fileCache.append(todoitem)
         
         let error = fileCache.saveToFile(named: fileNameCSV, format: .csv)
         
@@ -125,7 +135,10 @@ final class FileCacheTests: XCTestCase {
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         let csvString = try String(contentsOf: url)
 
-        XCTAssertEqual(csvString, "3,test text for test task,false,обычная,\(date.toString()),,\(date.toString())")
+        XCTAssertEqual(
+            csvString,
+            "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(date.toString()),,\(date.toString())"
+        )
         
         try FileManager.default.removeItem(at: url)
     }
@@ -133,12 +146,16 @@ final class FileCacheTests: XCTestCase {
     func testLoadFromFile_JSON() throws {
         let date = Date.now
         let id = "1231231"
+        let text = "Test Task"
+        let isDone = false
+        let hexColor = "#FFFFFF"
         let json = """
         [{
-            "id": "\(id)",
-            "text": "Test Task",
-            "isDone": false,
-            "creationDate": "\(date.toString())"
+            "\(Keys.id.stringValue)": "\(id)",
+            "\(Keys.text.stringValue)": "\(text)",
+            "\(Keys.isDone.stringValue)": \(isDone),
+            "\(Keys.hexColor.stringValue)": "\(hexColor)",
+            "\(Keys.creationDate.stringValue)": "\(date.toString())"
         }]
         """
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)
@@ -160,16 +177,20 @@ final class FileCacheTests: XCTestCase {
     
     func testLoadFromFile_CSV() throws {
         let date = Date.now
-        let csv = "1,Test Task,false,обычная,\(date.toString())"
+        let id = "1"
+        let text = "Test Task"
+        let isDone = false
+        let importance: Importance = .medium
+        let hexColor = "#FFFFFF"
+        let csv = "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(date.toString()),,"
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         try csv.write(to: url, atomically: true, encoding: .utf8)
         
         let result = fileCache.loadFromFile(named: fileNameCSV, format: .csv)
-        
         switch result {
         case .success(let items):
             XCTAssertEqual(items.count, 1)
-            XCTAssertEqual(items.first?.id, "1")
+            XCTAssertEqual(items.first?.id, id)
             XCTAssertNil(items.first?.deadline)
         case .failure(_):
             XCTFail()

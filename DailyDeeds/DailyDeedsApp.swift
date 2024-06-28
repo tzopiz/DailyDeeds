@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct DailyDeedsApp: App {
+    private let items = TodoItemViewModel.createTodoItems(4)
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TodoItemsListView(viewModel: TodoItemViewModel(items: items))
         }
     }
 }

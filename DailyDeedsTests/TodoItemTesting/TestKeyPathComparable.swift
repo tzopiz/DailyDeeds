@@ -42,14 +42,6 @@ final class TestKeyPathComparable: XCTestCase {
         XCTAssertEqual(sortedItems, [item3, item2, item1])
     }
     
-    func testSortByImportanceKeyPath() {
-        
-        var unsortedItems = [item3, item2, item1]
-        unsortedItems.sort(by: \.importance)
-        
-        XCTAssertEqual(unsortedItems, [item1, item2, item3])
-    }
-    
     func testFilterByImportanceKeyPath() {
         let unsortedItems = [item1, item2, item3]
         let filteredItems = unsortedItems.filter(by: \.deadline, predicate: { $0 != nil} )

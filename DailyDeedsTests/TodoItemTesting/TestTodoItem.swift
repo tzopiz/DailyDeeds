@@ -8,7 +8,7 @@
 import XCTest
 @testable import DailyDeeds
 
-class TodoItemTests: XCTestCase {
+final class TodoItemTests: XCTestCase {
     
     func testInitialization() {
         let text = "Новая задача"
