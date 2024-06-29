@@ -23,7 +23,7 @@ extension Color {
         default:
             (a, r, g, b) = (1, 1, 1, 0)
         }
-
+        
         self.init(
             .sRGB,
             red: Double(r) / 255,
@@ -57,7 +57,7 @@ extension Color {
         var saturation: CGFloat = 0
         var brightness: CGFloat = 0
         var alpha: CGFloat = 0
-
+        
         UIColor(self).getHue(
             &hue,
             saturation: &saturation,
