@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension View {
-    func sheet<Element: Identifiable, Preview: View>(
+    func customSheet<Element: Identifiable, Preview: View>(
         isPresented: Bool,
         item: Binding<Element?>,
         action: @escaping (Element) -> Preview
@@ -20,8 +20,5 @@ extension View {
                 action: action
             )
         )
-    }
-    func scrollContentBackground(_ color: Color) -> some View {
-        self.modifier(ScrollContentBackground(color: color))
     }
 }

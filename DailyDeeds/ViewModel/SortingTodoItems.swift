@@ -14,9 +14,6 @@ enum TaskCriteria {
     enum FilterType {
         case notCompletedOnly
         case all
-        var isEnabled: Bool {
-            self == .notCompletedOnly
-        }
     }
 
     enum SortType: Hashable, CaseIterable {

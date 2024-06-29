@@ -33,7 +33,8 @@ struct CompactVerticalDetailView<Content: View>: View {
         HStack(spacing: 0) {
             TextEditor(text: $todoItem.text)
                 .focused($isActive)
-                .scrollContentBackground(Res.Color.Back.secondary)
+                .scrollContentBackground(.hidden)
+                .background(Res.Color.Back.secondary)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .padding(
                     !isActive ?

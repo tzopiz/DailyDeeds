@@ -41,14 +41,14 @@ extension TodoItem: JSONParsable {
     /// JSON representation of the current TodoItem object.
     var json: JSONDictionary {
         return TodoItem.buildJSON {
-            (CodingKeys.id, id)
-            (CodingKeys.text, text)
-            (CodingKeys.isDone, isDone)
-            (CodingKeys.importance, importance)
-            (CodingKeys.hexColor, hexColor)
-            (CodingKeys.creationDate, creationDate)
-            (CodingKeys.deadline, deadline)
-            (CodingKeys.modificationDate, modificationDate)
+            (CodingKeys.id.stringValue, id)
+            (CodingKeys.text.stringValue, text)
+            (CodingKeys.isDone.stringValue, isDone)
+            (CodingKeys.importance.stringValue, importance)
+            (CodingKeys.hexColor.stringValue, hexColor)
+            (CodingKeys.creationDate.stringValue, creationDate)
+            (CodingKeys.deadline.stringValue, deadline)
+            (CodingKeys.modificationDate.stringValue, modificationDate)
         }
     }
     
@@ -56,19 +56,19 @@ extension TodoItem: JSONParsable {
     /// - Parameter json: A JSON object in the form of `Any'.
     /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
     static func parse(json dict: JSONDictionary) -> TodoItem? {
-        guard let id = dict[CodingKeys.id] as? String,
-              let text = dict[CodingKeys.text] as? String,
-              let isDone = dict[CodingKeys.isDone] as? Bool,
-              let creationTimestamp = dict[CodingKeys.creationDate] as? String,
+        guard let id = dict[CodingKeys.id.stringValue] as? String,
+              let text = dict[CodingKeys.text.stringValue] as? String,
+              let isDone = dict[CodingKeys.isDone.stringValue] as? Bool,
+              let creationTimestamp = dict[CodingKeys.creationDate.stringValue] as? String,
               let creationDate = creationTimestamp.toDate(),
-              let hexColor = dict[CodingKeys.hexColor] as? String
+              let hexColor = dict[CodingKeys.hexColor.stringValue] as? String
         else { return nil }
         
-        let deadline = (dict[CodingKeys.deadline] as? String)?.toDate()
-        let modificationDate = (dict[CodingKeys.modificationDate] as? String)?.toDate()
+        let deadline = (dict[CodingKeys.deadline.stringValue] as? String)?.toDate()
+        let modificationDate = (dict[CodingKeys.modificationDate.stringValue] as? String)?.toDate()
         
         let importance: Importance = {
-            guard let importanceRawValue = dict[CodingKeys.importance] as? String,
+            guard let importanceRawValue = dict[CodingKeys.importance.stringValue] as? String,
                   let importanceValue = Importance(rawValue: importanceRawValue)
             else { return .medium }
             return importanceValue

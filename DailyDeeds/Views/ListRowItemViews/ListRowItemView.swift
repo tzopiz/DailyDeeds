@@ -57,3 +57,8 @@ struct ListRowItemView: View {
             .strikethrough(item.isDone)
     }
 }
+
+#Preview {
+    let item = TodoItemViewModel.createTodoItems(10)
+    ListRowItemView(item: item[Int.random(in: 0..<10)])
+}

@@ -27,24 +27,24 @@ struct TodoItemsListView: View {
     @State
     private var selectedItem: TodoItem?
     @State
-    private var interfaceOrientation: InterfaceOrientation = .unknown
+    private var isSideBarList: Bool = true
     
     var body: some View {
         NavigationSplitView {
             todoItemsListView
-                .overlay(alignment: !interfaceOrientation.deviceType.isSmall ? .bottomLeading : .bottom) {
+                .overlay(alignment: isSideBarList ? .bottomLeading : .bottom) {
                     if !isActive {
-                        CreateTodoItemButton(action: createEmptyItem)
+                        CreateTodoItemButton(action: addNewItem)
                             .padding(32)
                     }
                 }
         } detail: {
-            if let selectedItem = selectedItem, !interfaceOrientation.deviceType.isSmall {
+            if let selectedItem = selectedItem, isSideBarList {
                 DetailTodoItemView(todoItem: selectedItem.mutable) { item in
                     viewModel.update(oldItem: selectedItem, to: item)
                     self.selectedItem = nil
                 }
-            } else if !interfaceOrientation.deviceType.isSmall {
+            } else if isSideBarList {
                 Text("Выберите задачу для просмотра деталей")
                     .foregroundStyle(Res.Color.Label.secondary)
             }
@@ -53,38 +53,35 @@ struct TodoItemsListView: View {
     
     @ViewBuilder
     private var listView: some View {
-        switch interfaceOrientation.deviceType {
-        case .small:
-            List {
-                listContent
-            }
-        case .large:
+        if isSideBarList {
             List(selection: $selectedItem) {
                 listContent
             }
             .listStyle(.sidebar)
+        } else {
+            List {
+                listContent
+            }
         }
     }
-    
+
     private var todoItemsListView: some View {
         listView
-            .scrollContentBackground(Res.Color.Back.iOSPrimary)
-            .scrollIndicators(.hidden)
-            .navigationTitle("Мои дела")
-            .sheet(isPresented: interfaceOrientation.deviceType.isSmall, item: $selectedItem) { item in
-                DetailTodoItemView(todoItem: item.mutable) { newItem in
-                    viewModel.update(oldItem: item, to: newItem)
-                }
+        .scrollContentBackground(.hidden)
+        .background(Res.Color.Back.iOSPrimary)
+        .scrollIndicators(.hidden)
+        .navigationTitle("Мои дела")
+        .customSheet(isPresented: !isSideBarList, item: $selectedItem) { item in
+            DetailTodoItemView(todoItem: item.mutable) { newItem in
+                viewModel.update(oldItem: item, to: newItem)
             }
-            .onAppear {
-                interfaceOrientation = InterfaceOrientation(
-                    horizontal: horizontalSizeClass,
-                    vertical: verticalSizeClass
-                )
-            }
-            .toolbar {
-                sortingButton
-            }
+        }
+        .toolbar {
+            sortingButton
+        }
+        .onAppear {
+            isSideBarList = horizontalSizeClass == .regular && verticalSizeClass == .regular
+        }
     }
     
     private var listContent: some View {
@@ -94,14 +91,14 @@ struct TodoItemsListView: View {
             }
             .onDelete(perform: viewModel.remove)
             
-            CreateNewTodoItemRowView { text in
+            CreateNewTodoItemRowView(text: "") { text in
                 viewModel.append(TodoItem(text: text))
             }
             .focused($isActive)
         } header: {
             listHeaderView
         } footer: {
-            Text(viewModel.sort.fullDescription)
+            Text(viewModel.sortType.fullDescription)
                 .foregroundStyle(Res.Color.Label.tertiary)
         }
         .listRowBackground(Res.Color.Back.secondary)
@@ -119,7 +116,7 @@ struct TodoItemsListView: View {
                     viewModel.toggleFilter()
                 }
             } label: {
-                Text(viewModel.filter.isEnabled ? "Показать" : "Скрыть")
+                Text(viewModel.filterType == .all ? "Скрыть" : "Показать")
             }
         }
     }
@@ -142,7 +139,7 @@ struct TodoItemsListView: View {
             }
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
-                .symbolEffect(.bounce.down, value: viewModel.sort)
+                .symbolEffect(.bounce.down, value: viewModel.sortType)
         }
     }
     
@@ -150,18 +147,26 @@ struct TodoItemsListView: View {
         ListRowItemView(item: item)
             .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 0))
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                Button { viewModel.complete(item) }
-                label: { Image(systemName: item.isDone ? "xmark.circle": "checkmark.circle") }
+                Button {
+                    viewModel.complete(item)
+                } label: {
+                    Image(systemName: item.isDone ? "xmark.circle": "checkmark.circle")
+                }
             }
             .tint(Res.Color.green)
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                Button(role: .destructive) { viewModel.remove(with: item.id) }
-                label: { Image(systemName: "trash") }
+                Button(role: .destructive) {
+                    viewModel.remove(with: item.id)
+                } label: {
+                    Image(systemName: "trash")
+                }
             }
             .tint(Res.Color.red)
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                Button { print(viewModel.items) }
-                label: { Image(systemName: "info.circle")
+                Button {
+                    print(viewModel.items)
+                } label: {
+                    Image(systemName: "info.circle")
                 }
             }
             .tint(Res.Color.lightGray)
@@ -170,7 +175,14 @@ struct TodoItemsListView: View {
             }
     }
     
-    private func createEmptyItem() {
+    private func addNewItem() {
         selectedItem = TodoItem(text: "")
     }
+}
+
+#Preview {
+    let items = TodoItemViewModel.createTodoItems(10)
+    TodoItemsListView(
+        viewModel: TodoItemViewModel(items: items)
+    )
 }

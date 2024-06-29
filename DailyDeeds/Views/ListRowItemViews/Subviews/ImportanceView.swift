@@ -32,3 +32,15 @@ struct ImportanceView: View {
         }
     }
 }
+
+#Preview {
+    ImportanceView(importance: .low)
+        .padding()
+        .background(Rectangle().stroke(Color.green))
+    ImportanceView(importance: .medium)
+        .padding()
+        .background(Rectangle().stroke(Color.green))
+    ImportanceView(importance: .high)
+        .padding()
+        .background(Rectangle().stroke(Color.green))
+}

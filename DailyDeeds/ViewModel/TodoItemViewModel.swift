@@ -9,23 +9,23 @@ import SwiftUI
 
 class TodoItemViewModel: ObservableObject {
     @Published
-    private(set) var model = TodoItemModel()
+    private(set) var model = FileCache()
     
     @Published
-    var sort: TaskCriteria.SortType = .byCreationDate(.descending)
+    var sortType: TaskCriteria.SortType = .byCreationDate(.descending)
     
     @Published
-    var filter: TaskCriteria.FilterType = .notCompletedOnly
+    var filterType: TaskCriteria.FilterType = .notCompletedOnly
     
     var items: Array<TodoItem> {
         let items: Array<TodoItem>
-        switch filter {
+        switch filterType {
         case .notCompletedOnly:
-            items = model.items.filter(by: \.isDone, predicate: { !$0 })
+            items = model.todoItems.filter(by: \.isDone, predicate: { !$0 })
         case .all:
-            items = model.items
+            items = model.todoItems
         }
-        switch sort {
+        switch sortType {
         case .byCreationDate(let order):
             return items.sorted(by: \.creationDate, ascending: order.isAscending)
         case .byDeadline(let order):
@@ -40,10 +40,10 @@ class TodoItemViewModel: ObservableObject {
     }
     
     var completedTodoItemsCount: Int {
-        model.items.filter(by: \.isDone, predicate: { $0 }).count
+        model.todoItems.filter(by: \.isDone, predicate: { $0 }).count
     }
     
-    init(model: TodoItemModel = TodoItemModel(), items: Array<TodoItem> = []) {
+    init(model: FileCache = FileCache(), items: Array<TodoItem> = []) {
         self.model = model
         self.addTodoItems(items)
     }
@@ -95,14 +95,14 @@ class TodoItemViewModel: ObservableObject {
     }
     
     // MARK: - Save
-    func save(to fileName: String, format type: TodoItemModel.FileFormat = .json) {
+    func save(to fileName: String, format type: FileCache.FileFormat = .json) {
         if let error = model.saveToFile(named: fileName, format: type) {
             print(error.localizedDescription)
         }
     }
     
     // MARK: - Read
-    func loadItems(from fileName: String, format type: TodoItemModel.FileFormat = .json) {
+    func loadItems(from fileName: String, format type: FileCache.FileFormat = .json) {
         let result = model.loadFromFile(named: fileName, format: type)
         switch result {
         case .success(let items):
@@ -115,15 +115,15 @@ class TodoItemViewModel: ObservableObject {
     
     // MARK: - Sorting
     func setSortType(_ sortType: TaskCriteria.SortType) {
-        self.sort = sortType
+        self.sortType = sortType
     }
     
     func toggleFilter() {
-        switch filter {
+        switch filterType {
         case .notCompletedOnly:
-            filter = .all
+            filterType = .all
         case .all:
-            filter = .notCompletedOnly
+            filterType = .notCompletedOnly
         }
     }
 }
