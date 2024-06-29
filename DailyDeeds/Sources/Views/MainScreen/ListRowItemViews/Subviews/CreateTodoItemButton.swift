@@ -22,9 +22,3 @@ struct CreateTodoItemButton: View {
         .shadow(radius: 7, x: 0, y: 5)
     }
 }
-
-#Preview {
-    CreateTodoItemButton {
-        print(#function)
-    }
-}

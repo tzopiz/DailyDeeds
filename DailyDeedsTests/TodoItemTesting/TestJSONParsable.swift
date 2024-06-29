@@ -21,14 +21,14 @@ final class TestJSONParsable: XCTestCase {
         let importance = Importance.high
         let hexColor = "#FFFFFF"
         let json = TodoItem.buildJSON {
-            (Keys.id.stringValue, id)
-            (Keys.text.stringValue, text)
-            (Keys.isDone.stringValue, isDone)
-            (Keys.importance.stringValue, importance)
-            (Keys.hexColor.stringValue, hexColor)
-            (Keys.creationDate.stringValue, creationDate)
-            (Keys.deadline.stringValue, deadline)
-            (Keys.modificationDate.stringValue, modificationDate)
+            (Keys.id, id)
+            (Keys.text, text)
+            (Keys.isDone, isDone)
+            (Keys.importance, importance)
+            (Keys.hexColor, hexColor)
+            (Keys.creationDate, creationDate)
+            (Keys.deadline, deadline)
+            (Keys.modificationDate, modificationDate)
         }
 
         
@@ -84,13 +84,13 @@ final class TestJSONParsable: XCTestCase {
         let hexColor = "#FFFFFF"
         let jsonString = """
             {
-                "\(Keys.id.stringValue)": "\(id)",
-                "\(Keys.text.stringValue)": "\(text)",
-                "\(Keys.isDone.stringValue)": \(isDone),
-                "\(Keys.deadline.stringValue)": "\(deadline.toString())",
-                "\(Keys.hexColor.stringValue)": "\(hexColor)",
-                "\(Keys.creationDate.stringValue)": "\(creationDate.toString())",
-                "\(Keys.modificationDate.stringValue)": "\(modificationDate.toString())"
+                "\(Keys.id)": "\(id)",
+                "\(Keys.text)": "\(text)",
+                "\(Keys.isDone)": \(isDone),
+                "\(Keys.deadline)": "\(deadline.toString())",
+                "\(Keys.hexColor)": "\(hexColor)",
+                "\(Keys.creationDate)": "\(creationDate.toString())",
+                "\(Keys.modificationDate)": "\(modificationDate.toString())"
             }
             """
         
@@ -115,12 +115,12 @@ final class TestJSONParsable: XCTestCase {
         let hexColor = "#FFFFFF"
         let importance = Importance.high
         let json = TodoItem.buildJSON {
-            (Keys.id.stringValue, id)
-            (Keys.text.stringValue, text)
-            (Keys.isDone.stringValue, isDone)
-            (Keys.importance.stringValue, importance)
-            (Keys.hexColor.stringValue, hexColor)
-            (Keys.creationDate.stringValue, creationDate)
+            (Keys.id, id)
+            (Keys.text, text)
+            (Keys.isDone, isDone)
+            (Keys.importance, importance)
+            (Keys.hexColor, hexColor)
+            (Keys.creationDate, creationDate)
         }
 
         

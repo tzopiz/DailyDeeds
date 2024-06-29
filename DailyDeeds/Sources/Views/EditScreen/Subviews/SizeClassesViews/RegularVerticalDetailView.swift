@@ -22,8 +22,6 @@ struct RegularVerticalDetailView<Content: View>: View {
     @State
     private var isDatePickerVisible: Bool = false
     @State
-    private var textEditorHeight: CGFloat = 40
-    @State
     private var isShowingColorPicker = false
     
     init(todoItem: MutableTodoItem, @ViewBuilder content: () -> Content) {
@@ -66,8 +64,7 @@ struct RegularVerticalDetailView<Content: View>: View {
         .animation(.easeInOut, value: todoItem.isDeadlineEnabled)
         .scrollIndicators(.hidden)
         .listSectionSpacing(16)
-        .scrollContentBackground(.hidden)
-        .background(Res.Color.Back.primary)
+        .scrollContentBackground(Res.Color.Back.primary)
         .contentMargins(.all, 16)
         .toolbar {
             ToolbarItem(placement: .keyboard) {
@@ -94,13 +91,11 @@ struct RegularVerticalDetailView<Content: View>: View {
                     .background(Res.Color.Back.elevated)
                     .clipShape(.rect(cornerRadius: 4))
             }
-            Spacer()
-            Button {
-                isShowingColorPicker.toggle()
-            } label: {
-                gradientButtonView
-            }
             
+            Spacer()
+            
+            Button { isShowingColorPicker.toggle() }
+            label: { gradientButtonView }
         }
         .frame(height: 56)
         .sheet(isPresented: $isShowingColorPicker, onDismiss: {

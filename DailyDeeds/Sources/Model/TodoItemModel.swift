@@ -1,5 +1,5 @@
 //
-//  FileCache.swift
+//  TodoItemModel.swift
 //  DailyDeeds
 //
 //  Created by Дмитрий Корчагин on 6/15/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FileCache {
+struct TodoItemModel {
     enum FileFormat {
         case json
         case csv
@@ -24,27 +24,39 @@ struct FileCache {
         case fileAlreadyExists
         case unknown
     }
-    private(set) var todoItems: Array<TodoItem> = []
+    private(set) var items: Array<TodoItem> = []
 }
 
 // MARK: - Update
-extension FileCache {
+extension TodoItemModel {
     /// Adds a new todo item to the cache if an item with the same identifier does not already exist.
     /// - Parameter item: The `TodoItem` to add to the cache.
     ///
     /// If a task with the same identifier (`id`) already exists in the cache, the new item is not added.
     /// This ensures uniqueness of tasks in the cache based on their identifier.
     mutating func append(_ item: TodoItem) {
-        if !todoItems.contains(where: { $0.id == item.id }) {
-            todoItems.append(item)
+        if !items.contains(where: { $0.id == item.id }) {
+            items.append(item)
         }
+    }
+    
+    mutating func update(_ item: TodoItem) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            items[index] = item
+        } else {
+            items.append(item)
+        }
+    }
+    
+    mutating func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
+        items.move(fromOffsets: indices, toOffset: newOffset)
     }
 }
 
 // MARK: - Read
-extension FileCache {
+extension TodoItemModel {
     /**
-     Loads todo items from a file with the specified name and format into the `todoItems` array.
+     Loads todo items from a file with the specified name and format into the `items` array.
      
      - Parameters:
      - fileName: The name of the file from which to load data.
@@ -99,9 +111,9 @@ extension FileCache {
 }
 
 // MARK: - Save
-extension FileCache {
+extension TodoItemModel {
     /**
-     Saves the current `todoItems` array to a file with the specified name and format.
+     Saves the current `items` array to a file with the specified name and format.
      
      - Parameters:
      - fileName: The name of the file to which the data should be saved.
@@ -130,7 +142,7 @@ extension FileCache {
     
     private func saveToJSONFile(with url: URL) -> FileError? {
         do {
-            let jsonData = try JSONSerialization.data(withJSONObject: todoItems.jsonArray, options: .prettyPrinted)
+            let jsonData = try JSONSerialization.data(withJSONObject: items.jsonArray, options: .prettyPrinted)
             try jsonData.write(to: url)
             return nil
         } catch {
@@ -140,7 +152,7 @@ extension FileCache {
     
     private func saveToCSVFile(with url: URL) -> FileError? {
         do {
-            let csvString = todoItems.map { $0.csv }.joined(separator: "\n")
+            let csvString = items.map { $0.csv }.joined(separator: "\n")
             try csvString.write(to: url, atomically: true, encoding: .utf8)
             return nil
         } catch {
@@ -149,36 +161,21 @@ extension FileCache {
     }
 }
 
-// MARK: - Update
-extension FileCache {
-    mutating func update(_ item: TodoItem) {
-        if let index = todoItems.firstIndex(where: { $0.id == item.id }) {
-            todoItems[index] = item
-        } else {
-            todoItems.append(item)
-        }
-    }
-    
-    mutating func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
-        todoItems.move(fromOffsets: indices, toOffset: newOffset)
-    }
-}
-
 // MARK: - Delete
-extension FileCache {
+extension TodoItemModel {
     /// Removes a todo item from the cache based on its identifier.
     /// - Parameter id: The identifier of the todo item to remove.
     mutating func remove(with id: String) {
-        todoItems.removeAll { $0.id == id }
+        items.removeAll { $0.id == id }
     }
     
     mutating func remove(at offsets: IndexSet) {
-        todoItems.remove(atOffsets: offsets)
+        items.remove(atOffsets: offsets)
     }
 }
 
 // MARK: - Supporting
-extension FileCache {
+extension TodoItemModel {
     func getDocumentsDirectory() throws -> URL {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         guard let first = urls.first else { throw FileError.directoryNotFound }

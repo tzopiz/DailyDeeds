@@ -1,5 +1,5 @@
 //
-//  TestFileCacheCreate.swift
+//  TodoItemModelTesting.swift
 //  DailyDeedsTests
 //
 //  Created by Дмитрий Корчагин on 6/16/24.
@@ -8,9 +8,9 @@
 import XCTest
 @testable import DailyDeeds
 
-final class FileCacheTests: XCTestCase {
+final class TodoItemModelTesting: XCTestCase {
     typealias Keys = TodoItem.CodingKeys
-    private var fileCache: FileCache!
+    private var fileCache: TodoItemModel!
     private let fileNameJSON = "test_tasks.json"
     private let fileNameCSV = "test_tasks.csv"
     private let todoitem = TodoItem(
@@ -22,7 +22,7 @@ final class FileCacheTests: XCTestCase {
     
     override func setUp() async throws {
         try await super.setUp()
-        fileCache = FileCache()
+        fileCache = TodoItemModel()
     }
     
     override func tearDown() {
@@ -32,7 +32,7 @@ final class FileCacheTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        fileCache = FileCache()
+        fileCache = TodoItemModel()
     }
     
     override func tearDownWithError() throws {
@@ -42,14 +42,14 @@ final class FileCacheTests: XCTestCase {
     
     func testAddTodoItem() {
         fileCache.append(todoitem)
-        XCTAssertEqual(fileCache.todoItems.count, 1)
-        XCTAssertEqual(fileCache.todoItems.first?.id, "1")
+        XCTAssertEqual(fileCache.items.count, 1)
+        XCTAssertEqual(fileCache.items.first?.id, "1")
     }
     
     func testAddTodoItem_Duplicate() {
         fileCache.append(todoitem)
         fileCache.append(todoitem)
-        XCTAssertEqual(fileCache.todoItems.count, 1)
+        XCTAssertEqual(fileCache.items.count, 1)
     }
     
     func testRemoveTodoItem() {
@@ -63,8 +63,8 @@ final class FileCacheTests: XCTestCase {
         fileCache.append(todoitem)
         fileCache.append(todoitem2)
         fileCache.remove(with: todoitem.id)
-        XCTAssertEqual(fileCache.todoItems.count, 1)
-        XCTAssertEqual(fileCache.todoItems.first?.id, id)
+        XCTAssertEqual(fileCache.items.count, 1)
+        XCTAssertEqual(fileCache.items.first?.id, id)
     }
     
     func testRemoveAllTodoItems() {
@@ -76,10 +76,10 @@ final class FileCacheTests: XCTestCase {
         )
         fileCache.append(todoitem)
         fileCache.append(todoitem2)
-        for item in fileCache.todoItems {
+        for item in fileCache.items {
             fileCache.remove(with: item.id)
         }
-        XCTAssertTrue(fileCache.todoItems.isEmpty)
+        XCTAssertTrue(fileCache.items.isEmpty)
     }
     
     func testSaveToFile_JSON() throws {
@@ -151,11 +151,11 @@ final class FileCacheTests: XCTestCase {
         let hexColor = "#FFFFFF"
         let json = """
         [{
-            "\(Keys.id.stringValue)": "\(id)",
-            "\(Keys.text.stringValue)": "\(text)",
-            "\(Keys.isDone.stringValue)": \(isDone),
-            "\(Keys.hexColor.stringValue)": "\(hexColor)",
-            "\(Keys.creationDate.stringValue)": "\(date.toString())"
+            "\(Keys.id)": "\(id)",
+            "\(Keys.text)": "\(text)",
+            "\(Keys.isDone)": \(isDone),
+            "\(Keys.hexColor)": "\(hexColor)",
+            "\(Keys.creationDate)": "\(date.toString())"
         }]
         """
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CreateNewTodoItemRowView: View {
     @State
-    var text: String
+    private var text: String = ""
     var createItem: (String) -> Void
     
     @Environment(\.scenePhase)
