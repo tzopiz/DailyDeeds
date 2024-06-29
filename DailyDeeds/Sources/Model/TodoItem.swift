@@ -34,9 +34,15 @@ enum Importance: String, Comparable, Equatable {
 }
 
 struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
-    enum CodingKeys: String, CodingKey {
-        case id, text, isDone, importance, hexColor
-        case creationDate, deadline, modificationDate
+    enum CodingKeys {
+        static let id = "id"
+        static let text = "text"
+        static let isDone = "isDone"
+        static let importance = "importance"
+        static let hexColor = "hexColor"
+        static let creationDate = "creationDate"
+        static let deadline = "deadline"
+        static let modificationDate = "modificationDate"
     }
     
     let id: String
@@ -87,14 +93,14 @@ extension TodoItem: CustomStringConvertible {
     var description: String {
         return """
         TodoItem(
-        \t\(CodingKeys.id.stringValue): \(id),
-        \t\(CodingKeys.text.stringValue): \"\(text)\",
-        \t\(CodingKeys.isDone.stringValue): \(isDone),
-        \t\(CodingKeys.importance.stringValue): \(importance.rawValue),
-        \t\(CodingKeys.hexColor.stringValue): \(hexColor),
-        \t\(CodingKeys.creationDate.stringValue): \(creationDate.toString()),
-        \t\(CodingKeys.deadline.stringValue): \(deadline != nil ? deadline.toString() : "nil"),
-        \t\(CodingKeys.modificationDate.stringValue): \(modificationDate != nil ? modificationDate.toString() : "nil")
+        \t\(CodingKeys.id): \(id),
+        \t\(CodingKeys.text): \"\(text)\",
+        \t\(CodingKeys.isDone): \(isDone),
+        \t\(CodingKeys.importance): \(importance.rawValue),
+        \t\(CodingKeys.hexColor): \(hexColor),
+        \t\(CodingKeys.creationDate): \(creationDate.toString()),
+        \t\(CodingKeys.deadline): \(deadline != nil ? deadline.toString() : "nil"),
+        \t\(CodingKeys.modificationDate): \(modificationDate != nil ? modificationDate.toString() : "nil")
         )
         """
     }
