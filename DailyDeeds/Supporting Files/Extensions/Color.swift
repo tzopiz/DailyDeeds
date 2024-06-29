@@ -72,15 +72,3 @@ extension Color {
         )
     }
 }
-
-extension Color {
-    /// Возвращает негативный цвет для фона, который будет хорошо виден на текущем цвете.
-    var backgroundColorForContrast: Color {
-        let uiColor = UIColor(self)
-        guard let components = uiColor.cgColor.components else { return .white }
-        
-        let brightness = (0.299 * components[0] + 0.587 * components[1] + 0.114 * components[2]) * 255
-        
-        return brightness > 130 ? Color.black : Color.white
-    }
-}

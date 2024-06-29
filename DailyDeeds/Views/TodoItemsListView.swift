@@ -14,8 +14,6 @@ struct TodoItemsListView: View {
     @ObservedObject
     var viewModel: TodoItemViewModel
     
-    @Environment(\.dismiss)
-    private var dismiss
     @Environment(\.verticalSizeClass)
     private var verticalSizeClass
     @Environment(\.horizontalSizeClass)
@@ -68,7 +66,7 @@ struct TodoItemsListView: View {
     private var todoItemsListView: some View {
         listView
         .scrollContentBackground(.hidden)
-        .background(Res.Color.Back.iOSPrimary)
+        .background(Res.Color.Back.primary)
         .scrollIndicators(.hidden)
         .navigationTitle("Мои дела")
         .customSheet(isPresented: !isSideBarList, item: $selectedItem) { item in

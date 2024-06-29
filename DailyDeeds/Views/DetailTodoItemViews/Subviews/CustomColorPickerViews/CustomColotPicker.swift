@@ -25,6 +25,8 @@ struct CustomColorPicker: View {
             } header: {
                 Text("Цвет")
             }
+            .listRowBackground(Res.Color.Back.secondary)
+            
             Section {
                 GeometryReader { geometry in
                     ZStack {
@@ -54,7 +56,9 @@ struct CustomColorPicker: View {
                     }
                 }
             }
+            .listRowBackground(Res.Color.Back.secondary)
             .frame(height: height)
+            
             Section {
                 Slider(value: $brightness, in: 0...1, step: 0.01)
                     .onChange(of: brightness) {
@@ -63,8 +67,10 @@ struct CustomColorPicker: View {
             } header: {
                 Text("Яркость: \(String(format: "%.0f", brightness * 100))%")
             }
+            .listRowBackground(Res.Color.Back.secondary)
         }
         .listSectionSpacing(16)
+        .scrollContentBackground(.hidden)
         .background(Res.Color.Back.primary)
     }
     

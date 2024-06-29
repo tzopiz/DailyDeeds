@@ -34,6 +34,7 @@ struct CompactVerticalDetailView<Content: View>: View {
             TextEditor(text: $todoItem.text)
                 .focused($isActive)
                 .scrollContentBackground(.hidden)
+                .contentMargins([.horizontal], 8)
                 .background(Res.Color.Back.secondary)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .padding(
@@ -88,11 +89,22 @@ struct CompactVerticalDetailView<Content: View>: View {
     }
     
     private var colorPicker: some View {
-        ColorPicker("Цвет", selection: $selectedColor)
-            .frame(height: 56)
-            .onChange(of: selectedColor) {
-                todoItem.hexColor = selectedColor.hexString
+        HStack {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Цвет")
+                Text(selectedColor.hexString)
+                    .font(.system(size: 14))
+                    .foregroundStyle(Res.Color.Label.primary)
+                    .padding(2)
+                    .background(Res.Color.lightGray)
+                    .clipShape(.rect(cornerRadius: 4))
             }
+            ColorPicker("", selection: $selectedColor)
+                .onChange(of: selectedColor) {
+                    todoItem.hexColor = selectedColor.hexString
+                }
+        }
+        .frame(height: 56)
     }
     
     private var deadlineToggleView: some View {
@@ -104,13 +116,17 @@ struct CompactVerticalDetailView<Content: View>: View {
                         .transition(.blurReplace)
                         .foregroundStyle(Color.blue)
                         .onTapGesture {
-                            isDatePickerVisible.toggle()
+                            withAnimation {
+                                isDatePickerVisible.toggle()
+                            }
                         }
                 }
             }
-            Toggle("", isOn: $todoItem.isDeadlineEnabled)
+            Toggle("", isOn: $todoItem.isDeadlineEnabled.animation())
                 .onChange(of: todoItem.isDeadlineEnabled) { _, newValue in
-                    isDatePickerVisible = newValue
+                    withAnimation {
+                        isDatePickerVisible = newValue
+                    }
                 }
         }
         .frame(height: 56)

@@ -61,9 +61,10 @@ struct RegularVerticalDetailView<Content: View>: View {
             .listRowBackground(Res.Color.Back.secondary)
             .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
         }
-        // FIXME: blinking
-        .animation(.easeInOut, value: isDatePickerVisible)
-        .animation(.easeInOut, value: todoItem.isDeadlineEnabled)
+        /* FIXME: smth blinking other views
+         .animation(.easeInOut, value: isDatePickerVisible)
+         .animation(.easeInOut, value: todoItem.isDeadlineEnabled)
+         */
         .scrollIndicators(.hidden)
         .listSectionSpacing(16)
         .scrollContentBackground(.hidden)
@@ -91,7 +92,7 @@ struct RegularVerticalDetailView<Content: View>: View {
                     .font(.system(size: 14))
                     .foregroundStyle(Res.Color.Label.primary)
                     .padding(2)
-                    .background(Res.Color.Back.elevated)
+                    .background(Res.Color.lightGray)
                     .clipShape(.rect(cornerRadius: 4))
             }
             Spacer()
@@ -133,16 +134,20 @@ struct RegularVerticalDetailView<Content: View>: View {
                 Text("Сделать до")
                 if todoItem.isDeadlineEnabled {
                     Text(todoItem.deadline, style: .date)
-                        .transition(.scale)
+                        .transition(.blurReplace)
                         .foregroundStyle(Color.blue)
                         .onTapGesture {
-                            isDatePickerVisible.toggle()
+                            withAnimation {
+                                isDatePickerVisible.toggle()
+                            }
                         }
                 }
             }
-            Toggle("", isOn: $todoItem.isDeadlineEnabled)
+            Toggle("", isOn: $todoItem.isDeadlineEnabled.animation())
                 .onChange(of: todoItem.isDeadlineEnabled) { _, newValue in
-                    isDatePickerVisible = newValue
+                    withAnimation {
+                        isDatePickerVisible = newValue
+                    }
                 }
         }
         .frame(height: 56)
@@ -166,5 +171,6 @@ struct RegularVerticalDetailView<Content: View>: View {
                 isActive = false
             }
         }
+        .padding(4)
     }
 }
