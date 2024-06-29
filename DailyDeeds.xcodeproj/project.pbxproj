@@ -401,7 +401,6 @@
 		0AE192042C30A782003B8924 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0AFBB27A2C30BE910065CF21 /* CalendarScreen */,
 				0AE192002C30A6B4003B8924 /* EditScreen */,
 				0AE191FF2C30A6AD003B8924 /* MainScreen */,
 			);
@@ -434,13 +433,6 @@
 				0A63EC6E2C1CD434005ED49D /* CSVParsable.swift */,
 			);
 			path = CSVParsing;
-			sourceTree = "<group>";
-		};
-		0AFBB27A2C30BE910065CF21 /* CalendarScreen */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = CalendarScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
