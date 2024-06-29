@@ -180,6 +180,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		0A1CC2D22C30C3D000E13477 /* CalendarScreen */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CalendarScreen;
+			sourceTree = "<group>";
+		};
 		0A3202A72C1C67C800427B05 = {
 			isa = PBXGroup;
 			children = (
@@ -401,6 +408,7 @@
 		0AE192042C30A782003B8924 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A1CC2D22C30C3D000E13477 /* CalendarScreen */,
 				0AE192002C30A6B4003B8924 /* EditScreen */,
 				0AE191FF2C30A6AD003B8924 /* MainScreen */,
 			);
