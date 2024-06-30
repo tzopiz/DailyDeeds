@@ -26,7 +26,6 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
             make.leading.trailing.top.equalToSuperview()
             make.height.equalTo(100)
         }
-        collectionView.snp.removeConstraints()
         collectionView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
             make.top.equalTo(calendarNavBar.snp.bottom)
@@ -42,14 +41,14 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
     
     // MARK: - UICollectionViewDataSource
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.items.count
+        return viewModel.items.count
     }
 
     override func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        viewModel.items[section].items.count
+        return viewModel.items[section].items.count
     }
 
     override func collectionView(
@@ -77,6 +76,7 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
         viewForSupplementaryElementOfKind kind: String,
         at indexPath: IndexPath
     ) -> UICollectionReusableView {
+        print(#function)
         guard let view = collectionView.dequeueReusableSupplementaryView(
             ofKind: kind,
             withReuseIdentifier: HeaderSectionView.reuseIdentifier,
@@ -93,6 +93,7 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
         layout collectionViewLayout: UICollectionViewLayout,
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
+        print(#function)
         return CGSize(width: collectionView.frame.width - 32, height: 100)
     }
     
@@ -101,7 +102,8 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        print(#function)
+        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
     }
     
     override func collectionView(
@@ -109,6 +111,7 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
         layout collectionViewLayout: UICollectionViewLayout,
         minimumLineSpacingForSectionAt section: Int
     ) -> CGFloat {
+        print(#function)
         return 8
     }
 }

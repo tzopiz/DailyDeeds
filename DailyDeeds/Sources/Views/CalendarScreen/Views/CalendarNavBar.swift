@@ -8,9 +8,7 @@
 import UIComponents
 import UIKit
 
-final class CalendarNavBar: BaseView {
-    
-}
+final class CalendarNavBar: BaseView { }
 
 // MARK: - Configure
 extension CalendarNavBar {
@@ -26,5 +24,3 @@ extension CalendarNavBar {
         super.configureViews()
     }
 }
-
-
