@@ -18,9 +18,9 @@ enum TaskCriteria {
             self == .notCompletedOnly
         }
     }
-
+    
     enum SortType: Hashable, CaseIterable {
-
+        
         case byCreationDate(Order)
         case byDeadline(Order)
         case byImportance(Order)
@@ -36,11 +36,11 @@ enum TaskCriteria {
                 .byCompletionStatus(.ascending)
             ]
         }
-
+        
         enum Order: CaseIterable {
             case ascending
             case descending
-
+            
             var isAscending: Bool {
                 switch self {
                 case .ascending:
@@ -76,7 +76,7 @@ enum TaskCriteria {
                 return order
             }
         }
-
+        
         var shortDescription: String {
             switch self {
             case .byCreationDate:
@@ -91,7 +91,7 @@ enum TaskCriteria {
                 return "По статусу выполнения"
             }
         }
-
+        
         var description: String {
             switch self {
             case .byCreationDate(let order):
@@ -106,7 +106,7 @@ enum TaskCriteria {
                 return order.isAscending ? "Сначала невыполненные" : "Сначала выполненные"
             }
         }
-
+        
         var fullDescription: String {
             switch self {
             case .byCreationDate,

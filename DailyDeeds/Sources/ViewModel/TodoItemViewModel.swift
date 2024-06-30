@@ -131,7 +131,7 @@ class TodoItemViewModel: ObservableObject {
 extension TodoItemViewModel {
     static func createTodoItems(_ n: Int) -> [TodoItem] {
         var items = [TodoItem]()
-
+        
         let texts = [
             "!!! Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
             "Call mom to check in and see how she's doing. Don't forget to ask about her recent doctor's appointment.",
@@ -144,9 +144,9 @@ extension TodoItemViewModel {
             "Workout session at the gym, focusing on strength training exercises. Don't forget to do a proper warm-up and cool-down.",
             "Plan the trip to the mountains for the upcoming holiday. Make a list of all the necessary gear and supplies to pack."
         ]
-
+        
         let importanceLevels: [Importance] = [.low, .medium, .high]
-
+        
         for i in 0..<n {
             let text = texts[i % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
@@ -154,7 +154,7 @@ extension TodoItemViewModel {
             let creationDate = Date()
             let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil
             let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
-
+            
             let item = TodoItem(
                 text: text,
                 isDone: isDone,
@@ -163,10 +163,10 @@ extension TodoItemViewModel {
                 creationDate: creationDate,
                 deadline: deadline
             )
-
+            
             items.append(item)
         }
-
+        
         return items
     }
 }

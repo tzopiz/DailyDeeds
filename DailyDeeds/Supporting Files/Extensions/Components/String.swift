@@ -44,10 +44,10 @@ extension String {
             results.append(String(substring))
             lastIndex = matchRange.upperBound
         }
-
+        
         results.append(String(self[lastIndex...]))
         results = results.map { $0.unescapeSpecialCharacters(separator) }
-    
+        
         return results
     }
 }

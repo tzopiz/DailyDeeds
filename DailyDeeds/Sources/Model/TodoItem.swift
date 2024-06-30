@@ -45,7 +45,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
     let creationDate: Date
     let deadline: Date?
     let modificationDate: Date?
-
+    
     /// Initializes a new instance of the TodoItem task.
     /// - Parameters:
     ///   - id: The unique identifier of the task. By default, a new UUID is generated.

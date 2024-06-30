@@ -17,10 +17,12 @@ struct DetailTodoItemView: View {
     private var dismiss
     @Environment(\.verticalSizeClass)
     private var verticalSizeClass
-
-    init(todoItem: MutableTodoItem, onUpdate: @escaping (TodoItem?) -> Void) {
-        self.todoItem = todoItem
+    private let initialTodoItem: TodoItem
+    
+    init(todoItem: TodoItem, onUpdate: @escaping (TodoItem?) -> Void) {
+        self.todoItem = todoItem.mutable
         self.onUpdate = onUpdate
+        self.initialTodoItem = todoItem
     }
     
     var body: some View {
@@ -30,7 +32,10 @@ struct DetailTodoItemView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
-                        Button("Отменить") { dismiss() }
+                        Button("Отменить") {
+                            onUpdate(initialTodoItem)
+                            dismiss()
+                        }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Сохранить") {

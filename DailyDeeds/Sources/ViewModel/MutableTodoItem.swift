@@ -28,9 +28,9 @@ final class MutableTodoItem: Identifiable, ObservableObject {
     var isDeadlineEnabled: Bool
     @Published 
     var modificationDate: Date
-
+    
     private var cancellables = Set<AnyCancellable>()
-
+    
     init(from item: TodoItem) {
         self.id = item.id
         self.text = item.text
@@ -44,7 +44,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
         
         setupBindings()
     }
-
+    
     var immutable: TodoItem {
         TodoItem(
             id: self.id,
@@ -57,7 +57,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
             modificationDate: self.modificationDate
         )
     }
-
+    
     private func setupBindings() {
         let textPublisher = $text.map { _ in }
         let isDonePublisher = $isDone.map { _ in }

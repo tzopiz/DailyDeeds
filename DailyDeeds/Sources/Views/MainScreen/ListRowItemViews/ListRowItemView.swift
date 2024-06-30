@@ -10,7 +10,7 @@ import SwiftUI
 struct ListRowItemView: View {
     
     let item: TodoItem
-
+    
     var body: some View {
         HStack {
             CheckmarkView(isDone: item.isDone, importance: item.importance)

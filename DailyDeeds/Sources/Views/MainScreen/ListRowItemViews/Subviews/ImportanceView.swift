@@ -18,13 +18,6 @@ struct ImportanceView: View {
         default: ""
         }
     }
-    private var color: Color {
-        switch importance {
-        case .low: return Res.Color.lightGray
-        case .medium: return Color.clear
-        case .high: return Res.Color.red
-        }
-    }
     
     var body: some View {
         if importance != .medium {

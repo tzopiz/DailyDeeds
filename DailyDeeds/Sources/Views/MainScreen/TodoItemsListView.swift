@@ -13,9 +13,7 @@ struct TodoItemsListView: View {
     
     @ObservedObject
     var viewModel: TodoItemViewModel
-    
-    @Environment(\.dismiss)
-    private var dismiss
+
     @Environment(\.verticalSizeClass)
     private var verticalSizeClass
     @Environment(\.horizontalSizeClass)
@@ -23,7 +21,6 @@ struct TodoItemsListView: View {
     
     @FocusState
     private var isActive: Bool
-    
     @State
     private var selectedItem: TodoItem?
     @State
@@ -40,7 +37,7 @@ struct TodoItemsListView: View {
                 }
         } detail: {
             if let selectedItem = selectedItem, !interfaceOrientation.deviceType.isSmall {
-                DetailTodoItemView(todoItem: selectedItem.mutable) { item in
+                DetailTodoItemView(todoItem: selectedItem) { item in
                     viewModel.update(oldItem: selectedItem, to: item)
                     self.selectedItem = nil
                 }
@@ -49,6 +46,27 @@ struct TodoItemsListView: View {
                     .foregroundStyle(Res.Color.Label.secondary)
             }
         }
+    }
+    
+    private var todoItemsListView: some View {
+        listView
+            .scrollContentBackground(Res.Color.Back.primary)
+            .scrollIndicators(.hidden)
+            .navigationTitle("Мои дела")
+            .sheet(isPresented: interfaceOrientation.deviceType.isSmall, item: $selectedItem) { item in
+                DetailTodoItemView(todoItem: item) { newItem in
+                    viewModel.update(oldItem: item, to: newItem)
+                }
+            }
+            .onAppear {
+                interfaceOrientation = InterfaceOrientation(
+                    horizontal: horizontalSizeClass,
+                    vertical: verticalSizeClass
+                )
+            }
+            .toolbar {
+                sortingButton
+            }
     }
     
     @ViewBuilder
@@ -64,27 +82,6 @@ struct TodoItemsListView: View {
             }
             .listStyle(.sidebar)
         }
-    }
-    
-    private var todoItemsListView: some View {
-        listView
-            .scrollContentBackground(Res.Color.Back.primary)
-            .scrollIndicators(.hidden)
-            .navigationTitle("Мои дела")
-            .sheet(isPresented: interfaceOrientation.deviceType.isSmall, item: $selectedItem) { item in
-                DetailTodoItemView(todoItem: item.mutable) { newItem in
-                    viewModel.update(oldItem: item, to: newItem)
-                }
-            }
-            .onAppear {
-                interfaceOrientation = InterfaceOrientation(
-                    horizontal: horizontalSizeClass,
-                    vertical: verticalSizeClass
-                )
-            }
-            .toolbar {
-                sortingButton
-            }
     }
     
     private var listContent: some View {
@@ -171,7 +168,7 @@ struct TodoItemsListView: View {
                 }
                 .tint(Res.Color.lightGray)
             }
-
+        
             .onTapGesture {
                 selectedItem = item
             }

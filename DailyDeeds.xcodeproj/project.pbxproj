@@ -30,6 +30,11 @@
 		0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */; };
 		0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */; };
 		0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */; };
+		0A7EEF212C31A7EA009553B7 /* GradientCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF202C31A7EA009553B7 /* GradientCircleView.swift */; };
+		0A7EEF242C31A97B009553B7 /* ColorPickerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF232C31A97B009553B7 /* ColorPickerRowView.swift */; };
+		0A7EEF262C31AAC5009553B7 /* ToolbarButtonKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */; };
+		0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF272C31AB9F009553B7 /* DefaultKeyboardView.swift */; };
+		0A7EEF2A2C31AE8D009553B7 /* DeadlineToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF292C31AE8D009553B7 /* DeadlineToggleView.swift */; };
 		0A7F54A52C275D65009CDD8F /* Resources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F54A42C275D65009CDD8F /* Resources.swift */; };
 		0A7F54A92C2769CF009CDD8F /* RswiftResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7F54A82C2769CF009CDD8F /* RswiftResources.swift */; };
 		0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8925F32C287CBC001C39F2 /* CheckmarkView.swift */; };
@@ -104,6 +109,11 @@
 		0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCSVParsable.swift; sourceTree = "<group>"; };
 		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
+		0A7EEF202C31A7EA009553B7 /* GradientCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientCircleView.swift; sourceTree = "<group>"; };
+		0A7EEF232C31A97B009553B7 /* ColorPickerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerRowView.swift; sourceTree = "<group>"; };
+		0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonKeyboard.swift; sourceTree = "<group>"; };
+		0A7EEF272C31AB9F009553B7 /* DefaultKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeyboardView.swift; sourceTree = "<group>"; };
+		0A7EEF292C31AE8D009553B7 /* DeadlineToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineToggleView.swift; sourceTree = "<group>"; };
 		0A7F54A42C275D65009CDD8F /* Resources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resources.swift; sourceTree = "<group>"; };
 		0A7F54A82C2769CF009CDD8F /* RswiftResources.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RswiftResources.swift; sourceTree = "<group>"; };
 		0A8925F32C287CBC001C39F2 /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
@@ -163,8 +173,8 @@
 		0A04ED192C27355400AF7097 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				0A04ED1B2C27355F00AF7097 /* ViewModel */,
 				0A63EC6A2C1CCB36005ED49D /* Model */,
+				0A04ED1B2C27355F00AF7097 /* ViewModel */,
 				0AE192042C30A782003B8924 /* Views */,
 			);
 			path = Sources;
@@ -314,6 +324,8 @@
 				0A9134B62C2EF81B00697091 /* SizeClassesViews */,
 				0A89CCFB2C2F6B80006F9BF7 /* CustomColorPickerViews */,
 				0A8925FD2C28850E001C39F2 /* ImportancePicker.swift */,
+				0A7EEF292C31AE8D009553B7 /* DeadlineToggleView.swift */,
+				0A7EEF272C31AB9F009553B7 /* DefaultKeyboardView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -321,6 +333,8 @@
 		0A89CCFB2C2F6B80006F9BF7 /* CustomColorPickerViews */ = {
 			isa = PBXGroup;
 			children = (
+				0A7EEF232C31A97B009553B7 /* ColorPickerRowView.swift */,
+				0A7EEF202C31A7EA009553B7 /* GradientCircleView.swift */,
 				0A89CCF32C2F5907006F9BF7 /* CustomColotPicker.swift */,
 				0A89CCF82C2F6B74006F9BF7 /* ColorPalette.swift */,
 				0A89CCF52C2F642C006F9BF7 /* ColorGradientCircleView.swift */,
@@ -399,6 +413,7 @@
 		0AE192022C30A71E003B8924 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */,
 				0A92304E2C30B81700BFA4E2 /* ScrollContentBackground.swift */,
 				0A89CCFC2C2F7BBB006F9BF7 /* CustomSheetModifier.swift */,
 			);
@@ -598,12 +613,16 @@
 				0A8926122C28A9B0001C39F2 /* CreateTodoItemButton.swift in Sources */,
 				0A04ED162C27308000AF7097 /* DetailTodoItemView.swift in Sources */,
 				0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */,
+				0A7EEF2A2C31AE8D009553B7 /* DeadlineToggleView.swift in Sources */,
+				0A7EEF262C31AAC5009553B7 /* ToolbarButtonKeyboard.swift in Sources */,
 				0A92304F2C30B81700BFA4E2 /* ScrollContentBackground.swift in Sources */,
+				0A7EEF212C31A7EA009553B7 /* GradientCircleView.swift in Sources */,
 				0A7F54A52C275D65009CDD8F /* Resources.swift in Sources */,
 				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
 				0AD1BA322C2CC256002FF476 /* Color.swift in Sources */,
 				0A89261C2C28AE01001C39F2 /* ImportanceView.swift in Sources */,
 				0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */,
+				0A7EEF242C31A97B009553B7 /* ColorPickerRowView.swift in Sources */,
 				0A89CCFD2C2F7BBB006F9BF7 /* CustomSheetModifier.swift in Sources */,
 				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,
 				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
@@ -622,6 +641,7 @@
 				0A89CCF92C2F6B75006F9BF7 /* ColorPalette.swift in Sources */,
 				0A89CCF62C2F642C006F9BF7 /* ColorGradientCircleView.swift in Sources */,
 				0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */,
+				0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */,
 				0A63EC672C1CC091005ED49D /* JSONParsable.swift in Sources */,
 				0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */,
 			);

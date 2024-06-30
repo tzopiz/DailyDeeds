@@ -21,7 +21,22 @@ extension View {
             )
         )
     }
+    
     func scrollContentBackground(_ color: Color) -> some View {
         self.modifier(ScrollContentBackground(color: color))
+    }
+    func toolbarKeyboardView(
+        _ isActive: FocusState<Bool>,
+        upAction: Void? = nil,
+        downAction: Void? = nil
+    ) -> some View {
+        self.modifier(
+            ToolbarButtonKeyboard {
+                DefaultKeyboardView(
+                    isActive: isActive,
+                    upAction: upAction,
+                    downAction: downAction
+                )
+        })
     }
 }

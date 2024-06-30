@@ -40,7 +40,7 @@ struct RegularVerticalDetailView<Content: View>: View {
             .listRowInsets(.init())
             
             Section {
-                importanceView
+                ImportancePicker(selectedSegment: $todoItem.importance)
                 colorPicker
                 deadlineToggleView
                 if isDatePickerVisible, !isActive {
@@ -63,97 +63,32 @@ struct RegularVerticalDetailView<Content: View>: View {
         .listSectionSpacing(16)
         .scrollContentBackground(Res.Color.Back.primary)
         .contentMargins(.all, 16)
-        .toolbar {
-            ToolbarItem(placement: .keyboard) {
-                toolbarButtonKeyboardView
-            }
-        }
-    }
-    
-    private var importanceView: some View {
-        ImportancePicker(selectedSegment: $todoItem.importance)
+        .toolbarKeyboardView(_isActive)
     }
     
     private var colorPicker: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("Цвет")
-                Text(selectedColor.hexString)
-                    .font(.system(size: 14))
-                    .foregroundStyle(Res.Color.Label.primary)
-                    .padding(2)
-                    .background(Res.Color.Back.elevated)
-                    .clipShape(.rect(cornerRadius: 4))
-            }
-            
-            Spacer()
-            
-            Button { isShowingColorPicker.toggle() }
-            label: { gradientButtonView }
-        }
-        .frame(height: 56)
+        ColorPickerRowView(
+            selectedColor: $selectedColor,
+            isShowingColorPicker: $isShowingColorPicker
+        )
         .sheet(isPresented: $isShowingColorPicker, onDismiss: {
             todoItem.hexColor = selectedColor.hexString
         }, content: {
             CustomColorPicker(selectedColor: $selectedColor)
-                .presentationDetents([.height(600)])
         })
     }
     
-    private var gradientButtonView: some View {
-        ZStack {
-            ColorGradientCircleView()
-            Circle()
-                .fill(selectedColor)
-                .overlay(
-                    Circle()
-                        .strokeBorder(
-                            Res.Color.Back.secondary,
-                            lineWidth: 2
-                        )
-                )
-                .frame(width: 32, height: 32)
-        }
-    }
-    
     private var deadlineToggleView: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("Сделать до")
-                if todoItem.isDeadlineEnabled {
-                    Text(todoItem.deadline, style: .date)
-                        .transition(.scale)
-                        .foregroundStyle(Color.blue)
-                        .onTapGesture {
-                            isDatePickerVisible.toggle()
-                        }
-                }
-            }
-            Toggle("", isOn: $todoItem.isDeadlineEnabled)
-                .onChange(of: todoItem.isDeadlineEnabled) { _, newValue in
-                    isDatePickerVisible = newValue
-                }
-        }
-        .frame(height: 56)
+        DeadlineToggleView(
+            deadline: $todoItem.deadline,
+            isDeadlineEnabled: $todoItem.isDeadlineEnabled,
+            isDatePickerVisible: $isDatePickerVisible
+        )
     }
     
     private var datePicker: some View {
         DatePicker("", selection: $todoItem.deadline, displayedComponents: .date)
             .transition(.scale)
             .datePickerStyle(.graphical)
-    }
-    
-    private var toolbarButtonKeyboardView: some View {
-        HStack {
-            Image(systemName: "chevron.up")
-            Divider()
-            Image(systemName: "chevron.down")
-            Divider()
-            Spacer()
-            Divider()
-            Button("Готово") {
-                isActive = false
-            }
-        }
     }
 }

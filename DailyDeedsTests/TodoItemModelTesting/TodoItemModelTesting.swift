@@ -134,7 +134,7 @@ final class TodoItemModelTesting: XCTestCase {
         
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         let csvString = try String(contentsOf: url)
-
+        
         XCTAssertEqual(
             csvString,
             "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(date.toString()),,\(date.toString())"
@@ -160,7 +160,7 @@ final class TodoItemModelTesting: XCTestCase {
         """
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)
         try json.data(using: .utf8)?.write(to: url)
-
+        
         let result = fileCache.loadFromFile(named: fileNameJSON, format: .json)
         switch result {
         case .success(let item):
