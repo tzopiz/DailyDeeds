@@ -19,6 +19,6 @@ struct CreateTodoItemButton: View {
                 .clipShape(.circle)
                 .frame(width: 44, height: 44)
         }
-        .shadow(radius: 7, x: 0, y: 5)
+        .shadow(radius: 10, x: 0, y: 5)
     }
 }

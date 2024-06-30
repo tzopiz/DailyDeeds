@@ -37,6 +37,7 @@ struct DetailTodoItemView: View {
                             onUpdate(todoItem.immutable)
                             dismiss()
                         }
+                        .disabled(todoItem.text.isEmpty)
                     }
                 }
         }

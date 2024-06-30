@@ -68,7 +68,7 @@ struct TodoItemsListView: View {
     
     private var todoItemsListView: some View {
         listView
-            .scrollContentBackground(Res.Color.Back.iOSPrimary)
+            .scrollContentBackground(Res.Color.Back.primary)
             .scrollIndicators(.hidden)
             .navigationTitle("Мои дела")
             .sheet(isPresented: interfaceOrientation.deviceType.isSmall, item: $selectedItem) { item in
@@ -150,21 +150,28 @@ struct TodoItemsListView: View {
         ListRowItemView(item: item)
             .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 0))
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
-                Button { viewModel.complete(item) }
-                label: { Image(systemName: item.isDone ? "xmark.circle": "checkmark.circle") }
-            }
-            .tint(Res.Color.green)
-            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                Button(role: .destructive) { viewModel.remove(with: item.id) }
-                label: { Image(systemName: "trash") }
-            }
-            .tint(Res.Color.red)
-            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                Button { print(viewModel.items) }
-                label: { Image(systemName: "info.circle")
+                Button {
+                    viewModel.complete(item)
+                } label: {
+                    Image(systemName: item.isDone ? "xmark.circle": "checkmark.circle")
                 }
+                .tint(Res.Color.green)
             }
-            .tint(Res.Color.lightGray)
+            .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                Button(role: .destructive) {
+                    viewModel.remove(with: item.id)
+                } label: {
+                    Image(systemName: "trash")
+                }
+                .tint(Res.Color.red)
+                Button {
+                    print(viewModel.items)
+                } label: {
+                    Image(systemName: "info.circle")
+                }
+                .tint(Res.Color.lightGray)
+            }
+
             .onTapGesture {
                 selectedItem = item
             }

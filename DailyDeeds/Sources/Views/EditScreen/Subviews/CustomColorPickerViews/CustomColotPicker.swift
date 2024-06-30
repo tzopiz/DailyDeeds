@@ -65,7 +65,7 @@ struct CustomColorPicker: View {
             }
         }
         .listSectionSpacing(16)
-        .background(Res.Color.Back.primary)
+        .scrollContentBackground(Res.Color.Back.primary)
     }
     
     private func getColor(at point: CGPoint, in size: CGSize) -> Color {

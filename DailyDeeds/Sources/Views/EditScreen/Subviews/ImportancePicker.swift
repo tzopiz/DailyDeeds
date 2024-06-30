@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ImportancePicker: View {
     @Binding
-    var selectedSegment: Int
+    var selectedSegment: Importance
     
     var body: some View {
         HStack {
@@ -17,11 +17,11 @@ struct ImportancePicker: View {
             Spacer()
             Picker(selection: $selectedSegment, label: Text("")) {
                 Res.Image.arrowDown
-                    .tag(0)
+                    .tag(Importance.low)
                 Text("") // как будто без 'нет' симпотней 😄
-                    .tag(1)
+                    .tag(Importance.medium)
                 Res.Image.exclamationmark2
-                    .tag(2)
+                    .tag(Importance.high)
             }
             .frame(width: 150)
             .pickerStyle(.segmented)

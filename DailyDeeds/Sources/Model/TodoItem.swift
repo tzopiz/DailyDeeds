@@ -12,14 +12,6 @@ enum Importance: String, Comparable, Equatable {
     case medium = "обычная"
     case high = "важная"
     
-    init(_ value: Int) {
-        switch value {
-        case 0: self = .low
-        case 2: self = .high
-        default: self = .medium
-        }
-    }
-    
     var order: Int {
         switch self {
         case .low: return 0

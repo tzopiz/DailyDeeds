@@ -18,8 +18,6 @@ struct RegularVerticalDetailView<Content: View>: View {
     @State
     private var selectedColor: Color
     @State
-    private var selectedState: Int
-    @State
     private var isDatePickerVisible: Bool = false
     @State
     private var isShowingColorPicker = false
@@ -28,7 +26,6 @@ struct RegularVerticalDetailView<Content: View>: View {
         self.content = content()
         self.todoItem = todoItem
         self.selectedColor = Color(hex: todoItem.hexColor)
-        self.selectedState = todoItem.importance.order
     }
     
     var body: some View {
@@ -74,10 +71,7 @@ struct RegularVerticalDetailView<Content: View>: View {
     }
     
     private var importanceView: some View {
-        ImportancePicker(selectedSegment: $selectedState)
-            .onChange(of: selectedState) {
-                todoItem.importance = Importance(selectedState)
-            }
+        ImportancePicker(selectedSegment: $todoItem.importance)
     }
     
     private var colorPicker: some View {
