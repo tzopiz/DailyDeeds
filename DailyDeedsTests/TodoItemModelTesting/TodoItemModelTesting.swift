@@ -106,7 +106,7 @@ final class TodoItemModelTesting: XCTestCase {
         
         let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)
         let data = try Data(contentsOf: url)
-        let jsonArray = try JSONSerialization.jsonObject(with: data, options: []) as? [TodoItem.JSONType]
+        let jsonArray = try JSONSerialization.jsonObject(with: data) as? [TodoItem.JSONType]
         
         XCTAssertEqual(jsonArray?.count, 3)
         try FileManager.default.removeItem(at: url)

@@ -27,6 +27,12 @@ struct TodoItemsListView: View {
     private var interfaceOrientation: InterfaceOrientation = .unknown
     
     var body: some View {
+        // content
+        CalendarViewControllerRepresentable(items: viewModel.items)
+            .edgesIgnoringSafeArea([.horizontal, .bottom])
+    }
+    
+    var content: some View {
         NavigationSplitView {
             todoItemsListView
                 .overlay(alignment: !interfaceOrientation.deviceType.isSmall ? .bottomLeading : .bottom) {
@@ -65,6 +71,7 @@ struct TodoItemsListView: View {
                 )
             }
             .toolbar {
+                calendarButton
                 sortingButton
             }
     }
@@ -140,6 +147,15 @@ struct TodoItemsListView: View {
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
                 .symbolEffect(.bounce.down, value: viewModel.sort)
+        }
+    }
+    
+    private var calendarButton: some View {
+        Button {
+            // TODO: - create bridge between uikit and swiftui
+            print("open calendar view")
+        } label: {
+            Image(systemName: "calendar")
         }
     }
     

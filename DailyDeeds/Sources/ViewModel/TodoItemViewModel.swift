@@ -151,7 +151,7 @@ extension TodoItemViewModel {
             let text = texts[i % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
-            let creationDate = Date()
+            let creationDate = Date().addingTimeInterval(Double(i) * 86400)
             let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil
             let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
             
