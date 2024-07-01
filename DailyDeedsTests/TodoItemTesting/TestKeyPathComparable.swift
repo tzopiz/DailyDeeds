@@ -25,7 +25,7 @@ final class TestKeyPathComparable: XCTestCase {
         isDone: false, importance: .high,
         creationDate: .now
     )
-
+    
     func testSortingByIdKeyPath() {
         
         let unsortedItems = [item2, item1, item3]

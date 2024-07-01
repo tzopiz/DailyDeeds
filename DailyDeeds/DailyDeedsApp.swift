@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import SnapKit
 
 @main
 struct DailyDeedsApp: App {
-    private let items = TodoItemViewModel.createTodoItems(4)
+    private let items = TodoItemViewModel.createTodoItems(100)
     
     var body: some Scene {
         WindowGroup {
