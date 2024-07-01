@@ -15,7 +15,7 @@ class TodoItemViewModel: ObservableObject {
     var sort: TaskCriteria.SortType = .byCreationDate(.descending)
     
     @Published
-    var filter: TaskCriteria.FilterType = .notCompletedOnly
+    var filter: TaskCriteria.FilterType = .all
     
     var items: Array<TodoItem> {
         let items: Array<TodoItem>
@@ -133,7 +133,7 @@ extension TodoItemViewModel {
         var items = [TodoItem]()
         
         let texts = [
-            "!!! Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
+            "Long Task, Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
             "Call mom to check in and see how she's doing. Don't forget to ask about her recent doctor's appointment.",
             "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
             "Clean the house thoroughly, including dusting all the furniture, vacuuming the carpets, and mopping the floors.",
@@ -151,7 +151,14 @@ extension TodoItemViewModel {
             let text = texts[i % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
-            let creationDate = Date().addingTimeInterval(Double(i) * 86400)
+            let creationDate: Date
+            if i % 2 == 0 {
+                creationDate = Date().addingTimeInterval(Double(i) * 86400)
+            } else if i % 5 == 0 {
+                creationDate = Date().addingTimeInterval(2 * 86400)
+            } else {
+                creationDate = Date()
+            }
             let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil
             let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
             

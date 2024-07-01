@@ -31,7 +31,8 @@ struct RegularVerticalDetailView<Content: View>: View {
     var body: some View {
         Form {
             Section {
-                TextField("Что мне сдеать?", text: $todoItem.text, axis: .vertical)
+                // FIXME: - tap work only on label(not on full textfield)
+                TextField("Что мне сделать?", text: $todoItem.text, axis: .vertical)
                     .frame(minHeight: 120, alignment: .topLeading)
                     .padding(.all, 12)
                     .focused($isActive)

@@ -30,6 +30,7 @@ struct ListRowItemView: View {
                 .frame(width: 5)
                 .foregroundStyle(Color(hex: item.hexColor).gradient)
         }
+        .contentShape(.rect)
     }
     
     @ViewBuilder

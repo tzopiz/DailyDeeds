@@ -27,7 +27,7 @@ struct TodoItemsListView: View {
     private var interfaceOrientation: InterfaceOrientation = .unknown
     
     var body: some View {
-        // content
+//         content
         CalendarViewControllerRepresentable(items: viewModel.items)
             .edgesIgnoringSafeArea([.horizontal, .bottom])
     }

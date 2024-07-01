@@ -8,14 +8,29 @@
 import UIKit
 import UIComponents
 
+struct DateInfo {
+    let date: Date
+    let isSelected: Bool
+    var day: String {
+        date.toString(format: "dd")
+    }
+    var month: String {
+        date.toString(format: "MMM")
+    }
+    var year: String {
+        date.toString(format: "YYYY")
+    }
+}
+
 protocol ICalendarViewModel: ICollectionViewModel {
-    func row(for indexPath: IndexPath) -> TodoItem
-    func header(for indexPath: IndexPath) -> String
+    func tableViewRow(for indexPath: IndexPath) -> TodoItem
+    func collectionViewRow(for indexPath: IndexPath) -> DateInfo
+    func tableViewHeader(for section: Int) -> DateInfo
 }
 
 final class CalendarViewModel: ICalendarViewModel {
     struct Section<ItemType> {
-        let date: Date
+        let dateInfo: DateInfo // TODO: refactoring
         var items: [ItemType]
     }
     
@@ -32,21 +47,27 @@ final class CalendarViewModel: ICalendarViewModel {
         return items[indexPath.section]
     }
     
-    func row(for indexPath: IndexPath) -> TodoItem {
+    func tableViewRow(for indexPath: IndexPath) -> TodoItem {
         return item(for: indexPath).items[indexPath.row]
     }
     
-    func header(for indexPath: IndexPath) -> String {
-        return items[indexPath.section].date.toString()
+    func collectionViewRow(for indexPath: IndexPath) -> DateInfo {
+        return items[indexPath.row].dateInfo
+    }
+    
+    func tableViewHeader(for section: Int) -> DateInfo {
+        return items[section].dateInfo
     }
     
     private static func groupTodoItemsByDate(_ items: [TodoItem]) -> [Section<TodoItem>] {
         let groupedDictionary = Dictionary(grouping: items) {
             $0.creationDate.strip(to: .days)
         }
-        let sections = groupedDictionary.map {
-            Section(date: $0.key, items: $0.value)
+        let sections = groupedDictionary.map { (key, value) in
+            // FIXME: - connect logic tableview
+            let dateInfo = DateInfo(date: key, isSelected: value.count > 10)
+            return Section(dateInfo: dateInfo, items: value)
         }
-        return sections.sorted { $0.date < $1.date }
+        return sections.sorted { $0.dateInfo.date < $1.dateInfo.date }
     }
 }
