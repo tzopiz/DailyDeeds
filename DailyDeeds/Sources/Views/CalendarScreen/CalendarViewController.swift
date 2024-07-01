@@ -9,109 +9,57 @@ import UIKit
 import SwiftUI
 import UIComponents
 
-final
-class CalendarViewController: BaseCollectionViewController<CalendarViewModel, CalendarCollectionViewCell> {
+final class CalendarViewController: BaseViewController<CalendarViewModel> {
     
-    private let calendarNavBar = CalendarNavBar()
+    private let collectionView: UICollectionView
+    private let tableView: UITableView
+    
+    init(viewModel: CalendarViewModel, layout: UICollectionViewLayout) {
+        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        self.tableView = UITableView(frame: .zero)
+        super.init(viewModel: viewModel)
+    }
+    
+    @MainActor 
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Configure
     override func setupViews() {
         super.setupViews()
-        view.addSubviews(calendarNavBar)
+        view.addSubviews(tableView, collectionView)
     }
     
     override func layoutViews() {
         super.layoutViews()
-        calendarNavBar.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
-            make.height.equalTo(100)
-        }
         collectionView.snp.makeConstraints { make in
+            make.leading.trailing.top.equalToSuperview()
+            make.height.equalTo(116)
+        }
+        tableView.snp.makeConstraints { make in
             make.leading.trailing.bottom.equalToSuperview()
-            make.top.equalTo(calendarNavBar.snp.bottom)
+            make.top.equalTo(tableView.snp.bottom)
         }
     }
     
     override func configureViews() {
         super.configureViews()
+        
         view.backgroundColor = UIColor.colorBlue.withAlphaComponent(0.2)
-        calendarNavBar.backgroundColor = .colorGreen.withAlphaComponent(0.2)
-        collectionView.backgroundColor = .colorRed.withAlphaComponent(0.2)
-    }
-    
-    // MARK: - UICollectionViewDataSource
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return viewModel.items.count
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        return viewModel.items[section].items.count
-    }
-
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        // FIXME: - not called
-        print(#function)
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier,
-            for: indexPath
-        ) as? CalendarCollectionViewCell
-        else {
-            print(#function, "error cast cell to CalendarCollectionViewCell")
-            return UICollectionViewCell()
-        }
+        collectionView.backgroundColor = .colorGreen.withAlphaComponent(0.2)
+        tableView.backgroundColor = .colorRed.withAlphaComponent(0.2)
         
-        cell.configure(viewModel.row(for: indexPath))
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
-        return cell
+        collectionView.registerCells(CalendarCollectionViewCell.self)
+        collectionView.register(
+            HeaderSectionView.self,
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: HeaderSectionView.reuseIdentifier
+        )
+        
     }
     
-    func collectionView(
-        _ collectionView: UICollectionView,
-        viewForSupplementaryElementOfKind kind: String,
-        at indexPath: IndexPath
-    ) -> UICollectionReusableView {
-        print(#function)
-        guard let view = collectionView.dequeueReusableSupplementaryView(
-            ofKind: kind,
-            withReuseIdentifier: HeaderSectionView.reuseIdentifier,
-            for: indexPath
-        ) as? HeaderSectionView
-        else { return UICollectionReusableView() }
-        view.configure(viewModel.header(for: indexPath))
-        return view
-    }
-    
-    // MARK: - UICollectionViewDelegateFlowLayout
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        print(#function)
-        return CGSize(width: collectionView.frame.width - 32, height: 100)
-    }
-    
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        insetForSectionAt section: Int
-    ) -> UIEdgeInsets {
-        print(#function)
-        return UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
-    }
-    
-    override func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        minimumLineSpacingForSectionAt section: Int
-    ) -> CGFloat {
-        print(#function)
-        return 8
-    }
 }

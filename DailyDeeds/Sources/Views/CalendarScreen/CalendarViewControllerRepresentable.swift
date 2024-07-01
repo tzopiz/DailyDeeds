@@ -12,7 +12,9 @@ struct CalendarViewControllerRepresentable: UIViewControllerRepresentable {
     let items: [TodoItem]
     
     func makeUIViewController(context: Context) -> CalendarViewController {
-        let layout = UICollectionViewLayout()
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
         return CalendarViewController(
             viewModel: CalendarViewModel(todoItems: items),
             layout: layout

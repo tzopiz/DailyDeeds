@@ -12,8 +12,10 @@ final class HeaderSectionView: UICollectionReusableView, IReusableCell, IConfigu
     static var reuseIdentifier: String {
         String(describing: HeaderSectionView.self)
     }
+    private let label = BaseLabel()
 
     func configure(_ parametr: Any) {
-        print(#function)
+        guard let text = parametr as? String else { return }
+        label.text = text
     }
 }

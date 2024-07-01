@@ -32,6 +32,7 @@
 		0A7378AC2C320766001F5842 /* HeaderSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7378AB2C320766001F5842 /* HeaderSectionView.swift */; };
 		0A77CFBD2C32866000B2F812 /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 0A77CFBC2C32866000B2F812 /* UIComponents */; };
 		0A77CFC02C32871900B2F812 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A77CFBF2C32871900B2F812 /* SnapKit */; };
+		0A77CFC22C32940D00B2F812 /* CollectionViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77CFC12C32940D00B2F812 /* CollectionViewProtocols.swift */; };
 		0A7EEF212C31A7EA009553B7 /* GradientCircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF202C31A7EA009553B7 /* GradientCircleView.swift */; };
 		0A7EEF242C31A97B009553B7 /* ColorPickerRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF232C31A97B009553B7 /* ColorPickerRowView.swift */; };
 		0A7EEF262C31AAC5009553B7 /* ToolbarButtonKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */; };
@@ -127,6 +128,7 @@
 		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
 		0A7378AB2C320766001F5842 /* HeaderSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderSectionView.swift; sourceTree = "<group>"; };
+		0A77CFC12C32940D00B2F812 /* CollectionViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewProtocols.swift; sourceTree = "<group>"; };
 		0A7EEF202C31A7EA009553B7 /* GradientCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientCircleView.swift; sourceTree = "<group>"; };
 		0A7EEF232C31A97B009553B7 /* ColorPickerRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerRowView.swift; sourceTree = "<group>"; };
 		0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonKeyboard.swift; sourceTree = "<group>"; };
@@ -408,6 +410,7 @@
 				0A7378AB2C320766001F5842 /* HeaderSectionView.swift */,
 				0AB3E3542C31DCEE00807EE0 /* CalendarCollectionViewCell.swift */,
 				0AB3E35A2C31E8D300807EE0 /* CalendarNavBar.swift */,
+				0A77CFC12C32940D00B2F812 /* CollectionViewProtocols.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -684,6 +687,7 @@
 				0AAF43FF2C27389F000FE268 /* ListRowItemView.swift in Sources */,
 				0A89CCF92C2F6B75006F9BF7 /* ColorPalette.swift in Sources */,
 				0A89CCF62C2F642C006F9BF7 /* ColorGradientCircleView.swift in Sources */,
+				0A77CFC22C32940D00B2F812 /* CollectionViewProtocols.swift in Sources */,
 				0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */,
 				0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */,
 				0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */,
