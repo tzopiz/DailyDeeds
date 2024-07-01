@@ -12,12 +12,12 @@ struct CheckmarkView: View {
     var importance: Importance
     private var color: Color {
         if isDone {
-            return Res.Color.green
+            return Color.colorGreen
         } else {
             if importance == .high {
-                return Res.Color.red
+                return Color.colorRed
             } else {
-                return Res.Color.gray
+                return Color.colorGray
             }
         }
     }
@@ -27,7 +27,7 @@ struct CheckmarkView: View {
             .frame(width: 24, height: 24)
             .foregroundStyle(color)
             .background(
-                importance == .high ? Res.Color.red.opacity(0.2) : Res.Color.clear
+                importance == .high ? Color.colorRed.opacity(0.2) : Color.clear
             )
             .clipShape(.circle)
             .padding(.trailing)

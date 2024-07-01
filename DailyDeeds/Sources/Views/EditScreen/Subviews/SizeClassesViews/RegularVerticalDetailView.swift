@@ -36,7 +36,7 @@ struct RegularVerticalDetailView<Content: View>: View {
                     .padding(.all, 12)
                     .focused($isActive)
             }
-            .listRowBackground(Res.Color.Back.secondary)
+            .listRowBackground(Color.backSecondary)
             .listRowInsets(.init())
             
             Section {
@@ -47,13 +47,13 @@ struct RegularVerticalDetailView<Content: View>: View {
                     datePicker
                 }
             }
-            .listRowBackground(Res.Color.Back.secondary)
+            .listRowBackground(Color.backSecondary)
             .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
             
             Section {
                 content
             }
-            .listRowBackground(Res.Color.Back.secondary)
+            .listRowBackground(Color.backSecondary)
             .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
         }
         // FIXME: blinking
@@ -61,7 +61,7 @@ struct RegularVerticalDetailView<Content: View>: View {
         .animation(.easeInOut, value: todoItem.isDeadlineEnabled)
         .scrollIndicators(.hidden)
         .listSectionSpacing(16)
-        .scrollContentBackground(Res.Color.Back.primary)
+        .scrollContentBackground(Color.backPrimary)
         .contentMargins(.all, 16)
         .toolbarKeyboardView(_isActive)
     }

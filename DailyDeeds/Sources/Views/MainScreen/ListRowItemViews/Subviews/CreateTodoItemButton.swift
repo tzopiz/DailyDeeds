@@ -15,7 +15,7 @@ struct CreateTodoItemButton: View {
         Button(action: action) {
             Image(systemName: "plus.circle.fill")
                 .resizable()
-                .background(Res.Color.white)
+                .background(Color.white)
                 .clipShape(.circle)
                 .frame(width: 44, height: 44)
         }

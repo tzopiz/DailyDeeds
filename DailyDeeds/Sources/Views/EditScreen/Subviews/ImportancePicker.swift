@@ -16,11 +16,11 @@ struct ImportancePicker: View {
             Text("Важность")
             Spacer()
             Picker(selection: $selectedSegment, label: Text("")) {
-                Res.Image.arrowDown
+                Image(.arrowDown)
                     .tag(Importance.low)
                 Text("") // как будто без 'нет' симпотней 😄
                     .tag(Importance.medium)
-                Res.Image.exclamationmark2
+                Image(.exclamationmark2)
                     .tag(Importance.high)
             }
             .frame(width: 150)

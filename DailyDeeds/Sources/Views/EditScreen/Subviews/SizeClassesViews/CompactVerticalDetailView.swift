@@ -32,14 +32,14 @@ struct CompactVerticalDetailView<Content: View>: View {
         HStack(spacing: 0) {
             TextEditor(text: $todoItem.text)
                 .focused($isActive)
-                .scrollContentBackground(Res.Color.Back.secondary)
+                .scrollContentBackground(Color.backSecondary)
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .padding(
                     !isActive ?
                         .init(top: 16, leading: 16,bottom: 16,trailing: 8) :
                             .init(top: 0, leading: 16, bottom: 0, trailing: 16)
                 )
-                .background(Res.Color.Back.primary)
+                .background(Color.backPrimary)
             
             if !isActive {
                 Form {
@@ -49,16 +49,16 @@ struct CompactVerticalDetailView<Content: View>: View {
                         deadlineToggleView
                         datePicker
                     }
-                    .listRowBackground(Res.Color.Back.secondary)
+                    .listRowBackground(Color.backSecondary)
                     .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
                     
                     Section {
                         content
                     }
-                    .listRowBackground(Res.Color.Back.secondary)
+                    .listRowBackground(Color.backSecondary)
                     .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
-                .scrollContentBackground(Res.Color.Back.primary)
+                .scrollContentBackground(Color.backPrimary)
                 .contentMargins([.vertical], 16)
                 .contentMargins(.leading, 8)
                 .scrollDisabled(isDatePickerVisible ? false : true)

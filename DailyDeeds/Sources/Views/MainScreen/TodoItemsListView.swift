@@ -49,14 +49,14 @@ struct TodoItemsListView: View {
                 }
             } else if !interfaceOrientation.deviceType.isSmall {
                 Text("Выберите задачу для просмотра деталей")
-                    .foregroundStyle(Res.Color.Label.secondary)
+                    .foregroundStyle(Color.labelSecondary)
             }
         }
     }
     
     private var todoItemsListView: some View {
         listView
-            .scrollContentBackground(Res.Color.Back.primary)
+            .scrollContentBackground(Color.backPrimary)
             .scrollIndicators(.hidden)
             .navigationTitle("Мои дела")
             .sheet(isPresented: interfaceOrientation.deviceType.isSmall, item: $selectedItem) { item in
@@ -106,17 +106,17 @@ struct TodoItemsListView: View {
             listHeaderView
         } footer: {
             Text(viewModel.sort.fullDescription)
-                .foregroundStyle(Res.Color.Label.tertiary)
+                .foregroundStyle(Color.labelTertiary)
         }
-        .listRowBackground(Res.Color.Back.secondary)
+        .listRowBackground(Color.backSecondary)
         .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
-        .listRowSeparatorTint(Res.Color.Support.separator)
+        .listRowSeparatorTint(Color.supportSeparator)
     }
     
     private var listHeaderView: some View {
         HStack {
             Text("Выполнено – \(viewModel.completedTodoItemsCount)")
-                .foregroundStyle(Res.Color.Label.tertiary)
+                .foregroundStyle(Color.labelTertiary)
             Spacer()
             Button {
                 withAnimation {
@@ -168,7 +168,7 @@ struct TodoItemsListView: View {
                 } label: {
                     Image(systemName: item.isDone ? "xmark.circle": "checkmark.circle")
                 }
-                .tint(Res.Color.green)
+                .tint(Color.green)
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 Button(role: .destructive) {
@@ -176,13 +176,13 @@ struct TodoItemsListView: View {
                 } label: {
                     Image(systemName: "trash")
                 }
-                .tint(Res.Color.red)
+                .tint(Color.red)
                 Button {
                     print(viewModel.items)
                 } label: {
                     Image(systemName: "info.circle")
                 }
-                .tint(Res.Color.lightGray)
+                .tint(Color.colorLightGray)
             }
         
             .onTapGesture {

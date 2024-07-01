@@ -18,9 +18,9 @@ struct ColorPickerRowView: View {
                 Text("Цвет")
                 Text(selectedColor.hexString)
                     .font(.system(size: 14))
-                    .foregroundStyle(Res.Color.Label.primary)
+                    .foregroundStyle(Color.labelPrimary)
                     .padding(2)
-                    .background(Res.Color.Back.elevated)
+                    .background(Color.backElevated)
                     .clipShape(.rect(cornerRadius: 4))
             }
             
@@ -31,7 +31,7 @@ struct ColorPickerRowView: View {
             } label: {
                 GradientCircleView(
                     fillColor: selectedColor,
-                    separatorColor: Res.Color.Back.secondary
+                    separatorColor: Color.backSecondary
                 )
             }
         }

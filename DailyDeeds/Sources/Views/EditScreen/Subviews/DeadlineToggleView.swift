@@ -21,7 +21,7 @@ struct DeadlineToggleView: View {
                 if isDeadlineEnabled {
                     Text(deadline, style: .date)
                         .transition(.scale)
-                        .foregroundStyle(Color.blue)
+                        .foregroundStyle(Color.colorBlue)
                         .onTapGesture {
                             isDatePickerVisible.toggle()
                         }

@@ -30,7 +30,7 @@ final class CalendarCollectionViewCell: BaseCollectionViewCell {
         if item.isDone {
             let attributes: [NSAttributedString.Key: Any] = [
                 NSAttributedString.Key.strikethroughStyle: NSUnderlineStyle.thick.rawValue,
-                NSAttributedString.Key.strikethroughColor: Res.Color.gray
+                NSAttributedString.Key.strikethroughColor: UIColor.colorGray
             ]
             attributedTimeString = NSAttributedString(
                 string: item.text,

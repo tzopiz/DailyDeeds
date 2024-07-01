@@ -24,7 +24,7 @@ struct ListRowItemView: View {
             Spacer()
             
             Image(systemName: "chevron.right")
-                .foregroundStyle(Res.Color.lightGray)
+                .foregroundStyle(Color.colorLightGray)
             
             RoundedRectangle(cornerRadius: 5)
                 .frame(width: 5)
@@ -39,9 +39,9 @@ struct ListRowItemView: View {
                 Image(systemName: "calendar")
                 Text(deadline, style: .date)
                     .font(.subheadline)
-                    .foregroundStyle(Res.Color.Label.tertiary)
+                    .foregroundStyle(Color.labelTertiary)
             }
-            .foregroundColor(Res.Color.Label.secondary)
+            .foregroundColor(Color.labelSecondary)
         }
     }
     
@@ -51,8 +51,7 @@ struct ListRowItemView: View {
             .multilineTextAlignment(.leading)
             .font(.system(size: 17))
             .foregroundColor(
-                item.isDone ? Res.Color.Label.disable : Res.Color.Label
-                    .primary
+                item.isDone ? Color.labelDisable : Color.labelPrimary
             )
             .strikethrough(item.isDone)
     }

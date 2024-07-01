@@ -22,7 +22,7 @@ struct CreateNewTodoItemRowView: View {
             TextField("Новое", text: $text)
                 .frame(height: 56)
                 .font(.subheadline)
-                .foregroundStyle(Res.Color.Label.primary)
+                .foregroundStyle(Color.labelPrimary)
                 .onSubmit {
                     createItem(text)
                     text = ""
