@@ -73,6 +73,14 @@ extension TodoItem: JSONParsable {
             else { return .medium }
             return importanceValue
         }()
+        let category: Category?
+        
+        if let categoryJSON = dict[CodingKeys.category] as? JSONDictionary {
+            category = Category.parse(json: categoryJSON)
+        } else {
+            category = nil
+        }
+        
 
         return TodoItem(
             id: id,
@@ -82,7 +90,8 @@ extension TodoItem: JSONParsable {
             hexColor: hexColor,
             creationDate: creationDate,
             deadline: deadline,
-            modificationDate: modificationDate
+            modificationDate: modificationDate,
+            category: category
         )
     }
 }

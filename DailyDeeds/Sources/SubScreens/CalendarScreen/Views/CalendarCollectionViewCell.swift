@@ -19,12 +19,8 @@ final class CalendarCollectionViewCell: BaseCollectionViewCell {
     )
     
     override func configure(_ parametr: Any) {
-        guard let dateInfo = parametr as? DateInfo else {
-            print(#function, "Не удалось конфигурировать CalendarCollectionViewCell")
-            return
-        }
-        label.text = dateInfo.day + "\n" + dateInfo.month
-        backgroundColor = dateInfo.isSelected ? .navBarBackground : .clear
+        guard let dateInfo = parametr as? DateInfo else { return }
+        label.text = dateInfo.description(.short)
     }
 }
 

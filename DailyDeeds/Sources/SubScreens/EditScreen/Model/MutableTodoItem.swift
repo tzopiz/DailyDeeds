@@ -28,6 +28,8 @@ final class MutableTodoItem: Identifiable, ObservableObject {
     var isDeadlineEnabled: Bool
     @Published 
     var modificationDate: Date
+    @Published
+    var category: Category?
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -41,7 +43,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
         self.deadline = item.deadline ?? .now.tomorrow
         self.isDeadlineEnabled = item.deadline != nil
         self.modificationDate = item.modificationDate ?? .now
-        
+        self.category = item.category
         setupBindings()
     }
     
@@ -54,7 +56,8 @@ final class MutableTodoItem: Identifiable, ObservableObject {
             hexColor: self.hexColor,
             creationDate: self.creationDate,
             deadline: isDeadlineEnabled ? self.deadline : nil,
-            modificationDate: self.modificationDate
+            modificationDate: self.modificationDate,
+            category: self.category
         )
     }
     
@@ -65,21 +68,23 @@ final class MutableTodoItem: Identifiable, ObservableObject {
         let hexColorPublisher = $hexColor.map { _ in }
         let deadlinePublisher = $deadline.map { _ in }
         let isDeadlineEnabledPublisher = $isDeadlineEnabled.map { _ in }
+        let categoryPublisher = $category.map { _ in }
         
-        Publishers.Merge6(
+        Publishers.Merge7(
             textPublisher,
             isDonePublisher,
             importancePublisher,
             hexColorPublisher,
             deadlinePublisher,
-            isDeadlineEnabledPublisher
+            isDeadlineEnabledPublisher,
+            categoryPublisher
         )
         .sink { [weak self] _ in
             self?.modificationDate = Date()
         }
         .store(in: &cancellables)
         /**
-         - Все паблишеры объединяются в один с помощью Publishers.Merge6, который выпускает событие каждый раз, когда любое из объединенных свойств изменяется.
+         - Все паблишеры объединяются в один с помощью Publishers.Merge7, который выпускает событие каждый раз, когда любое из объединенных свойств изменяется.
          - Когда объединенный паблишер выпускает событие (при изменении любого свойства),
          срабатывает блок sink, который обновляет modificationDate текущей датой и временем.
          - store(in: &cancellables) используется для хранения подписки, чтобы она не была освобождена и продолжала действовать.

@@ -30,17 +30,15 @@ struct RegularVerticalDetailView<Content: View>: View {
     
     var body: some View {
         Form {
-            Section {
+            ItemSection {
                 // FIXME: - tap work only on label(not on full textfield)
                 TextField("Что мне сделать?", text: $todoItem.text, axis: .vertical)
                     .frame(minHeight: 120, alignment: .topLeading)
                     .padding(.all, 12)
                     .focused($isActive)
             }
-            .listRowBackground(Color.backSecondary)
-            .listRowInsets(.init())
             
-            Section {
+            ItemSection(horizontal: 16) {
                 ImportancePicker(selectedSegment: $todoItem.importance)
                 colorPicker
                 deadlineToggleView
@@ -48,18 +46,14 @@ struct RegularVerticalDetailView<Content: View>: View {
                     datePicker
                 }
             }
-            .listRowBackground(Color.backSecondary)
-            .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
-            
-            Section {
+            ItemSection(horizontal: 16) {
                 content
             }
-            .listRowBackground(Color.backSecondary)
-            .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
         }
-        // FIXME: blinking
+        /* FIXME: blinking
         .animation(.easeInOut, value: isDatePickerVisible)
         .animation(.easeInOut, value: todoItem.isDeadlineEnabled)
+         */
         .scrollIndicators(.hidden)
         .listSectionSpacing(16)
         .scrollContentBackground(Color.backPrimary)
@@ -68,6 +62,7 @@ struct RegularVerticalDetailView<Content: View>: View {
     }
     
     private var colorPicker: some View {
+        // FIXME: - Make it more likeable
         ColorPickerRowView(
             selectedColor: $selectedColor,
             isShowingColorPicker: $isShowingColorPicker
@@ -76,6 +71,7 @@ struct RegularVerticalDetailView<Content: View>: View {
             todoItem.hexColor = selectedColor.hexString
         }, content: {
             CustomColorPicker(selectedColor: $selectedColor)
+                .presentationDetents([.medium]) // FIXME: - landscape orientation
         })
     }
     
@@ -89,7 +85,6 @@ struct RegularVerticalDetailView<Content: View>: View {
     
     private var datePicker: some View {
         DatePicker("", selection: $todoItem.deadline, displayedComponents: .date)
-            .transition(.scale)
             .datePickerStyle(.graphical)
     }
 }

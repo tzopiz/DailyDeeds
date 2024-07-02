@@ -92,7 +92,7 @@ struct TodoItemsListView: View {
     }
     
     private var listContent: some View {
-        Section {
+        ItemSection(leading: 24, vertical: 16) {
             ForEach(viewModel.items) { item in
                 listRow(for: item)
             }
@@ -108,9 +108,6 @@ struct TodoItemsListView: View {
             Text(viewModel.sort.fullDescription)
                 .foregroundStyle(Color.labelTertiary)
         }
-        .listRowBackground(Color.backSecondary)
-        .listRowInsets(.init(top: 0, leading: 8, bottom: 0, trailing: 8))
-        .listRowSeparatorTint(Color.supportSeparator)
     }
     
     private var listHeaderView: some View {
@@ -161,7 +158,6 @@ struct TodoItemsListView: View {
     
     private func listRow(for item: TodoItem) -> some View {
         ListRowItemView(item: item)
-            .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 0))
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 Button {
                     viewModel.complete(item)

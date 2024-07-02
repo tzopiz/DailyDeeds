@@ -15,10 +15,12 @@ struct CreateTodoItemButton: View {
         Button(action: action) {
             Image(systemName: "plus.circle.fill")
                 .resizable()
-                .background(Color.white)
+                .scaledToFit()
+                .background(.white)
+                .frame(width: 44)
+                .foregroundColor(.blue)
                 .clipShape(.circle)
-                .frame(width: 44, height: 44)
+                .shadow(radius: 5, y: 5)
         }
-        .shadow(radius: 10, x: 0, y: 5)
     }
 }

@@ -135,7 +135,7 @@ extension TodoItemViewModel {
         let texts = [
             "Long Task, Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
             "Call mom to check in and see how she's doing. Don't forget to ask about her recent doctor's appointment.",
-            "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
+            "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
             "Clean the house thoroughly, including dusting all the furniture, vacuuming the carpets, and mopping the floors.",
             "Prepare presentation for the next team meeting, focusing on the project milestones achieved and the goals for the next quarter.",
             "Go for a walk in the park to get some fresh air and a bit of exercise. Aim for at least 30 minutes of brisk walking.",
@@ -151,15 +151,8 @@ extension TodoItemViewModel {
             let text = texts[i % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
-            let creationDate: Date
-            if i % 2 == 0 {
-                creationDate = Date().addingTimeInterval(Double(i) * 86400)
-            } else if i % 5 == 0 {
-                creationDate = Date().addingTimeInterval(2 * 86400)
-            } else {
-                creationDate = Date()
-            }
-            let deadline = Bool.random() ? Date().addingTimeInterval(Double(i) * 86400 + 86400) : nil
+            let creationDate = Date().addingTimeInterval(Double(i) * 86400)
+            let deadline = Bool.random() ? Date().addingTimeInterval(Double(i % 8) * 86400 + 86400) : nil
             let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
             
             let item = TodoItem(
@@ -168,7 +161,8 @@ extension TodoItemViewModel {
                 importance: importance,
                 hexColor: hexColor,
                 creationDate: creationDate,
-                deadline: deadline
+                deadline: deadline,
+                category: Category(name: "\(i)", color: Bool.random() ? hexColor : nil)
             )
             
             items.append(item)

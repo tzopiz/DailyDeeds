@@ -22,5 +22,7 @@ struct ColorPalette: View {
                 }
             }
         }
+        .border(Color.black, width: 1)
+        .shadow(radius: 3, y: 3)
     }
 }

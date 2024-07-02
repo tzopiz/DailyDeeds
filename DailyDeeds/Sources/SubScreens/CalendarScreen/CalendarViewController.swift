@@ -13,6 +13,11 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
     
+    // TODO: -
+    // - [ ] При свайпе по ячейке слева-направо дело должно помечаться выполненым. Визуально оно перечеркивается и текст становится серого цвета.
+    // - [ ] При свайпе справа-налево по уже выполненному делу оно должно становиться снова активным (не выполненым).
+    // - [ ] Также на этом экране должна быть кнопка «+» по тапе на которую открывается экран создания дел (тот который был написан на Swift UI).
+    
     // MARK: - Configure
     override func setupViews() {
         super.setupViews()
@@ -42,16 +47,14 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        tableView.separatorInset = .init()
+        tableView.contentInset = .init(top: 16, left: 0, bottom: 0, right: 0)
         
         collectionView.backgroundColor = UIColor.backPrimary
         collectionView.bounces = false
     }
     
     // MARK: - UICollectionViewDataSource
-    // не могу вынести в ext, так как это generic class...
     override func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
@@ -60,14 +63,15 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
             withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier,
             for: indexPath
         ) as? CalendarCollectionViewCell
-        else {
-            print(#function, "error cast cell to CalendarCollectionViewCell")
-            return UICollectionViewCell()
-        }
+        else { return UICollectionViewCell() }
         
-        cell.configure(viewModel.collectionViewRow(for: indexPath))
+        cell.configure(viewModel.collectionViewCell(for: indexPath))
         
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        scrollTableView(with: indexPath)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -94,6 +98,17 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
     ) -> CGFloat {
         return 8
     }
+    
+    // MARK: - UIScrollViewDelegate
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView == tableView,
+              let visibleRows = tableView.indexPathsForVisibleRows,
+              let firstVisibleRow = visibleRows.first // redraw the cell with the activity indicator
+        else { return }
+        
+        let collectionViewIndexPath = IndexPath(item: firstVisibleRow.section, section: 0)
+        scrollCollectionViewToDay(with: collectionViewIndexPath)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -113,7 +128,16 @@ extension CalendarViewController: UITableViewDataSource {
         ) as? CalendarTableViewCell
         else { return UITableViewCell() }
         
-        cell.configure(viewModel.tableViewRow(for: indexPath))
+        cell.configure(viewModel.tableViewCell(for: indexPath))
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(rightSwipeAction))
+        rightSwipe.direction = .right
+        cell.addGestureRecognizer(rightSwipe)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeAction))
+        leftSwipe.direction = .left
+        cell.addGestureRecognizer(leftSwipe)
+        
         return cell
     }
 }
@@ -137,4 +161,40 @@ extension CalendarViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 32
     }
+}
+
+extension CalendarViewController {
+    @IBAction
+    func rightSwipeAction(gesture: UISwipeGestureRecognizer) {
+        if let cell = gesture.view as? CalendarTableViewCell {
+            cell.toggleCompletionValue()
+        }
+    }
+    
+    @IBAction
+    func leftSwipeAction(gesture: UISwipeGestureRecognizer) {
+        if let cell = gesture.view as? CalendarTableViewCell {
+            cell.toggleCompletionValue()
+        }
+    }
+    
+    private func scrollTableView(with indexPath: IndexPath) {
+        /* One section in collection view. Each row in collection view,
+         its one section in tableview */
+        let tableViewIndexPath = IndexPath(row: 0, section: indexPath.row)
+        self.tableView.scrollToRow(at: tableViewIndexPath, at: .top, animated: true)
+    }
+    
+    private func scrollCollectionViewToDay(with indexPath: IndexPath, offset: CGFloat = 8.0) {
+        // FIXME: - no scroll when bottom content offset == 0
+        guard indexPath.section < collectionView.numberOfSections,
+              indexPath.item < collectionView.numberOfItems(inSection: indexPath.section)
+        else { return }
+        
+        let layoutAttributes = collectionView.layoutAttributesForItem(at: indexPath)
+        guard let targetX = layoutAttributes?.frame.origin.x else { return }
+        self.collectionView.setContentOffset(CGPoint(x: targetX - offset, y: 0), animated: true)
+//        self.collectionView.scrollToItem(at: collectionViewIndexPath, at: .left, animated: true)
+    }
+    
 }

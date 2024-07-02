@@ -16,11 +16,8 @@ final class TableViewHeaderView: BaseTableViewHeaderFooterView {
     private let label = BaseLabel()
     
     override func configure(_ parametr: Any) {
-        guard let dateInfo = parametr as? DateInfo else {
-            print(#function, "Не удалось конфигурировать TableViewHeaderView")
-            return
-        }
-        label.text = [dateInfo.day, dateInfo.month, dateInfo.year].joined(separator: " ")
+        guard let dateInfo = parametr as? DateInfo else { return }
+        label.text = dateInfo.description(.long)
     }
 }
 

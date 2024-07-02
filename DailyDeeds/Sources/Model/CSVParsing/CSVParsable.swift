@@ -53,6 +53,13 @@ extension TodoItem: CSVParsable {
         let deadline = csvArray[safe: 6]?.toDate()
         let modificationDate = csvArray[safe: 7]?.toDate()
         
+        let category: Category?
+        if let csvCategory = csvArray[safe: 8] {
+            category = Category.parse(csv: csvCategory)
+        } else {
+            category = nil
+        }
+        
         return TodoItem(
             id: id,
             text: text,
@@ -61,7 +68,8 @@ extension TodoItem: CSVParsable {
             hexColor: hexColor,
             creationDate: creationDate,
             deadline: deadline,
-            modificationDate: modificationDate
+            modificationDate: modificationDate,
+            category: category
         )
     }
 }

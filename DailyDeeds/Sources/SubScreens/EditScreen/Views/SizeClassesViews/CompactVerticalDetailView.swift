@@ -43,20 +43,16 @@ struct CompactVerticalDetailView<Content: View>: View {
             
             if !isActive {
                 Form {
-                    Section {
+                    ItemSection(horizontal: 16) {
                         ImportancePicker(selectedSegment: $todoItem.importance)
                         colorPicker
                         deadlineToggleView
                         datePicker
                     }
-                    .listRowBackground(Color.backSecondary)
-                    .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
                     
-                    Section {
+                    ItemSection(horizontal: 16) {
                         content
                     }
-                    .listRowBackground(Color.backSecondary)
-                    .listRowInsets(.init(top: 0, leading: 16, bottom: 0, trailing: 16))
                 }
                 .scrollContentBackground(Color.backPrimary)
                 .contentMargins([.vertical], 16)
@@ -65,9 +61,8 @@ struct CompactVerticalDetailView<Content: View>: View {
             }
         }
         /* FIXME: smth blinking other views
-         .animation(.easeInOut, value: isDatePickerVisible)
-         .animation(.easeInOut, value: todoItem.isDeadlineEnabled)
-         .animation(.easeInOut, value: isActive)
+        .animation(.easeInOut, value: todoItem.isDeadlineEnabled)
+        .animation(.easeInOut, value: isActive)
          */
         .listSectionSpacing(16)
         .toolbarKeyboardView(_isActive)
@@ -97,7 +92,6 @@ struct CompactVerticalDetailView<Content: View>: View {
     private var datePicker: some View {
         if isDatePickerVisible, !isActive {
             DatePicker("", selection: $todoItem.deadline, displayedComponents: .date)
-                .transition(.blurReplace) // FIXME: - not working ...
                 .datePickerStyle(.graphical)
         }
     }

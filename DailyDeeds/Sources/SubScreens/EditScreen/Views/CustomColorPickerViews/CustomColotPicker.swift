@@ -18,7 +18,8 @@ struct CustomColorPicker: View {
                     Rectangle()
                         .fill(selectedColor)
                         .frame(width: 50, height: 50)
-                        .border(Color.black, width: 1)
+                        .border(.black, width: 1)
+                        .shadow(radius: 3, y: 3)
                     Text(selectedColor.hexString)
                         .padding()
                 }
@@ -29,7 +30,7 @@ struct CustomColorPicker: View {
                 GeometryReader { geometry in
                     ZStack {
                         ColorPalette()
-                            .frame(width: geometry.size.width, height: geometry.size.width)
+                            .frame(width: geometry.size.width, height: geometry.size.height)
                             .gesture(
                                 DragGesture(minimumDistance: 0)
                                     .onChanged { value in
@@ -46,15 +47,16 @@ struct CustomColorPicker: View {
                             .position(colorPosition)
                             .shadow(radius: 5)
                     }
-                    .frame(width: geometry.size.width, height: geometry.size.width)
+                    .frame(width: geometry.size.width, height: geometry.size.height)
                     .onAppear {
                         // FIXME: - Установка начальной позиции в зависимости от выбранного цвета
                         // colorPosition = initialPosition(for: selectedColor, in: geometry.size)
-                        height = geometry.size.width
+                        height = geometry.size.width / 2
                     }
                 }
             }
             .frame(height: height)
+            
             Section {
                 Slider(value: $brightness, in: 0...1, step: 0.01)
                     .onChange(of: brightness) {
@@ -64,6 +66,7 @@ struct CustomColorPicker: View {
                 Text("Яркость: \(String(format: "%.0f", brightness * 100))%")
             }
         }
+        .scrollDisabled(true)
         .listSectionSpacing(16)
         .scrollContentBackground(Color.backPrimary)
     }

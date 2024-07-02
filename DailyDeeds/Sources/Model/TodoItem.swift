@@ -35,6 +35,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         static let creationDate = "creationDate"
         static let deadline = "deadline"
         static let modificationDate = "modificationDate"
+        static let category = "category"
     }
     
     let id: String
@@ -45,6 +46,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
     let creationDate: Date
     let deadline: Date?
     let modificationDate: Date?
+    let category: Category?
     
     /// Initializes a new instance of the TodoItem task.
     /// - Parameters:
@@ -63,7 +65,8 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         hexColor: String = "#FFFFFF",
         creationDate: Date = .now,
         deadline: Date? = nil,
-        modificationDate: Date? = nil
+        modificationDate: Date? = nil,
+        category: Category? = nil
     ) {
         self.id = id
         self.text = text
@@ -73,6 +76,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         self.creationDate = creationDate
         self.deadline = deadline
         self.modificationDate = modificationDate
+        self.category = category
     }
     
     var mutable: MutableTodoItem {

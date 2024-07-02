@@ -20,6 +20,13 @@ struct JSONBuilder {
     static func buildExpression(_ expression: (key: String, value: String)) -> JSONDictionary {
         return [expression.key: expression.value]
     }
+    static func buildExpression(_ expression: (key: String, value: String?)) -> JSONDictionary {
+        if let str = expression.value {
+            return [expression.key: str]
+        } else {
+            return [:]
+        }
+    }
     
     static func buildExpression(_ expression: (key: String, value: Date?)) -> JSONDictionary {
         return [expression.key: expression.value.toString()]
