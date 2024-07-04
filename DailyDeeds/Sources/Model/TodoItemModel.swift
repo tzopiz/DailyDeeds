@@ -7,11 +7,12 @@
 
 import Foundation
 
-struct TodoItemModel {
+final class TodoItemModel: ObservableObject {
     enum FileFormat {
         case json
         case csv
     }
+    
     enum FileError: Error {
         case fileNotFound
         case dataCorrupted
@@ -24,23 +25,24 @@ struct TodoItemModel {
         case fileAlreadyExists
         case unknown
     }
-    private(set) var items: Array<TodoItem> = []
+    
+    @Published
+    private(set) var items: Array<TodoItem>
+    
+    init(items: Array<TodoItem>) {
+        self.items = items
+    }
 }
 
 // MARK: - Update
 extension TodoItemModel {
-    /// Adds a new todo item to the cache if an item with the same identifier does not already exist.
-    /// - Parameter item: The `TodoItem` to add to the cache.
-    ///
-    /// If a task with the same identifier (`id`) already exists in the cache, the new item is not added.
-    /// This ensures uniqueness of tasks in the cache based on their identifier.
-    mutating func append(_ item: TodoItem) {
+    func append(_ item: TodoItem) {
         if !items.contains(where: { $0.id == item.id }) {
             items.append(item)
         }
     }
     
-    mutating func update(_ item: TodoItem) {
+    func update(_ item: TodoItem) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item
         } else {
@@ -48,26 +50,13 @@ extension TodoItemModel {
         }
     }
     
-    mutating func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
+    func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
         items.move(fromOffsets: indices, toOffset: newOffset)
     }
 }
 
 // MARK: - Read
 extension TodoItemModel {
-    /**
-     Loads todo items from a file with the specified name and format into the `items` array.
-     
-     - Parameters:
-     - fileName: The name of the file from which to load data.
-     - format: The file format from which to load data (default is `.json`).
-     
-     - Returns: An optional `FileError` indicating an error that occurred during the loading process,
-     or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or data corruption.
-     
-     - Note: If the specified file format is `.json`, the function expects JSON formatted data. If `.csv` is specified,
-     the function expects CSV formatted data.
-     */
     func loadFromFile(named fileName: String, format: FileFormat) -> Result<[TodoItem], FileError> {
         do {
             let url = try getDocumentsDirectory().appendingPathComponent(fileName)
@@ -112,19 +101,6 @@ extension TodoItemModel {
 
 // MARK: - Save
 extension TodoItemModel {
-    /**
-     Saves the current `items` array to a file with the specified name and format.
-     
-     - Parameters:
-     - fileName: The name of the file to which the data should be saved.
-     - format: The file format in which the data should be saved (default is `.json`).
-     
-     - Returns: An optional `FileError` indicating an error that occurred during the saving process,
-     or `nil` if successful. If an error occurs, it will detail the specific nature of the failure, such as file not found or failure to write.
-     
-     - Note: If the specified file format is `.json`, the data will be saved in JSON format. If `.csv` is specified,
-     the data will be saved in CSV format.
-     */
     @discardableResult
     func saveToFile(named fileName: String, format: FileFormat = .json) -> FileError? {
         do {
@@ -163,13 +139,11 @@ extension TodoItemModel {
 
 // MARK: - Delete
 extension TodoItemModel {
-    /// Removes a todo item from the cache based on its identifier.
-    /// - Parameter id: The identifier of the todo item to remove.
-    mutating func remove(with id: String) {
+    func remove(with id: String) {
         items.removeAll { $0.id == id }
     }
     
-    mutating func remove(at offsets: IndexSet) {
+    func remove(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
     }
 }

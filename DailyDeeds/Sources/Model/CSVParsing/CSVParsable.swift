@@ -69,7 +69,7 @@ extension TodoItem: CSVParsable {
             creationDate: creationDate,
             deadline: deadline,
             modificationDate: modificationDate,
-            category: category
+            category: category ?? Category.defaultCategory
         )
     }
 }

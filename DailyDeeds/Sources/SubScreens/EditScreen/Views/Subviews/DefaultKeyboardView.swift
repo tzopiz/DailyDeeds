@@ -14,24 +14,13 @@ struct DefaultKeyboardView: View {
     let downAction: Void?
     var body: some View {
         HStack {
-            Button {
-                upAction
-            } label: {
-                Image(systemName: "chevron.up")
-            }
-            
+            Button { upAction } label: { Image(systemName: "chevron.up") }
             Divider()
-            Button {
-                downAction
-            } label: {
-                Image(systemName: "chevron.down")
-            }
+            Button { downAction } label: { Image(systemName: "chevron.down") }
             Divider()
             Spacer()
             Divider()
-            Button("Готово") {
-                isActive = false
-            }
+            Button("Готово") { isActive = false }
         }
     }
 }

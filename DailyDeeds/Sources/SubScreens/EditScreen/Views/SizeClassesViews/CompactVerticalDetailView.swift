@@ -46,6 +46,7 @@ struct CompactVerticalDetailView<Content: View>: View {
                     ItemSection(horizontal: 16) {
                         ImportancePicker(selectedSegment: $todoItem.importance)
                         colorPicker
+                        CategoryPickerRow(selecetedCategory: $todoItem.category)
                         deadlineToggleView
                         datePicker
                     }

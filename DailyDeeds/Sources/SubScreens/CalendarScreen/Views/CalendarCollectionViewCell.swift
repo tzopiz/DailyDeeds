@@ -13,6 +13,13 @@ final class CalendarCollectionViewCell: BaseCollectionViewCell {
         String(describing: CalendarCollectionViewCell.self)
     }
     
+    override var isSelected: Bool {
+        didSet {
+            backgroundColor = isSelected ? .navBarBackground : .clear
+            layer.borderColor = isSelected ? UIColor.separator.cgColor : UIColor.clear.cgColor
+         }
+    }
+    
     private let label = BaseLabel(
         textColor: UIColor.labelSecondary,
         textAlignment: .center
@@ -40,9 +47,10 @@ extension CalendarCollectionViewCell {
     
     override func configureViews() {
         super.configureViews()
+        backgroundColor = .clear
         
         layer.cornerRadius = 10
         layer.borderWidth = 2
-        layer.borderColor = UIColor.separator.cgColor
+        layer.borderColor = UIColor.clear.cgColor
     }
 }

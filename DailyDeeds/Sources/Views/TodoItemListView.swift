@@ -12,8 +12,8 @@ struct TodoItemsListView: View {
     typealias FilterType = TaskCriteria.FilterType
     
     @ObservedObject
-    var viewModel: TodoItemViewModel
-
+    var viewModel: ListTodoItemViewModel
+    
     @Environment(\.verticalSizeClass)
     private var verticalSizeClass
     @Environment(\.horizontalSizeClass)
@@ -27,12 +27,6 @@ struct TodoItemsListView: View {
     private var interfaceOrientation: InterfaceOrientation = .unknown
     
     var body: some View {
-//         content
-        CalendarViewControllerRepresentable(items: viewModel.items)
-            .edgesIgnoringSafeArea([.horizontal, .bottom])
-    }
-    
-    var content: some View {
         NavigationSplitView {
             todoItemsListView
                 .overlay(alignment: !interfaceOrientation.deviceType.isSmall ? .bottomLeading : .bottom) {
@@ -71,8 +65,21 @@ struct TodoItemsListView: View {
                 )
             }
             .toolbar {
-                calendarButton
-                sortingButton
+                ToolbarItem(placement: .topBarTrailing) {
+                    sortingButton
+                }
+                ToolbarItem(placement: .topBarLeading) {
+                    NavigationLink {
+                        CalendarViewControllerRepresentable(model: viewModel.model)
+                            .navigationTitle("Мои дела")
+                            .navigationBarTitleDisplayMode(.inline)
+                            .ignoresSafeArea(edges: .bottom)
+                            .toolbarBackground(.supportNavBarBlur, for: .navigationBar)
+                            .toolbarBackground(.visible, for: .navigationBar)
+                    } label: {
+                        Image(systemName: "calendar")
+                    }
+                }
             }
     }
     
@@ -92,15 +99,17 @@ struct TodoItemsListView: View {
     }
     
     private var listContent: some View {
-        ItemSection(leading: 24, vertical: 16) {
+        Section {
             ForEach(viewModel.items) { item in
                 listRow(for: item)
             }
             .onDelete(perform: viewModel.remove)
+            .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 0))
             
             CreateNewTodoItemRowView { text in
                 viewModel.append(TodoItem(text: text))
             }
+            .listRowInsets(.init())
             .focused($isActive)
         } header: {
             listHeaderView
@@ -147,20 +156,11 @@ struct TodoItemsListView: View {
         }
     }
     
-    private var calendarButton: some View {
-        Button {
-            // TODO: - create bridge between uikit and swiftui
-            print("open calendar view")
-        } label: {
-            Image(systemName: "calendar")
-        }
-    }
-    
     private func listRow(for item: TodoItem) -> some View {
         ListRowItemView(item: item)
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
                 Button {
-                    viewModel.complete(item)
+                    viewModel.toggleCompletion(item)
                 } label: {
                     Image(systemName: item.isDone ? "xmark.circle": "checkmark.circle")
                 }

@@ -17,23 +17,11 @@ final class CalendarTableViewCell: BaseTableViewCell {
     private let label = BaseLabel()
     private let categoryImage = UIImageView()
     private var categoryImageWidthConstraint: Constraint?
-    private var item: TodoItem?
     
     override func configure(_ parametr: Any) {
         guard let item = parametr as? TodoItem else { return }
-        self.item = item
         configureTitle(item.text, style: item.isDone)
         configureCategoryImageView(with: item.category)
-    }
-    
-    // TODO: - toggle completion value item
-    func toggleCompletionValue() {
-        guard let item = item else { return }
-        if item.isDone  {
-            
-        } else {
-            
-        }
     }
 }
 
@@ -56,7 +44,7 @@ extension CalendarTableViewCell {
         categoryImage.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
-            categoryImageWidthConstraint = make.size.equalTo(25).constraint
+            categoryImageWidthConstraint = make.size.equalTo(20).constraint
         }
     }
     
@@ -91,7 +79,7 @@ extension CalendarTableViewCell {
     
     private func configureCategoryImageView(with category: Category?) {
         if let category = category, let color = category.color {
-            let diameter: CGFloat = 25
+            let diameter: CGFloat = 15
             let circleColor = UIColor(hex: color)
             let shadowColor = UIColor.black.cgColor
             let shadowOpacity: Float = 0.4
@@ -99,10 +87,10 @@ extension CalendarTableViewCell {
             let shadowBlurRadius: CGFloat = 3
             
             let renderer = UIGraphicsImageRenderer(
-                size: CGSize(width: diameter + 6, height: diameter + 6)
+                size: CGSize(width: diameter + 5, height: diameter + 5)
             )
             let circleImage = renderer.image { ctx in
-                let rect = CGRect(x: 3, y: 0, width: diameter, height: diameter)
+                let rect = CGRect(x: 2.5, y: 0, width: diameter, height: diameter)
                 ctx.cgContext.setShadow(
                     offset: shadowOffset,
                     blur: shadowBlurRadius,
@@ -114,7 +102,7 @@ extension CalendarTableViewCell {
             }
             
             categoryImage.image = circleImage
-            categoryImageWidthConstraint?.update(offset: 25)
+            categoryImageWidthConstraint?.update(offset: 20)
         } else {
             categoryImage.image = nil
             categoryImageWidthConstraint?.update(offset: 0)

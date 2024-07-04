@@ -10,11 +10,12 @@ import SnapKit
 
 @main
 struct DailyDeedsApp: App {
-    private let items = TodoItemViewModel.createTodoItems(100)
-    
+    private let model = TodoItemModel(
+        items: ListTodoItemViewModel.createTodoItems(3)
+    )
     var body: some Scene {
         WindowGroup {
-            TodoItemsListView(viewModel: TodoItemViewModel(items: items))
+            TodoItemsListView(viewModel: ListTodoItemViewModel(model: model))
         }
     }
 }

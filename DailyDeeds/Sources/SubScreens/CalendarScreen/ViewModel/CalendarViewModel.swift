@@ -8,51 +8,66 @@
 import UIKit
 import UIComponents
 
-protocol ICalendarViewModel: ICollectionViewModel {
-    func tableViewCell(for indexPath: IndexPath) -> TodoItem
-    func collectionViewCell(for indexPath: IndexPath) -> DateInfo
+protocol ICalendarViewModel: ICollectionViewModel, IBaseTodoItemViewModel {
+    var numberOfSections: Int { get }
+    func numberOfRows(in: Int) -> Int
+    func tableViewCellItem(for indexPath: IndexPath) -> TodoItem
+    func collectionViewCellItem(for indexPath: IndexPath) -> DateInfo
     func tableViewHeader(for section: Int) -> DateInfo
 }
 
-final class CalendarViewModel: ICalendarViewModel {
+final class CalendarViewModel: ObservableObject, ICalendarViewModel {
     struct Section<ItemType, Info> {
         let info: Info
-        let items: [ItemType]
+        let todoItems: [ItemType]
     }
     
-    var title: String?
-    var items: [Section<TodoItem, DateInfo>]
-    var navigationDelegate: ViewModelNavigationDelegate?
+    @Published 
+    var model: TodoItemModel
     
-    init(todoItems: [TodoItem]) {
+    var title: String?
+    var navigationDelegate: ViewModelNavigationDelegate?
+    var items: [Section<TodoItem, DateInfo>] {
+        CalendarViewModel.groupTodoItemsByDate(model.items)
+    }
+    
+    var numberOfSections: Int {
+        items.count
+    }
+    
+    init(model: TodoItemModel) {
+        self.model = model
         self.title = "Мои дела"
-        self.items = CalendarViewModel.groupTodoItemsByDate(todoItems)
     }
     
     func item(for indexPath: IndexPath) -> Section<TodoItem, DateInfo> {
         return items[indexPath.section]
     }
     
-    func tableViewCell(for indexPath: IndexPath) -> TodoItem {
-        return item(for: indexPath).items[indexPath.row]
+    func numberOfRows(in section: Int) -> Int {
+        items[section].todoItems.count
     }
     
-    func collectionViewCell(for indexPath: IndexPath) -> DateInfo {
-        return items[indexPath.row].info
+    func tableViewCellItem(for indexPath: IndexPath) -> TodoItem {
+        return items[indexPath.section].todoItems[indexPath.row]
     }
     
     func tableViewHeader(for section: Int) -> DateInfo {
         return items[section].info
     }
     
+    func collectionViewCellItem(for indexPath: IndexPath) -> DateInfo {
+        return items[indexPath.row].info
+    }
+    
     private static func groupTodoItemsByDate(_ items: [TodoItem]) -> [Section<TodoItem, DateInfo>] {
-        let groupedDictionary = Dictionary(grouping: items) { (item: TodoItem) -> Date? in
+        let groupedDictionary = Dictionary(grouping: items) { item in
             return item.deadline?.strip(to: .days)
         }
         
         let sections = groupedDictionary.map { (key, value) in
             let dateInfo = DateInfo(date: key)
-            return Section(info: dateInfo, items: value)
+            return Section(info: dateInfo, todoItems: value)
         }
         
         return sections.sorted {

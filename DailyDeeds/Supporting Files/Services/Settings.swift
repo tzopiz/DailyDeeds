@@ -24,8 +24,13 @@ struct UserDefault<T> {
 
 enum Settings {
     @UserDefault(
-        key: "TASKCRITERIA_SORTTYPE",
-        defaultValue: TaskCriteria.SortType.byCreationDate(.descending)
+        key: String(describing: Category.self),
+        defaultValue: [
+            Category(name: "Работа", color: "#FF0000"),
+            Category(name: "Учеба", color: "#0000FF"),
+            Category(name: "Хобби", color: "00FF00"),
+            Category(name: "Без категории")
+        ]
     )
-    static var sortType: TaskCriteria.SortType
+    static var categories: [Category]
 }

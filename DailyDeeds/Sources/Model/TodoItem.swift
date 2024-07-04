@@ -46,17 +46,8 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
     let creationDate: Date
     let deadline: Date?
     let modificationDate: Date?
-    let category: Category?
-    
-    /// Initializes a new instance of the TodoItem task.
-    /// - Parameters:
-    ///   - id: The unique identifier of the task. By default, a new UUID is generated.
-    ///   - text: Description of the task.
-    ///   - importance: The level of importance of the task (low, medium, high).
-    ///   - isDone: A flag indicating whether the task has been completed. By default, false.
-    ///   - creationDate: The date the task was created. By default, the current date and time.
-    ///   - deadline: The deadline for the task. By default, nil.
-    ///   - modificationDate: The date the issue was last modified. By default, nil.
+    let category: Category
+
     init(
         id: String = UUID().uuidString,
         text: String,
@@ -66,7 +57,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         creationDate: Date = .now,
         deadline: Date? = nil,
         modificationDate: Date? = nil,
-        category: Category? = nil
+        category: Category = Category.defaultCategory
     ) {
         self.id = id
         self.text = text
@@ -96,7 +87,8 @@ extension TodoItem: CustomStringConvertible {
         \t\(CodingKeys.hexColor): \(hexColor),
         \t\(CodingKeys.creationDate): \(creationDate.toString()),
         \t\(CodingKeys.deadline): \(deadline != nil ? deadline.toString() : "nil"),
-        \t\(CodingKeys.modificationDate): \(modificationDate != nil ? modificationDate.toString() : "nil")
+        \t\(CodingKeys.modificationDate): \(modificationDate != nil ? modificationDate.toString() : "nil"),
+        \t\(CodingKeys.category): \(category.name) \(category.color ?? "")
         )
         """
     }

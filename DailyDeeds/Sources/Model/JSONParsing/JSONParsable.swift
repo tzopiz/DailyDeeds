@@ -73,8 +73,8 @@ extension TodoItem: JSONParsable {
             else { return .medium }
             return importanceValue
         }()
-        let category: Category?
         
+        let category: Category?
         if let categoryJSON = dict[CodingKeys.category] as? JSONDictionary {
             category = Category.parse(json: categoryJSON)
         } else {
@@ -91,7 +91,7 @@ extension TodoItem: JSONParsable {
             creationDate: creationDate,
             deadline: deadline,
             modificationDate: modificationDate,
-            category: category
+            category: category ?? Category.defaultCategory
         )
     }
 }

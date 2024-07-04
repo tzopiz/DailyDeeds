@@ -6,16 +6,31 @@
 //
 
 import SwiftUI
+import Combine
 
-class TodoItemViewModel: ObservableObject {
+protocol IListTodoItemViewModel: IBaseTodoItemViewModel {
+    var completedTodoItemsCount: Int { get }
+    var sort: TaskCriteria.SortType { get set }
+    var filter: TaskCriteria.FilterType { get set }
+    func setSortType(_ sortType: TaskCriteria.SortType)
+    func toggleFilter()
+}
+
+final class ListTodoItemViewModel: ObservableObject, IListTodoItemViewModel {
     @Published
-    private(set) var model = TodoItemModel()
+    var model: TodoItemModel
     
     @Published
     var sort: TaskCriteria.SortType = .byCreationDate(.descending)
     
     @Published
     var filter: TaskCriteria.FilterType = .all
+    
+    var completedTodoItemsCount: Int {
+        model.items.filter(by: \.isDone, predicate: { $0 }).count
+    }
+    
+    private var cancellables = Set<AnyCancellable>()
     
     var items: Array<TodoItem> {
         let items: Array<TodoItem>
@@ -39,81 +54,19 @@ class TodoItemViewModel: ObservableObject {
         }
     }
     
-    var completedTodoItemsCount: Int {
-        model.items.filter(by: \.isDone, predicate: { $0 }).count
-    }
-    
-    init(model: TodoItemModel = TodoItemModel(), items: Array<TodoItem> = []) {
+    init(model: TodoItemModel) {
         self.model = model
-        self.addTodoItems(items)
-    }
-    
-    // MARK: - Delete
-    func removeAll() {
-        for item in items {
-            model.remove(with: item.id)
-        }
-    }
-    
-    func remove(with id: String) {
-        model.remove(with: id)
+        setupBindings()
     }
     
     func remove(at offsets: IndexSet) {
         model.remove(at: offsets)
     }
     
-    // MARK: - Create
-    func append(_ item: TodoItem) {
-        if item.text.count > 0 {
-            model.append(item)
-        }
-    }
-    
-    func addTodoItems(_ items: Array<TodoItem>) {
-        items.forEach { model.append($0) }
-    }
-    
-    // MARK: - Update
     func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
         model.move(fromOffsets: indices, toOffset: newOffset)
     }
-    func update(oldItem: TodoItem, to newItem: TodoItem?) {
-        guard let newItem = newItem else {
-            model.remove(with: oldItem.id)
-            return
-        }
-        if newItem.id == oldItem.id, newItem.text.count > 0 {
-            model.update(newItem)
-        }
-    }
     
-    func complete(_ item: TodoItem) {
-        let newItem = MutableTodoItem(from: item)
-        newItem.isDone.toggle()
-        update(oldItem: item, to: newItem.immutable)
-    }
-    
-    // MARK: - Save
-    func save(to fileName: String, format type: TodoItemModel.FileFormat = .json) {
-        if let error = model.saveToFile(named: fileName, format: type) {
-            print(error.localizedDescription)
-        }
-    }
-    
-    // MARK: - Read
-    func loadItems(from fileName: String, format type: TodoItemModel.FileFormat = .json) {
-        let result = model.loadFromFile(named: fileName, format: type)
-        switch result {
-        case .success(let items):
-            removeAll()
-            addTodoItems(items)
-        case .failure(let error):
-            print(error.localizedDescription)
-        }
-    }
-    
-    // MARK: - Sorting
     func setSortType(_ sortType: TaskCriteria.SortType) {
         self.sort = sortType
     }
@@ -126,20 +79,28 @@ class TodoItemViewModel: ObservableObject {
             filter = .notCompletedOnly
         }
     }
+    
+    private func setupBindings() {
+        // Double ObservableObject does not lead to good
+        model.objectWillChange.sink { [weak self] in
+            self?.objectWillChange.send()
+        }
+        .store(in: &cancellables)
+    }
 }
 
-extension TodoItemViewModel {
+extension ListTodoItemViewModel {
     static func createTodoItems(_ n: Int) -> [TodoItem] {
         var items = [TodoItem]()
         
         let texts = [
             "Long Task, Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
-            "Call mom to check in and see how she's doing. Don't forget to ask about her recent doctor's appointment.",
+            "Call mom to check in and see how she's doing. Don't forget to ask.",
             "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
             "Clean the house thoroughly, including dusting all the furniture, vacuuming the carpets, and mopping the floors.",
-            "Prepare presentation for the next team meeting, focusing on the project milestones achieved and the goals for the next quarter.",
+            "Prepare for the next quarter.",
             "Go for a walk in the park to get some fresh air and a bit of exercise. Aim for at least 30 minutes of brisk walking.",
-            "Read a book on personal development. This month's pick is 'Atomic Habits' by James Clear. Try to read at least two chapters.",
+            "Read a book on personal development.",
             "Write a blog post about the latest trends in technology and how they are impacting our daily lives. Aim for at least 1000 words.",
             "Workout session at the gym, focusing on strength training exercises. Don't forget to do a proper warm-up and cool-down.",
             "Plan the trip to the mountains for the upcoming holiday. Make a list of all the necessary gear and supplies to pack."
@@ -152,7 +113,7 @@ extension TodoItemViewModel {
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
             let creationDate = Date().addingTimeInterval(Double(i) * 86400)
-            let deadline = Bool.random() ? Date().addingTimeInterval(Double(i % 8) * 86400 + 86400) : nil
+            let deadline = Bool.random() ? Date().addingTimeInterval(Double(i % 12) * 86400 + 86400) : nil
             let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
             
             let item = TodoItem(
@@ -162,7 +123,7 @@ extension TodoItemViewModel {
                 hexColor: hexColor,
                 creationDate: creationDate,
                 deadline: deadline,
-                category: Category(name: "\(i)", color: Bool.random() ? hexColor : nil)
+                category: Category.defaultCategory
             )
             
             items.append(item)

@@ -29,7 +29,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
     @Published 
     var modificationDate: Date
     @Published
-    var category: Category?
+    var category: Category
     
     private var cancellables = Set<AnyCancellable>()
     
