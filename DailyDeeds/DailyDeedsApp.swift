@@ -6,14 +6,16 @@
 //
 
 import SwiftUI
+import SnapKit
 
 @main
 struct DailyDeedsApp: App {
-    private let items = TodoItemViewModel.createTodoItems(4)
-    
+    private let model = TodoItemModel(
+        items: ListTodoItemViewModel.createTodoItems(30)
+    )
     var body: some Scene {
         WindowGroup {
-            TodoItemsListView(viewModel: TodoItemViewModel(items: items))
+            TodoItemsListView(viewModel: ListTodoItemViewModel(model: model))
         }
     }
 }
