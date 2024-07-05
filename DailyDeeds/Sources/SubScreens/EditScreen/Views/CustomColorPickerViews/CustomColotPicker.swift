@@ -49,7 +49,7 @@ struct CustomColorPicker: View {
                     }
                     .frame(width: geometry.size.width, height: geometry.size.height)
                     .onAppear {
-                        // FIXME: - Установка начальной позиции в зависимости от выбранного цвета
+                        // FIXME: - Setting the starting position depending on the selected color
                         // colorPosition = initialPosition(for: selectedColor, in: geometry.size)
                         height = geometry.size.width / 2
                     }

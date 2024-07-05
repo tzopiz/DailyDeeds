@@ -21,7 +21,6 @@
 		0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */; };
 		0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A9B2C28BADB00A9290B /* TodoItemModel.swift */; };
 		0A54122E2C34437700B75AE1 /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A54122D2C34437700B75AE1 /* ItemSection.swift */; };
-		0A5412312C345D9C00B75AE1 /* CategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5412302C345D9C00B75AE1 /* CategoryModel.swift */; };
 		0A5412332C34642800B75AE1 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5412322C34642800B75AE1 /* Category.swift */; };
 		0A554E642C1ED4D30068360C /* TodoItemModelTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A554E632C1ED4D30068360C /* TodoItemModelTesting.swift */; };
 		0A63EC662C1CC091005ED49D /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC642C1CC091005ED49D /* TodoItem.swift */; };
@@ -127,7 +126,6 @@
 		0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsApp.swift; sourceTree = "<group>"; };
 		0A373A9B2C28BADB00A9290B /* TodoItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemModel.swift; sourceTree = "<group>"; };
 		0A54122D2C34437700B75AE1 /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
-		0A5412302C345D9C00B75AE1 /* CategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModel.swift; sourceTree = "<group>"; };
 		0A5412322C34642800B75AE1 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		0A554E632C1ED4D30068360C /* TodoItemModelTesting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemModelTesting.swift; sourceTree = "<group>"; };
 		0A63EC632C1CC091005ED49D /* JSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParsable.swift; sourceTree = "<group>"; };
@@ -324,14 +322,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		0A5412362C346B8400B75AE1 /* CategoriesScreen */ = {
-			isa = PBXGroup;
-			children = (
-				0A54B2892C3560B6005BE6EB /* Model */,
-			);
-			path = CategoriesScreen;
-			sourceTree = "<group>";
-		};
 		0A5412392C346BEF00B75AE1 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,19 +361,10 @@
 		0A54123D2C346D3000B75AE1 /* SubScreens */ = {
 			isa = PBXGroup;
 			children = (
-				0A5412362C346B8400B75AE1 /* CategoriesScreen */,
 				0A1CC2D22C30C3D000E13477 /* CalendarScreen */,
 				0AE192002C30A6B4003B8924 /* EditScreen */,
 			);
 			path = SubScreens;
-			sourceTree = "<group>";
-		};
-		0A54B2892C3560B6005BE6EB /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0A5412302C345D9C00B75AE1 /* CategoryModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		0A554E612C1ED49D0068360C /* TodoItemModelTesting */ = {
@@ -774,7 +755,6 @@
 				0A7EEF242C31A97B009553B7 /* ColorPickerRowView.swift in Sources */,
 				0A89CCFD2C2F7BBB006F9BF7 /* CustomSheetModifier.swift in Sources */,
 				0A5412332C34642800B75AE1 /* Category.swift in Sources */,
-				0A5412312C345D9C00B75AE1 /* CategoryModel.swift in Sources */,
 				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,
 				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
 				0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */,

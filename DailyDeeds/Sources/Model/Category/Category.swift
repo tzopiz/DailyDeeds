@@ -44,9 +44,10 @@ extension Category {
     }
     
     static func parse(json dict: JSONDictionary) -> Category? {
-        guard let name = dict[CodingKeys.name] as? String
+        guard let id = dict[CodingKeys.id] as? String,
+              let name = dict[CodingKeys.name] as? String
         else { return Category.defaultCategory }
-        return Category(name: name, color: dict[CodingKeys.color] as? String)
+        return Category(id, name: name, color: dict[CodingKeys.color] as? String)
     }
 }
 

@@ -22,7 +22,7 @@ final class TodoItemModelTesting: XCTestCase {
     
     override func setUp() async throws {
         try await super.setUp()
-        fileCache = TodoItemModel()
+        fileCache = TodoItemModel(items: [])
     }
     
     override func tearDown() {
@@ -32,7 +32,7 @@ final class TodoItemModelTesting: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        fileCache = TodoItemModel()
+        fileCache = TodoItemModel(items: [])
     }
     
     override func tearDownWithError() throws {

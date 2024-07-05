@@ -9,7 +9,7 @@ import Foundation
 
 // TODO: -
 // - [ ] Make normal model
-// - [ ] Make update cell if it's first
+
 struct DateInfo {
     enum Format {
         case long

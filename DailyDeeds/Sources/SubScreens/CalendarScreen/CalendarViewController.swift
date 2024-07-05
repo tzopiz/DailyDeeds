@@ -9,27 +9,33 @@ import UIKit
 import SwiftUI
 import UIComponents
 
-final
-class CalendarViewController: BaseCollectionViewController<CalendarViewModel, CalendarCollectionViewCell> {
+final class CalendarViewController: BaseCollectionViewController<CalendarViewModel, CalendarCollectionViewCell> {
     
     private let tableView = UITableView(frame: .zero, style: .insetGrouped)
+    private let addButton = UIButton()
     
     // MARK: - Configure
     override func setupViews() {
         super.setupViews()
-        view.addSubviews(tableView)
+        view.addSubviews(tableView, addButton)
     }
     
     override func layoutViews() {
         super.layoutViews()
         collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(1)
-            make.leading.trailing.equalToSuperview()
+            make.horizontalEdges.equalToSuperview()
             make.height.equalTo(91)
         }
+        
         tableView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
+            make.horizontalEdges.bottom.equalToSuperview()
             make.top.equalTo(collectionView.snp.bottom).offset(1)
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(8)
+            make.centerX.equalToSuperview()
         }
     }
     
@@ -49,18 +55,25 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
         collectionView.backgroundColor = UIColor.backPrimary
         collectionView.bounces = false
         
-        configureCreateNewTodoItemButton()
+        scrollToItem(at: 0)
+        
+        let plusImage = UIImage(resource: .plusCircleFillBlue)
+        addButton.setImage(plusImage, for: .normal)
+        addButton.layer.shadowColor = UIColor.black.cgColor
+        addButton.layer.shadowOpacity = 0.5
+        addButton.layer.shadowOffset = CGSize(width: 0, height: 5)
+        addButton.layer.shadowRadius = 5
+        addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        
     }
     
     override func refreshData() {
         super.refreshData()
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-            self.scrollViewDidScroll(self.tableView)
-        }
+        self.tableView.reloadData()
     }
     
-    private func configureCreateNewTodoItemButton() {
+    @IBAction
+    private func addButtonTapped() {
         let newItem = TodoItem(text: "")
         
         let detailViewController = UIHostingController(
@@ -69,27 +82,11 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
                 self.refreshData()
             }
         )
-        
-        let hostingController = UIHostingController(
-            rootView: CreateTodoItemButton {
-                self.viewModel.navigationDelegate?.presentController(
-                    detailViewController,
-                    animated: true,
-                    completion: nil
-                )
-            }
+        self.viewModel.navigationDelegate?.presentController(
+            detailViewController,
+            animated: true,
+            completion: nil
         )
-        
-        view.addSubviews(hostingController.view)
-        addChild(hostingController)
-        
-        hostingController.view.snp.makeConstraints { make in
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).inset(32)
-            make.centerX.equalToSuperview()
-        }
-        
-        hostingController.view.backgroundColor = .clear
-        hostingController.didMove(toParent: self)
     }
     
     // MARK: - UICollectionViewDataSource
@@ -140,13 +137,18 @@ class CalendarViewController: BaseCollectionViewController<CalendarViewModel, Ca
     
     // MARK: - UIScrollViewDelegate
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let visibleSections = tableView.indexPathsForVisibleRows?.map({ $0.section }),
-              let firstVisibleSection = visibleSections.first
-        else { return }
-        let collectionViewIndexPath = IndexPath(item: firstVisibleSection, section: 0)
+        if scrollView == tableView, scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating {
+            if let topSection = tableView.indexPathsForVisibleRows?.first {
+                scrollToItem(at: topSection.section)
+            }
+        }
+    }
+    
+    private func scrollToItem(at index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
         self.collectionView.selectItem(
-            at: collectionViewIndexPath,
-            animated: false, // TODO: animating
+            at: indexPath,
+            animated: false, // TODO: Normal animating(without ping)
             scrollPosition: .centeredHorizontally
         )
     }
@@ -194,7 +196,6 @@ extension CalendarViewController: UITableViewDelegate {
             onUpdate: { newItem in
                 self.viewModel.update(oldItem: item, to: newItem)
                 self.refreshData()
-                self.tableView.deselectRow(at: indexPath, animated: true)
             }
         )
         

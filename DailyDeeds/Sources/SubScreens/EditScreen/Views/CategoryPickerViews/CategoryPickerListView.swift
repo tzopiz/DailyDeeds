@@ -38,30 +38,20 @@ struct CategoryPickerListView: View {
     }
     
     private var defaultCategoriesView: some View {
-        ForEach(0..<Categories.shared.defaultCategories.count, id: \.self) { index in
-            let item = Categories.shared.defaultCategories[index]
+        ForEach(Categories.shared.defaultCategories) { item in
             categoryListRow(for: item)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    selectedCategory = item
-                    dismiss()
-                }
         }
+        .listRowBackground(Color.backSecondary)
     }
     
     private var userCategoriesView: some View {
-        ForEach(Categories.shared.userCategories.indices, id: \.self) { index in
-            let item = Categories.shared.userCategories[index]
+        ForEach(Categories.shared.userCategories) { item in
             categoryListRow(for: item)
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    selectedCategory = item
-                    dismiss()
-                }
         }
         .onDelete { indexSet in
             Categories.shared.remove(atOffsets: indexSet)
         }
+        .listRowBackground(Color.backSecondary)
     }
     
     @ViewBuilder
@@ -76,5 +66,10 @@ struct CategoryPickerListView: View {
             }
         }
         .padding(4)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            selectedCategory = item
+            dismiss()
+        }
     }
 }

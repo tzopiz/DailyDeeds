@@ -20,7 +20,7 @@ struct ColorPickerRowView: View {
                     .font(.system(size: 14))
                     .foregroundStyle(Color.labelPrimary)
                     .padding(2)
-                    .background(Color.backElevated)
+                    .background(Color.backiOSPrimary)
                     .clipShape(.rect(cornerRadius: 4))
             }
             

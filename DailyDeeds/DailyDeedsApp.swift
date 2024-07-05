@@ -11,7 +11,7 @@ import SnapKit
 @main
 struct DailyDeedsApp: App {
     private let model = TodoItemModel(
-        items: ListTodoItemViewModel.createTodoItems(3)
+        items: ListTodoItemViewModel.createTodoItems(30)
     )
     var body: some Scene {
         WindowGroup {

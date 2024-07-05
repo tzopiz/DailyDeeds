@@ -28,8 +28,10 @@ struct CreateNewCategoryView: View {
                         .frame(minHeight: 40)
                         .padding(.vertical, 8)
                         .focused($isActive)
+                    
                     Toggle("Цветная", isOn: $isColorEnabled)
                         .frame(height: 56)
+                    
                     if isColorEnabled {
                         ColorPickerRowView(
                             selectedColor: $color,
