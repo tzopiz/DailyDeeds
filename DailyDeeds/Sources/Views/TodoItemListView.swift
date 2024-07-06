@@ -71,7 +71,7 @@ struct TodoItemsListView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
                         CalendarViewControllerRepresentable(model: viewModel.model)
-                            .navigationTitle("Мои дела")
+                            .navigationTitle("Календарь")
                             .navigationBarTitleDisplayMode(.inline)
                             .ignoresSafeArea(edges: .bottom)
                             .toolbarBackground(.supportNavBarBlur, for: .navigationBar)
