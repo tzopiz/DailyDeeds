@@ -8,6 +8,7 @@
 import UIKit
 import SwiftUI
 import UIComponents
+import CocoaLumberjackSwift
 
 final class CalendarViewController: BaseCollectionViewController<CalendarViewModel, CalendarCollectionViewCell> {
     
@@ -97,8 +98,10 @@ final class CalendarViewController: BaseCollectionViewController<CalendarViewMod
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: CalendarCollectionViewCell.reuseIdentifier,
             for: indexPath
-        ) as? CalendarCollectionViewCell
-        else { return UICollectionViewCell() }
+        ) as? CalendarCollectionViewCell else {
+            DDLogError("Failed to dequeue CalendarCollectionViewCell for indexPath: \(indexPath)")
+            return UICollectionViewCell()
+        }
         
         cell.configure(viewModel.collectionViewCellItem(for: indexPath))
         
@@ -169,7 +172,10 @@ extension CalendarViewController: UITableViewDataSource {
             withIdentifier: CalendarTableViewCell.reuseIdentifier,
             for: indexPath
         ) as? CalendarTableViewCell
-        else { return UITableViewCell() }
+        else {
+            DDLogError("Failed to dequeue CalendarTableViewCell for indexPath: \(indexPath)")
+            return UITableViewCell()
+        }
         
         cell.configure(viewModel.tableViewCellItem(for: indexPath))
         
@@ -183,7 +189,10 @@ extension CalendarViewController: UITableViewDelegate {
         guard let view = tableView.dequeueReusableHeaderFooterView(
             withIdentifier: TableViewHeaderView.reuseIdentifier
         ) as? TableViewHeaderView
-        else { return UIView() }
+        else {
+            DDLogError("Failed to dequeue TableViewHeaderView for section: \(section)")
+            return UIView()
+        }
         
         view.configure(viewModel.tableViewHeader(for: section))
         return view
@@ -226,12 +235,15 @@ extension CalendarViewController: UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .none)
             success(true)
         }
+        
+        let image = UIImage(systemName: "checkmark.circle.fill")
         let doneAction = UIContextualAction(
             style: .normal,
-            title:  "Выполнено",
+            title:  "",
             handler: handler
         )
         doneAction.backgroundColor = .colorGreen
+        doneAction.image = image
         
         return UISwipeActionsConfiguration(actions: [doneAction])
     }
@@ -248,11 +260,14 @@ extension CalendarViewController: UITableViewDelegate {
             tableView.reloadRows(at: [indexPath], with: .none)
             success(true)
         }
+        
+        let image = UIImage(systemName: "xmark.circle.fill")
         let doneAction = UIContextualAction(
             style: .destructive,
-            title:  "Не выполнено",
+            title:  "",
             handler: handler
         )
+        doneAction.image = image
         
         return UISwipeActionsConfiguration(actions: [doneAction])
     }

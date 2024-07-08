@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import UIComponents
+import CocoaLumberjackSwift
 
 final class CalendarTableViewCell: BaseTableViewCell {
     override class var reuseIdentifier: String {
@@ -19,7 +20,10 @@ final class CalendarTableViewCell: BaseTableViewCell {
     private var categoryImageWidthConstraint: Constraint?
     
     override func configure(_ parametr: Any) {
-        guard let item = parametr as? TodoItem else { return }
+        guard let item = parametr as? TodoItem else {
+            DDLogError("Failed to configure CalendarTableViewCell with invalid parameter.")
+            return
+        }
         configureTitle(item.text, style: item.isDone)
         configureCategoryImageView(with: item.category)
     }

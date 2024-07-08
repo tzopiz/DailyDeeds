@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FileCache
 
 struct Category: Identifiable, Equatable, Hashable, CSVParsable, JSONParsable {
     enum CodingKeys {

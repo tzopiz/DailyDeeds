@@ -6,16 +6,7 @@
 //
 
 import Foundation
-
-protocol CSVParsable {
-    associatedtype CSVType
-    var csv: CSVType { get }
-    static func parse(csv: CSVType) -> Self?
-}
-
-extension CSVParsable {
-    static func buildCSV(@CSVBuilder build: () -> String) -> String { build() }
-}
+import FileCache
 
 extension TodoItem: CSVParsable {
     /// CSV representation of the current TodoItem object.

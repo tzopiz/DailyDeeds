@@ -7,6 +7,7 @@
 
 import UIKit
 import UIComponents
+import CocoaLumberjackSwift
 
 final class CalendarCollectionViewCell: BaseCollectionViewCell {
     override class var reuseIdentifier: String {
@@ -26,7 +27,10 @@ final class CalendarCollectionViewCell: BaseCollectionViewCell {
     )
     
     override func configure(_ parametr: Any) {
-        guard let dateInfo = parametr as? DateInfo else { return }
+        guard let dateInfo = parametr as? DateInfo else {
+            DDLogError("Failed to configure CalendarCollectionViewCell with invalid parameter.")
+            return
+        }
         label.text = dateInfo.description(.short)
     }
 }

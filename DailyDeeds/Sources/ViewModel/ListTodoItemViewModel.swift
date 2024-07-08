@@ -90,7 +90,7 @@ final class ListTodoItemViewModel: ObservableObject, IListTodoItemViewModel {
 }
 
 extension ListTodoItemViewModel {
-    static func createTodoItems(_ n: Int) -> [TodoItem] {
+    static func createTodoItems(_ count: Int) -> [TodoItem] {
         var items = [TodoItem]()
         
         let texts = [
@@ -108,12 +108,12 @@ extension ListTodoItemViewModel {
         
         let importanceLevels: [Importance] = [.low, .medium, .high]
         
-        for i in 0..<n {
-            let text = texts[i % texts.count]
+        for index in 0..<count {
+            let text = texts[index % texts.count]
             let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
             let isDone = Bool.random()
-            let creationDate = Date().addingTimeInterval(Double(i) * 86400)
-            let deadline = Bool.random() ? Date().addingTimeInterval(Double(i % 12) * 86400 + 86400) : nil
+            let creationDate = Date().addingTimeInterval(Double(index) * 86400)
+            let deadline = Bool.random() ? Date().addingTimeInterval(Double(index % 12) * 86400 + 86400) : nil
             let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
             
             let item = TodoItem(

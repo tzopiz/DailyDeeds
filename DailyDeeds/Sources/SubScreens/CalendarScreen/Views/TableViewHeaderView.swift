@@ -7,6 +7,7 @@
 
 import UIKit
 import UIComponents
+import CocoaLumberjackSwift
 
 final class TableViewHeaderView: BaseTableViewHeaderFooterView {
     override class var reuseIdentifier: String {
@@ -16,7 +17,10 @@ final class TableViewHeaderView: BaseTableViewHeaderFooterView {
     private let label = BaseLabel()
     
     override func configure(_ parametr: Any) {
-        guard let dateInfo = parametr as? DateInfo else { return }
+        guard let dateInfo = parametr as? DateInfo else {
+            DDLogError("Failed to configure TableViewHeaderView with invalid parameter.")
+            return
+        }
         label.text = dateInfo.description(.long)
     }
 }

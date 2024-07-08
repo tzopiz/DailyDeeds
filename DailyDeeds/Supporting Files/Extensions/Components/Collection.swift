@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FileCache
 
 extension Collection {
     subscript(safe index: Index) -> Element? {
@@ -14,7 +15,7 @@ extension Collection {
 }
 
 extension Collection where Element: JSONParsable {
-    var jsonArray: [Self.Element.JSONType] {
+    var jsonArray: [JSONDictionary] {
         self.reduce(into: []) { partialResult, element in
             partialResult.append(element.json)
         }

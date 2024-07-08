@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FileCache
 
 protocol IBaseTodoItemViewModel {
     var model: TodoItemModel { get set }
@@ -16,8 +17,8 @@ protocol IBaseTodoItemViewModel {
     func complete(_: TodoItem, isDone: Bool)
     func toggleCompletion(_: TodoItem)
     func addTodoItems(_: Array<TodoItem>)
-    func save(to: String, format: TodoItemModel.FileFormat)
-    func loadItems(from: String, format: TodoItemModel.FileFormat)
+    func save(to fileName: String, format type: FileCache<TodoItem>.FileFormat)
+    func loadItems(from fileName: String, format type: FileCache<TodoItem>.FileFormat)
 }
 
 extension IBaseTodoItemViewModel {
@@ -67,22 +68,12 @@ extension IBaseTodoItemViewModel {
         update(oldItem: item, to: newItem.immutable)
     }
     
-    // MARK: - Save
-    func save(to fileName: String, format type: TodoItemModel.FileFormat = .json) {
-        if let error = model.saveToFile(named: fileName, format: type) {
-            print(error.localizedDescription)
-        }
+    // MARK: - FileCache
+    func save(to fileName: String, format type: FileCache<TodoItem>.FileFormat = .json) {
+        model.save(to: fileName, format: type)
     }
     
-    // MARK: - Read
-    func loadItems(from fileName: String, format type: TodoItemModel.FileFormat = .json) {
-        let result = model.loadFromFile(named: fileName, format: type)
-        switch result {
-        case .success(let items):
-            removeAll()
-            addTodoItems(items)
-        case .failure(let error):
-            print(error.localizedDescription)
-        }
+    func loadItems(from fileName: String, format type: FileCache<TodoItem>.FileFormat = .json) {
+        model.loadItems(from: fileName, format: type)
     }
 }

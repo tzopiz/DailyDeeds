@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FileCache
 
 enum Importance: String, Comparable, Equatable {
     case low = "неважная"
