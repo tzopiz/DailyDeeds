@@ -94,9 +94,15 @@ extension ListTodoItemViewModel {
         var items = [TodoItem]()
         
         let texts = [
-            "Long Task, Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids. Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
+            Array(
+                repeating: "Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
+                count: 5
+            ).joined(),
             "Call mom to check in and see how she's doing. Don't forget to ask.",
-            "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test. Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
+            Array(
+                repeating: "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
+                count: 5
+            ).joined(),
             "Clean the house thoroughly, including dusting all the furniture, vacuuming the carpets, and mopping the floors.",
             "Prepare for the next quarter.",
             "Go for a walk in the park to get some fresh air and a bit of exercise. Aim for at least 30 minutes of brisk walking.",

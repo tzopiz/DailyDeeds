@@ -63,6 +63,9 @@
 		0AAF43FF2C27389F000FE268 /* ListRowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF43FE2C27389F000FE268 /* ListRowItemView.swift */; };
 		0AB3E3552C31DCEE00807EE0 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3E3542C31DCEE00807EE0 /* CalendarCollectionViewCell.swift */; };
 		0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */; };
+		0ABC266C2C3D16EF004BC47A /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266B2C3D16EF004BC47A /* URLSession.swift */; };
+		0ABC266F2C3D23F3004BC47A /* URLSessionWorkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */; };
+		0ABC26712C3D25BC004BC47A /* URLSessionErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC26702C3D25BC004BC47A /* URLSessionErrorsTests.swift */; };
 		0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */; };
 		0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */; };
 		0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA162C2C4C72002FF476 /* Bool.swift */; };
@@ -167,6 +170,9 @@
 		0AAF43FE2C27389F000FE268 /* ListRowItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowItemView.swift; sourceTree = "<group>"; };
 		0AB3E3542C31DCEE00807EE0 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewControllerRepresentable.swift; sourceTree = "<group>"; };
+		0ABC266B2C3D16EF004BC47A /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionWorkingTests.swift; sourceTree = "<group>"; };
+		0ABC26702C3D25BC004BC47A /* URLSessionErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionErrorsTests.swift; sourceTree = "<group>"; };
 		0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTodoItem.swift; sourceTree = "<group>"; };
 		0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTodoItems.swift; sourceTree = "<group>"; };
 		0AD1BA162C2C4C72002FF476 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
@@ -284,6 +290,7 @@
 		0A3202C32C1C67C900427B05 /* DailyDeedsTests */ = {
 			isa = PBXGroup;
 			children = (
+				0ABC266D2C3D23E9004BC47A /* Networking */,
 				0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */,
 				0A554E612C1ED49D0068360C /* TodoItemModelTesting */,
 				0A63EC702C1CD93D005ED49D /* TodoItemTesting */,
@@ -422,6 +429,7 @@
 		0A7994F92C275CAF0097B18E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0ABC266A2C3D16E2004BC47A /* Networking */,
 				0A91349E2C2DD3F200697091 /* Settings.swift */,
 			);
 			path = Services;
@@ -509,6 +517,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		0ABC266A2C3D16E2004BC47A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0ABC266B2C3D16EF004BC47A /* URLSession.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		0ABC266D2C3D23E9004BC47A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */,
+				0ABC26702C3D25BC004BC47A /* URLSessionErrorsTests.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		0AD1BA3B2C2CCB9C002FF476 /* ListRowItemViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -592,11 +617,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A3202D42C1C67C900427B05 /* Build configuration list for PBXNativeTarget "DailyDeeds" */;
 			buildPhases = (
+				0AFA4AB92C3BCED300C4D58A /* SwiftLint */,
 				0A3202AC2C1C67C800427B05 /* Sources */,
 				0A3202AD2C1C67C800427B05 /* Frameworks */,
 				0A3202AE2C1C67C800427B05 /* Resources */,
 				0AB3E3512C31DBA400807EE0 /* Embed Frameworks */,
-				0AFA4AB92C3BCED300C4D58A /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -776,6 +801,7 @@
 				0A7EEF212C31A7EA009553B7 /* GradientCircleView.swift in Sources */,
 				0AA5E0882C37FC1F00AE7002 /* Categories.swift in Sources */,
 				0AEEEE582C35BA810029438E /* DateInfo.swift in Sources */,
+				0ABC266C2C3D16EF004BC47A /* URLSession.swift in Sources */,
 				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
 				0AF113032C36F36A009181F9 /* CategoryPickerRow.swift in Sources */,
 				0A77CFC72C32A6BF00B2F812 /* CalendarTableViewCell.swift in Sources */,
@@ -817,6 +843,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */,
+				0ABC26712C3D25BC004BC47A /* URLSessionErrorsTests.swift in Sources */,
+				0ABC266F2C3D23F3004BC47A /* URLSessionWorkingTests.swift in Sources */,
 				0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */,
 				0A63EC742C1CE1BC005ED49D /* TestTodoItem.swift in Sources */,
 				0A554E642C1ED4D30068360C /* TodoItemModelTesting.swift in Sources */,
@@ -1004,6 +1032,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1038,6 +1067,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

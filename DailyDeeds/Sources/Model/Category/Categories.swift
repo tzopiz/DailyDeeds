@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Categories {
+final class Categories: Sendable {
 
     private init() { }
     

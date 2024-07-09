@@ -22,15 +22,4 @@ struct UserDefault<T> {
     }
 }
 
-enum Settings {
-    @UserDefault(
-        key: String(describing: Category.self),
-        defaultValue: [
-            Category(name: "Работа", color: "#FF0000"),
-            Category(name: "Учеба", color: "#0000FF"),
-            Category(name: "Хобби", color: "00FF00"),
-            Category(name: "Без категории")
-        ]
-    )
-    static var categories: [Category]
-}
+enum Settings { }
