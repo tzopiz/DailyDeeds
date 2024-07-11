@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoryPickerRow: View {
     @Binding
     var selecetedCategory: Category
-    
+
     var body: some View {
         NavigationLink {
             CategoryPickerListView(selectedCategory: $selecetedCategory)

@@ -9,9 +9,9 @@ import UIKit
 import SwiftUI
 
 struct CalendarViewControllerRepresentable: UIViewControllerRepresentable {
-    
+
     let model: TodoItemModel
-    
+
     func makeUIViewController(context: Context) -> CalendarViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0

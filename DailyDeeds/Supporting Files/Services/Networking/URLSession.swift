@@ -25,7 +25,7 @@ extension URLSession {
                     continuation.resume(throwing: cancellationError)
                     return
                 }
-                
+
                 if let data = data, let response = response {
                     DDLogVerbose("Request completed successfully")
                     continuation.resume(returning: (data, response))
@@ -47,7 +47,7 @@ extension URLSession {
                     continuation.resume(throwing: unknownError)
                 }
             }
-            
+
             task.resume()
         }
     }

@@ -10,22 +10,22 @@ import SwiftUI
 struct TodoItemsListView: View {
     typealias SortType = TaskCriteria.SortType
     typealias FilterType = TaskCriteria.FilterType
-    
+
     @ObservedObject
     var viewModel: ListTodoItemViewModel
-    
+
     @Environment(\.verticalSizeClass)
     private var verticalSizeClass
     @Environment(\.horizontalSizeClass)
     private var horizontalSizeClass
-    
+
     @FocusState
     private var isActive: Bool
     @State
     private var selectedItem: TodoItem?
     @State
     private var interfaceOrientation: InterfaceOrientation = .unknown
-    
+
     var body: some View {
         NavigationSplitView {
             todoItemsListView
@@ -47,7 +47,7 @@ struct TodoItemsListView: View {
             }
         }
     }
-    
+
     private var todoItemsListView: some View {
         listView
             .scrollContentBackground(Color.backPrimary)
@@ -82,7 +82,7 @@ struct TodoItemsListView: View {
                 }
             }
     }
-    
+
     @ViewBuilder
     private var listView: some View {
         switch interfaceOrientation.deviceType {
@@ -97,7 +97,7 @@ struct TodoItemsListView: View {
             .listStyle(.sidebar)
         }
     }
-    
+
     private var listContent: some View {
         Section {
             ForEach(viewModel.items) { item in
@@ -105,7 +105,7 @@ struct TodoItemsListView: View {
             }
             .onDelete(perform: viewModel.remove)
             .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 0))
-            
+
             CreateNewTodoItemRowView { text in
                 viewModel.append(TodoItem(text: text))
             }
@@ -118,7 +118,7 @@ struct TodoItemsListView: View {
                 .foregroundStyle(Color.labelTertiary)
         }
     }
-    
+
     private var listHeaderView: some View {
         HStack {
             Text("Выполнено – \(viewModel.completedTodoItemsCount)")
@@ -133,7 +133,7 @@ struct TodoItemsListView: View {
             }
         }
     }
-    
+
     private var sortingButton: some View {
         Menu {
             ForEach(SortType.allCases, id: \.self) { option in
@@ -155,7 +155,7 @@ struct TodoItemsListView: View {
                 .symbolEffect(.bounce.down, value: viewModel.sort)
         }
     }
-    
+
     private func listRow(for item: TodoItem) -> some View {
         ListRowItemView(item: item)
             .swipeActions(edge: .leading, allowsFullSwipe: true) {
@@ -180,12 +180,12 @@ struct TodoItemsListView: View {
                 }
                 .tint(Color.colorLightGray)
             }
-        
+
             .onTapGesture {
                 selectedItem = item
             }
     }
-    
+
     private func createEmptyItem() {
         selectedItem = TodoItem(text: "")
     }

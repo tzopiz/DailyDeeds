@@ -11,23 +11,23 @@ struct CompactVerticalDetailView<Content: View>: View {
     @ObservedObject
     var todoItem: MutableTodoItem
     let content: Content
-    
+
     @FocusState
     private var isActive: Bool
-    
+
     @State
     private var selectedColor: Color
     @State
     private var isDatePickerVisible: Bool = false
     @State
     private var isShowingColorPicker = false
-    
+
     init(todoItem: MutableTodoItem, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.todoItem = todoItem
         self.selectedColor = Color(hex: todoItem.hexColor)
     }
-    
+
     var body: some View {
         HStack(spacing: 0) {
             TextEditor(text: $todoItem.text)
@@ -36,11 +36,11 @@ struct CompactVerticalDetailView<Content: View>: View {
                 .clipShape(RoundedRectangle(cornerRadius: 8))
                 .padding(
                     !isActive ?
-                        .init(top: 16, leading: 16,bottom: 16,trailing: 8) :
+                        .init(top: 16, leading: 16, bottom: 16, trailing: 8) :
                             .init(top: 0, leading: 16, bottom: 0, trailing: 16)
                 )
                 .background(Color.backPrimary)
-            
+
             if !isActive {
                 Form {
                     ItemSection(horizontal: 16) {
@@ -50,7 +50,7 @@ struct CompactVerticalDetailView<Content: View>: View {
                         deadlineToggleView
                         datePicker
                     }
-                    
+
                     ItemSection(horizontal: 16) {
                         content
                     }
@@ -68,7 +68,7 @@ struct CompactVerticalDetailView<Content: View>: View {
         .listSectionSpacing(16)
         .toolbarKeyboardView(_isActive)
     }
-    
+
     private var colorPicker: some View {
         ColorPickerRowView(
             selectedColor: $selectedColor,
@@ -80,7 +80,7 @@ struct CompactVerticalDetailView<Content: View>: View {
             CustomColorPicker(selectedColor: $selectedColor)
         })
     }
-    
+
     private var deadlineToggleView: some View {
         DeadlineToggleView(
             deadline: $todoItem.deadline,
@@ -88,7 +88,7 @@ struct CompactVerticalDetailView<Content: View>: View {
             isDatePickerVisible: $isDatePickerVisible
         )
     }
-    
+
     @ViewBuilder
     private var datePicker: some View {
         if isDatePickerVisible, !isActive {

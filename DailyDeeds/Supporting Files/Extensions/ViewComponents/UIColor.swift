@@ -31,23 +31,23 @@ extension UIColor {
         )
 
     }
-    
+
     /// Преобразует цвет в HEX строку.
     var hexString: String {
         guard let components = self.cgColor.components, components.count >= 3
         else { return "" }
-        
+
         let r = Float(components[0])
         let g = Float(components[1])
         let b = Float(components[2])
-        
+
         let hexString = String(
             format: "#%02lX%02lX%02lX",
             lroundf(r * 255),
             lroundf(g * 255),
             lroundf(b * 255)
         )
-        
+
         return hexString
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct CategoryPickerListView: View {
     @Binding
     var selectedCategory: Category
-    
+
     @State
     private var isPresented: Bool = false
     @Environment(\.dismiss)
@@ -36,14 +36,14 @@ struct CategoryPickerListView: View {
             CreateNewCategoryView()
         }
     }
-    
+
     private var defaultCategoriesView: some View {
         ForEach(Categories.shared.defaultCategories) { item in
             categoryListRow(for: item)
         }
         .listRowBackground(Color.backSecondary)
     }
-    
+
     private var userCategoriesView: some View {
         ForEach(Categories.shared.userCategories) { item in
             categoryListRow(for: item)
@@ -53,7 +53,7 @@ struct CategoryPickerListView: View {
         }
         .listRowBackground(Color.backSecondary)
     }
-    
+
     @ViewBuilder
     private func categoryListRow(for item: Category) -> some View {
         HStack {

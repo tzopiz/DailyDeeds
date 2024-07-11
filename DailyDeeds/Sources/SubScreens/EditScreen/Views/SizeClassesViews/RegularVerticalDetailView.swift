@@ -11,23 +11,23 @@ struct RegularVerticalDetailView<Content: View>: View {
     @ObservedObject
     var todoItem: MutableTodoItem
     let content: Content
-    
+
     @FocusState
     private var isActive: Bool
-    
+
     @State
     private var selectedColor: Color
     @State
     private var isDatePickerVisible: Bool = false
     @State
     private var isShowingColorPicker = false
-    
+
     init(todoItem: MutableTodoItem, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.todoItem = todoItem
         self.selectedColor = Color(hex: todoItem.hexColor)
     }
-    
+
     var body: some View {
         Form {
             ItemSection {
@@ -37,7 +37,7 @@ struct RegularVerticalDetailView<Content: View>: View {
                     .padding(.all, 12)
                     .focused($isActive)
             }
-            
+
             ItemSection(horizontal: 16) {
                 ImportancePicker(selectedSegment: $todoItem.importance)
                 colorPicker
@@ -61,7 +61,7 @@ struct RegularVerticalDetailView<Content: View>: View {
         .contentMargins(.all, 16)
         .toolbarKeyboardView(_isActive)
     }
-    
+
     private var colorPicker: some View {
         // FIXME: - Make it more likeable
         ColorPickerRowView(
@@ -75,7 +75,7 @@ struct RegularVerticalDetailView<Content: View>: View {
                 .presentationDetents([.medium]) // FIXME: - landscape orientation
         })
     }
-    
+
     private var deadlineToggleView: some View {
         DeadlineToggleView(
             deadline: $todoItem.deadline,
@@ -83,7 +83,7 @@ struct RegularVerticalDetailView<Content: View>: View {
             isDatePickerVisible: $isDatePickerVisible
         )
     }
-    
+
     private var datePicker: some View {
         DatePicker("", selection: $todoItem.deadline, displayedComponents: .date)
             .datePickerStyle(.graphical)

@@ -13,7 +13,7 @@ final class TestJSONParsable: XCTestCase {
     private let creationDate = Date(timeIntervalSince1970: TimeInterval(1674990000))
     private let deadline = Date(timeIntervalSince1970: TimeInterval(1675000000))
     private let modificationDate = Date(timeIntervalSince1970: TimeInterval(1674991000))
-    
+
     func testParseJSON() {
         let id = "1"
         let text = "Задача из JSON"
@@ -30,13 +30,12 @@ final class TestJSONParsable: XCTestCase {
             (Keys.deadline, deadline)
             (Keys.modificationDate, modificationDate)
         }
-        
-        
+
         guard let item = TodoItem.parse(json: json) else {
             XCTFail("Failed to parse JSON into TodoItem")
             return
         }
-        
+
         XCTAssertEqual(item.id, id)
         XCTAssertEqual(item.text, text)
         XCTAssertEqual(item.importance, importance)
@@ -45,7 +44,7 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.deadline, deadline)
         XCTAssertEqual(item.modificationDate, modificationDate)
     }
-    
+
     func testJSONRepresentation() {
         let id = "1"
         let text = "Задача из JSON"
@@ -58,15 +57,14 @@ final class TestJSONParsable: XCTestCase {
             deadline: deadline,
             modificationDate: modificationDate
         )
-        
+
         let json = item.json
         guard let parsedItem = TodoItem.parse(json: json)
         else {
             XCTFail("unluck TodoItem.parse(:JSONType)")
             return
         }
-        
-        
+
         XCTAssertEqual(item.id, parsedItem.id)
         XCTAssertEqual(item.text, parsedItem.text)
         XCTAssertEqual(item.isDone, parsedItem.isDone)
@@ -74,9 +72,9 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.creationDate, parsedItem.creationDate)
         XCTAssertEqual(item.deadline, parsedItem.deadline)
         XCTAssertEqual(item.modificationDate, parsedItem.modificationDate)
-        
+
     }
-    
+
     func testFromJSONString() {
         let id = "789"
         let text = "Еще одна задача из JSON строка"
@@ -93,12 +91,12 @@ final class TestJSONParsable: XCTestCase {
                 "\(Keys.modificationDate)": "\(modificationDate.toString())"
             }
             """
-        
+
         guard let item = TodoItem.from(jsonString: jsonString) else {
             XCTFail("Failed to parse JSON string into TodoItem")
             return
         }
-        
+
         XCTAssertEqual(item.id, id)
         XCTAssertEqual(item.text, text)
         XCTAssertEqual(item.isDone, isDone)
@@ -107,7 +105,7 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.deadline, deadline)
         XCTAssertEqual(item.modificationDate, modificationDate)
     }
-    
+
     func testMinimalJSON() {
         let id = "1"
         let text = "Задача из JSON"
@@ -122,13 +120,12 @@ final class TestJSONParsable: XCTestCase {
             (Keys.hexColor, hexColor)
             (Keys.creationDate, creationDate)
         }
-        
-        
+
         guard let item = TodoItem.parse(json: json) else {
             XCTFail("Failed to parse minimal JSON into TodoItem")
             return
         }
-        
+
         XCTAssertEqual(item.id, id)
         XCTAssertEqual(item.text, text)
         XCTAssertEqual(item.isDone, isDone)

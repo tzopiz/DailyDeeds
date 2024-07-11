@@ -13,7 +13,7 @@ final class TodoItemModel: ObservableObject {
         case json
         case csv
     }
-    
+
     enum FileError: Error {
         case fileNotFound
         case dataCorrupted
@@ -26,12 +26,12 @@ final class TodoItemModel: ObservableObject {
         case fileAlreadyExists
         case unknown
     }
-    
+
     @Published
-    private(set) var items: Array<TodoItem>
-    
+    private(set) var items: [TodoItem]
+
     private let fileCache = FileCache<TodoItem>()
-    init(items: Array<TodoItem>) {
+    init(items: [TodoItem]) {
         self.items = items
     }
 }
@@ -42,7 +42,7 @@ extension TodoItemModel {
             print(error.localizedDescription)
         }
     }
-    
+
     // MARK: - Read
     func loadItems(from fileName: String, format type: FileCache<TodoItem>.FileFormat = .json) {
         let result = fileCache.loadFromFile(named: fileName, format: type)
@@ -61,7 +61,7 @@ extension TodoItemModel {
             items.append(item)
         }
     }
-    
+
     func update(_ item: TodoItem) {
         if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item
@@ -69,15 +69,15 @@ extension TodoItemModel {
             items.append(item)
         }
     }
-    
+
     func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
         items.move(fromOffsets: indices, toOffset: newOffset)
     }
-    
+
     func remove(with id: String) {
         items.removeAll { $0.id == id }
     }
-    
+
     func remove(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
     }
