@@ -10,7 +10,7 @@ import Foundation
 enum TaskCriteria {
     case filter(FilterType)
     case sort(SortType)
-    
+
     enum FilterType {
         case notCompletedOnly
         case all
@@ -18,15 +18,15 @@ enum TaskCriteria {
             self == .notCompletedOnly
         }
     }
-    
+
     enum SortType: Hashable, CaseIterable {
-        
+
         case byCreationDate(Order)
         case byDeadline(Order)
         case byImportance(Order)
         case byLastModifiedDate(Order)
         case byCompletionStatus(Order)
-        
+
         static var allCases: [TaskCriteria.SortType] {
             return [
                 .byCreationDate(.ascending),
@@ -36,11 +36,11 @@ enum TaskCriteria {
                 .byCompletionStatus(.ascending)
             ]
         }
-        
+
         enum Order: CaseIterable {
             case ascending
             case descending
-            
+
             var isAscending: Bool {
                 switch self {
                 case .ascending:
@@ -50,7 +50,7 @@ enum TaskCriteria {
                 }
             }
         }
-        
+
         init(_ option: SortType, order: Order = .ascending) {
             switch option {
             case .byCreationDate:
@@ -65,7 +65,7 @@ enum TaskCriteria {
                 self = .byCompletionStatus(order)
             }
         }
-        
+
         var order: Order {
             switch self {
             case .byCreationDate(let order),
@@ -76,7 +76,7 @@ enum TaskCriteria {
                 return order
             }
         }
-        
+
         var shortDescription: String {
             switch self {
             case .byCreationDate:
@@ -91,7 +91,7 @@ enum TaskCriteria {
                 return "По статусу выполнения"
             }
         }
-        
+
         var description: String {
             switch self {
             case .byCreationDate(let order):
@@ -106,7 +106,7 @@ enum TaskCriteria {
                 return order.isAscending ? "Сначала невыполненные" : "Сначала выполненные"
             }
         }
-        
+
         var fullDescription: String {
             switch self {
             case .byCreationDate,

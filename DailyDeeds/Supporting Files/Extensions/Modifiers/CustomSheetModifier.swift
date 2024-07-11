@@ -12,7 +12,7 @@ struct CustomSheetModifier<Element: Identifiable, Preview: View>: ViewModifier {
     var item: Element?
     var isPresented: Bool
     var action: (Element) -> Preview
-    
+
     func body(content: Content) -> some View {
         if isPresented {
             content

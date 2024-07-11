@@ -14,7 +14,7 @@ extension Bool: @retroactive Comparable {
         case false: return -1
         }
     }
-    
+
     public static func < (lhs: Bool, rhs: Bool) -> Bool {
         lhs.order < rhs.order
     }

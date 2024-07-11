@@ -9,7 +9,7 @@ import XCTest
 @testable import DailyDeeds
 
 final class TestKeyPathComparable: XCTestCase {
-    
+
     private let item1 = TodoItem(
         id: "1", text: "Задача 1",
         isDone: false, importance: .low,
@@ -25,27 +25,27 @@ final class TestKeyPathComparable: XCTestCase {
         isDone: false, importance: .high,
         creationDate: .now
     )
-    
+
     func testSortingByIdKeyPath() {
-        
+
         let unsortedItems = [item2, item1, item3]
         let sortedItems = unsortedItems.sorted(by: \.id)
-        
+
         XCTAssertEqual(sortedItems, [item1, item2, item3])
     }
-    
+
     func testSortingByImportanceKeyPath() {
-        
+
         let unsortedItems = [item2, item1, item3]
         let sortedItems = unsortedItems.sorted(by: \.importance, ascending: false)
-        
+
         XCTAssertEqual(sortedItems, [item3, item2, item1])
     }
-    
+
     func testFilterByImportanceKeyPath() {
         let unsortedItems = [item1, item2, item3]
-        let filteredItems = unsortedItems.filter(by: \.deadline, predicate: { $0 != nil} )
-        
+        let filteredItems = unsortedItems.filter(by: \.deadline, predicate: { $0 != nil})
+
         XCTAssertEqual(filteredItems.count, 0)
     }
 }

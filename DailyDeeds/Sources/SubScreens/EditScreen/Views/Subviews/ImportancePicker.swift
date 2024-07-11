@@ -10,7 +10,7 @@ import SwiftUI
 struct ImportancePicker: View {
     @Binding
     var selectedSegment: Importance
-    
+
     var body: some View {
         HStack {
             Text("Важность")

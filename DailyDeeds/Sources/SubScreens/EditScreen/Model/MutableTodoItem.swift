@@ -9,30 +9,30 @@ import Foundation
 import Combine
 
 final class MutableTodoItem: Identifiable, ObservableObject {
-    
+
     @Published
     private(set) var id: String
-    @Published 
+    @Published
     var text: String
     @Published
     var isDone: Bool
-    @Published 
+    @Published
     var importance: Importance
-    @Published 
+    @Published
     var hexColor: String
-    @Published 
+    @Published
     private(set) var creationDate: Date
     @Published
     var deadline: Date
-    @Published 
+    @Published
     var isDeadlineEnabled: Bool
-    @Published 
+    @Published
     var modificationDate: Date
     @Published
     var category: Category
-    
+
     private var cancellables = Set<AnyCancellable>()
-    
+
     init(from item: TodoItem) {
         self.id = item.id
         self.text = item.text
@@ -46,7 +46,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
         self.category = item.category
         setupBindings()
     }
-    
+
     var immutable: TodoItem {
         TodoItem(
             id: self.id,
@@ -60,7 +60,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
             category: self.category
         )
     }
-    
+
     private func setupBindings() {
         let textPublisher = $text.map { _ in }
         let isDonePublisher = $isDone.map { _ in }
@@ -69,7 +69,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
         let deadlinePublisher = $deadline.map { _ in }
         let isDeadlineEnabledPublisher = $isDeadlineEnabled.map { _ in }
         let categoryPublisher = $category.map { _ in }
-        
+
         Publishers.Merge7(
             textPublisher,
             isDonePublisher,

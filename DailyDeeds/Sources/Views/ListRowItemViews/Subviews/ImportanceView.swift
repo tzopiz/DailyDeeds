@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ImportanceView: View {
-    
+
     var importance: Importance
-    
+
     private var imageName: String {
         switch importance {
         case .low: "arrow.down"
@@ -18,7 +18,7 @@ struct ImportanceView: View {
         default: ""
         }
     }
-    
+
     var body: some View {
         if importance != .medium {
             Text(Image(imageName))

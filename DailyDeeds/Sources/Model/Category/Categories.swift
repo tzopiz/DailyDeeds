@@ -10,13 +10,13 @@ import Foundation
 final class Categories: Sendable {
 
     private init() { }
-    
+
     static let shared = Categories()
-    
+
     var categories: [Category] {
         defaultCategories + userCategories
     }
-    
+
     var userCategories: [Category] {
         return _categories
     }

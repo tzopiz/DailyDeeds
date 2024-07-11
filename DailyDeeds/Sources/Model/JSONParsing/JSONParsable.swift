@@ -22,7 +22,7 @@ extension TodoItem: JSONParsable {
             (CodingKeys.modificationDate, modificationDate)
         }
     }
-    
+
     /// A function for parsing JSON and creating a TodoItem object.
     /// - Parameter json: A JSON object in the form of `Any'.
     /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
@@ -34,24 +34,23 @@ extension TodoItem: JSONParsable {
               let creationDate = creationTimestamp.toDate(),
               let hexColor = dict[CodingKeys.hexColor] as? String
         else { return nil }
-        
+
         let deadline = (dict[CodingKeys.deadline] as? String)?.toDate()
         let modificationDate = (dict[CodingKeys.modificationDate] as? String)?.toDate()
-        
+
         let importance: Importance = {
             guard let importanceRawValue = dict[CodingKeys.importance] as? String,
                   let importanceValue = Importance(rawValue: importanceRawValue)
             else { return .medium }
             return importanceValue
         }()
-        
+
         let category: Category?
         if let categoryJSON = dict[CodingKeys.category] as? JSONDictionary {
             category = Category.parse(json: categoryJSON)
         } else {
             category = nil
         }
-        
 
         return TodoItem(
             id: id,

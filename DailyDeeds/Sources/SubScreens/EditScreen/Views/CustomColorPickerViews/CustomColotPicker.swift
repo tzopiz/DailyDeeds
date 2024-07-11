@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct CustomColorPicker: View {
-    @Binding 
+    @Binding
     var selectedColor: Color
-    
-    @State 
+
+    @State
     private var brightness: Double = 1.0
     @State
     private var colorPosition: CGPoint = .zero
     @State
     private var height: CGFloat = 0
-    
+
     var body: some View {
         Form {
             Section {
@@ -40,7 +40,7 @@ struct CustomColorPicker: View {
                                         selectedColor = getColor(at: colorPosition, in: geometry.size)
                                     }
                             )
-                        
+
                         Circle()
                             .fill(selectedColor)
                             .frame(width: 20, height: 20)
@@ -56,7 +56,7 @@ struct CustomColorPicker: View {
                 }
             }
             .frame(height: height)
-            
+
             Section {
                 Slider(value: $brightness, in: 0...1, step: 0.01)
                     .onChange(of: brightness) {
@@ -70,7 +70,7 @@ struct CustomColorPicker: View {
         .listSectionSpacing(16)
         .scrollContentBackground(Color.backPrimary)
     }
-    
+
     private func getColor(at point: CGPoint, in size: CGSize) -> Color {
         let uiColor = UIColor(
             hue: point.x / size.width,
@@ -80,7 +80,7 @@ struct CustomColorPicker: View {
         )
         return Color(uiColor)
     }
-    
+
     private func initialPosition(for color: Color, in size: CGSize) -> CGPoint {
         var hue: CGFloat = 0
         var saturation: CGFloat = 0

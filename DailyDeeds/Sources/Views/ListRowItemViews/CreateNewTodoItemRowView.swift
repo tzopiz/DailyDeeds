@@ -11,10 +11,10 @@ struct CreateNewTodoItemRowView: View {
     @State
     private var text: String = ""
     var createItem: (String) -> Void
-    
+
     @Environment(\.scenePhase)
     private var phase
-    
+
     var body: some View {
         HStack(spacing: 8) {
             CheckmarkView(isDone: false, importance: .medium)

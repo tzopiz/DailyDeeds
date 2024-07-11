@@ -16,7 +16,7 @@ struct DateInfo {
         case long
         case short
     }
-    
+
     let date: Date?
 
     func description(_ format: Format) -> String {
