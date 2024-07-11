@@ -65,12 +65,12 @@ final class CalendarViewController: BaseCollectionViewController<CalendarViewMod
         addButton.layer.shadowOffset = CGSize(width: 0, height: 5)
         addButton.layer.shadowRadius = 5
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
-
     }
 
     override func refreshData() {
         super.refreshData()
         self.tableView.reloadData()
+        DDLogInfo("Data is refreshed and tableView is reloaded")
     }
 
     @IBAction
@@ -86,7 +86,9 @@ final class CalendarViewController: BaseCollectionViewController<CalendarViewMod
         self.viewModel.navigationDelegate?.presentController(
             detailViewController,
             animated: true,
-            completion: nil
+            completion: {
+                DDLogInfo("DetailTodoItemView is presented for adding a new item")
+            }
         )
     }
 
@@ -215,6 +217,7 @@ extension CalendarViewController: UITableViewDelegate {
             animated: true,
             completion: {
                 self.tableView.deselectRow(at: indexPath, animated: true)
+                DDLogInfo("DetailTodoItemView presented for item at indexPath: \(indexPath)")
             }
         )
     }
@@ -234,6 +237,7 @@ extension CalendarViewController: UITableViewDelegate {
             )
             tableView.reloadRows(at: [indexPath], with: .none)
             success(true)
+            DDLogInfo("Completed task for item at indexPath: \(indexPath)")
         }
 
         let image = UIImage(systemName: "checkmark.circle.fill")
@@ -259,6 +263,7 @@ extension CalendarViewController: UITableViewDelegate {
             )
             tableView.reloadRows(at: [indexPath], with: .none)
             success(true)
+            DDLogInfo("Marked task as incomplete for item at indexPath: \(indexPath)")
         }
 
         let image = UIImage(systemName: "xmark.circle.fill")
