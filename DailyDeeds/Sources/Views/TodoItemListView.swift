@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CocoaLumberjackSwift
 
 struct TodoItemsListView: View {
     typealias SortType = TaskCriteria.SortType
@@ -162,7 +163,7 @@ struct TodoItemsListView: View {
                 Button {
                     viewModel.toggleCompletion(item)
                 } label: {
-                    Image(systemName: item.isDone ? "xmark.circle": "checkmark.circle")
+                    Image(systemName: item.isDone ? "xmark.circle" : "checkmark.circle")
                 }
                 .tint(Color.green)
             }
@@ -174,7 +175,8 @@ struct TodoItemsListView: View {
                 }
                 .tint(Color.red)
                 Button {
-                    print(viewModel.items)
+                    let message = DDLogMessageFormat(stringLiteral: item.description)
+                    DDLogInfo(message)
                 } label: {
                     Image(systemName: "info.circle")
                 }

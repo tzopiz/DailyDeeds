@@ -56,7 +56,6 @@ extension TodoItemModel {
             DDLogInfo("Successfully loaded items from file \(fileName)")
         case .failure(let error):
             DDLogError("Failed to load items from file \(fileName): \(error.localizedDescription)")
-            print(error.localizedDescription)
         }
     }
 }

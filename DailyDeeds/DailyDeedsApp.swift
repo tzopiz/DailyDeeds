@@ -27,7 +27,7 @@ struct DailyDeedsApp: App {
     func configureLogs() {
 
         let fileLogger: DDFileLogger = DDFileLogger()
-        fileLogger.rollingFrequency = TimeInterval(60*60*24)
+        fileLogger.rollingFrequency = TimeInterval(60 * 60 * 24)
         fileLogger.logFileManager.maximumNumberOfLogFiles = 7
 
         DDLog.add(fileLogger)

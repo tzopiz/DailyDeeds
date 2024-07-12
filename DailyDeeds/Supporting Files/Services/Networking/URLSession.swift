@@ -4,28 +4,24 @@
 //
 //  Created by Дмитрий Корчагин on 7/9/24.
 //
-
 import Foundation
 import CocoaLumberjackSwift
-
-/**
- * - swiftlint install
- * - swiftlint use
- * - networking
- */
 
 extension URLSession {
     func dataTask(for urlRequest: URLRequest) async throws -> (Data, URLResponse) {
         return try await withCheckedThrowingContinuation { continuation in
+            guard !Task.isCancelled else {
+                let cancellationError = NSError(
+                    domain: NSCocoaErrorDomain,
+                    code: NSUserCancelledError,
+                    userInfo: [NSLocalizedDescriptionKey: "Task was cancelled"]
+                )
+                DDLogVerbose("Request was cancelled")
+                continuation.resume(throwing: cancellationError)
+                return
+            }
+            
             let task = self.dataTask(with: urlRequest) { data, response, error in
-                // FIXME: -
-                if Task.isCancelled {
-                    let cancellationError = CancellationError()
-                    DDLogError("Request cancelled: \(cancellationError.localizedDescription)")
-                    continuation.resume(throwing: cancellationError)
-                    return
-                }
-
                 if let data = data, let response = response {
                     DDLogVerbose("Request completed successfully")
                     continuation.resume(returning: (data, response))
