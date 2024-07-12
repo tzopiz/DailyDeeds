@@ -87,4 +87,9 @@ xcuserdata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+# CocoaPods
+Podfile.lock
+Pods
+*.xcworkspace
+
 # End of https://www.toptal.com/developers/gitignore/api/swiftpackagemanager,swift,xcode

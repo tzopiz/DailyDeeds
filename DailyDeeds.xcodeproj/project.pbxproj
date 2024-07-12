@@ -39,6 +39,7 @@
 		0A7EEF262C31AAC5009553B7 /* ToolbarButtonKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */; };
 		0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF272C31AB9F009553B7 /* DefaultKeyboardView.swift */; };
 		0A7EEF2A2C31AE8D009553B7 /* DeadlineToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF292C31AE8D009553B7 /* DeadlineToggleView.swift */; };
+		0A81317B2C412AAA00D4BAFF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0A81317A2C412AAA00D4BAFF /* .swiftlint.yml */; };
 		0A854F1D2C31D8A3008C5A43 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A854F1C2C31D8A3008C5A43 /* CalendarViewController.swift */; };
 		0A854F202C31DA15008C5A43 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A854F1F2C31DA15008C5A43 /* CalendarViewModel.swift */; };
 		0A8918132C3BF90200C330B3 /* FileCache in Frameworks */ = {isa = PBXBuildFile; productRef = 0A8918122C3BF90200C330B3 /* FileCache */; };
@@ -79,7 +80,6 @@
 		0AF6F21D2C208F760043866B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F21C2C208F760043866B /* Collection.swift */; };
 		0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */; };
 		0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2312C20B59E0043866B /* CSVBuilder.swift */; };
-		0AFA4ABB2C3BD03D00C4D58A /* swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0AFA4ABA2C3BD03D00C4D58A /* swiftlint.yml */; };
 		0AFA4ABE2C3BD25000C4D58A /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFA4ABD2C3BD25000C4D58A /* CocoaLumberjack */; };
 		0CB1BBEA13E270240E0787F9 /* Pods_DailyDeeds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24276E5781A5163EEC36FEB2 /* Pods_DailyDeeds.framework */; };
 		2D651AF69E13D8C1B6AFAE3D /* Pods_DailyDeedsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7822B37F8C565B5ADDAFE11E /* Pods_DailyDeedsTests.framework */; };
@@ -151,6 +151,7 @@
 		0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonKeyboard.swift; sourceTree = "<group>"; };
 		0A7EEF272C31AB9F009553B7 /* DefaultKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeyboardView.swift; sourceTree = "<group>"; };
 		0A7EEF292C31AE8D009553B7 /* DeadlineToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineToggleView.swift; sourceTree = "<group>"; };
+		0A81317A2C412AAA00D4BAFF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		0A854F1C2C31D8A3008C5A43 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		0A854F1F2C31DA15008C5A43 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		0A8925F32C287CBC001C39F2 /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
@@ -189,7 +190,6 @@
 		0AF6F21C2C208F760043866B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBuilder.swift; sourceTree = "<group>"; };
 		0AF6F2312C20B59E0043866B /* CSVBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVBuilder.swift; sourceTree = "<group>"; };
-		0AFA4ABA2C3BD03D00C4D58A /* swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = swiftlint.yml; sourceTree = "<group>"; };
 		15C6317EF2ED4A1B52E87114 /* Pods-DailyDeedsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyDeedsTests.release.xcconfig"; path = "Target Support Files/Pods-DailyDeedsTests/Pods-DailyDeedsTests.release.xcconfig"; sourceTree = "<group>"; };
 		24276E5781A5163EEC36FEB2 /* Pods_DailyDeeds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DailyDeeds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F55D7E10290DC0924C44E67 /* Pods-DailyDeeds.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DailyDeeds.debug.xcconfig"; path = "Target Support Files/Pods-DailyDeeds/Pods-DailyDeeds.debug.xcconfig"; sourceTree = "<group>"; };
@@ -261,7 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */,
-				0AFA4ABA2C3BD03D00C4D58A /* swiftlint.yml */,
+				0A81317A2C412AAA00D4BAFF /* .swiftlint.yml */,
 				0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */,
 				0A3202E12C1C6A8900427B05 /* .gitignore */,
 				0A3202DF2C1C6A1500427B05 /* README.md */,
@@ -766,8 +766,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A81317B2C412AAA00D4BAFF /* .swiftlint.yml in Resources */,
 				0A3202E22C1C6A8900427B05 /* .gitignore in Resources */,
-				0AFA4ABB2C3BD03D00C4D58A /* swiftlint.yml in Resources */,
 				0A3202DE2C1C6A0B00427B05 /* LICENSE.txt in Resources */,
 				0A3202BB2C1C67C900427B05 /* Preview Assets.xcassets in Resources */,
 				0A3202E02C1C6A1500427B05 /* README.md in Resources */,
