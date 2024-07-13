@@ -5,9 +5,9 @@
 //  Created by Дмитрий Корчагин on 7/1/24.
 //
 
-import UIKit
-import UIComponents
 import CocoaLumberjackSwift
+import UIComponents
+import UIKit
 
 final class TableViewHeaderView: BaseTableViewHeaderFooterView {
     override class var reuseIdentifier: String {

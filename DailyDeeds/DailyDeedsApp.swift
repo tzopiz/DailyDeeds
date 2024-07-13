@@ -5,9 +5,9 @@
 //  Created by Дмитрий Корчагин on 6/14/24.
 //
 
-import SwiftUI
-import SnapKit
 import CocoaLumberjackSwift
+import SnapKit
+import SwiftUI
 
 @main
 struct DailyDeedsApp: App {

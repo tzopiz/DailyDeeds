@@ -4,8 +4,9 @@
 //
 //  Created by Дмитрий Корчагин on 7/9/24.
 //
-import Foundation
+
 import CocoaLumberjackSwift
+import Foundation
 
 extension URLSession {
     func dataTask(for urlRequest: URLRequest) async throws -> (Data, URLResponse) {

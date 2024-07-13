@@ -15,6 +15,7 @@ only_rules:
   - void_return
   - unowned_variable_capture
   - custom_rules
+  - sorted_imports
 
 excluded:
   - Carthage

@@ -5,10 +5,10 @@
 //  Created by Дмитрий Корчагин on 7/1/24.
 //
 
-import UIKit
+import CocoaLumberjackSwift
 import SnapKit
 import UIComponents
-import CocoaLumberjackSwift
+import UIKit
 
 final class CalendarTableViewCell: BaseTableViewCell {
     override class var reuseIdentifier: String {

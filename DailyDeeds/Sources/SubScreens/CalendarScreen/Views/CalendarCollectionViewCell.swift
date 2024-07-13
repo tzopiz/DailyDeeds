@@ -5,9 +5,9 @@
 //  Created by Дмитрий Корчагин on 6/30/24.
 //
 
-import UIKit
-import UIComponents
 import CocoaLumberjackSwift
+import UIComponents
+import UIKit
 
 final class CalendarCollectionViewCell: BaseCollectionViewCell {
     override class var reuseIdentifier: String {

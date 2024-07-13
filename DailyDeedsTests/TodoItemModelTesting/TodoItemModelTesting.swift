@@ -5,9 +5,9 @@
 //  Created by Дмитрий Корчагин on 6/16/24.
 //
 
-import XCTest
-import FileCache
 @testable import DailyDeeds
+import FileCache
+import XCTest
 
 final class TodoItemModelTesting: XCTestCase {
     typealias Keys = TodoItem.CodingKeys

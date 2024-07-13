@@ -5,8 +5,8 @@
 //  Created by Дмитрий Корчагин on 6/23/24.
 //
 
-import SwiftUI
 import Combine
+import SwiftUI
 
 protocol IListTodoItemViewModel: IBaseTodoItemViewModel {
     var completedTodoItemsCount: Int { get }

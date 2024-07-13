@@ -5,8 +5,8 @@
 //  Created by Дмитрий Корчагин on 6/22/24.
 //
 
-import SwiftUI
 import CocoaLumberjackSwift
+import SwiftUI
 
 struct TodoItemsListView: View {
     typealias SortType = TaskCriteria.SortType

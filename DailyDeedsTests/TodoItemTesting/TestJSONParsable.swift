@@ -5,8 +5,8 @@
 //  Created by Дмитрий Корчагин on 6/15/24.
 //
 
-import XCTest
 @testable import DailyDeeds
+import XCTest
 
 final class TestJSONParsable: XCTestCase {
     typealias Keys = TodoItem.CodingKeys

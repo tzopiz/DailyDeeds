@@ -5,8 +5,8 @@
 //  Created by Дмитрий Корчагин on 7/2/24.
 //
 
-import Foundation
 import FileCache
+import Foundation
 
 struct Category: Identifiable, Equatable, Hashable, CSVParsable, JSONParsable {
     enum CodingKeys {

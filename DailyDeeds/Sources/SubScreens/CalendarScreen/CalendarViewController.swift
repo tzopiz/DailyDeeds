@@ -5,10 +5,10 @@
 //  Created by Дмитрий Корчагин on 6/30/24.
 //
 
-import UIKit
+import CocoaLumberjackSwift
 import SwiftUI
 import UIComponents
-import CocoaLumberjackSwift
+import UIKit
 
 final class CalendarViewController: BaseCollectionViewController<CalendarViewModel, CalendarCollectionViewCell> {
 

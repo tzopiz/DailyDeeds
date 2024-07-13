@@ -5,8 +5,8 @@
 //  Created by Дмитрий Корчагин on 6/26/24.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 final class MutableTodoItem: Identifiable, ObservableObject {
 

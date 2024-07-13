@@ -5,9 +5,9 @@
 //  Created by Дмитрий Корчагин on 7/9/24.
 //
 
-import XCTest
-import Foundation
 @testable import DailyDeeds
+import Foundation
+import XCTest
 
 class URLSessionTests: XCTestCase {
     
