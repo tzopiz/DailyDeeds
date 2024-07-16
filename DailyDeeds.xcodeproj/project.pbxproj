@@ -17,7 +17,6 @@
 		0A3202DE2C1C6A0B00427B05 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */; };
 		0A3202E02C1C6A1500427B05 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202DF2C1C6A1500427B05 /* README.md */; };
 		0A3202E22C1C6A8900427B05 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202E12C1C6A8900427B05 /* .gitignore */; };
-		0A373A942C28B9F800A9290B /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A932C28B9F800A9290B /* Date.swift */; };
 		0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */; };
 		0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A9B2C28BADB00A9290B /* TodoItemModel.swift */; };
 		0A54122E2C34437700B75AE1 /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A54122D2C34437700B75AE1 /* ItemSection.swift */; };
@@ -31,6 +30,13 @@
 		0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */; };
 		0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */; };
 		0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */; };
+		0A69086E2C467E3D0004180D /* INetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69086D2C467E3D0004180D /* INetworkingService.swift */; };
+		0A6908722C467E740004180D /* TodoItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6908712C467E740004180D /* TodoItemResponse.swift */; };
+		0A6908742C467E9A0004180D /* FileCache in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6908732C467E9A0004180D /* FileCache */; };
+		0A6908762C467EB60004180D /* TodoListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6908752C467EB60004180D /* TodoListResponse.swift */; };
+		0A69087A2C46802F0004180D /* DefaultNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6908792C46802F0004180D /* DefaultNetworkingService.swift */; };
+		0A69087C2C4682DC0004180D /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69087B2C4682DC0004180D /* APIEndpoint.swift */; };
+		0A69087E2C469A4A0004180D /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69087D2C469A4A0004180D /* URL.swift */; };
 		0A77CFBD2C32866000B2F812 /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 0A77CFBC2C32866000B2F812 /* UIComponents */; };
 		0A77CFC02C32871900B2F812 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A77CFBF2C32871900B2F812 /* SnapKit */; };
 		0A77CFC72C32A6BF00B2F812 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77CFC62C32A6BF00B2F812 /* CalendarTableViewCell.swift */; };
@@ -122,7 +128,6 @@
 		0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		0A3202DF2C1C6A1500427B05 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		0A3202E12C1C6A8900427B05 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		0A373A932C28B9F800A9290B /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyDeedsApp.swift; sourceTree = "<group>"; };
 		0A373A9B2C28BADB00A9290B /* TodoItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemModel.swift; sourceTree = "<group>"; };
 		0A54122D2C34437700B75AE1 /* ItemSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemSection.swift; sourceTree = "<group>"; };
@@ -137,6 +142,12 @@
 		0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCSVParsable.swift; sourceTree = "<group>"; };
 		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
+		0A69086D2C467E3D0004180D /* INetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INetworkingService.swift; sourceTree = "<group>"; };
+		0A6908712C467E740004180D /* TodoItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemResponse.swift; sourceTree = "<group>"; };
+		0A6908752C467EB60004180D /* TodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListResponse.swift; sourceTree = "<group>"; };
+		0A6908792C46802F0004180D /* DefaultNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetworkingService.swift; sourceTree = "<group>"; };
+		0A69087B2C4682DC0004180D /* APIEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
+		0A69087D2C469A4A0004180D /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
 		0A77CFC62C32A6BF00B2F812 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		0A77CFC92C32AC0500B2F812 /* TableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderView.swift; sourceTree = "<group>"; };
 		0A7EEF202C31A7EA009553B7 /* GradientCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientCircleView.swift; sourceTree = "<group>"; };
@@ -188,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A77CFBD2C32866000B2F812 /* UIComponents in Frameworks */,
+				0A6908742C467E9A0004180D /* FileCache in Frameworks */,
 				0A77CFC02C32871900B2F812 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,6 +411,18 @@
 			path = TodoItemTesting;
 			sourceTree = "<group>";
 		};
+		0A69086C2C467E240004180D /* NetworkingService */ = {
+			isa = PBXGroup;
+			children = (
+				0A6908752C467EB60004180D /* TodoListResponse.swift */,
+				0A6908712C467E740004180D /* TodoItemResponse.swift */,
+				0A69086D2C467E3D0004180D /* INetworkingService.swift */,
+				0A6908792C46802F0004180D /* DefaultNetworkingService.swift */,
+				0A69087B2C4682DC0004180D /* APIEndpoint.swift */,
+			);
+			path = NetworkingService;
+			sourceTree = "<group>";
+		};
 		0A7378AF2C32119E001F5842 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +441,7 @@
 		0A7994F92C275CAF0097B18E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0A69086C2C467E240004180D /* NetworkingService */,
 				0A91349E2C2DD3F200697091 /* Settings.swift */,
 			);
 			path = Services;
@@ -480,8 +505,8 @@
 			children = (
 				0AF6F2172C208D3F0043866B /* String.swift */,
 				0AF6F21C2C208F760043866B /* Collection.swift */,
-				0A373A932C28B9F800A9290B /* Date.swift */,
 				0AD1BA162C2C4C72002FF476 /* Bool.swift */,
+				0A69087D2C469A4A0004180D /* URL.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -603,6 +628,7 @@
 			packageProductDependencies = (
 				0A77CFBC2C32866000B2F812 /* UIComponents */,
 				0A77CFBF2C32871900B2F812 /* SnapKit */,
+				0A6908732C467E9A0004180D /* FileCache */,
 			);
 			productName = DailyDeeds;
 			productReference = 0A3202B02C1C67C800427B05 /* DailyDeeds.app */;
@@ -731,6 +757,7 @@
 				0A04ED142C27303400AF7097 /* TodoItemListView.swift in Sources */,
 				0A89CCF42C2F5907006F9BF7 /* CustomColotPicker.swift in Sources */,
 				0AF6F21D2C208F760043866B /* Collection.swift in Sources */,
+				0A69086E2C467E3D0004180D /* INetworkingService.swift in Sources */,
 				0A89CD022C2F7E77006F9BF7 /* View.swift in Sources */,
 				0AE192072C30A97F003B8924 /* ListTodoItemViewModel.swift in Sources */,
 				0A8926122C28A9B0001C39F2 /* CreateTodoItemButton.swift in Sources */,
@@ -745,7 +772,9 @@
 				0AE5D6A62C3481A700E27E12 /* UIColor.swift in Sources */,
 				0A7EEF212C31A7EA009553B7 /* GradientCircleView.swift in Sources */,
 				0AA5E0882C37FC1F00AE7002 /* Categories.swift in Sources */,
+				0A69087C2C4682DC0004180D /* APIEndpoint.swift in Sources */,
 				0AEEEE582C35BA810029438E /* DateInfo.swift in Sources */,
+				0A69087A2C46802F0004180D /* DefaultNetworkingService.swift in Sources */,
 				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
 				0AF113032C36F36A009181F9 /* CategoryPickerRow.swift in Sources */,
 				0A77CFC72C32A6BF00B2F812 /* CalendarTableViewCell.swift in Sources */,
@@ -758,6 +787,7 @@
 				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,
 				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
 				0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */,
+				0A69087E2C469A4A0004180D /* URL.swift in Sources */,
 				0A8925FE2C28850E001C39F2 /* ImportancePicker.swift in Sources */,
 				0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */,
 				0A89CCE62C2EF847006F9BF7 /* RegularVerticalDetailView.swift in Sources */,
@@ -765,7 +795,6 @@
 				0A89CCE72C2EF847006F9BF7 /* CompactVerticalDetailView.swift in Sources */,
 				0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */,
 				0AF113052C370FFE009181F9 /* IBaseTodoItemViewModel.swift in Sources */,
-				0A373A942C28B9F800A9290B /* Date.swift in Sources */,
 				0A91349F2C2DD3F200697091 /* Settings.swift in Sources */,
 				0A9230492C30AE4400BFA4E2 /* InterfaceOrientation.swift in Sources */,
 				0A54122E2C34437700B75AE1 /* ItemSection.swift in Sources */,
@@ -776,9 +805,11 @@
 				0A89CCF62C2F642C006F9BF7 /* ColorGradientCircleView.swift in Sources */,
 				0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */,
 				0A77CFCA2C32AC0500B2F812 /* TableViewHeaderView.swift in Sources */,
+				0A6908762C467EB60004180D /* TodoListResponse.swift in Sources */,
 				0AA5E0862C37F5E600AE7002 /* CreateNewCategoryView.swift in Sources */,
 				0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */,
 				0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */,
+				0A6908722C467E740004180D /* TodoItemResponse.swift in Sources */,
 				0A63EC672C1CC091005ED49D /* JSONParsable.swift in Sources */,
 				0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */,
 			);
@@ -1148,6 +1179,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A6908732C467E9A0004180D /* FileCache */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */;
+			productName = FileCache;
+		};
 		0A77CFBC2C32866000B2F812 /* UIComponents */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */;
