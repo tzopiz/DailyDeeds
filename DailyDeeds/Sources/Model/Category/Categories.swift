@@ -22,6 +22,7 @@ final class Categories: Sendable {
     }
 
     private var _categories = [Category]()
+
     let defaultCategories = [
         Category(name: "Работа", color: "#FF0000"),
         Category(name: "Учеба", color: "#0000FF"),

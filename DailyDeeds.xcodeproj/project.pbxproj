@@ -30,6 +30,8 @@
 		0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */; };
 		0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */; };
 		0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */; };
+		0A6E31A32C465BFC00721852 /* URLSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E31A22C465BFC00721852 /* URLSessionTests.swift */; };
+		0A6E31A52C465DFA00721852 /* MockURLProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6E31A42C465DFA00721852 /* MockURLProtocol.swift */; };
 		0A77CFBD2C32866000B2F812 /* UIComponents in Frameworks */ = {isa = PBXBuildFile; productRef = 0A77CFBC2C32866000B2F812 /* UIComponents */; };
 		0A77CFC02C32871900B2F812 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0A77CFBF2C32871900B2F812 /* SnapKit */; };
 		0A77CFC72C32A6BF00B2F812 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77CFC62C32A6BF00B2F812 /* CalendarTableViewCell.swift */; };
@@ -66,7 +68,6 @@
 		0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */; };
 		0ABC266C2C3D16EF004BC47A /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266B2C3D16EF004BC47A /* URLSession.swift */; };
 		0ABC266F2C3D23F3004BC47A /* URLSessionWorkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */; };
-		0ABC26712C3D25BC004BC47A /* URLSessionErrorsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC26702C3D25BC004BC47A /* URLSessionErrorsTests.swift */; };
 		0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */; };
 		0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */; };
 		0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA162C2C4C72002FF476 /* Bool.swift */; };
@@ -141,6 +142,8 @@
 		0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCSVParsable.swift; sourceTree = "<group>"; };
 		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
+		0A6E31A22C465BFC00721852 /* URLSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTests.swift; sourceTree = "<group>"; };
+		0A6E31A42C465DFA00721852 /* MockURLProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLProtocol.swift; sourceTree = "<group>"; };
 		0A77CFC62C32A6BF00B2F812 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
 		0A77CFC92C32AC0500B2F812 /* TableViewHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeaderView.swift; sourceTree = "<group>"; };
 		0A7EEF202C31A7EA009553B7 /* GradientCircleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientCircleView.swift; sourceTree = "<group>"; };
@@ -173,7 +176,6 @@
 		0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		0ABC266B2C3D16EF004BC47A /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionWorkingTests.swift; sourceTree = "<group>"; };
-		0ABC26702C3D25BC004BC47A /* URLSessionErrorsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionErrorsTests.swift; sourceTree = "<group>"; };
 		0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTodoItem.swift; sourceTree = "<group>"; };
 		0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTodoItems.swift; sourceTree = "<group>"; };
 		0AD1BA162C2C4C72002FF476 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
@@ -520,8 +522,9 @@
 		0ABC266D2C3D23E9004BC47A /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				0A6E31A42C465DFA00721852 /* MockURLProtocol.swift */,
 				0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */,
-				0ABC26702C3D25BC004BC47A /* URLSessionErrorsTests.swift */,
+				0A6E31A22C465BFC00721852 /* URLSessionTests.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -703,8 +706,8 @@
 			);
 			mainGroup = 0A3202A72C1C67C800427B05;
 			packageReferences = (
-				0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents.git" */,
-				0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit.git" */,
+				0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */,
+				0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0AFA4ABC2C3BD25000C4D58A /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			productRefGroup = 0A3202B12C1C67C800427B05 /* Products */;
@@ -835,13 +838,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */,
-				0ABC26712C3D25BC004BC47A /* URLSessionErrorsTests.swift in Sources */,
 				0ABC266F2C3D23F3004BC47A /* URLSessionWorkingTests.swift in Sources */,
 				0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */,
+				0A6E31A52C465DFA00721852 /* MockURLProtocol.swift in Sources */,
 				0A63EC742C1CE1BC005ED49D /* TestTodoItem.swift in Sources */,
 				0A554E642C1ED4D30068360C /* TodoItemModelTesting.swift in Sources */,
 				0A04DA272C242A2F008F4793 /* TestEscapeSpecialCharacters.swift in Sources */,
 				0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */,
+				0A6E31A32C465BFC00721852 /* URLSessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1018,7 +1022,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zipozt;
+				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeeds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1053,7 +1057,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zipozt;
+				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeeds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1179,7 +1183,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents.git" */ = {
+		0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tzopiz/UIComponents.git";
 			requirement = {
@@ -1187,7 +1191,7 @@
 				minimumVersion = 0.1.1;
 			};
 		};
-		0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
+		0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -1208,17 +1212,17 @@
 /* Begin XCSwiftPackageProductDependency section */
 		0A77CFBC2C32866000B2F812 /* UIComponents */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents.git" */;
+			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */;
 			productName = UIComponents;
 		};
 		0A77CFBF2C32871900B2F812 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit.git" */;
+			package = 0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 		0A8918122C3BF90200C330B3 /* FileCache */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents.git" */;
+			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */;
 			productName = FileCache;
 		};
 		0A94ACD22C3BDEBB00F5BBC6 /* CocoaLumberjackSwift */ = {
