@@ -5,12 +5,13 @@
 //  Created by Дмитрий Корчагин on 6/16/24.
 //
 
-import XCTest
 @testable import DailyDeeds
+import FileCache
+import XCTest
 
 final class TodoItemModelTesting: XCTestCase {
     typealias Keys = TodoItem.CodingKeys
-    private var fileCache: TodoItemModel!
+    private var model: TodoItemModel!
     private let fileNameJSON = "test_tasks.json"
     private let fileNameCSV = "test_tasks.csv"
     private let todoitem = TodoItem(
@@ -19,39 +20,39 @@ final class TodoItemModelTesting: XCTestCase {
         creationDate: .now, deadline: nil,
         modificationDate: .now
     )
-    
+
     override func setUp() async throws {
         try await super.setUp()
-        fileCache = TodoItemModel(items: [])
+        model = TodoItemModel(items: [])
     }
-    
+
     override func tearDown() {
         super.tearDown()
-        fileCache = nil
+        model = nil
     }
-    
+
     override func setUpWithError() throws {
         try super.setUpWithError()
-        fileCache = TodoItemModel(items: [])
+        model = TodoItemModel(items: [])
     }
-    
+
     override func tearDownWithError() throws {
-        fileCache = nil
+        model = nil
         try super.tearDownWithError()
     }
-    
+
     func testAddTodoItem() {
-        fileCache.append(todoitem)
-        XCTAssertEqual(fileCache.items.count, 1)
-        XCTAssertEqual(fileCache.items.first?.id, "1")
+        model.append(todoitem)
+        XCTAssertEqual(model.items.count, 1)
+        XCTAssertEqual(model.items.first?.id, "1")
     }
-    
+
     func testAddTodoItem_Duplicate() {
-        fileCache.append(todoitem)
-        fileCache.append(todoitem)
-        XCTAssertEqual(fileCache.items.count, 1)
+        model.append(todoitem)
+        model.append(todoitem)
+        XCTAssertEqual(model.items.count, 1)
     }
-    
+
     func testRemoveTodoItem() {
         let id = "2"
         let todoitem2 = TodoItem(
@@ -60,13 +61,13 @@ final class TodoItemModelTesting: XCTestCase {
             creationDate: .now, deadline: nil,
             modificationDate: .now
         )
-        fileCache.append(todoitem)
-        fileCache.append(todoitem2)
-        fileCache.remove(with: todoitem.id)
-        XCTAssertEqual(fileCache.items.count, 1)
-        XCTAssertEqual(fileCache.items.first?.id, id)
+        model.append(todoitem)
+        model.append(todoitem2)
+        model.remove(with: todoitem.id)
+        XCTAssertEqual(model.items.count, 1)
+        XCTAssertEqual(model.items.first?.id, id)
     }
-    
+
     func testRemoveAllTodoItems() {
         let todoitem2 = TodoItem(
             id: "2", text: "test text for test task",
@@ -74,14 +75,14 @@ final class TodoItemModelTesting: XCTestCase {
             creationDate: .now, deadline: nil,
             modificationDate: .now
         )
-        fileCache.append(todoitem)
-        fileCache.append(todoitem2)
-        for item in fileCache.items {
-            fileCache.remove(with: item.id)
+        model.append(todoitem)
+        model.append(todoitem2)
+        for item in model.items {
+            model.remove(with: item.id)
         }
-        XCTAssertTrue(fileCache.items.isEmpty)
+        XCTAssertTrue(model.items.isEmpty)
     }
-    
+
     func testSaveToFile_JSON() throws {
         let todoitem2 = TodoItem(
             id: "2", text: "test text for test task",
@@ -95,23 +96,21 @@ final class TodoItemModelTesting: XCTestCase {
             creationDate: .now, deadline: nil,
             modificationDate: .now
         )
-        
-        fileCache.append(todoitem)
-        fileCache.append(todoitem2)
-        fileCache.append(todoitem3)
-        
-        let error = fileCache.saveToFile(named: fileNameJSON, format: .json)
-        
-        XCTAssertNil(error)
-        
-        let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)
+
+        model.append(todoitem)
+        model.append(todoitem2)
+        model.append(todoitem3)
+
+        model.save(to: fileNameJSON, format: .json)
+
+        let url = try getDocumentsDirectory().appendingPathComponent(fileNameJSON)
         let data = try Data(contentsOf: url)
-        let jsonArray = try JSONSerialization.jsonObject(with: data) as? [TodoItem.JSONType]
-        
+        let jsonArray = try JSONSerialization.jsonObject(with: data) as? [JSONDictionary]
+
         XCTAssertEqual(jsonArray?.count, 3)
         try FileManager.default.removeItem(at: url)
     }
-    
+
     func testSaveToFile_CSV() throws {
         let date = Date.now
         let id = "3"
@@ -125,24 +124,22 @@ final class TodoItemModelTesting: XCTestCase {
             creationDate: date, deadline: nil,
             modificationDate: date
         )
-        
-        fileCache.append(todoitem)
-        
-        let error = fileCache.saveToFile(named: fileNameCSV, format: .csv)
-        
-        XCTAssertNil(error)
-        
-        let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameCSV)
+
+        model.append(todoitem)
+
+        model.save(to: fileNameCSV, format: .csv)
+
+        let url = try getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         let csvString = try String(contentsOf: url)
-        
+
         XCTAssertEqual(
             csvString,
             "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(date.toString()),,\(date.toString())"
         )
-        
+
         try FileManager.default.removeItem(at: url)
     }
-    
+
     func testLoadFromFile_JSON() throws {
         let date = Date.now
         let id = "1231231"
@@ -158,23 +155,18 @@ final class TodoItemModelTesting: XCTestCase {
             "\(Keys.creationDate)": "\(date.toString())"
         }]
         """
-        let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameJSON)
+        let url = try getDocumentsDirectory().appendingPathComponent(fileNameJSON)
         try json.data(using: .utf8)?.write(to: url)
-        
-        let result = fileCache.loadFromFile(named: fileNameJSON, format: .json)
-        switch result {
-        case .success(let item):
-            XCTAssertEqual(item.count, 1)
-            XCTAssertEqual(item.first?.id , id)
-            XCTAssertEqual(item.first?.importance, .medium)
-            XCTAssertNil(item.first?.deadline)
-        case .failure(_):
-            XCTFail()
-        }
-        
+
+        model.loadItems(from: fileNameJSON, format: .json)
+        XCTAssertEqual(model.items.count, 1)
+        XCTAssertEqual(model.items.first?.id, id)
+        XCTAssertEqual(model.items.first?.importance, .medium)
+        XCTAssertNil(model.items.first?.deadline)
+
         try FileManager.default.removeItem(at: url)
     }
-    
+
     func testLoadFromFile_CSV() throws {
         let date = Date.now
         let id = "1"
@@ -183,19 +175,23 @@ final class TodoItemModelTesting: XCTestCase {
         let importance: Importance = .medium
         let hexColor = "#FFFFFF"
         let csv = "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(date.toString()),,"
-        let url = try fileCache.getDocumentsDirectory().appendingPathComponent(fileNameCSV)
+        let url = try getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         try csv.write(to: url, atomically: true, encoding: .utf8)
-        
-        let result = fileCache.loadFromFile(named: fileNameCSV, format: .csv)
-        switch result {
-        case .success(let items):
-            XCTAssertEqual(items.count, 1)
-            XCTAssertEqual(items.first?.id, id)
-            XCTAssertNil(items.first?.deadline)
-        case .failure(_):
-            XCTFail()
-        }
-        
+
+        model.loadItems(from: fileNameCSV, format: .csv)
+
+        XCTAssertEqual(model.items.count, 1)
+        XCTAssertEqual(model.items.first?.id, id)
+        XCTAssertNil(model.items.first?.deadline)
+
         try FileManager.default.removeItem(at: url)
+    }
+    enum MockError: Error {
+        case error
+    }
+    private func getDocumentsDirectory() throws -> URL {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        guard let first = urls.first else { throw MockError.error }
+        return first
     }
 }

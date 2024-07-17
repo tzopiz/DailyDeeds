@@ -5,13 +5,14 @@
 //  Created by Дмитрий Корчагин on 6/14/24.
 //
 
+import FileCache
 import Foundation
 
 enum Importance: String, Comparable, Equatable {
     case low = "неважная"
     case medium = "обычная"
     case high = "важная"
-    
+
     var order: Int {
         switch self {
         case .low: return 0
@@ -19,7 +20,7 @@ enum Importance: String, Comparable, Equatable {
         case .high: return 2
         }
     }
-    
+
     static func < (lhs: Importance, rhs: Importance) -> Bool {
         return lhs.order < rhs.order
     }
@@ -37,7 +38,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         static let modificationDate = "modificationDate"
         static let category = "category"
     }
-    
+
     let id: String
     let text: String
     let isDone: Bool
@@ -69,7 +70,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         self.modificationDate = modificationDate
         self.category = category
     }
-    
+
     var mutable: MutableTodoItem {
         return MutableTodoItem(from: self)
     }

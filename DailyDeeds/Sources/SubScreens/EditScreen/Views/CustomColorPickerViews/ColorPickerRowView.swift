@@ -23,9 +23,9 @@ struct ColorPickerRowView: View {
                     .background(Color.backiOSPrimary)
                     .clipShape(.rect(cornerRadius: 4))
             }
-            
+
             Spacer()
-            
+
             Button {
                 isShowingColorPicker.toggle()
             } label: {

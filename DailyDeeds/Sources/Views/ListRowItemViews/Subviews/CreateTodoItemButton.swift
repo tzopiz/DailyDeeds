@@ -10,7 +10,7 @@ import SwiftUI
 struct CreateTodoItemButton: View {
     @State
     var action: () -> Void
-    
+
     var body: some View {
         Button(action: action) {
             Image(systemName: "plus.circle.fill")

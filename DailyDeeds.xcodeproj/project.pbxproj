@@ -46,8 +46,10 @@
 		0A7EEF262C31AAC5009553B7 /* ToolbarButtonKeyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */; };
 		0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF272C31AB9F009553B7 /* DefaultKeyboardView.swift */; };
 		0A7EEF2A2C31AE8D009553B7 /* DeadlineToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7EEF292C31AE8D009553B7 /* DeadlineToggleView.swift */; };
+		0A81317B2C412AAA00D4BAFF /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 0A81317A2C412AAA00D4BAFF /* .swiftlint.yml */; };
 		0A854F1D2C31D8A3008C5A43 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A854F1C2C31D8A3008C5A43 /* CalendarViewController.swift */; };
 		0A854F202C31DA15008C5A43 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A854F1F2C31DA15008C5A43 /* CalendarViewModel.swift */; };
+		0A8918132C3BF90200C330B3 /* FileCache in Frameworks */ = {isa = PBXBuildFile; productRef = 0A8918122C3BF90200C330B3 /* FileCache */; };
 		0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8925F32C287CBC001C39F2 /* CheckmarkView.swift */; };
 		0A8925FE2C28850E001C39F2 /* ImportancePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8925FD2C28850E001C39F2 /* ImportancePicker.swift */; };
 		0A8926122C28A9B0001C39F2 /* CreateTodoItemButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8926112C28A9AF001C39F2 /* CreateTodoItemButton.swift */; };
@@ -62,12 +64,15 @@
 		0A91349F2C2DD3F200697091 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A91349E2C2DD3F200697091 /* Settings.swift */; };
 		0A9230492C30AE4400BFA4E2 /* InterfaceOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9230482C30AE4400BFA4E2 /* InterfaceOrientation.swift */; };
 		0A92304F2C30B81700BFA4E2 /* ScrollContentBackground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A92304E2C30B81700BFA4E2 /* ScrollContentBackground.swift */; };
+		0A94ACD32C3BDEBB00F5BBC6 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0A94ACD22C3BDEBB00F5BBC6 /* CocoaLumberjackSwift */; };
 		0AA5E0842C37F5AA00AE7002 /* CategoryPickerListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA5E0832C37F5AA00AE7002 /* CategoryPickerListView.swift */; };
 		0AA5E0862C37F5E600AE7002 /* CreateNewCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA5E0852C37F5E600AE7002 /* CreateNewCategoryView.swift */; };
 		0AA5E0882C37FC1F00AE7002 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA5E0872C37FC1F00AE7002 /* Categories.swift */; };
 		0AAF43FF2C27389F000FE268 /* ListRowItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AAF43FE2C27389F000FE268 /* ListRowItemView.swift */; };
 		0AB3E3552C31DCEE00807EE0 /* CalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3E3542C31DCEE00807EE0 /* CalendarCollectionViewCell.swift */; };
 		0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */; };
+		0ABC266C2C3D16EF004BC47A /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266B2C3D16EF004BC47A /* URLSession.swift */; };
+		0ABC266F2C3D23F3004BC47A /* URLSessionWorkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */; };
 		0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */; };
 		0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */; };
 		0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA162C2C4C72002FF476 /* Bool.swift */; };
@@ -78,10 +83,10 @@
 		0AEEEE582C35BA810029438E /* DateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEEEE572C35BA810029438E /* DateInfo.swift */; };
 		0AF113032C36F36A009181F9 /* CategoryPickerRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF113022C36F36A009181F9 /* CategoryPickerRow.swift */; };
 		0AF113052C370FFE009181F9 /* IBaseTodoItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF113042C370FFE009181F9 /* IBaseTodoItemViewModel.swift */; };
-		0AF6F2182C208D3F0043866B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2172C208D3F0043866B /* String.swift */; };
 		0AF6F21D2C208F760043866B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F21C2C208F760043866B /* Collection.swift */; };
 		0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */; };
 		0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6F2312C20B59E0043866B /* CSVBuilder.swift */; };
+		0AFA4ABE2C3BD25000C4D58A /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = 0AFA4ABD2C3BD25000C4D58A /* CocoaLumberjack */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -155,6 +160,7 @@
 		0A7EEF252C31AAC5009553B7 /* ToolbarButtonKeyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonKeyboard.swift; sourceTree = "<group>"; };
 		0A7EEF272C31AB9F009553B7 /* DefaultKeyboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultKeyboardView.swift; sourceTree = "<group>"; };
 		0A7EEF292C31AE8D009553B7 /* DeadlineToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadlineToggleView.swift; sourceTree = "<group>"; };
+		0A81317A2C412AAA00D4BAFF /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		0A854F1C2C31D8A3008C5A43 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		0A854F1F2C31DA15008C5A43 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		0A8925F32C287CBC001C39F2 /* CheckmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckmarkView.swift; sourceTree = "<group>"; };
@@ -177,6 +183,8 @@
 		0AAF43FE2C27389F000FE268 /* ListRowItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowItemView.swift; sourceTree = "<group>"; };
 		0AB3E3542C31DCEE00807EE0 /* CalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewControllerRepresentable.swift; sourceTree = "<group>"; };
+		0ABC266B2C3D16EF004BC47A /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionWorkingTests.swift; sourceTree = "<group>"; };
 		0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTodoItem.swift; sourceTree = "<group>"; };
 		0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTodoItems.swift; sourceTree = "<group>"; };
 		0AD1BA162C2C4C72002FF476 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
@@ -187,7 +195,6 @@
 		0AEEEE572C35BA810029438E /* DateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateInfo.swift; sourceTree = "<group>"; };
 		0AF113022C36F36A009181F9 /* CategoryPickerRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPickerRow.swift; sourceTree = "<group>"; };
 		0AF113042C370FFE009181F9 /* IBaseTodoItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBaseTodoItemViewModel.swift; sourceTree = "<group>"; };
-		0AF6F2172C208D3F0043866B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		0AF6F21C2C208F760043866B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		0AF6F22D2C20B30E0043866B /* JSONBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONBuilder.swift; sourceTree = "<group>"; };
 		0AF6F2312C20B59E0043866B /* CSVBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVBuilder.swift; sourceTree = "<group>"; };
@@ -198,6 +205,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A8918132C3BF90200C330B3 /* FileCache in Frameworks */,
+				0AFA4ABE2C3BD25000C4D58A /* CocoaLumberjack in Frameworks */,
 				0A77CFBD2C32866000B2F812 /* UIComponents in Frameworks */,
 				0A6908742C467E9A0004180D /* FileCache in Frameworks */,
 				0A77CFC02C32871900B2F812 /* SnapKit in Frameworks */,
@@ -248,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */,
+				0A81317A2C412AAA00D4BAFF /* .swiftlint.yml */,
 				0A3202DD2C1C6A0B00427B05 /* LICENSE.txt */,
 				0A3202E12C1C6A8900427B05 /* .gitignore */,
 				0A3202DF2C1C6A1500427B05 /* README.md */,
@@ -255,7 +265,6 @@
 				0A3202C32C1C67C900427B05 /* DailyDeedsTests */,
 				0A3202CD2C1C67C900427B05 /* DailyDeedsUITests */,
 				0A3202B12C1C67C800427B05 /* Products */,
-				0A7378AF2C32119E001F5842 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -291,6 +300,7 @@
 		0A3202C32C1C67C900427B05 /* DailyDeedsTests */ = {
 			isa = PBXGroup;
 			children = (
+				0ABC266D2C3D23E9004BC47A /* Networking */,
 				0A04DA262C242A2F008F4793 /* TestEscapeSpecialCharacters.swift */,
 				0A554E612C1ED49D0068360C /* TodoItemModelTesting */,
 				0A63EC702C1CD93D005ED49D /* TodoItemTesting */,
@@ -503,7 +513,6 @@
 		0A9230462C30AE0D00BFA4E2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				0AF6F2172C208D3F0043866B /* String.swift */,
 				0AF6F21C2C208F760043866B /* Collection.swift */,
 				0AD1BA162C2C4C72002FF476 /* Bool.swift */,
 				0A69087D2C469A4A0004180D /* URL.swift */,
@@ -529,6 +538,24 @@
 				0A77CFC92C32AC0500B2F812 /* TableViewHeaderView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0ABC266A2C3D16E2004BC47A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0ABC266B2C3D16EF004BC47A /* URLSession.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		0ABC266D2C3D23E9004BC47A /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0A6E31A42C465DFA00721852 /* MockURLProtocol.swift */,
+				0ABC266E2C3D23F3004BC47A /* URLSessionWorkingTests.swift */,
+				0A6E31A22C465BFC00721852 /* URLSessionTests.swift */,
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		0AD1BA3B2C2CCB9C002FF476 /* ListRowItemViews */ = {
@@ -614,6 +641,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0A3202D42C1C67C900427B05 /* Build configuration list for PBXNativeTarget "DailyDeeds" */;
 			buildPhases = (
+				0AFA4AB92C3BCED300C4D58A /* SwiftLint */,
 				0A3202AC2C1C67C800427B05 /* Sources */,
 				0A3202AD2C1C67C800427B05 /* Frameworks */,
 				0A3202AE2C1C67C800427B05 /* Resources */,
@@ -707,6 +735,7 @@
 			packageReferences = (
 				0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */,
 				0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0AFA4ABC2C3BD25000C4D58A /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			productRefGroup = 0A3202B12C1C67C800427B05 /* Products */;
 			projectDirPath = "";
@@ -724,6 +753,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A81317B2C412AAA00D4BAFF /* .swiftlint.yml in Resources */,
 				0A3202E22C1C6A8900427B05 /* .gitignore in Resources */,
 				0A3202DE2C1C6A0B00427B05 /* LICENSE.txt in Resources */,
 				0A3202BB2C1C67C900427B05 /* Preview Assets.xcassets in Resources */,
@@ -747,6 +777,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0AFA4AB92C3BCED300C4D58A /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint --fix\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0A3202AC2C1C67C800427B05 /* Sources */ = {
@@ -785,7 +836,6 @@
 				0A89CCFD2C2F7BBB006F9BF7 /* CustomSheetModifier.swift in Sources */,
 				0A5412332C34642800B75AE1 /* Category.swift in Sources */,
 				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,
-				0AF6F2182C208D3F0043866B /* String.swift in Sources */,
 				0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */,
 				0A69087E2C469A4A0004180D /* URL.swift in Sources */,
 				0A8925FE2C28850E001C39F2 /* ImportancePicker.swift in Sources */,
@@ -820,11 +870,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */,
+				0ABC266F2C3D23F3004BC47A /* URLSessionWorkingTests.swift in Sources */,
 				0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */,
+				0A6E31A52C465DFA00721852 /* MockURLProtocol.swift in Sources */,
 				0A63EC742C1CE1BC005ED49D /* TestTodoItem.swift in Sources */,
 				0A554E642C1ED4D30068360C /* TodoItemModelTesting.swift in Sources */,
 				0A04DA272C242A2F008F4793 /* TestEscapeSpecialCharacters.swift in Sources */,
 				0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */,
+				0A6E31A32C465BFC00721852 /* URLSessionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,6 +917,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -896,7 +950,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -927,6 +981,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -959,7 +1014,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1001,12 +1056,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zipozt;
+				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeeds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1035,12 +1091,13 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zipozt;
+				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeeds;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1164,7 +1221,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tzopiz/UIComponents.git";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = upToNextMinorVersion;
 				minimumVersion = 0.1.1;
 			};
 		};
@@ -1174,6 +1231,14 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 5.7.1;
+			};
+		};
+		0AFA4ABC2C3BD25000C4D58A /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.8.5;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -1193,6 +1258,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
+		};
+		0A8918122C3BF90200C330B3 /* FileCache */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */;
+			productName = FileCache;
+		};
+		0A94ACD22C3BDEBB00F5BBC6 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AFA4ABC2C3BD25000C4D58A /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		0AFA4ABD2C3BD25000C4D58A /* CocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0AFA4ABC2C3BD25000C4D58A /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjack;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
