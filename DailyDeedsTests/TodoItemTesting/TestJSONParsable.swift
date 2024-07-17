@@ -20,7 +20,7 @@ final class TestJSONParsable: XCTestCase {
         let isDone = true
         let importance = Importance.high
         let hexColor = "#FFFFFF"
-        let json = TodoItem.buildJSON {
+        let json = TodoItem.buildJSONDictionary {
             (Keys.id, id)
             (Keys.text, text)
             (Keys.isDone, isDone)
@@ -112,7 +112,7 @@ final class TestJSONParsable: XCTestCase {
         let isDone = true
         let hexColor = "#FFFFFF"
         let importance = Importance.high
-        let json = TodoItem.buildJSON {
+        let json = TodoItem.buildJSONDictionary {
             (Keys.id, id)
             (Keys.text, text)
             (Keys.isDone, isDone)
