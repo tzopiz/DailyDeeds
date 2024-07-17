@@ -5,6 +5,7 @@
 //  Created by Дмитрий Корчагин on 7/2/24.
 //
 
+import FileCache
 import Foundation
 
 struct Category: Identifiable, Equatable, Hashable, CSVParsable, JSONParsable {
@@ -13,21 +14,21 @@ struct Category: Identifiable, Equatable, Hashable, CSVParsable, JSONParsable {
         static let name = "name"
         static let color = "color"
     }
-    
+
     let id: String
     let name: String
     let color: String?
-    
+
     init(_ id: String = UUID().uuidString, name: String, color: String? = nil) {
         self.id = id
         self.name = name
         self.color = color
     }
-    
+
     static func == (lhs: Category, rhs: Category) -> Bool {
         return lhs.name == rhs.name && lhs.color == rhs.color
     }
-    
+
     static var defaultCategory: Category {
         return Category(name: "Без категории")
     }
@@ -42,7 +43,7 @@ extension Category {
             (CodingKeys.color, color)
         }
     }
-    
+
     static func parse(json dict: JSONDictionary) -> Category? {
         guard let id = dict[CodingKeys.id] as? String,
               let name = dict[CodingKeys.name] as? String
@@ -60,7 +61,7 @@ extension Category {
             color
         }
     }
-    
+
     static func parse(csv: String) -> Category? {
         let csvArray = csv.splitByUnescaped(separator: ",")
         guard let id = csvArray[safe: 0],

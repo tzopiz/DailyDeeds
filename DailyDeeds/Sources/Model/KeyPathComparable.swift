@@ -9,10 +9,10 @@ import Foundation
 
 protocol KeyPathComparable {
     static func compareBy<T: Comparable>(
-        _ keyPath: KeyPath<Self,T>,
+        _ keyPath: KeyPath<Self, T>,
         ascending: Bool
     ) -> (Self, Self) -> Bool
-    
+
     static func compareBy<T: Comparable>(
         _ keyPath: KeyPath<Self, T?>,
         ascending: Bool
@@ -32,13 +32,13 @@ extension KeyPathComparable {
             }
         }
     }
-    
+
     static func compareBy<T: Comparable>(
         _ keyPath: KeyPath<Self, T?>,
         ascending: Bool = true
     ) -> (Self, Self) -> Bool {
         return { (lhs, rhs) in
-            guard let lhsValue = lhs[keyPath: keyPath], let rhsValue = rhs[keyPath: keyPath] 
+            guard let lhsValue = lhs[keyPath: keyPath], let rhsValue = rhs[keyPath: keyPath]
             else {
                 return lhs[keyPath: keyPath] != nil
             }
@@ -64,13 +64,13 @@ extension Sequence where Element: KeyPathComparable {
             by: Element.compareBy(keyPath, ascending: ascending)
         )
     }
-    
+
     func sorted<T: Comparable>(by keyPath: KeyPath<Element, T?>, ascending: Bool = true) -> [Element] {
         return self.sorted(
             by: Element.compareBy(keyPath, ascending: ascending)
         )
     }
-    
+
     func filter<T>(by keyPath: KeyPath<Element, T>, predicate: @escaping (T) -> Bool) -> [Element] {
         return self.filter { element in
             predicate(element[keyPath: keyPath])

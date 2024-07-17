@@ -5,17 +5,8 @@
 //  Created by Дмитрий Корчагин on 6/14/24.
 //
 
+import FileCache
 import Foundation
-
-protocol CSVParsable {
-    associatedtype CSVType
-    var csv: CSVType { get }
-    static func parse(csv: CSVType) -> Self?
-}
-
-extension CSVParsable {
-    static func buildCSV(@CSVBuilder build: () -> String) -> String { build() }
-}
 
 extension TodoItem: CSVParsable {
     /// CSV representation of the current TodoItem object.
@@ -31,7 +22,7 @@ extension TodoItem: CSVParsable {
             modificationDate
         }
     }
-    
+
     /// A function for parsing SCV and creating a TodoItem object.
     /// - Parameter dict: A SCV object in the form of a `String'.
     /// - Returns: Returns the `TodoItem` object if parsing was successful, otherwise it returns `nil'.
@@ -48,18 +39,18 @@ extension TodoItem: CSVParsable {
               let creationDateString = csvArray[safe: 5],
               let creationDate = creationDateString.toDate()
         else { return nil }
-        
+
         let isDone = isDoneString == "true"
         let deadline = csvArray[safe: 6]?.toDate()
         let modificationDate = csvArray[safe: 7]?.toDate()
-        
+
         let category: Category?
         if let csvCategory = csvArray[safe: 8] {
             category = Category.parse(csv: csvCategory)
         } else {
             category = nil
         }
-        
+
         return TodoItem(
             id: id,
             text: text,

@@ -7,21 +7,22 @@
 
 import Foundation
 
-final class Categories {
+final class Categories: Sendable {
 
     private init() { }
-    
+
     static let shared = Categories()
-    
+
     var categories: [Category] {
         defaultCategories + userCategories
     }
-    
+
     var userCategories: [Category] {
         return _categories
     }
 
     private var _categories = [Category]()
+
     let defaultCategories = [
         Category(name: "Работа", color: "#FF0000"),
         Category(name: "Учеба", color: "#0000FF"),

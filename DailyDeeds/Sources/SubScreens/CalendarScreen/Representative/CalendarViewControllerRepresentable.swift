@@ -5,13 +5,13 @@
 //  Created by Дмитрий Корчагин on 6/30/24.
 //
 
-import UIKit
 import SwiftUI
+import UIKit
 
 struct CalendarViewControllerRepresentable: UIViewControllerRepresentable {
-    
+
     let model: TodoItemModel
-    
+
     func makeUIViewController(context: Context) -> CalendarViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0

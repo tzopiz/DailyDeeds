@@ -13,16 +13,16 @@ enum InterfaceOrientation {
     case regularWidthCompactHeight
     case regularWidthRegularHeight
     case unknown
-    
+
     enum DeviceType {
         case small
         case large
-        
+
         var isSmall: Bool {
             self == .small
         }
     }
-    
+
     var deviceType: DeviceType {
         switch self {
         case .compactWidthCompactHeight, .compactWidthRegularHeight, .regularWidthCompactHeight:
@@ -33,7 +33,7 @@ enum InterfaceOrientation {
             return .small
         }
     }
-    
+
     init(horizontal: UserInterfaceSizeClass?, vertical: UserInterfaceSizeClass?) {
         switch (horizontal, vertical) {
         case (.compact, .compact):
