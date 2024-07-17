@@ -85,10 +85,10 @@ final class TestJSONParsable: XCTestCase {
                 "\(Keys.id)": "\(id)",
                 "\(Keys.text)": "\(text)",
                 "\(Keys.isDone)": \(isDone),
-                "\(Keys.deadline)": "\(deadline.toString())",
+                "\(Keys.deadline)": \(deadline.timeIntervalSince1970),
                 "\(Keys.hexColor)": "\(hexColor)",
-                "\(Keys.creationDate)": "\(creationDate.toString())",
-                "\(Keys.modificationDate)": "\(modificationDate.toString())"
+                "\(Keys.creationDate)": \(creationDate.timeIntervalSince1970),
+                "\(Keys.modificationDate)": \(modificationDate.timeIntervalSince1970)
             }
             """
 

@@ -11,7 +11,8 @@ struct DetailTodoItemView: View {
 
     @ObservedObject
     var todoItem: MutableTodoItem
-    var onUpdate: (TodoItem?) -> Void
+    var onDelete: ((TodoItem) -> Void)?
+    var onSave: ((TodoItem) -> Void)?
 
     @Environment(\.dismiss)
     private var dismiss
@@ -19,9 +20,14 @@ struct DetailTodoItemView: View {
     private var verticalSizeClass
     private let initialTodoItem: TodoItem
 
-    init(todoItem: TodoItem, onUpdate: @escaping (TodoItem?) -> Void) {
+    init(
+        todoItem: TodoItem,
+        onDelete: @escaping (TodoItem) -> Void,
+        onSave: @escaping (TodoItem) -> Void
+    ) {
         self.todoItem = todoItem.mutable
-        self.onUpdate = onUpdate
+        self.onDelete = onDelete
+        self.onSave = onSave
         self.initialTodoItem = todoItem
     }
 
@@ -33,13 +39,12 @@ struct DetailTodoItemView: View {
                 .toolbar {
                     ToolbarItem(placement: .topBarLeading) {
                         Button("Отменить") {
-                            onUpdate(initialTodoItem)
                             dismiss()
                         }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
                         Button("Сохранить") {
-                            onUpdate(todoItem.immutable)
+                            onSave?(todoItem.immutable)
                             dismiss()
                         }
                         .disabled(todoItem.text.isEmpty)
@@ -71,7 +76,7 @@ struct DetailTodoItemView: View {
 
     private var deleteButton: some View {
         Button(role: .destructive) {
-            onUpdate(nil)
+            onDelete?(todoItem.immutable)
             dismiss()
         } label: {
             Text("Удалить")

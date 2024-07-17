@@ -9,9 +9,9 @@ import FileCache
 import Foundation
 
 enum Importance: String, Comparable, Equatable {
-    case low = "неважная"
-    case medium = "обычная"
-    case high = "важная"
+    case low = "low"
+    case medium = "basic"
+    case high = "important"
 
     var order: Int {
         switch self {
@@ -30,12 +30,12 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
     enum CodingKeys {
         static let id = "id"
         static let text = "text"
-        static let isDone = "isDone"
+        static let isDone = "done"
         static let importance = "importance"
-        static let hexColor = "hexColor"
-        static let creationDate = "creationDate"
+        static let hexColor = "color"
+        static let creationDate = "created_at"
         static let deadline = "deadline"
-        static let modificationDate = "modificationDate"
+        static let modificationDate = "changed_at"
         static let category = "category"
     }
 
@@ -79,7 +79,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
 // MARK: - CustomStringConvertible
 extension TodoItem: CustomStringConvertible {
     var description: String {
-        return """
+        """
         TodoItem(
         \t\(CodingKeys.id): \(id),
         \t\(CodingKeys.text): \"\(text)\",

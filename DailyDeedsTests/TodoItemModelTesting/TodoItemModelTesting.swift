@@ -152,7 +152,7 @@ final class TodoItemModelTesting: XCTestCase {
             "\(Keys.text)": "\(text)",
             "\(Keys.isDone)": \(isDone),
             "\(Keys.hexColor)": "\(hexColor)",
-            "\(Keys.creationDate)": "\(date.toString())"
+            "\(Keys.creationDate)": \(date.timeIntervalSince1970)
         }]
         """
         let url = try getDocumentsDirectory().appendingPathComponent(fileNameJSON)

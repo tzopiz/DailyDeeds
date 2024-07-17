@@ -78,10 +78,11 @@ final class CalendarViewController: BaseCollectionViewController<CalendarViewMod
         let newItem = TodoItem(text: "")
 
         let detailViewController = UIHostingController(
-            rootView: DetailTodoItemView(todoItem: newItem) { item in
-                self.viewModel.update(oldItem: newItem, to: item)
-                self.refreshData()
-            }
+            rootView: DetailTodoItemView(
+                todoItem: newItem,
+                onDelete: { self.viewModel.remove(with: $0.id) },
+                onSave: { self.viewModel.update(oldItem: newItem, to: $0) }
+            )
         )
         self.viewModel.navigationDelegate?.presentController(
             detailViewController,
@@ -204,10 +205,8 @@ extension CalendarViewController: UITableViewDelegate {
         let item = viewModel.tableViewCellItem(for: indexPath)
         let detailView = DetailTodoItemView(
             todoItem: item,
-            onUpdate: { newItem in
-                self.viewModel.update(oldItem: item, to: newItem)
-                self.refreshData()
-            }
+            onDelete: { self.viewModel.remove(with: $0.id) },
+            onSave: { self.viewModel.update(oldItem: item, to: $0) }
         )
 
         let hostingController = UIHostingController(rootView: detailView)
