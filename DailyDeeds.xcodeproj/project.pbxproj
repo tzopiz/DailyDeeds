@@ -360,8 +360,6 @@
 			isa = PBXGroup;
 			children = (
 				0A5412322C34642800B75AE1 /* Category.swift */,
-				0A931C3A2C49304500C4C357 /* Category + JSONParsable.swift */,
-				0A931C3C2C49306400C4C357 /* Category + CSVParsable.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -656,6 +654,7 @@
 		0AF6F2342C20B5F10043866B /* JSONParsing */ = {
 			isa = PBXGroup;
 			children = (
+				0A931C3A2C49304500C4C357 /* Category + JSONParsable.swift */,
 				0A63EC632C1CC091005ED49D /* TodoItem + JSONParsable.swift */,
 			);
 			path = JSONParsing;
@@ -664,6 +663,7 @@
 		0AF6F2352C20B6000043866B /* CSVParsing */ = {
 			isa = PBXGroup;
 			children = (
+				0A931C3C2C49306400C4C357 /* Category + CSVParsable.swift */,
 				0A63EC6E2C1CD434005ED49D /* TodoItem + CSVParsable.swift */,
 			);
 			path = CSVParsing;

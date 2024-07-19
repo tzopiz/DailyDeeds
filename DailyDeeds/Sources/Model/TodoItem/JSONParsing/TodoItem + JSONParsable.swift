@@ -1,5 +1,5 @@
 //
-//  JSONParsable.swift
+//  TodoItem + JSONParsable.swift
 //  DailyDeeds
 //
 //  Created by Дмитрий Корчагин on 6/14/24.
@@ -19,7 +19,9 @@ extension TodoItem: JSONParsable {
             (CodingKeys.hexColor, hexColor)
             (CodingKeys.creationDate, creationDate)
             (CodingKeys.deadline, deadline)
+            (CodingKeys.category, category)
             (CodingKeys.modificationDate, modificationDate)
+            (CodingKeys.lastUpdatedDevice, lastUpdatedDevice)
         }
     }
 
@@ -30,31 +32,20 @@ extension TodoItem: JSONParsable {
         guard let id = dict[CodingKeys.id] as? String,
               let text = dict[CodingKeys.text] as? String,
               let isDone = dict[CodingKeys.isDone] as? Bool,
-              let creationTimestamp = dict[CodingKeys.creationDate] as? TimeInterval,
-              let hexColor = dict[CodingKeys.hexColor] as? String else {
+              let creationTimestamp = dict[CodingKeys.creationDate] as? Int,
+              let modificationTimestamp = dict[CodingKeys.modificationDate] as? Int,
+              let hexColor = dict[CodingKeys.hexColor] as? String,
+              let importanceRawValue = dict[CodingKeys.importance] as? String,
+              let importance = Importance(rawValue: importanceRawValue),
+              let lastUpdatedDevice = dict[CodingKeys.lastUpdatedDevice] as? String else {
             return nil
         }
         
         let deadline: Date? = {
-            guard let interval = dict[CodingKeys.deadline] as? TimeInterval else {
+            guard let interval = dict[CodingKeys.deadline] as? Int else {
                 return nil
             }
-            return Date(timeIntervalSince1970: interval)
-        }()
-        
-        let modificationDate: Date? = {
-            guard let interval = dict[CodingKeys.modificationDate] as? TimeInterval else {
-                return nil
-            }
-            return Date(timeIntervalSince1970: interval)
-        }()
-
-        let importance: Importance = {
-            guard let importanceRawValue = dict[CodingKeys.importance] as? String,
-                  let importanceValue = Importance(rawValue: importanceRawValue) else {
-                return .medium
-            }
-            return importanceValue
+            return Date(timeIntervalSince1970: TimeInterval(interval))
         }()
 
         let category: Category = {
@@ -65,18 +56,20 @@ extension TodoItem: JSONParsable {
             return category
         }()
 
-        let creationDate = Date(timeIntervalSince1970: creationTimestamp)
+        let creationDate = Date(timeIntervalSince1970: TimeInterval(creationTimestamp))
+        let modificationDate = Date(timeIntervalSince1970: TimeInterval(modificationTimestamp))
 
         return TodoItem(
             id: id,
             text: text,
             isDone: isDone,
-            importance: importance,
             hexColor: hexColor,
             creationDate: creationDate,
-            deadline: deadline,
+            category: category,
+            importance: importance,
             modificationDate: modificationDate,
-            category: category
+            lastUpdatedDevice: lastUpdatedDevice,
+            deadline: deadline
         )
     }
 }

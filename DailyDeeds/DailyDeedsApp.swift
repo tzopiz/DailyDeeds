@@ -14,11 +14,12 @@ struct DailyDeedsApp: App {
 
     init() {
         configureLogs()
+        DDLogInfo("Initializing DailyDeedsApp")
     }
-    private let items = ListTodoItemViewModel.createTodoItems(20)
+    
     var body: some Scene {
         WindowGroup {
-            TodoItemsListView(viewModel: ListTodoItemViewModel(model: TodoItemModel(items: items)))
+            TodoItemsListView(viewModel: ListTodoItemViewModel(model: TodoItemModel()))
         }
     }
     

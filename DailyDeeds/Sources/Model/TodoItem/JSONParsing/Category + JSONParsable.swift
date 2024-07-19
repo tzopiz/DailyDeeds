@@ -8,7 +8,6 @@
 import FileCache
 import Foundation
 
-// MARK: - JSONParsable
 extension Category {
     var json: JSONDictionary {
         Category.buildJSONDictionary {

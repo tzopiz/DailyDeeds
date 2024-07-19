@@ -17,9 +17,11 @@ final class TodoItemTests: XCTestCase {
         let creationDate = Date()
 
         let item = TodoItem(
-            text: text, isDone: isDone,
+            text: text,
+            isDone: isDone,
+            creationDate: creationDate,
             importance: importance,
-            creationDate: creationDate
+            modificationDate: creationDate
         )
 
         XCTAssertEqual(item.text, text)
@@ -27,7 +29,7 @@ final class TodoItemTests: XCTestCase {
         XCTAssertEqual(item.isDone, isDone)
         XCTAssertEqual(item.creationDate, creationDate)
         XCTAssertNil(item.deadline)
-        XCTAssertNil(item.modificationDate)
+        XCTAssertEqual(item.modificationDate, creationDate)
     }
 
     func testDateConversion() {

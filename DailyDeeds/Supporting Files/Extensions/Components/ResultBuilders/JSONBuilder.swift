@@ -10,7 +10,17 @@ import Foundation
 
 extension JSONBuilder {
     static func buildExpression(_ expression: (key: String, value: Importance)) -> JSONDictionary {
-        guard expression.value != .medium else { return [:] }
         return [expression.key: expression.value.rawValue]
+    }
+    
+    static func buildExpression(_ expression: (key: String, value: Category)) -> JSONDictionary {
+        return [expression.key: expression.value.json]
+    }
+    
+    static func buildExpression(_ expression: (key: String, value: Date?)) -> JSONDictionary {
+        guard let value = expression.value?.timeIntervalSince1970 else {
+            return [:]
+        }
+        return [expression.key: Int(value)]
     }
 }

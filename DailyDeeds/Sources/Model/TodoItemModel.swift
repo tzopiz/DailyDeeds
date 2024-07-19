@@ -52,11 +52,7 @@ extension TodoItemModel {
     @MainActor
     func updateTodoItem(with id: String, item: TodoItem) {
         handleNetworkTask(#function) {
-            try await self.networkingService.updateTodoItem(
-                id: id,
-                data: item.json,
-                revision: self.revision
-            )
+            try await self.networkingService.updateTodoItem(id: id, data: item, revision: self.revision)
         } onSuccess: { response in
             self.updateItem(with: id, item: item)
         }
@@ -65,10 +61,7 @@ extension TodoItemModel {
     @MainActor
     func updateTodoList() {
         handleNetworkTask(#function) {
-            try await self.networkingService.updateTodoList(
-                patchData: self.items.jsonArray,
-                revision: self.revision
-            )
+            try await self.networkingService.updateTodoList(patchData: self.items, revision: self.revision)
         } onSuccess: { response in
             self.updateList(response.result)
         }
@@ -77,10 +70,7 @@ extension TodoItemModel {
     @MainActor
     func createTodoItem(with id: String, item: TodoItem) {
         handleNetworkTask(#function) {
-            try await self.networkingService.createTodoItem(
-                data: item.json,
-                revision: self.revision
-            )
+            try await self.networkingService.createTodoItem(data: item, revision: self.revision)
         } onSuccess: { response in
             self.updateItem(with: id, item: response.result)
         }
@@ -92,6 +82,7 @@ extension TodoItemModel {
             try await self.networkingService.deleteTodoItem(id: id, revision: revision)
         } onSuccess: { response in
             if let item = response.result {
+                self.remove(with: id)
                 DDLogInfo("TodoItem has been deleted:\n\(item.description)")
             }
         }
@@ -173,6 +164,10 @@ extension TodoItemModel {
     
     func updateAllItems(_ items: [TodoItem]) {
         self.items = items
+    }
+    
+    func containsItem(with id: String) -> Bool {
+        return items.contains(where: { $0.id == id })
     }
     
     func makeDirty() {

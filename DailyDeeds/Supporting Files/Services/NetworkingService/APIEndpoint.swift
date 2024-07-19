@@ -13,7 +13,7 @@ import URL
 enum APIEndpoint {
     private static let baseURL = #URL("https://hive.mrdekk.ru/todo")
     private static let listPathComponent = "list"
-    private static let token = "Bearer Bereg"
+    private static let token = "Bearer <token>"
     private static let threshold = 50
     
     case fetchTodoList
@@ -63,20 +63,14 @@ enum APIEndpoint {
         }
     }
     
-    func request(withBody body: Any? = nil, generateErrors: Bool = false) throws -> URLRequest {
+    func request(withBody body: (any ITodoResponse & JSONParsable)? = nil, generateErrors: Bool = false) throws -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.allHTTPHeaderFields = headers
         
         if let body = body {
             do {
-                if let dictionaryBody = body as? JSONDictionary {
-                    request.httpBody = try JSONSerialization.data(withJSONObject: dictionaryBody)
-                } else if let arrayBody = body as? [JSONDictionary] {
-                    request.httpBody = try JSONSerialization.data(withJSONObject: arrayBody)
-                } else {
-                    throw NetworkingError.invalidBodyType
-                }
+                request.httpBody = try JSONSerialization.data(withJSONObject: body.json)
             } catch {
                 let message = DDLogMessageFormat(
                     stringLiteral: "APIEndpoint.\(#function):" + error.localizedDescription

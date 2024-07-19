@@ -87,7 +87,7 @@ struct TodoItemsListView: View {
                 }
             }
             .task {
-//                viewModel.fetchTodoList()
+                viewModel.fetchTodoList()
             }
     }
 
@@ -152,7 +152,6 @@ struct TodoItemsListView: View {
                         Button {
                             withAnimation {
                                 viewModel.setSortType(sortType)
-                                viewModel.updateTodoList()
                             }
                         } label: {
                             Text(sortType.description)
@@ -198,8 +197,6 @@ struct TodoItemsListView: View {
     }
 
     private func createEmptyItem() {
-        let item = TodoItem(text: "")
-        selectedItem = item
-        viewModel.updateTodoItem(with: item.id, item: item)
+        selectedItem = TodoItem(text: "")
     }
 }

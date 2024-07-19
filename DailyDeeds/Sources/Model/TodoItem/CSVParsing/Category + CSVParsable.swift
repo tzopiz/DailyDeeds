@@ -8,7 +8,6 @@
 import FileCache
 import Foundation
 
-// MARK: - CSVParsable
 extension Category {
     var csv: String {
         Category.buildCSV {
