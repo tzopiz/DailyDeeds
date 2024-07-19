@@ -12,13 +12,12 @@ import Foundation
 protocol IBaseTodoItemViewModel {
     var model: TodoItemModel { get set }
     
-    func fetchTodoList()
-    func createTodoItem(with id: String, item: TodoItem)
-    func updateTodoItem(_ item: TodoItem)
-    func deleteTodoItem(with id: String)
-    
-    func complete(_: TodoItem, isDone: Bool)
-    func toggleCompletion(_: TodoItem)
+    @MainActor func fetchTodoList()
+    @MainActor func createTodoItem(with id: String, item: TodoItem)
+    @MainActor func updateTodoItem(_ item: TodoItem)
+    @MainActor func deleteTodoItem(with id: String)
+    @MainActor func complete(_: TodoItem, isDone: Bool)
+    @MainActor func toggleCompletion(_: TodoItem)
     
     func save(to fileName: String, format type: FileFormat)
     func loadItems(from fileName: String, format type: FileFormat)
@@ -51,12 +50,14 @@ extension IBaseTodoItemViewModel {
         }
     }
     
+    @MainActor
     func complete(_ item: TodoItem, isDone: Bool) {
         let newItem = MutableTodoItem(from: item)
         newItem.isDone = isDone
         updateTodoItem(newItem.immutable)
     }
     
+    @MainActor 
     func toggleCompletion(_ item: TodoItem) {
         let newItem = MutableTodoItem(from: item)
         newItem.isDone.toggle()
