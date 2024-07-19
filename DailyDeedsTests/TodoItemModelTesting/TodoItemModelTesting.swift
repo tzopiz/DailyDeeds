@@ -25,7 +25,7 @@ final class TodoItemModelTesting: XCTestCase {
 
     override func setUp() async throws {
         try await super.setUp()
-        model = TodoItemModel(items: [])
+        model = await TodoItemModel(items: [])
     }
 
     override func tearDown() {
@@ -33,7 +33,7 @@ final class TodoItemModelTesting: XCTestCase {
         model = nil
     }
 
-    override func setUpWithError() throws {
+    @MainActor override func setUpWithError() throws {
         try super.setUpWithError()
         model = TodoItemModel(items: [])
     }

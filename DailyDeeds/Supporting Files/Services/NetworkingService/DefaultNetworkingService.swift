@@ -5,14 +5,21 @@
 //  Created by Дмитрий Корчагин on 7/16/24.
 //
 
+import CocoaLumberjackSwift
 import FileCache
 import Foundation
 
 final class DefaultNetworkingService: INetworkingService, Sendable {
     private let session: URLSession
+    private let networkActivityState: NetworkActivityState
     
     init(session: URLSession = URLSession(configuration: .default)) {
         self.session = session
+        self.networkActivityState = NetworkActivityState()
+    }
+
+    func getActiveRequestsCount() async -> Int {
+        await networkActivityState.activeRequestsCount
     }
 }
 
@@ -31,7 +38,6 @@ extension DefaultNetworkingService {
 
 // MARK: - PUT Requests
 extension DefaultNetworkingService {
-    // !!!: -
     func updateTodoList(patchData: [TodoItem], revision: Int) async throws -> TodoListResponse {
         let todoListResponse = TodoListResponse(status: "ok", result: patchData, revision: revision)
         let request = try APIEndpoint.updateTodoList(revision: revision).request(withBody: todoListResponse)
@@ -65,9 +71,17 @@ extension DefaultNetworkingService {
 // MARK: - Request Methods
 extension DefaultNetworkingService {
     private func performRequest<T: JSONParsable>(for request: URLRequest) async throws -> T {
+        await networkActivityState.increment()
+        defer {
+            Task {
+                await networkActivityState.decrement()
+            }
+        }
+        // Simulation of long-running queries for indicator display
+        try await Task.sleep(nanoseconds: UInt64(Int.random(in: 0...3) * 1_000_000_000))
         do {
             let (data, response) = try await session.dataTask(for: request)
-            try checkResponseStatus(response)
+            try validateRequest(response: response)
             
             let jsonObject = try JSONSerialization.jsonObject(with: data) as? T.JSONType
             
@@ -90,13 +104,18 @@ extension DefaultNetworkingService {
         }
     }
     
-    private func checkResponseStatus(_ response: URLResponse?) throws {
+    private func validateRequest(response: URLResponse?, checkThread: Bool = false) throws {
+        if checkThread {
+            print("Current Thread: \(Thread.isMainThread ? "Main" : "Background")")
+        }
+        
         guard let httpResponse = response as? HTTPURLResponse else {
             throw NetworkingError.invalidResponse
         }
         
         switch httpResponse.statusCode {
         case 200...299:
+            DDLogInfo("Valid Request witch status code \(httpResponse.statusCode)")
             return
         case 400...499:
             throw NetworkingError.httpError(statucCode: httpResponse.statusCode)

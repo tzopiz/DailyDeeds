@@ -14,137 +14,61 @@ final class TodoItemModel: ObservableObject {
     @Published
     private(set) var items: [TodoItem]
     @Published
-    private(set) var revision: Int = 0
-    @Published
     private(set) var isDirty: Bool = false
+    @Published
+    var isLoading: Bool = false
     
-    private let fileCache = FileCache<TodoItem>()
-    private let networkingService = DefaultNetworkingService()
-    
+    let networkingService = DefaultNetworkingService()
+    let defaultFileName = "todoItemsList.json"
+    var monitorTask: Task<Void, Never>?
+    private(set) var revision: Int = 0
+
+    @MainActor
     init(items: [TodoItem] = []) {
         DDLogInfo("Initializing TodoItemModel with \(items)")
         self.items = items
         self.revision = 0
-    }
-}
-
-// MARK: - Networking
-extension TodoItemModel {
-    @MainActor
-    func fetchTodoList() {
-        handleNetworkTask(#function) {
-            try await self.networkingService.fetchTodoList()
-        } onSuccess: { response in
-            self.updateList(response.result)
-        }
-    }
-    
-    @MainActor
-    func fetchTodoItem(with id: String) {
-        handleNetworkTask(#function) {
-            try await self.networkingService.fetchTodoItem(id: id)
-        } onSuccess: { response in
-            self.updateItem(with: id, item: response.result)
-        }
-        
-    }
-    
-    @MainActor
-    func updateTodoItem(with id: String, item: TodoItem) {
-        handleNetworkTask(#function) {
-            try await self.networkingService.updateTodoItem(id: id, data: item, revision: self.revision)
-        } onSuccess: { response in
-            self.updateItem(with: id, item: item)
-        }
-    }
-    
-    @MainActor
-    func updateTodoList() {
-        handleNetworkTask(#function) {
-            try await self.networkingService.updateTodoList(patchData: self.items, revision: self.revision)
-        } onSuccess: { response in
-            self.updateList(response.result)
-        }
-    }
-    
-    @MainActor
-    func createTodoItem(with id: String, item: TodoItem) {
-        handleNetworkTask(#function) {
-            try await self.networkingService.createTodoItem(data: item, revision: self.revision)
-        } onSuccess: { response in
-            self.updateItem(with: id, item: response.result)
-        }
-    }
-    
-    @MainActor
-    func deleteTodoItem(with id: String, revision: Int) {
-        handleNetworkTask(#function) {
-            try await self.networkingService.deleteTodoItem(id: id, revision: revision)
-        } onSuccess: { response in
-            if let item = response.result {
-                self.remove(with: id)
-                DDLogInfo("TodoItem has been deleted:\n\(item.description)")
-            }
-        }
-    }
-    
-    // TODO: - retry -
-    @MainActor
-    private func handleNetworkTask<T: ITodoResponse & Sendable>(
-        _ title: String = "",
-        task: @escaping () async throws -> T,
-        onSuccess: @escaping (T) async -> Void
-    ) {
         Task {
-            do {
-                let response = try await task()
-                self.revision = response.revision
-                await onSuccess(response)
-                
-                DDLogVerbose("TodoItemModel.\(title) finished Successfully")
-            } catch let error as NetworkingError {
-                DDLogError("TodoItemModel.\(title) failed with \(error.description)")
-            } catch {
-                DDLogError("TodoItemModel.\(title) failed with unhandled error: \(error)")
-            }
+            await startMonitoringNetworkActivity()
         }
+    }
+    
+    deinit {
+        stopMonitoringNetworkActivity()
     }
 }
 
+// MARK: - Interaction
 extension TodoItemModel {
-    func append(_ item: TodoItem) {
-        if !items.contains(where: { $0.id == item.id }) {
+    func append(_ item: TodoItem?) {
+        guard let item else {
+            DDLogError("Error trying to add an object to the none list")
+            return
+        }
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            DDLogError("The item with the \(item.id) id already exists in the list on \(index) index")
+        } else {
             items.append(item)
             DDLogInfo("Appended new item with id \(item.id)")
-        } else {
-            DDLogInfo("Item with id \(item.id) already exists")
-        }
-    }
-    
-    func update(_ item: TodoItem) {
-        if let index = items.firstIndex(where: { $0.id == item.id }) {
-            items[index] = item
-            DDLogInfo("Updated item with id \(item.id)")
-        } else {
-            items.append(item)
-            DDLogInfo("Appended new item with id \(item.id) during update")
         }
     }
     
     func updateItem(with id: String, item: TodoItem?) {
-        if let index = items.firstIndex(where: { $0.id == id }), let item = item {
+        guard let item else {
+            DDLogError("Error trying to add an object to the none list")
+            return
+        }
+        if let index = items.firstIndex(where: { $0.id == id }) {
             items[index] = item
             DDLogInfo("Updated item with id \(item.id)")
-        } else if let item = item {
-            items.append(item)
-            DDLogInfo("Appended new item with id \(item.id) during update")
         } else {
-            DDLogVerbose("The item with the id \(id) is up to date in the list")
+            DDLogError("The item with the id \(id) already exists in the list")
         }
     }
     
     func updateList(_ todoItems: [TodoItem]) {
         self.items = todoItems
+        DDLogInfo("TodoItems list updated")
     }
     
     func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
@@ -170,29 +94,11 @@ extension TodoItemModel {
         return items.contains(where: { $0.id == id })
     }
     
-    func makeDirty() {
-        self.isDirty = true
-    }
-}
-
-// MARK: - FileCache
-extension TodoItemModel {
-    func save(to fileName: String, format type: FileCache<TodoItem>.FileFormat = .json) {
-        if let error = fileCache.saveToFile(items, named: fileName, format: type) {
-            DDLogError("Failed to save items to file \(fileName): \(error.localizedDescription)")
-        } else {
-            DDLogInfo("Successfully saved items to file \(fileName)")
-        }
+    func updateRevision(to value: Int) {
+        self.revision = value
     }
     
-    func loadItems(from fileName: String, format type: FileCache<TodoItem>.FileFormat = .json) {
-        let result = fileCache.loadFromFile(named: fileName, format: type)
-        switch result {
-        case .success(let items):
-            self.items = items
-            DDLogInfo("Successfully loaded items from file \(fileName)")
-        case .failure(let error):
-            DDLogError("Failed to load items from file \(fileName): \(error.localizedDescription)")
-        }
+    func makeDirty(_ value: Bool) {
+        self.isDirty = value
     }
 }

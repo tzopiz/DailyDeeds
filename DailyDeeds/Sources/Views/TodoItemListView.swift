@@ -41,7 +41,7 @@ struct TodoItemsListView: View {
                 DetailTodoItemView(
                     todoItem: selectedItem,
                     onDelete: { viewModel.deleteTodoItem(with: $0.id) },
-                    onSave: { viewModel.updateTodoItem(with: $0.id, item: $0) }
+                    onSave: { viewModel.updateTodoItem($0) }
                 )
 
             } else if !interfaceOrientation.deviceType.isSmall {
@@ -60,7 +60,7 @@ struct TodoItemsListView: View {
                 DetailTodoItemView(
                     todoItem: item,
                     onDelete: { viewModel.deleteTodoItem(with: $0.id) },
-                    onSave: { viewModel.updateTodoItem(with: $0.id, item: $0) }
+                    onSave: { viewModel.updateTodoItem($0) }
                 )
             }
             .onAppear {
@@ -72,6 +72,11 @@ struct TodoItemsListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     sortingButton
+                }
+                ToolbarItem(placement: .principal) {
+                    if viewModel.isLoading {
+                        ProgressView()
+                    }
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
@@ -177,7 +182,7 @@ struct TodoItemsListView: View {
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 Button(role: .destructive) {
-                    viewModel.remove(with: item.id)
+                    viewModel.deleteTodoItem(with: item.id)
                 } label: {
                     Image(systemName: "trash")
                 }
@@ -197,6 +202,7 @@ struct TodoItemsListView: View {
     }
 
     private func createEmptyItem() {
-        selectedItem = TodoItem(text: "")
+        let item = TodoItem(text: "")
+        selectedItem = item
     }
 }

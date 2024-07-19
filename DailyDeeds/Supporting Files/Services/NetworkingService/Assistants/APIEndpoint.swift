@@ -5,7 +5,6 @@
 //  Created by Дмитрий Корчагин on 7/16/24.
 //
 
-import CocoaLumberjackSwift
 import FileCache
 import Foundation
 import URL
@@ -13,7 +12,7 @@ import URL
 enum APIEndpoint {
     private static let baseURL = #URL("https://hive.mrdekk.ru/todo")
     private static let listPathComponent = "list"
-    private static let token = "Bearer <token>"
+    private static let token = "<token>"
     private static let threshold = 50
     
     case fetchTodoList
@@ -51,32 +50,28 @@ enum APIEndpoint {
     var headers: [String: String] {
         switch self {
         case .fetchTodoList, .fetchTodoItem:
-            return ["Authorization": APIEndpoint.token]
+            return ["Authorization": "Bearer \(APIEndpoint.token)"]
         case .updateTodoList(let revision),
                 .createTodoItem(let revision),
                 .updateTodoItem(_, let revision),
                 .deleteTodoItem(_, let revision):
             return [
-                "Authorization": APIEndpoint.token,
+                "Authorization": "Bearer \(APIEndpoint.token)",
                 "X-Last-Known-Revision": "\(revision)"
             ]
         }
     }
     
-    func request(withBody body: (any ITodoResponse & JSONParsable)? = nil, generateErrors: Bool = false) throws -> URLRequest {
+    func request(
+        withBody body: (any ITodoResponse & JSONParsable)? = nil,
+        generateErrors: Bool = false
+    ) throws -> URLRequest {
         var request = URLRequest(url: url)
         request.httpMethod = method
         request.allHTTPHeaderFields = headers
         
         if let body = body {
-            do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: body.json)
-            } catch {
-                let message = DDLogMessageFormat(
-                    stringLiteral: "APIEndpoint.\(#function):" + error.localizedDescription
-                )
-                DDLogError(message)
-            }
+            request.httpBody = try JSONSerialization.data(withJSONObject: body.json)
         }
         
         if generateErrors {

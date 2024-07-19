@@ -5,7 +5,6 @@
 //  Created by Дмитрий Корчагин on 6/23/24.
 //
 
-import CocoaLumberjackSwift
 import Combine
 import SwiftUI
 
@@ -29,16 +28,16 @@ final class ListTodoItemViewModel: ObservableObject, IListTodoItemViewModel {
     
     private var cancellables = Set<AnyCancellable>()
     
-    var revision: Int {
-        model.revision
-    }
-    
     var isDirty: Bool {
         model.isDirty
     }
     
     var completedTodoItemsCount: Int {
         model.items.filter(by: \.isDone, predicate: { $0 }).count
+    }
+    
+    var isLoading: Bool {
+        model.isLoading
     }
     
     var items: [TodoItem] {
@@ -97,44 +96,15 @@ final class ListTodoItemViewModel: ObservableObject, IListTodoItemViewModel {
     }
 }
 
-// MARK: - Networking
+// MARK: - Networking none callers func
 extension ListTodoItemViewModel {
-    @MainActor
-    func fetchTodoList() {
-        model.fetchTodoList()
-    }
-    
     @MainActor
     func fetchTodoItem(with id: String) {
         model.fetchTodoItem(with: id)
     }
     
     @MainActor
-    func updateTodoItem(with id: String, item: TodoItem?) {
-        guard let item = item else {
-            deleteTodoItem(with: id)
-            return
-        }
-        if model.containsItem(with: id) {
-            model.updateTodoItem(with: id, item: item)
-        } else {
-            model.createTodoItem(with: id, item: item)
-        }
-    }
-    
-    @MainActor
     func updateTodoList() {
         model.updateTodoList()
-    }
-    
-    @MainActor
-    func createTodoItem(with id: String, item: TodoItem) {
-        guard !item.text.isEmpty else { return }
-        model.createTodoItem(with: id, item: item)
-    }
-    
-    @MainActor
-    func deleteTodoItem(with id: String) {
-        model.deleteTodoItem(with: id, revision: revision)
     }
 }
