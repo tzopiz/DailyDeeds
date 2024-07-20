@@ -8,6 +8,7 @@
 import CocoaLumberjackSwift
 import SnapKit
 import SwiftUI
+import SwiftData
 
 @main
 struct DailyDeedsApp: App {
