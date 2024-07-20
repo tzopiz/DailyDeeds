@@ -15,7 +15,7 @@ extension Collection {
 }
 
 extension Collection where Element: JSONParsable {
-    var jsonArray: [JSONDictionary] {
+    var jsonArray: [Element.JSONType] {
         self.reduce(into: []) { partialResult, element in
             partialResult.append(element.json)
         }

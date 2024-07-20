@@ -38,10 +38,12 @@ struct TodoItemsListView: View {
                 }
         } detail: {
             if let selectedItem = selectedItem, !interfaceOrientation.deviceType.isSmall {
-                DetailTodoItemView(todoItem: selectedItem) { item in
-                    viewModel.update(oldItem: selectedItem, to: item)
-                    self.selectedItem = nil
-                }
+                DetailTodoItemView(
+                    todoItem: selectedItem,
+                    onDelete: { viewModel.deleteTodoItem(with: $0.id) },
+                    onSave: { viewModel.updateTodoItem($0) }
+                )
+
             } else if !interfaceOrientation.deviceType.isSmall {
                 Text("Выберите задачу для просмотра деталей")
                     .foregroundStyle(Color.labelSecondary)
@@ -55,9 +57,11 @@ struct TodoItemsListView: View {
             .scrollIndicators(.hidden)
             .navigationTitle("Мои дела")
             .sheet(isPresented: interfaceOrientation.deviceType.isSmall, item: $selectedItem) { item in
-                DetailTodoItemView(todoItem: item) { newItem in
-                    viewModel.update(oldItem: item, to: newItem)
-                }
+                DetailTodoItemView(
+                    todoItem: item,
+                    onDelete: { viewModel.deleteTodoItem(with: $0.id) },
+                    onSave: { viewModel.updateTodoItem($0) }
+                )
             }
             .onAppear {
                 interfaceOrientation = InterfaceOrientation(
@@ -68,6 +72,11 @@ struct TodoItemsListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     sortingButton
+                }
+                ToolbarItem(placement: .principal) {
+                    if viewModel.isLoading {
+                        ProgressView()
+                    }
                 }
                 ToolbarItem(placement: .topBarLeading) {
                     NavigationLink {
@@ -81,6 +90,9 @@ struct TodoItemsListView: View {
                         Image(systemName: "calendar")
                     }
                 }
+            }
+            .task {
+                viewModel.fetchTodoList()
             }
     }
 
@@ -108,7 +120,8 @@ struct TodoItemsListView: View {
             .listRowInsets(.init(top: 16, leading: 16, bottom: 16, trailing: 0))
 
             CreateNewTodoItemRowView { text in
-                viewModel.append(TodoItem(text: text))
+                let task = TodoItem(text: text)
+                viewModel.createTodoItem(with: task.id, item: task)
             }
             .listRowInsets(.init())
             .focused($isActive)
@@ -169,7 +182,7 @@ struct TodoItemsListView: View {
             }
             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                 Button(role: .destructive) {
-                    viewModel.remove(with: item.id)
+                    viewModel.deleteTodoItem(with: item.id)
                 } label: {
                     Image(systemName: "trash")
                 }
@@ -189,6 +202,7 @@ struct TodoItemsListView: View {
     }
 
     private func createEmptyItem() {
-        selectedItem = TodoItem(text: "")
+        let item = TodoItem(text: "")
+        selectedItem = item
     }
 }

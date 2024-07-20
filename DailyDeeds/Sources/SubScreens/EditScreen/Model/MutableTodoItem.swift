@@ -42,7 +42,7 @@ final class MutableTodoItem: Identifiable, ObservableObject {
         self.creationDate = item.creationDate
         self.deadline = item.deadline ?? .now.tomorrow
         self.isDeadlineEnabled = item.deadline != nil
-        self.modificationDate = item.modificationDate ?? .now
+        self.modificationDate = item.modificationDate
         self.category = item.category
         setupBindings()
     }
@@ -52,12 +52,12 @@ final class MutableTodoItem: Identifiable, ObservableObject {
             id: self.id,
             text: self.text,
             isDone: self.isDone,
-            importance: self.importance,
             hexColor: self.hexColor,
             creationDate: self.creationDate,
-            deadline: isDeadlineEnabled ? self.deadline : nil,
+            category: self.category,
+            importance: self.importance,
             modificationDate: self.modificationDate,
-            category: self.category
+            deadline: isDeadlineEnabled ? self.deadline : nil
         )
     }
 

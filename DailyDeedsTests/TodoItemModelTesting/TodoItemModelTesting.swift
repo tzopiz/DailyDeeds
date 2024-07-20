@@ -15,15 +15,17 @@ final class TodoItemModelTesting: XCTestCase {
     private let fileNameJSON = "test_tasks.json"
     private let fileNameCSV = "test_tasks.csv"
     private let todoitem = TodoItem(
-        id: "1", text: "test text for test task",
-        isDone: false, importance: .high,
-        creationDate: .now, deadline: nil,
-        modificationDate: .now
+        id: "1",
+        text: "test text for test task",
+        isDone: false,
+        creationDate: .now,
+        importance: .high,
+        modificationDate: .now, deadline: nil
     )
 
     override func setUp() async throws {
         try await super.setUp()
-        model = TodoItemModel(items: [])
+        model = await TodoItemModel(items: [])
     }
 
     override func tearDown() {
@@ -31,7 +33,7 @@ final class TodoItemModelTesting: XCTestCase {
         model = nil
     }
 
-    override func setUpWithError() throws {
+    @MainActor override func setUpWithError() throws {
         try super.setUpWithError()
         model = TodoItemModel(items: [])
     }
@@ -47,7 +49,7 @@ final class TodoItemModelTesting: XCTestCase {
         XCTAssertEqual(model.items.first?.id, "1")
     }
 
-    func testAddTodoItem_Duplicate() {
+    func testAddTodoItemDuplicate() {
         model.append(todoitem)
         model.append(todoitem)
         XCTAssertEqual(model.items.count, 1)
@@ -56,10 +58,13 @@ final class TodoItemModelTesting: XCTestCase {
     func testRemoveTodoItem() {
         let id = "2"
         let todoitem2 = TodoItem(
-            id: id, text: "test text for test task",
-            isDone: false, importance: .medium,
-            creationDate: .now, deadline: nil,
-            modificationDate: .now
+            id: id,
+            text: "test text for test task",
+            isDone: false,
+            creationDate: .now,
+            importance: .medium,
+            modificationDate: .now,
+            deadline: nil
         )
         model.append(todoitem)
         model.append(todoitem2)
@@ -70,10 +75,13 @@ final class TodoItemModelTesting: XCTestCase {
 
     func testRemoveAllTodoItems() {
         let todoitem2 = TodoItem(
-            id: "2", text: "test text for test task",
-            isDone: false, importance: .high,
-            creationDate: .now, deadline: nil,
-            modificationDate: .now
+            id: "2",
+            text: "test text for test task",
+            isDone: false,
+            creationDate: .now,
+            importance: .high,
+            modificationDate: .now,
+            deadline: nil
         )
         model.append(todoitem)
         model.append(todoitem2)
@@ -83,18 +91,24 @@ final class TodoItemModelTesting: XCTestCase {
         XCTAssertTrue(model.items.isEmpty)
     }
 
-    func testSaveToFile_JSON() throws {
+    func testSaveToJSONFile() throws {
         let todoitem2 = TodoItem(
-            id: "2", text: "test text for test task",
-            isDone: false, importance: .low,
-            creationDate: .now, deadline: nil,
-            modificationDate: .now
+            id: "2",
+            text: "test text for test task",
+            isDone: false,
+            creationDate: .now,
+            importance: .low,
+            modificationDate: .now,
+            deadline: nil
         )
         let todoitem3 = TodoItem(
-            id: "3", text: "test text for test task",
-            isDone: false, importance: .medium,
-            creationDate: .now, deadline: nil,
-            modificationDate: .now
+            id: "3",
+            text: "test text for test task",
+            isDone: false,
+            creationDate: .now,
+            importance: .medium,
+            modificationDate: .now,
+            deadline: nil
         )
 
         model.append(todoitem)
@@ -111,7 +125,7 @@ final class TodoItemModelTesting: XCTestCase {
         try FileManager.default.removeItem(at: url)
     }
 
-    func testSaveToFile_CSV() throws {
+    func testSaveToCSVFile() throws {
         let date = Date.now
         let id = "3"
         let text = "test text for test task"
@@ -119,10 +133,14 @@ final class TodoItemModelTesting: XCTestCase {
         let hexColor = "#FFFFFF"
         let isDone = false
         let todoitem = TodoItem(
-            id: id, text: text, isDone: isDone,
-            importance: importance, hexColor: hexColor,
-            creationDate: date, deadline: nil,
-            modificationDate: date
+            id: id,
+            text: text,
+            isDone: isDone,
+            hexColor: hexColor,
+            creationDate: date,
+            importance: importance,
+            modificationDate: date,
+            deadline: nil
         )
 
         model.append(todoitem)
@@ -140,41 +158,42 @@ final class TodoItemModelTesting: XCTestCase {
         try FileManager.default.removeItem(at: url)
     }
 
-    func testLoadFromFile_JSON() throws {
+    func testLoadFromJSONFile() throws {
         let date = Date.now
         let id = "1231231"
         let text = "Test Task"
         let isDone = false
         let hexColor = "#FFFFFF"
-        let json = """
-        [{
-            "\(Keys.id)": "\(id)",
-            "\(Keys.text)": "\(text)",
-            "\(Keys.isDone)": \(isDone),
-            "\(Keys.hexColor)": "\(hexColor)",
-            "\(Keys.creationDate)": "\(date.toString())"
-        }]
-        """
-        let url = try getDocumentsDirectory().appendingPathComponent(fileNameJSON)
-        try json.data(using: .utf8)?.write(to: url)
+        let item = TodoItem(
+            id: id,
+            text: text,
+            isDone: isDone,
+            hexColor: hexColor,
+            creationDate: date,
+            modificationDate: date
+        )
+        
+        model.updateList([item])
+        model.save(to: fileNameJSON, format: .json)
 
         model.loadItems(from: fileNameJSON, format: .json)
         XCTAssertEqual(model.items.count, 1)
         XCTAssertEqual(model.items.first?.id, id)
         XCTAssertEqual(model.items.first?.importance, .medium)
         XCTAssertNil(model.items.first?.deadline)
-
+        
+        let url = try getDocumentsDirectory().appendingPathComponent(fileNameJSON)
         try FileManager.default.removeItem(at: url)
     }
 
-    func testLoadFromFile_CSV() throws {
+    func testLoadFromCSVFile() throws {
         let date = Date.now
         let id = "1"
         let text = "Test Task"
         let isDone = false
         let importance: Importance = .medium
         let hexColor = "#FFFFFF"
-        let csv = "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(date.toString()),,"
+        let csv = "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(date.toString()),,\(date.toString())"
         let url = try getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         try csv.write(to: url, atomically: true, encoding: .utf8)
 

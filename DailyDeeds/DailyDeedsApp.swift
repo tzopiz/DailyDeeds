@@ -11,19 +11,18 @@ import SwiftUI
 
 @main
 struct DailyDeedsApp: App {
-    private let model = TodoItemModel(
-        items: ListTodoItemViewModel.createTodoItems(30)
-    )
 
     init() {
         configureLogs()
+        DDLogInfo("Initializing DailyDeedsApp")
     }
-
+    
     var body: some Scene {
         WindowGroup {
-            TodoItemsListView(viewModel: ListTodoItemViewModel(model: model))
+            TodoItemsListView(viewModel: ListTodoItemViewModel(model: TodoItemModel()))
         }
     }
+    
     func configureLogs() {
 
         let fileLogger: DDFileLogger = DDFileLogger()

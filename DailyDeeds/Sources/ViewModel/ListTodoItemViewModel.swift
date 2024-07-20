@@ -19,19 +19,27 @@ protocol IListTodoItemViewModel: IBaseTodoItemViewModel {
 final class ListTodoItemViewModel: ObservableObject, IListTodoItemViewModel {
     @Published
     var model: TodoItemModel
-
+    
     @Published
     var sort: TaskCriteria.SortType = .byCreationDate(.descending)
-
+    
     @Published
     var filter: TaskCriteria.FilterType = .all
-
+    
+    private var cancellables = Set<AnyCancellable>()
+    
+    var isDirty: Bool {
+        model.isDirty
+    }
+    
     var completedTodoItemsCount: Int {
         model.items.filter(by: \.isDone, predicate: { $0 }).count
     }
-
-    private var cancellables = Set<AnyCancellable>()
-
+    
+    var isLoading: Bool {
+        model.isLoading
+    }
+    
     var items: [TodoItem] {
         let items: [TodoItem]
         switch filter {
@@ -81,7 +89,6 @@ final class ListTodoItemViewModel: ObservableObject, IListTodoItemViewModel {
     }
 
     private func setupBindings() {
-        // Double ObservableObject does not lead to good
         model.objectWillChange.sink { [weak self] in
             self?.objectWillChange.send()
         }
@@ -89,52 +96,15 @@ final class ListTodoItemViewModel: ObservableObject, IListTodoItemViewModel {
     }
 }
 
+// MARK: - Networking none callers func
 extension ListTodoItemViewModel {
-    static func createTodoItems(_ count: Int) -> [TodoItem] {
-        var items = [TodoItem]()
-
-        let texts = [
-            Array(
-                repeating: "Buy groceries for the week, including fresh vegetables, fruits, dairy products, and some snacks for the kids.",
-                count: 5
-            ).joined(),
-            "Call mom to check in and see how she's doing. Don't forget to ask.",
-            Array(
-                repeating: "Finish homework for the mathematics course, including all exercises from chapter 5 and review the notes for the upcoming test.",
-                count: 5
-            ).joined(),
-            "Clean the house thoroughly, including dusting all the furniture, vacuuming the carpets, and mopping the floors.",
-            "Prepare for the next quarter.",
-            "Go for a walk in the park to get some fresh air and a bit of exercise. Aim for at least 30 minutes of brisk walking.",
-            "Read a book on personal development.",
-            "Write a blog post about the latest trends in technology and how they are impacting our daily lives. Aim for at least 1000 words.",
-            "Workout session at the gym, focusing on strength training exercises. Don't forget to do a proper warm-up and cool-down.",
-            "Plan the trip to the mountains for the upcoming holiday. Make a list of all the necessary gear and supplies to pack."
-        ]
-
-        let importanceLevels: [Importance] = [.low, .medium, .high]
-
-        for index in 0..<count {
-            let text = texts[index % texts.count]
-            let importance = importanceLevels[Int.random(in: 0..<importanceLevels.count)]
-            let isDone = Bool.random()
-            let creationDate = Date().addingTimeInterval(Double(index) * 86400)
-            let deadline = Bool.random() ? Date().addingTimeInterval(Double(index % 12) * 86400 + 86400) : nil
-            let hexColor = String(format: "#%06X", Int.random(in: 0...0xFFFFFF))
-
-            let item = TodoItem(
-                text: text,
-                isDone: isDone,
-                importance: importance,
-                hexColor: hexColor,
-                creationDate: creationDate,
-                deadline: deadline,
-                category: Category.defaultCategory
-            )
-
-            items.append(item)
-        }
-
-        return items
+    @MainActor
+    func fetchTodoItem(with id: String) {
+        model.fetchTodoItem(with: id)
+    }
+    
+    @MainActor
+    func updateTodoList() {
+        model.updateTodoList()
     }
 }

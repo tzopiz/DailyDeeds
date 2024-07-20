@@ -8,9 +8,6 @@
 import FileCache
 import Foundation
 
-// TODO: -
-// - [ ] Make normal model
-
 struct DateInfo {
     enum Format {
         case long

@@ -28,7 +28,9 @@ final class TestJSONParsable: XCTestCase {
             (Keys.hexColor, hexColor)
             (Keys.creationDate, creationDate)
             (Keys.deadline, deadline)
+            (Keys.lastUpdatedDevice, "")
             (Keys.modificationDate, modificationDate)
+            (Keys.category, Category.defaultCategory)
         }
 
         guard let item = TodoItem.parse(json: json) else {
@@ -51,11 +53,13 @@ final class TestJSONParsable: XCTestCase {
         let isDone = false
         let importance = Importance.medium
         let item = TodoItem(
-            id: id, text: text, isDone: isDone,
-            importance: importance,
+            id: id,
+            text: text,
+            isDone: isDone,
             creationDate: creationDate,
-            deadline: deadline,
-            modificationDate: modificationDate
+            importance: importance,
+            modificationDate: modificationDate,
+            deadline: deadline
         )
 
         let json = item.json
@@ -80,19 +84,16 @@ final class TestJSONParsable: XCTestCase {
         let text = "Еще одна задача из JSON строка"
         let isDone = true
         let hexColor = "#FFFFFF"
-        let jsonString = """
-            {
-                "\(Keys.id)": "\(id)",
-                "\(Keys.text)": "\(text)",
-                "\(Keys.isDone)": \(isDone),
-                "\(Keys.deadline)": "\(deadline.toString())",
-                "\(Keys.hexColor)": "\(hexColor)",
-                "\(Keys.creationDate)": "\(creationDate.toString())",
-                "\(Keys.modificationDate)": "\(modificationDate.toString())"
-            }
-            """
-
-        guard let item = TodoItem.from(jsonString: jsonString) else {
+        let _item = TodoItem(
+            id: id,
+            text: text,
+            isDone: isDone,
+            hexColor: hexColor, creationDate: creationDate,
+            importance: .medium,
+            modificationDate: modificationDate,
+            deadline: deadline
+        )
+        guard let str = _item.jsonString, let item = TodoItem.from(jsonString: str) else {
             XCTFail("Failed to parse JSON string into TodoItem")
             return
         }
@@ -112,6 +113,7 @@ final class TestJSONParsable: XCTestCase {
         let isDone = true
         let hexColor = "#FFFFFF"
         let importance = Importance.high
+        let device = "123"
         let json = TodoItem.buildJSONDictionary {
             (Keys.id, id)
             (Keys.text, text)
@@ -119,6 +121,9 @@ final class TestJSONParsable: XCTestCase {
             (Keys.importance, importance)
             (Keys.hexColor, hexColor)
             (Keys.creationDate, creationDate)
+            (Keys.modificationDate, creationDate)
+            (Keys.lastUpdatedDevice, device)
+            (Keys.category, Category.defaultCategory)
         }
 
         guard let item = TodoItem.parse(json: json) else {
@@ -132,6 +137,7 @@ final class TestJSONParsable: XCTestCase {
         XCTAssertEqual(item.importance, importance)
         XCTAssertEqual(item.creationDate, creationDate)
         XCTAssertNil(item.deadline)
-        XCTAssertNil(item.modificationDate)
+        XCTAssertEqual(item.modificationDate, creationDate)
+        XCTAssertEqual(item.lastUpdatedDevice, device)
     }
 }

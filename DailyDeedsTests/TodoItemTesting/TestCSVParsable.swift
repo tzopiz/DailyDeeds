@@ -23,11 +23,11 @@ final class TestCSVParsable: XCTestCase {
             id: id,
             text: text,
             isDone: isDone,
-            importance: importance,
             hexColor: hexColor,
             creationDate: creationDate,
-            deadline: deadline,
-            modificationDate: modificationDate
+            importance: importance,
+            modificationDate: modificationDate,
+            deadline: deadline
         )
         let expectedCSV =
         "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(self.creationDate.toString()),\(self.deadline.toString()),\(self.modificationDate.toString())"
@@ -45,11 +45,12 @@ final class TestCSVParsable: XCTestCase {
             id: id,
             text: text,
             isDone: isDone,
+            creationDate: creationDate,
             importance: importance,
-            creationDate: creationDate
+            modificationDate: creationDate
         )
         let expectedCSV =
-        "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(creationDate.toString()),,"
+        "\(id),\(text),\(isDone),\(importance.rawValue),\(hexColor),\(creationDate.toString()),,\(creationDate.toString())"
 
         XCTAssertEqual(item.csv, expectedCSV)
     }
@@ -74,7 +75,7 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(parsedItem.hexColor, hexColor)
         XCTAssertEqual(parsedItem.creationDate.toString(), creationDate.toString())
         XCTAssertEqual(parsedItem.deadline?.toString(), deadline.toString())
-        XCTAssertEqual(parsedItem.modificationDate?.toString(), modificationDate.toString())
+        XCTAssertEqual(parsedItem.modificationDate.toString(), modificationDate.toString())
     }
 
     func testCSVDeserializationEscapeText() {
@@ -83,7 +84,7 @@ final class TestCSVParsable: XCTestCase {
         let isDone = false
         let importance = Importance.high
         let hexColor = "#FFFFFF"
-        let csvString = "\(id),\(text.escapeSpecialCharacters(",")),\(isDone),\(importance.rawValue),\(hexColor),\(creationDate.toString()),,"
+        let csvString = "\(id),\(text.escapeSpecialCharacters(",")),\(isDone),\(importance.rawValue),\(hexColor),\(creationDate.toString()),,\(creationDate.toString())"
 
         guard let parsedItem = TodoItem.parse(csv: csvString) else {
             XCTFail("Failed to parse CSV string")
@@ -97,7 +98,7 @@ final class TestCSVParsable: XCTestCase {
         XCTAssertEqual(parsedItem.hexColor, hexColor)
         XCTAssertEqual(parsedItem.creationDate.toString(), creationDate.toString())
         XCTAssertNil(parsedItem.deadline)
-        XCTAssertNil(parsedItem.modificationDate)
+        XCTAssertEqual(parsedItem.modificationDate.toString(), creationDate.toString())
     }
 
     func testFailedCSVDeserialization() {

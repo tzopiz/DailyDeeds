@@ -52,11 +52,14 @@ final class CalendarViewController: BaseCollectionViewController<CalendarViewMod
         tableView.dataSource = self
         tableView.separatorInset = .init()
         tableView.contentInset = .init(top: 16, left: 0, bottom: 0, right: 0)
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        tableView.refreshControl = refreshControl
 
         collectionView.backgroundColor = UIColor.backPrimary
         collectionView.bounces = false
-
-        scrollToItem(at: 0)
+        collectionView.refreshControl = nil
 
         let plusImage = UIImage(resource: .plusCircleFillBlue)
         addButton.setImage(plusImage, for: .normal)
@@ -65,12 +68,17 @@ final class CalendarViewController: BaseCollectionViewController<CalendarViewMod
         addButton.layer.shadowOffset = CGSize(width: 0, height: 5)
         addButton.layer.shadowRadius = 5
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        
+        scrollToItem(at: 0)
     }
-
+    
     override func refreshData() {
         super.refreshData()
-        self.tableView.reloadData()
-        DDLogInfo("Data is refreshed and tableView is reloaded")
+        DispatchQueue.main.async {
+            self.tableView.refreshControl?.beginRefreshing()
+            self.tableView.reloadData()
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 
     @IBAction
@@ -78,10 +86,16 @@ final class CalendarViewController: BaseCollectionViewController<CalendarViewMod
         let newItem = TodoItem(text: "")
 
         let detailViewController = UIHostingController(
-            rootView: DetailTodoItemView(todoItem: newItem) { item in
-                self.viewModel.update(oldItem: newItem, to: item)
-                self.refreshData()
-            }
+            rootView: DetailTodoItemView(
+                todoItem: newItem,
+                onDelete: {
+                    self.viewModel.deleteTodoItem(with: $0.id)
+                    self.refreshData()
+                }, onSave: {
+                    self.viewModel.updateTodoItem($0)
+                    self.refreshData()
+                }
+            )
         )
         self.viewModel.navigationDelegate?.presentController(
             detailViewController,
@@ -204,8 +218,11 @@ extension CalendarViewController: UITableViewDelegate {
         let item = viewModel.tableViewCellItem(for: indexPath)
         let detailView = DetailTodoItemView(
             todoItem: item,
-            onUpdate: { newItem in
-                self.viewModel.update(oldItem: item, to: newItem)
+            onDelete: {
+                self.viewModel.deleteTodoItem(with: $0.id)
+                self.refreshData()
+            }, onSave: {
+                self.viewModel.updateTodoItem($0)
                 self.refreshData()
             }
         )
@@ -231,10 +248,8 @@ extension CalendarViewController: UITableViewDelegate {
         leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let handler = { (_: UIContextualAction, _: UIView, success: (Bool) -> Void) in
-            self.viewModel.complete(
-                self.viewModel.tableViewCellItem(for: indexPath),
-                isDone: true
-            )
+            let item = self.viewModel.tableViewCellItem(for: indexPath)
+            self.viewModel.complete(item, isDone: true)
             tableView.reloadRows(at: [indexPath], with: .none)
             success(true)
             DDLogInfo("Completed task for item at indexPath: \(indexPath)")
@@ -257,10 +272,8 @@ extension CalendarViewController: UITableViewDelegate {
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
         let handler = { (_: UIContextualAction, _: UIView, success: (Bool) -> Void) in
-            self.viewModel.complete(
-                self.viewModel.tableViewCellItem(for: indexPath),
-                isDone: false
-            )
+            let item = self.viewModel.tableViewCellItem(for: indexPath)
+            self.viewModel.complete(item, isDone: false)
             tableView.reloadRows(at: [indexPath], with: .none)
             success(true)
             DDLogInfo("Marked task as incomplete for item at indexPath: \(indexPath)")

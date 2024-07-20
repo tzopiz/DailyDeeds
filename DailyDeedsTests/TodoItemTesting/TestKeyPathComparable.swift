@@ -11,19 +11,25 @@ import XCTest
 final class TestKeyPathComparable: XCTestCase {
 
     private let item1 = TodoItem(
-        id: "1", text: "Задача 1",
-        isDone: false, importance: .low,
-        creationDate: .now
+        id: "1",
+        text: "Задача 1",
+        isDone: false,
+        creationDate: .now,
+        importance: .low
     )
     private let item2 = TodoItem(
-        id: "2", text: "Задача 2",
-        isDone: true, importance: .medium,
-        creationDate: .now
+        id: "2",
+        text: "Задача 2",
+        isDone: true,
+        creationDate: .now,
+        importance: .medium
     )
     private let item3 = TodoItem(
-        id: "3", text: "Задача 3",
-        isDone: false, importance: .high,
-        creationDate: .now
+        id: "3",
+        text: "Задача 3",
+        isDone: false,
+        creationDate: .now,
+        importance: .high
     )
 
     func testSortingByIdKeyPath() {

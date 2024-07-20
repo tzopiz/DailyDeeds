@@ -10,88 +10,95 @@ import FileCache
 import Foundation
 
 final class TodoItemModel: ObservableObject {
-    enum FileFormat {
-        case json
-        case csv
-    }
-
-    enum FileError: Error {
-        case fileNotFound
-        case dataCorrupted
-        case parseFailed
-        case writeToFileFailed
-        case incorrectFileName
-        case directoryNotFound
-        case loadFromJSONFileFailed
-        case loadFromCSVFileFailed
-        case fileAlreadyExists
-        case unknown
-    }
-
+    
     @Published
     private(set) var items: [TodoItem]
+    @Published
+    private(set) var isDirty: Bool = false
+    @Published
+    var isLoading: Bool = false
+    
+    let networkingService = DefaultNetworkingService()
+    let defaultFileName = "todoItemsList.json"
+    var monitorTask: Task<Void, Never>?
+    private(set) var revision: Int = 0
 
-    private let fileCache = FileCache<TodoItem>()
-    init(items: [TodoItem]) {
+    @MainActor
+    init(items: [TodoItem] = []) {
         DDLogInfo("Initializing TodoItemModel with \(items)")
         self.items = items
+        self.revision = 0
+        Task {
+            await startMonitoringNetworkActivity()
+        }
+    }
+    
+    deinit {
+        stopMonitoringNetworkActivity()
     }
 }
 
+// MARK: - Interaction
 extension TodoItemModel {
-    func save(to fileName: String, format type: FileCache<TodoItem>.FileFormat = .json) {
-        if let error = fileCache.saveToFile(items, named: fileName, format: type) {
-            DDLogError("Failed to save items to file \(fileName): \(error.localizedDescription)")
+    func append(_ item: TodoItem?) {
+        guard let item else {
+            DDLogError("Error trying to add an object to the none list")
+            return
+        }
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
+            DDLogError("The item with the \(item.id) id already exists in the list on \(index) index")
         } else {
-            DDLogInfo("Successfully saved items to file \(fileName)")
-        }
-    }
-
-    // MARK: - Read
-    func loadItems(from fileName: String, format type: FileCache<TodoItem>.FileFormat = .json) {
-        let result = fileCache.loadFromFile(named: fileName, format: type)
-        switch result {
-        case .success(let items):
-            self.items = items
-            DDLogInfo("Successfully loaded items from file \(fileName)")
-        case .failure(let error):
-            DDLogError("Failed to load items from file \(fileName): \(error.localizedDescription)")
-        }
-    }
-}
-
-extension TodoItemModel {
-    func append(_ item: TodoItem) {
-        if !items.contains(where: { $0.id == item.id }) {
             items.append(item)
             DDLogInfo("Appended new item with id \(item.id)")
-        } else {
-            DDLogInfo("Item with id \(item.id) already exists")
         }
     }
-
-    func update(_ item: TodoItem) {
-        if let index = items.firstIndex(where: { $0.id == item.id }) {
+    
+    func updateItem(with id: String, item: TodoItem?) {
+        guard let item else {
+            DDLogError("Error trying to add an object to the none list")
+            return
+        }
+        if let index = items.firstIndex(where: { $0.id == id }) {
             items[index] = item
             DDLogInfo("Updated item with id \(item.id)")
         } else {
-            items.append(item)
-            DDLogInfo("Appended new item with id \(item.id) during update")
+            DDLogError("The item with the id \(id) already exists in the list")
         }
     }
-
+    
+    func updateList(_ todoItems: [TodoItem]) {
+        self.items = todoItems
+        DDLogInfo("TodoItems list updated")
+    }
+    
     func move(fromOffsets indices: IndexSet, toOffset newOffset: Int) {
         items.move(fromOffsets: indices, toOffset: newOffset)
         DDLogInfo("Moved items from offsets \(indices) to new offset \(newOffset)")
     }
-
+    
     func remove(with id: String) {
         items.removeAll { $0.id == id }
         DDLogInfo("Removed item with id \(id)")
     }
-
+    
     func remove(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
         DDLogInfo("Removed items at offsets \(offsets)")
+    }
+    
+    func updateAllItems(_ items: [TodoItem]) {
+        self.items = items
+    }
+    
+    func containsItem(with id: String) -> Bool {
+        return items.contains(where: { $0.id == id })
+    }
+    
+    func updateRevision(to value: Int) {
+        self.revision = value
+    }
+    
+    func makeDirty(_ value: Bool) {
+        self.isDirty = value
     }
 }

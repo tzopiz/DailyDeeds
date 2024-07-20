@@ -1,5 +1,5 @@
 //
-//  CSVParsable.swift
+//  TodoItem + CSVParsable.swift
 //  DailyDeeds
 //
 //  Created by Дмитрий Корчагин on 6/14/24.
@@ -37,12 +37,12 @@ extension TodoItem: CSVParsable {
               let importance = Importance(rawValue: importanceRawValue),
               let hexColor = csvArray[safe: 4],
               let creationDateString = csvArray[safe: 5],
-              let creationDate = creationDateString.toDate()
+              let creationDate = creationDateString.toDate(),
+              let modificationDate = csvArray[safe: 7]?.toDate()
         else { return nil }
 
         let isDone = isDoneString == "true"
         let deadline = csvArray[safe: 6]?.toDate()
-        let modificationDate = csvArray[safe: 7]?.toDate()
 
         let category: Category?
         if let csvCategory = csvArray[safe: 8] {
@@ -55,12 +55,12 @@ extension TodoItem: CSVParsable {
             id: id,
             text: text,
             isDone: isDone,
-            importance: importance,
             hexColor: hexColor,
             creationDate: creationDate,
-            deadline: deadline,
+            category: category ?? Category.defaultCategory,
+            importance: importance,
             modificationDate: modificationDate,
-            category: category ?? Category.defaultCategory
+            deadline: deadline
         )
     }
 }

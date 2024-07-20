@@ -9,9 +9,9 @@ import FileCache
 import Foundation
 
 enum Importance: String, Comparable, Equatable {
-    case low = "неважная"
-    case medium = "обычная"
-    case high = "важная"
+    case low = "low"
+    case medium = "basic"
+    case high = "important"
 
     var order: Int {
         switch self {
@@ -30,45 +30,49 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
     enum CodingKeys {
         static let id = "id"
         static let text = "text"
-        static let isDone = "isDone"
-        static let importance = "importance"
-        static let hexColor = "hexColor"
-        static let creationDate = "creationDate"
-        static let deadline = "deadline"
-        static let modificationDate = "modificationDate"
+        static let isDone = "done"
+        static let hexColor = "color"
         static let category = "category"
+        static let importance = "importance"
+        static let creationDate = "created_at"
+        static let modificationDate = "changed_at"
+        static let lastUpdatedDevice = "last_updated_by"
+        static let deadline = "deadline"
     }
 
     let id: String
     let text: String
     let isDone: Bool
-    let importance: Importance
     let hexColor: String
     let creationDate: Date
-    let deadline: Date?
-    let modificationDate: Date?
     let category: Category
-
+    let importance: Importance
+    let modificationDate: Date
+    let lastUpdatedDevice: String
+    let deadline: Date?
+    
     init(
         id: String = UUID().uuidString,
         text: String,
         isDone: Bool = false,
-        importance: Importance = .medium,
         hexColor: String = "#FFFFFF",
         creationDate: Date = .now,
-        deadline: Date? = nil,
-        modificationDate: Date? = nil,
-        category: Category = Category.defaultCategory
+        category: Category = Category.defaultCategory,
+        importance: Importance = .medium,
+        modificationDate: Date = .now,
+        lastUpdatedDevice: String = "default",
+        deadline: Date? = nil
     ) {
         self.id = id
         self.text = text
         self.isDone = isDone
-        self.importance = importance
         self.hexColor = hexColor
         self.creationDate = creationDate
-        self.deadline = deadline
-        self.modificationDate = modificationDate
         self.category = category
+        self.importance = importance
+        self.modificationDate = modificationDate
+        self.lastUpdatedDevice = lastUpdatedDevice
+        self.deadline = deadline
     }
 
     var mutable: MutableTodoItem {
@@ -79,7 +83,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
 // MARK: - CustomStringConvertible
 extension TodoItem: CustomStringConvertible {
     var description: String {
-        return """
+        """
         TodoItem(
         \t\(CodingKeys.id): \(id),
         \t\(CodingKeys.text): \"\(text)\",
@@ -87,9 +91,10 @@ extension TodoItem: CustomStringConvertible {
         \t\(CodingKeys.importance): \(importance.rawValue),
         \t\(CodingKeys.hexColor): \(hexColor),
         \t\(CodingKeys.creationDate): \(creationDate.toString()),
-        \t\(CodingKeys.deadline): \(deadline != nil ? deadline.toString() : "nil"),
-        \t\(CodingKeys.modificationDate): \(modificationDate != nil ? modificationDate.toString() : "nil"),
-        \t\(CodingKeys.category): \(category.name) \(category.color ?? "")
+        \t\(CodingKeys.modificationDate): \(modificationDate.toString()),
+        \t\(CodingKeys.category): \(category.name) \(category.color ?? ""),
+        \t\(CodingKeys.lastUpdatedDevice): \(lastUpdatedDevice),
+        \t\(CodingKeys.deadline): \(deadline != nil ? deadline.toString() : "nil")
         )
         """
     }
