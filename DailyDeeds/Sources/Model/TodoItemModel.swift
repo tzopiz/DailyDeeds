@@ -19,7 +19,6 @@ final class TodoItemModel: ObservableObject {
     var isLoading: Bool = false
     
     let networkingService = DefaultNetworkingService()
-    let defaultFileName = "todoItemsList.json"
     var monitorTask: Task<Void, Never>?
     private(set) var revision: Int = 0
 
@@ -84,10 +83,6 @@ extension TodoItemModel {
     func remove(at offsets: IndexSet) {
         items.remove(atOffsets: offsets)
         DDLogInfo("Removed items at offsets \(offsets)")
-    }
-    
-    func updateAllItems(_ items: [TodoItem]) {
-        self.items = items
     }
     
     func containsItem(with id: String) -> Bool {

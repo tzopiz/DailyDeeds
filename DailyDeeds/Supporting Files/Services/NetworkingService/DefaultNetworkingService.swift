@@ -77,8 +77,7 @@ extension DefaultNetworkingService {
                 await networkActivityState.decrement()
             }
         }
-        // Simulation of long-running queries for indicator display
-        try await Task.sleep(nanoseconds: UInt64(Int.random(in: 0...3) * 1_000_000_000))
+        
         do {
             let (data, response) = try await session.dataTask(for: request)
             try validateRequest(response: response)
@@ -106,7 +105,7 @@ extension DefaultNetworkingService {
     
     private func validateRequest(response: URLResponse?, checkThread: Bool = false) throws {
         if checkThread {
-            print("Current Thread: \(Thread.isMainThread ? "Main" : "Background")")
+            DDLogInfo("Current Thread: \(Thread.isMainThread ? "Main" : "Background")")
         }
         
         guard let httpResponse = response as? HTTPURLResponse else {

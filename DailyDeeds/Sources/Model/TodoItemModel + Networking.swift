@@ -9,15 +9,16 @@ import CocoaLumberjackSwift
 import Foundation
 
 extension TodoItemModel {
-    var minDelay: TimeInterval { 2 }
-    var maxDelay: TimeInterval { 120 }
-    var factor: Double { 1.5 }
-    var jitter: Double { 0.05 }
-    var checkInterval: TimeInterval { 1 }
+    private var defaultFileName: String { "todoItemsList.json" }
+    private var minDelay: TimeInterval { 2 }
+    private var maxDelay: TimeInterval { 120 }
+    private var factor: Double { 1.5 }
+    private var jitter: Double { 0.05 }
+    private var checkInterval: TimeInterval { 1 }
     
+    // FIXME: - spinlock -> subscribers pattern
     @MainActor
     func startMonitoringNetworkActivity() async {
-        // FIXME: - spinlock -> subscribers pattern
         monitorTask = Task {
             while !Task.isCancelled {
                 let activeRequestsCount = await networkingService.getActiveRequestsCount()
@@ -114,7 +115,6 @@ extension TodoItemModel {
         onSuccess: @escaping (T) async -> Void
     ) {
         Task {
-            // можно и while true он все равно закончить работу, но на всякий случай пусть будет так
             for retryCount in 0..<20 {
                 guard retryCount == 0 || tryRetry else { return }
                 do {
@@ -128,8 +128,7 @@ extension TodoItemModel {
                     DDLogError("TodoItemModel.\(title) failed with \(error.description)")
 
                     switch error {
-                    case .invalidResponse, .parsingError, .invalidBodyType,
-                            .noInternetConnection, .httpError, .unknown:
+                    case .invalidResponse, .parsingError, .noInternetConnection, .httpError, .unknown:
                         self.makeDirty(true)
                         self.save(to: self.defaultFileName, format: .json)
                         return
