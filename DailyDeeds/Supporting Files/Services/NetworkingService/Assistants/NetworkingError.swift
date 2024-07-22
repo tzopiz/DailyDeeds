@@ -14,7 +14,6 @@ enum NetworkingError: Error {
     case noInternetConnection
     case serverError(statucCode: Int)
     case parsingError
-    case invalidBodyType
     case unknown
 }
 
@@ -33,8 +32,6 @@ extension NetworkingError: CustomStringConvertible {
             return "Server error with status code: \(code)"
         case .parsingError:
             return "Parsing error"
-        case .invalidBodyType:
-            return "Invalid http body type, must be a JSONDictionary or an array of JSONDictionary"
         case .unknown:
             return "Unknown error"
         }

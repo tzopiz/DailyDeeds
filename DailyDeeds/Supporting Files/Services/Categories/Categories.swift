@@ -8,7 +8,6 @@
 import Foundation
 
 @MainActor
-//@Observable
 final class Categories: Sendable {
 
     private init() { }

@@ -18,14 +18,16 @@ extension TodoItemModel {
         }
     }
     
-    func loadItems(from fileName: String, format type: FileFormat = .json) {
+    @discardableResult
+    func loadItems(from fileName: String, format type: FileFormat = .json) -> [TodoItem]? {
         let result = FileService.loadFromFile(named: fileName, format: type)
         switch result {
         case .success(let items):
-            self.updateList(items)
             DDLogInfo("Successfully loaded items from file \(fileName)")
+            return items
         case .failure(let error):
             DDLogError("Failed to load items from file \(fileName): \(error.localizedDescription)")
         }
+        return nil
     }
 }

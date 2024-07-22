@@ -91,7 +91,7 @@ struct TodoItemsListView: View {
                     }
                 }
             }
-            .task {
+            .refreshable {
                 viewModel.fetchTodoList()
             }
     }

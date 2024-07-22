@@ -12,7 +12,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/tzopiz/DailyDeeds">
-    <img src="https://github.com/tzopiz/AppInfo/tree/DailyDeeds/appicon.png" alt="Logo" width="100" height="100">
+    <img src="https://github.com/tzopiz/DailyDeeds/blob/main/DailyDeeds/Supporting%20Files/Resources/Assets.xcassets/AppIcon.appiconset/appstore4%201.jpg" alt="Logo" width="100" height="100">
   </a>
 
   <h3 align="center">DailyDeeds</h3>
@@ -30,7 +30,6 @@
     <a href="https://github.com/tzopiz/DailyDeeds/issues">Request Feature</a>
   </p>
 </div>
-
 
 
 

@@ -14,20 +14,27 @@ final class TodoItemModel: ObservableObject {
     @Published
     private(set) var items: [TodoItem]
     @Published
-    private(set) var isDirty: Bool = false
-    @Published
     var isLoading: Bool = false
     
+    private(set) var isDirty: Bool {
+        set {
+            UserDefaults.standard.setValue(newValue, forKey: "DailyDeeds.TodoItemModel.isDirty")
+        } get {
+            return UserDefaults.standard.bool(forKey: "DailyDeeds.TodoItemModel.isDirty")
+        }
+    }
+    
     let networkingService = DefaultNetworkingService()
-    let defaultFileName = "todoItemsList.json"
     var monitorTask: Task<Void, Never>?
     private(set) var revision: Int = 0
 
     @MainActor
-    init(items: [TodoItem] = []) {
-        DDLogInfo("Initializing TodoItemModel with \(items)")
-        self.items = items
+    init() {
+        self.items = []
         self.revision = 0
+        makeDirty(true)
+        self.fetchTodoList()
+        DDLogInfo("Initializing TodoItemModel with \(items)")
         Task {
             await startMonitoringNetworkActivity()
         }
@@ -86,14 +93,32 @@ extension TodoItemModel {
         DDLogInfo("Removed items at offsets \(offsets)")
     }
     
-    func updateAllItems(_ items: [TodoItem]) {
-        self.items = items
-    }
-    
     func containsItem(with id: String) -> Bool {
         return items.contains(where: { $0.id == id })
     }
     
+    func mergeUniqueItems(
+        local array1: [TodoItem],
+        cloud array2: [TodoItem],
+        needSaveLocal: Bool = false
+    ) -> [TodoItem] {
+        let (primaryArray, secondaryArray) = needSaveLocal ? (array2, array1) : (array1, array2)
+        
+        var uniqueItems = [String: TodoItem]()
+        
+        primaryArray.forEach { item in
+            uniqueItems[item.id] = item
+        }
+        
+        secondaryArray.forEach { item in
+            uniqueItems[item.id] = item
+        }
+        
+        let result = Array(uniqueItems.values)
+        DDLogInfo("Total unique items: \(result.count)")
+        return result
+    }
+
     func updateRevision(to value: Int) {
         self.revision = value
     }

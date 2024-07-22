@@ -1293,8 +1293,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tzopiz/UIComponents.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.1;
+				kind = upToNextMinorVersion;
+				minimumVersion = 0.2.1;
 			};
 		};
 		0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */ = {

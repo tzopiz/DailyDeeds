@@ -9,15 +9,16 @@ import CocoaLumberjackSwift
 import Foundation
 
 extension TodoItemModel {
-    var minDelay: TimeInterval { 2 }
-    var maxDelay: TimeInterval { 120 }
-    var factor: Double { 1.5 }
-    var jitter: Double { 0.05 }
-    var checkInterval: TimeInterval { 1 }
+    private var defaultFileName: String { "todoItemsList.json" }
+    private var minDelay: TimeInterval { 2 }
+    private var maxDelay: TimeInterval { 120 }
+    private var factor: Double { 1.5 }
+    private var jitter: Double { 0.05 }
+    private var checkInterval: TimeInterval { 1 }
     
+    // FIXME: - spinlock -> subscribers pattern
     @MainActor
     func startMonitoringNetworkActivity() async {
-        // FIXME: - spinlock -> subscribers pattern
         monitorTask = Task {
             while !Task.isCancelled {
                 let activeRequestsCount = await networkingService.getActiveRequestsCount()
@@ -52,6 +53,10 @@ extension TodoItemModel {
         } onSuccess: { response in
             self.updateList(response.result)
         }
+        if let loadedItems = loadItems(from: defaultFileName, format: .json), isDirty {
+            let allItems = mergeUniqueItems(local: loadedItems, cloud: items)
+            self.updateList(allItems)
+        }
     }
     
     @MainActor
@@ -67,7 +72,7 @@ extension TodoItemModel {
     func updateTodoItem(with id: String, item: TodoItem, tryRetry: Bool = true) {
         self.updateItem(with: id, item: item)
         handleNetworkTask(#function, tryRetry: tryRetry) {
-            try await self.networkingService.updateTodoItem(id: id, data: item, revision: self.revision)
+            try await self.networkingService.updateTodoItem(id: id, item: item, revision: self.revision)
         } onSuccess: { response in
             return self.updateItem(with: id, item: response.result)
         }
@@ -76,7 +81,7 @@ extension TodoItemModel {
     @MainActor
     func updateTodoList(tryRetry: Bool = true) {
         handleNetworkTask(#function, tryRetry: tryRetry) {
-            try await self.networkingService.updateTodoList(patchData: self.items, revision: self.revision)
+            try await self.networkingService.updateTodoList(self.items, revision: self.revision)
         } onSuccess: { response in
             self.updateList(response.result)
         }
@@ -86,7 +91,7 @@ extension TodoItemModel {
     func createTodoItem(with id: String, item: TodoItem, tryRetry: Bool = true) {
         self.append(item)
         handleNetworkTask(#function, tryRetry: tryRetry) {
-            try await self.networkingService.createTodoItem(data: item, revision: self.revision)
+            try await self.networkingService.createTodoItem(item: item, revision: self.revision)
         } onSuccess: { response in
             self.append(response.result)
         }
@@ -114,9 +119,8 @@ extension TodoItemModel {
         onSuccess: @escaping (T) async -> Void
     ) {
         Task {
-            // можно и while true он все равно закончить работу, но на всякий случай пусть будет так
             for retryCount in 0..<20 {
-                guard retryCount == 0 || tryRetry else { return }
+                guard retryCount == 0 || tryRetry else { break }
                 do {
                     let response = try await task()
                     await onSuccess(response)
@@ -126,11 +130,9 @@ extension TodoItemModel {
                     return
                 } catch let error as NetworkingError {
                     DDLogError("TodoItemModel.\(title) failed with \(error.description)")
-
+                    self.makeDirty(true)
                     switch error {
-                    case .invalidResponse, .parsingError, .invalidBodyType,
-                            .noInternetConnection, .httpError, .unknown:
-                        self.makeDirty(true)
+                    case .invalidResponse, .parsingError, .noInternetConnection, .httpError, .unknown:
                         self.save(to: self.defaultFileName, format: .json)
                         return
                     case .serverError, .requestTimeout:
