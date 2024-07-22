@@ -38,14 +38,14 @@ extension DefaultNetworkingService {
 
 // MARK: - PUT Requests
 extension DefaultNetworkingService {
-    func updateTodoList(patchData: [TodoItem], revision: Int) async throws -> TodoListResponse {
-        let todoListResponse = TodoListResponse(status: "ok", result: patchData, revision: revision)
+    func updateTodoList(_ items: [TodoItem], revision: Int) async throws -> TodoListResponse {
+        let todoListResponse = TodoListResponse(status: "ok", result: items, revision: revision)
         let request = try APIEndpoint.updateTodoList(revision: revision).request(withBody: todoListResponse)
         return try await performRequest(for: request)
     }
     
-    func updateTodoItem(id: String, data: TodoItem, revision: Int) async throws -> TodoItemResponse {
-        let todoItemResponse = TodoItemResponse(status: "ok", result: data, revision: revision)
+    func updateTodoItem(id: String, item: TodoItem, revision: Int) async throws -> TodoItemResponse {
+        let todoItemResponse = TodoItemResponse(status: "ok", result: item, revision: revision)
         let request = try APIEndpoint.updateTodoItem(id: id, revision: revision).request(withBody: todoItemResponse)
         return try await performRequest(for: request)
     }
@@ -53,8 +53,8 @@ extension DefaultNetworkingService {
 
 // MARK: - POST Requests
 extension DefaultNetworkingService {
-    func createTodoItem(data: TodoItem, revision: Int) async throws -> TodoItemResponse {
-        let todoItemResponse = TodoItemResponse(status: "ok", result: data, revision: revision)
+    func createTodoItem(item: TodoItem, revision: Int) async throws -> TodoItemResponse {
+        let todoItemResponse = TodoItemResponse(status: "ok", result: item, revision: revision)
         let request = try APIEndpoint.createTodoItem(revision: revision).request(withBody: todoItemResponse)
         return try await performRequest(for: request)
     }
