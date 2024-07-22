@@ -10,7 +10,6 @@ import FileCache
 import Foundation
 
 final class TodoItemModel: ObservableObject {
-    
     @Published
     private(set) var items: [TodoItem]
     @Published

@@ -7,12 +7,12 @@
 
 import CocoaLumberjackSwift
 import SnapKit
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct DailyDeedsApp: App {
-
+    // TODO: Add compiler directives
     init() {
         configureLogs()
         DDLogInfo("Initializing DailyDeedsApp")

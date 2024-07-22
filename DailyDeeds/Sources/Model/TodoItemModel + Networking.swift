@@ -120,6 +120,7 @@ extension TodoItemModel {
     ) {
         Task {
             for retryCount in 0..<20 {
+                // TODO: refreshing after offline mode
                 guard retryCount == 0 || tryRetry else { break }
                 do {
                     let response = try await task()
