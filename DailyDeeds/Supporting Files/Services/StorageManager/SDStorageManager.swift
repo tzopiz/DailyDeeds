@@ -17,14 +17,33 @@ final class SDStorageManager: IDataStorageManager {
         self.modelContext = modelContext
     }
     
-    func fetchAll() -> [Element] {
+    func fetchTasksSorted(by sortOrder: TaskCriteria.SortType) -> [Element] {
         do {
-            let descriptor = FetchDescriptor<TodoItem>(sortBy: [SortDescriptor(\.creationDate)])
+            let sortDescriptor: SortDescriptor<TodoItem>
+            
+            switch sortOrder {
+            case .byCreationDate(let order):
+                sortDescriptor = SortDescriptor(\.creationDate, order: order.isAscending ? .forward : .reverse)
+            case .byDeadline(let order):
+                sortDescriptor = SortDescriptor(\.deadline, order: order.isAscending ? .forward : .reverse)
+            case .byImportance(let order):
+                sortDescriptor = SortDescriptor(\.importance, order: order.isAscending ? .forward : .reverse)
+            case .byLastModifiedDate(let order):
+                sortDescriptor = SortDescriptor(\.modificationDate, order: order.isAscending ? .forward : .reverse)
+            case .byCompletionStatus(let order):
+                sortDescriptor = SortDescriptor(\.isDone, order: order.isAscending ? .forward : .reverse)
+            }
+            
+            let descriptor = FetchDescriptor<TodoItem>(sortBy: [sortDescriptor])
             return try modelContext.fetch(descriptor)
         } catch {
             DDLogError("Fetch failed, \(error).")
             fatalError()
         }
+    }
+    
+    func fetchAll() -> [Element] {
+        return fetchTasksSorted(by: .byCreationDate(.ascending))
     }
     
     func append(_ item: Element) {

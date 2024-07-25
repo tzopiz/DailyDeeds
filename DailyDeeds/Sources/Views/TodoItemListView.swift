@@ -53,6 +53,9 @@ struct TodoItemsListView: View {
 
     private var todoItemsListView: some View {
         listView
+            .refreshable {
+                viewModel.fetchTodoList()
+            }
             .scrollContentBackground(Color.backPrimary)
             .scrollIndicators(.hidden)
             .navigationTitle("Мои дела")
@@ -90,10 +93,6 @@ struct TodoItemsListView: View {
                         Image(systemName: "calendar")
                     }
                 }
-            }
-        // FIXME: -
-            .refreshable {
-                viewModel.fetchTodoList()
             }
     }
 

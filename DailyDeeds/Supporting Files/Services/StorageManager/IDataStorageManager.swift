@@ -11,6 +11,7 @@ protocol IDataStorageManager {
     associatedtype Element
     
     func fetchAll() -> [Element]
+    func fetchTasksSorted(by _: TaskCriteria.SortType) -> [Element]
     func append(_: Element)
     func updateAllItems(to _: [Element])
     func delete(_: Element)

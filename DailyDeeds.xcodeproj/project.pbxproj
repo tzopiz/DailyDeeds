@@ -15,6 +15,12 @@
 		0A13118F2C4ADB7800649268 /* TodoItemModel + FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13118E2C4ADB7800649268 /* TodoItemModel + FileCache.swift */; };
 		0A1311912C4ADC0100649268 /* TodoItemModel + Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1311902C4ADC0100649268 /* TodoItemModel + Networking.swift */; };
 		0A228FF02C52B63F00CAC0AB /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FEF2C52B63F00CAC0AB /* Date.swift */; };
+		0A228FF22C52C4A100CAC0AB /* SQLStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF12C52C4A100CAC0AB /* SQLStorageManager.swift */; };
+		0A228FF52C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF42C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift */; };
+		0A228FF72C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF62C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift */; };
+		0A228FFA2C52D0D800CAC0AB /* TaskCriteria + FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF92C52D0D800CAC0AB /* TaskCriteria + FilterType.swift */; };
+		0A228FFC2C52D10200CAC0AB /* TaskCriteria + SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FFB2C52D10200CAC0AB /* TaskCriteria + SortType.swift */; };
+		0A228FFE2C52D30700CAC0AB /* StorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FFD2C52D30700CAC0AB /* StorageType.swift */; };
 		0A3202B82C1C67C900427B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202B72C1C67C900427B05 /* Assets.xcassets */; };
 		0A3202BB2C1C67C900427B05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */; };
 		0A3202CF2C1C67C900427B05 /* DailyDeedsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202CE2C1C67C900427B05 /* DailyDeedsUITests.swift */; };
@@ -88,7 +94,7 @@
 		0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */; };
 		0ABC266F2C3D23F3004BC47A /* URLSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266E2C3D23F3004BC47A /* URLSessionTests.swift */; };
 		0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */; };
-		0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */; };
+		0AD1BA142C2C4811002FF476 /* TaskCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* TaskCriteria.swift */; };
 		0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA162C2C4C72002FF476 /* Bool.swift */; };
 		0AD1BA322C2CC256002FF476 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA312C2CC256002FF476 /* Color.swift */; };
 		0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA4B2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift */; };
@@ -142,6 +148,12 @@
 		0A13118E2C4ADB7800649268 /* TodoItemModel + FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItemModel + FileCache.swift"; sourceTree = "<group>"; };
 		0A1311902C4ADC0100649268 /* TodoItemModel + Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItemModel + Networking.swift"; sourceTree = "<group>"; };
 		0A228FEF2C52B63F00CAC0AB /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0A228FF12C52C4A100CAC0AB /* SQLStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLStorageManager.swift; sourceTree = "<group>"; };
+		0A228FF42C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IBaseTodoItemViewModel + Networking.swift"; sourceTree = "<group>"; };
+		0A228FF62C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IBaseTodoItemViewModel + FileCache.swift"; sourceTree = "<group>"; };
+		0A228FF92C52D0D800CAC0AB /* TaskCriteria + FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskCriteria + FilterType.swift"; sourceTree = "<group>"; };
+		0A228FFB2C52D10200CAC0AB /* TaskCriteria + SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskCriteria + SortType.swift"; sourceTree = "<group>"; };
+		0A228FFD2C52D30700CAC0AB /* StorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageType.swift; sourceTree = "<group>"; };
 		0A3202B02C1C67C800427B05 /* DailyDeeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyDeeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3202B72C1C67C900427B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -214,7 +226,7 @@
 		0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		0ABC266E2C3D23F3004BC47A /* URLSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTests.swift; sourceTree = "<group>"; };
 		0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTodoItem.swift; sourceTree = "<group>"; };
-		0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTodoItems.swift; sourceTree = "<group>"; };
+		0AD1BA132C2C4811002FF476 /* TaskCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCriteria.swift; sourceTree = "<group>"; };
 		0AD1BA162C2C4C72002FF476 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		0AD1BA312C2CC256002FF476 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0AD1BA4B2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewTodoItemRowView.swift; sourceTree = "<group>"; };
@@ -290,6 +302,26 @@
 				0A854F1C2C31D8A3008C5A43 /* CalendarViewController.swift */,
 			);
 			path = CalendarScreen;
+			sourceTree = "<group>";
+		};
+		0A228FF32C52CDC000CAC0AB /* BaseTodoItemViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0AF113042C370FFE009181F9 /* IBaseTodoItemViewModel.swift */,
+				0A228FF62C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift */,
+				0A228FF42C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift */,
+			);
+			path = BaseTodoItemViewModel;
+			sourceTree = "<group>";
+		};
+		0A228FF82C52D0BD00CAC0AB /* TaskCriteria */ = {
+			isa = PBXGroup;
+			children = (
+				0AD1BA132C2C4811002FF476 /* TaskCriteria.swift */,
+				0A228FF92C52D0D800CAC0AB /* TaskCriteria + FilterType.swift */,
+				0A228FFB2C52D10200CAC0AB /* TaskCriteria + SortType.swift */,
+			);
+			path = TaskCriteria;
 			sourceTree = "<group>";
 		};
 		0A3202A72C1C67C800427B05 = {
@@ -402,8 +434,8 @@
 			isa = PBXGroup;
 			children = (
 				0AE192062C30A97F003B8924 /* ListTodoItemViewModel.swift */,
-				0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */,
-				0AF113042C370FFE009181F9 /* IBaseTodoItemViewModel.swift */,
+				0A228FF82C52D0BD00CAC0AB /* TaskCriteria */,
+				0A228FF32C52CDC000CAC0AB /* BaseTodoItemViewModel */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -463,6 +495,8 @@
 				0A64CBDA2C52452C008839AB /* AnyDataStorageManager.swift */,
 				0A64CBD82C523DE9008839AB /* IDataStorageManager.swift */,
 				0A64CBD52C522F54008839AB /* SDStorageManager.swift */,
+				0A228FF12C52C4A100CAC0AB /* SQLStorageManager.swift */,
+				0A228FFD2C52D30700CAC0AB /* StorageType.swift */,
 			);
 			path = StorageManager;
 			sourceTree = "<group>";
@@ -890,6 +924,7 @@
 				0AE192072C30A97F003B8924 /* ListTodoItemViewModel.swift in Sources */,
 				0A8926122C28A9B0001C39F2 /* CreateTodoItemButton.swift in Sources */,
 				0AB3E3552C31DCEE00807EE0 /* CalendarCollectionViewCell.swift in Sources */,
+				0A228FF52C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift in Sources */,
 				0A04ED162C27308000AF7097 /* DetailTodoItemView.swift in Sources */,
 				0A64CBD42C5227A6008839AB /* Importance.swift in Sources */,
 				0A854F202C31DA15008C5A43 /* CalendarViewModel.swift in Sources */,
@@ -915,21 +950,24 @@
 				0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */,
 				0A7EEF242C31A97B009553B7 /* ColorPickerRowView.swift in Sources */,
 				0A13118A2C4AA52100649268 /* NetworkActivityState.swift in Sources */,
+				0A228FFC2C52D10200CAC0AB /* TaskCriteria + SortType.swift in Sources */,
 				0A89CCFD2C2F7BBB006F9BF7 /* CustomSheetModifier.swift in Sources */,
 				0A228FF02C52B63F00CAC0AB /* Date.swift in Sources */,
 				0A5412332C34642800B75AE1 /* Category.swift in Sources */,
 				0A931C352C49177600C4C357 /* NetworkingError.swift in Sources */,
+				0A228FF72C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift in Sources */,
 				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,
 				0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */,
 				0A69087E2C469A4A0004180D /* URL.swift in Sources */,
 				0A8925FE2C28850E001C39F2 /* ImportancePicker.swift in Sources */,
+				0A228FFA2C52D0D800CAC0AB /* TaskCriteria + FilterType.swift in Sources */,
 				0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */,
 				0A931C3B2C49304500C4C357 /* Category + JSONParsable.swift in Sources */,
 				0A89CCE62C2EF847006F9BF7 /* RegularVerticalDetailView.swift in Sources */,
 				0AA5E0842C37F5AA00AE7002 /* CategoryPickerListView.swift in Sources */,
 				0A13118F2C4ADB7800649268 /* TodoItemModel + FileCache.swift in Sources */,
 				0A89CCE72C2EF847006F9BF7 /* CompactVerticalDetailView.swift in Sources */,
-				0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */,
+				0AD1BA142C2C4811002FF476 /* TaskCriteria.swift in Sources */,
 				0A1311912C4ADC0100649268 /* TodoItemModel + Networking.swift in Sources */,
 				0AF113052C370FFE009181F9 /* IBaseTodoItemViewModel.swift in Sources */,
 				0A1311882C4A9B7500649268 /* FileService.swift in Sources */,
@@ -939,6 +977,7 @@
 				0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */,
 				0AAF43FF2C27389F000FE268 /* ListRowItemView.swift in Sources */,
 				0A89CCF92C2F6B75006F9BF7 /* ColorPalette.swift in Sources */,
+				0A228FF22C52C4A100CAC0AB /* SQLStorageManager.swift in Sources */,
 				0A89CCF62C2F642C006F9BF7 /* ColorGradientCircleView.swift in Sources */,
 				0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */,
 				0A931C322C49163200C4C357 /* ITodoResponse.swift in Sources */,
@@ -947,6 +986,7 @@
 				0A6908762C467EB60004180D /* TodoListResponse.swift in Sources */,
 				0AA5E0862C37F5E600AE7002 /* CreateNewCategoryView.swift in Sources */,
 				0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */,
+				0A228FFE2C52D30700CAC0AB /* StorageType.swift in Sources */,
 				0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */,
 				0A6908722C467E740004180D /* TodoItemResponse.swift in Sources */,
 				0A63EC672C1CC091005ED49D /* TodoItem + JSONParsable.swift in Sources */,

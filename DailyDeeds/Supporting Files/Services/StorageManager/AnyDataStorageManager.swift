@@ -9,6 +9,7 @@ import Foundation
 
 final class AnyDataStorageManager<Element>: IDataStorageManager {
     private let _fetchAll: () -> [Element]
+    private let _fetchTasksSortedBy: (TaskCriteria.SortType) -> [Element]
     private let _append: (Element) -> Void
     private let _updateAllItemsTo: ([Element]) -> Void
     private let _delete: (Element) -> Void
@@ -16,6 +17,7 @@ final class AnyDataStorageManager<Element>: IDataStorageManager {
     
     init<Storage: IDataStorageManager>(_ storage: Storage) where Storage.Element == Element {
         _fetchAll = storage.fetchAll
+        _fetchTasksSortedBy = storage.fetchTasksSorted
         _append = storage.append
         _updateAllItemsTo = storage.updateAllItems
         _delete = storage.delete
@@ -24,6 +26,10 @@ final class AnyDataStorageManager<Element>: IDataStorageManager {
     
     func fetchAll() -> [Element] {
         return _fetchAll()
+    }
+    
+    func fetchTasksSorted(by sortOrder: TaskCriteria.SortType) -> [Element] {
+        _fetchTasksSortedBy(sortOrder)
     }
     
     func append(_ item: Element) {
