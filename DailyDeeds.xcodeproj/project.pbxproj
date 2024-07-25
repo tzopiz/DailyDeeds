@@ -14,6 +14,7 @@
 		0A13118A2C4AA52100649268 /* NetworkActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1311892C4AA52100649268 /* NetworkActivityState.swift */; };
 		0A13118F2C4ADB7800649268 /* TodoItemModel + FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13118E2C4ADB7800649268 /* TodoItemModel + FileCache.swift */; };
 		0A1311912C4ADC0100649268 /* TodoItemModel + Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1311902C4ADC0100649268 /* TodoItemModel + Networking.swift */; };
+		0A228FF02C52B63F00CAC0AB /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FEF2C52B63F00CAC0AB /* Date.swift */; };
 		0A3202B82C1C67C900427B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202B72C1C67C900427B05 /* Assets.xcassets */; };
 		0A3202BB2C1C67C900427B05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */; };
 		0A3202CF2C1C67C900427B05 /* DailyDeedsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202CE2C1C67C900427B05 /* DailyDeedsUITests.swift */; };
@@ -34,6 +35,10 @@
 		0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */; };
 		0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */; };
 		0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */; };
+		0A64CBD42C5227A6008839AB /* Importance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBD32C5227A6008839AB /* Importance.swift */; };
+		0A64CBD62C522F54008839AB /* SDStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBD52C522F54008839AB /* SDStorageManager.swift */; };
+		0A64CBD92C523DEA008839AB /* IDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBD82C523DE9008839AB /* IDataStorageManager.swift */; };
+		0A64CBDB2C52452C008839AB /* AnyDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBDA2C52452C008839AB /* AnyDataStorageManager.swift */; };
 		0A69086E2C467E3D0004180D /* INetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69086D2C467E3D0004180D /* INetworkingService.swift */; };
 		0A6908722C467E740004180D /* TodoItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6908712C467E740004180D /* TodoItemResponse.swift */; };
 		0A6908742C467E9A0004180D /* FileCache in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6908732C467E9A0004180D /* FileCache */; };
@@ -136,6 +141,7 @@
 		0A1311892C4AA52100649268 /* NetworkActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkActivityState.swift; sourceTree = "<group>"; };
 		0A13118E2C4ADB7800649268 /* TodoItemModel + FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItemModel + FileCache.swift"; sourceTree = "<group>"; };
 		0A1311902C4ADC0100649268 /* TodoItemModel + Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItemModel + Networking.swift"; sourceTree = "<group>"; };
+		0A228FEF2C52B63F00CAC0AB /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		0A3202B02C1C67C800427B05 /* DailyDeeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyDeeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3202B72C1C67C900427B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -160,6 +166,10 @@
 		0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCSVParsable.swift; sourceTree = "<group>"; };
 		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
+		0A64CBD32C5227A6008839AB /* Importance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importance.swift; sourceTree = "<group>"; };
+		0A64CBD52C522F54008839AB /* SDStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDStorageManager.swift; sourceTree = "<group>"; };
+		0A64CBD82C523DE9008839AB /* IDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDataStorageManager.swift; sourceTree = "<group>"; };
+		0A64CBDA2C52452C008839AB /* AnyDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyDataStorageManager.swift; sourceTree = "<group>"; };
 		0A69086D2C467E3D0004180D /* INetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INetworkingService.swift; sourceTree = "<group>"; };
 		0A6908712C467E740004180D /* TodoItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemResponse.swift; sourceTree = "<group>"; };
 		0A6908752C467EB60004180D /* TodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListResponse.swift; sourceTree = "<group>"; };
@@ -447,6 +457,16 @@
 			path = TodoItemTesting;
 			sourceTree = "<group>";
 		};
+		0A64CBD72C523DDC008839AB /* StorageManager */ = {
+			isa = PBXGroup;
+			children = (
+				0A64CBDA2C52452C008839AB /* AnyDataStorageManager.swift */,
+				0A64CBD82C523DE9008839AB /* IDataStorageManager.swift */,
+				0A64CBD52C522F54008839AB /* SDStorageManager.swift */,
+			);
+			path = StorageManager;
+			sourceTree = "<group>";
+		};
 		0A69086C2C467E240004180D /* NetworkingService */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +489,7 @@
 		0A7994F92C275CAF0097B18E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0A64CBD72C523DDC008839AB /* StorageManager */,
 				0A1311872C4A9B7500649268 /* FileService.swift */,
 				0A931C392C49302700C4C357 /* Categories */,
 				0A69086C2C467E240004180D /* NetworkingService */,
@@ -532,6 +553,7 @@
 		0A9230462C30AE0D00BFA4E2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0A228FEF2C52B63F00CAC0AB /* Date.swift */,
 				0A931C3E2C49309800C4C357 /* ResultBuilders */,
 				0AF6F21C2C208F760043866B /* Collection.swift */,
 				0AD1BA162C2C4C72002FF476 /* Bool.swift */,
@@ -557,6 +579,7 @@
 				0A5412392C346BEF00B75AE1 /* Category */,
 				0AF6F2342C20B5F10043866B /* JSONParsing */,
 				0AF6F2352C20B6000043866B /* CSVParsing */,
+				0A64CBD32C5227A6008839AB /* Importance.swift */,
 				0A63EC642C1CC091005ED49D /* TodoItem.swift */,
 				0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */,
 			);
@@ -849,7 +872,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint --fix\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -868,6 +891,7 @@
 				0A8926122C28A9B0001C39F2 /* CreateTodoItemButton.swift in Sources */,
 				0AB3E3552C31DCEE00807EE0 /* CalendarCollectionViewCell.swift in Sources */,
 				0A04ED162C27308000AF7097 /* DetailTodoItemView.swift in Sources */,
+				0A64CBD42C5227A6008839AB /* Importance.swift in Sources */,
 				0A854F202C31DA15008C5A43 /* CalendarViewModel.swift in Sources */,
 				0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */,
 				0A7EEF2A2C31AE8D009553B7 /* DeadlineToggleView.swift in Sources */,
@@ -875,13 +899,16 @@
 				0A854F1D2C31D8A3008C5A43 /* CalendarViewController.swift in Sources */,
 				0A92304F2C30B81700BFA4E2 /* ScrollContentBackground.swift in Sources */,
 				0AE5D6A62C3481A700E27E12 /* UIColor.swift in Sources */,
+				0A64CBDB2C52452C008839AB /* AnyDataStorageManager.swift in Sources */,
 				0A7EEF212C31A7EA009553B7 /* GradientCircleView.swift in Sources */,
 				0AA5E0882C37FC1F00AE7002 /* Categories.swift in Sources */,
 				0A69087C2C4682DC0004180D /* APIEndpoint.swift in Sources */,
+				0A64CBD92C523DEA008839AB /* IDataStorageManager.swift in Sources */,
 				0AEEEE582C35BA810029438E /* DateInfo.swift in Sources */,
 				0A69087A2C46802F0004180D /* DefaultNetworkingService.swift in Sources */,
 				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
 				0AF113032C36F36A009181F9 /* CategoryPickerRow.swift in Sources */,
+				0A64CBD62C522F54008839AB /* SDStorageManager.swift in Sources */,
 				0A77CFC72C32A6BF00B2F812 /* CalendarTableViewCell.swift in Sources */,
 				0AD1BA322C2CC256002FF476 /* Color.swift in Sources */,
 				0A89261C2C28AE01001C39F2 /* ImportanceView.swift in Sources */,
@@ -889,6 +916,7 @@
 				0A7EEF242C31A97B009553B7 /* ColorPickerRowView.swift in Sources */,
 				0A13118A2C4AA52100649268 /* NetworkActivityState.swift in Sources */,
 				0A89CCFD2C2F7BBB006F9BF7 /* CustomSheetModifier.swift in Sources */,
+				0A228FF02C52B63F00CAC0AB /* Date.swift in Sources */,
 				0A5412332C34642800B75AE1 /* Category.swift in Sources */,
 				0A931C352C49177600C4C357 /* NetworkingError.swift in Sources */,
 				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,

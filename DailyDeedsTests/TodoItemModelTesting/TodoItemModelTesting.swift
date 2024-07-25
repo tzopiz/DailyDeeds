@@ -7,6 +7,7 @@
 
 @testable import DailyDeeds
 import FileCache
+import SwiftData
 import XCTest
 
 final class TodoItemModelTesting: XCTestCase {

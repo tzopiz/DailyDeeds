@@ -30,7 +30,7 @@ final class TestJSONParsable: XCTestCase {
             (Keys.deadline, deadline)
             (Keys.lastUpdatedDevice, "")
             (Keys.modificationDate, modificationDate)
-            (Keys.category, Category.defaultCategory)
+            (Keys.category, Category.default)
         }
 
         guard let item = TodoItem.parse(json: json) else {
@@ -123,7 +123,7 @@ final class TestJSONParsable: XCTestCase {
             (Keys.creationDate, creationDate)
             (Keys.modificationDate, creationDate)
             (Keys.lastUpdatedDevice, device)
-            (Keys.category, Category.defaultCategory)
+            (Keys.category, Category.default)
         }
 
         guard let item = TodoItem.parse(json: json) else {

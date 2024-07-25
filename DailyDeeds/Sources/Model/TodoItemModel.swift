@@ -8,13 +8,21 @@
 import CocoaLumberjackSwift
 import FileCache
 import Foundation
+import SwiftData
 
 final class TodoItemModel: ObservableObject {
-    @Published
-    private(set) var items: [TodoItem]
-    @Published
-    var isLoading: Bool = false
     
+    @Published
+    private(set) var isLoading: Bool = false
+    @Published
+    private(set) var items = [TodoItem]() {
+        willSet {
+            self.storage?.updateAllItems(to: newValue)
+            DDLogInfo("The Todo Item Model storage has completed the update")
+        }
+    }
+    
+    private(set) var revision: Int = 0
     private(set) var isDirty: Bool {
         set {
             UserDefaults.standard.setValue(newValue, forKey: "DailyDeeds.TodoItemModel.isDirty")
@@ -22,25 +30,24 @@ final class TodoItemModel: ObservableObject {
             return UserDefaults.standard.bool(forKey: "DailyDeeds.TodoItemModel.isDirty")
         }
     }
-    
+    private(set) var storage: AnyDataStorageManager<TodoItem>?
     let networkingService = DefaultNetworkingService()
     var monitorTask: Task<Void, Never>?
-    private(set) var revision: Int = 0
 
     @MainActor
-    init() {
-        self.items = []
-        self.revision = 0
-        makeDirty(true)
-        self.fetchTodoList()
-        DDLogInfo("Initializing TodoItemModel with \(items)")
+    init(modelContext: ModelContext) {
+        let sdStorageManager = SDStorageManager(modelContext: modelContext)
+        self.updateStorage(newStorage: sdStorageManager)
+        self.makeDirty(true)
+        if let storage = storage {
+            self.items = storage.fetchAll()
+        }
+        self.fetchTodoList(tryRetry: false)
         Task {
             await startMonitoringNetworkActivity()
         }
-    }
-    
-    deinit {
-        stopMonitoringNetworkActivity()
+        
+        DDLogInfo("Successful initialization of TodoItemModel")
     }
 }
 
@@ -59,16 +66,16 @@ extension TodoItemModel {
         }
     }
     
-    func updateItem(with id: String, item: TodoItem?) {
+    func update(item: TodoItem?) {
         guard let item else {
             DDLogError("Error trying to add an object to the none list")
             return
         }
-        if let index = items.firstIndex(where: { $0.id == id }) {
+        if let index = items.firstIndex(where: { $0.id == item.id }) {
             items[index] = item
             DDLogInfo("Updated item with id \(item.id)")
         } else {
-            DDLogError("The item with the id \(id) already exists in the list")
+            DDLogError("The item with the id \(item.id) already exists in the list")
         }
     }
     
@@ -99,9 +106,9 @@ extension TodoItemModel {
     func mergeUniqueItems(
         local array1: [TodoItem],
         cloud array2: [TodoItem],
-        needSaveLocal: Bool = false
+        saveLocalChanges: Bool = false
     ) -> [TodoItem] {
-        let (primaryArray, secondaryArray) = needSaveLocal ? (array2, array1) : (array1, array2)
+        let (primaryArray, secondaryArray) = saveLocalChanges ? (array2, array1) : (array1, array2)
         
         var uniqueItems = [String: TodoItem]()
         
@@ -114,8 +121,19 @@ extension TodoItemModel {
         }
         
         let result = Array(uniqueItems.values)
-        DDLogInfo("Total unique items: \(result.count)")
+        DDLogInfo("Total unique items: \(result.count). Local items: \(array1.count). Cloud items: \(array2.count)")
         return result
+    }
+    
+    private func updateStorage<NewStorage: IDataStorageManager>(
+        newStorage: NewStorage
+    ) where NewStorage.Element == TodoItem {
+        self.storage = AnyDataStorageManager(newStorage)
+        // TODO: - add sync between storages
+    }
+    
+    func updateLoding(_ value: Bool) {
+        self.isLoading = value
     }
 
     func updateRevision(to value: Int) {

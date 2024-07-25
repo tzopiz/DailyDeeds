@@ -91,6 +91,7 @@ struct TodoItemsListView: View {
                     }
                 }
             }
+        // FIXME: -
             .refreshable {
                 viewModel.fetchTodoList()
             }

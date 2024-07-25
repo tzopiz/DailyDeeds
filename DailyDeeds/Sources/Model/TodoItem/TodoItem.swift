@@ -7,26 +7,10 @@
 
 import FileCache
 import Foundation
+import SwiftData
 
-enum Importance: String, Comparable, Equatable {
-    case low = "low"
-    case medium = "basic"
-    case high = "important"
-
-    var order: Int {
-        switch self {
-        case .low: return 0
-        case .medium: return 1
-        case .high: return 2
-        }
-    }
-
-    static func < (lhs: Importance, rhs: Importance) -> Bool {
-        return lhs.order < rhs.order
-    }
-}
-
-struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
+@Model
+final class TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable, Sendable {
     enum CodingKeys {
         static let id = "id"
         static let text = "text"
@@ -39,7 +23,8 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         static let lastUpdatedDevice = "last_updated_by"
         static let deadline = "deadline"
     }
-
+    
+    @Attribute(.unique)
     let id: String
     let text: String
     let isDone: Bool
@@ -57,7 +42,7 @@ struct TodoItem: Identifiable, Equatable, Hashable, KeyPathComparable {
         isDone: Bool = false,
         hexColor: String = "#FFFFFF",
         creationDate: Date = .now,
-        category: Category = Category.defaultCategory,
+        category: Category = .default,
         importance: Importance = .medium,
         modificationDate: Date = .now,
         lastUpdatedDevice: String = "default",

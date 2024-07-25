@@ -5,6 +5,7 @@
 //  Created by Дмитрий Корчагин on 6/14/24.
 //
 
+import CocoaLumberjackSwift
 import FileCache
 import Foundation
 
@@ -38,6 +39,7 @@ extension TodoItem: JSONParsable {
               let importanceRawValue = dict[CodingKeys.importance] as? String,
               let importance = Importance(rawValue: importanceRawValue),
               let lastUpdatedDevice = dict[CodingKeys.lastUpdatedDevice] as? String else {
+            DDLogError("TodoItem.\(#function): Failed parse TodoItem object")
             return nil
         }
         
@@ -45,19 +47,20 @@ extension TodoItem: JSONParsable {
             guard let interval = dict[CodingKeys.deadline] as? Int else {
                 return nil
             }
-            return Date(timeIntervalSince1970: TimeInterval(interval))
+            return Date(interval)
         }()
 
         let category: Category = {
             guard let categoryJSON = dict[CodingKeys.category] as? JSONDictionary,
                   let category = Category.parse(json: categoryJSON) else {
-                return .defaultCategory
+                DDLogError("Category.\(#function): Failed parse Category object")
+                return .default
             }
             return category
         }()
 
-        let creationDate = Date(timeIntervalSince1970: TimeInterval(creationTimestamp))
-        let modificationDate = Date(timeIntervalSince1970: TimeInterval(modificationTimestamp))
+        let creationDate = Date(creationTimestamp)
+        let modificationDate = Date(modificationTimestamp)
 
         return TodoItem(
             id: id,

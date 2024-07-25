@@ -5,6 +5,7 @@
 //  Created by Дмитрий Корчагин on 7/16/24.
 //
 
+import CocoaLumberjackSwift
 import FileCache
 import Foundation
 
@@ -32,8 +33,10 @@ extension TodoItemResponse: JSONParsable {
     static func parse(json: JSONDictionary) -> TodoItemResponse? {
         guard let status = json[CodingKeys.status] as? String,
               let elementJson = json[CodingKeys.result] as? JSONDictionary,
-              let revision = json[CodingKeys.revision] as? Int
-        else { return nil }
+              let revision = json[CodingKeys.revision] as? Int else {
+            DDLogError("TodoItemResponse.\(#function): Failed parse TodoItemResponse object")
+            return nil
+        }
         
         let element = TodoItem.parse(json: elementJson)
         

@@ -5,6 +5,7 @@
 //  Created by Дмитрий Корчагин on 6/14/24.
 //
 
+import CocoaLumberjackSwift
 import FileCache
 import Foundation
 
@@ -38,8 +39,10 @@ extension TodoItem: CSVParsable {
               let hexColor = csvArray[safe: 4],
               let creationDateString = csvArray[safe: 5],
               let creationDate = creationDateString.toDate(),
-              let modificationDate = csvArray[safe: 7]?.toDate()
-        else { return nil }
+              let modificationDate = csvArray[safe: 7]?.toDate() else {
+            DDLogError("Category.\(#function): Failed parse TodoItem object")
+            return nil
+        }
 
         let isDone = isDoneString == "true"
         let deadline = csvArray[safe: 6]?.toDate()
@@ -57,7 +60,7 @@ extension TodoItem: CSVParsable {
             isDone: isDone,
             hexColor: hexColor,
             creationDate: creationDate,
-            category: category ?? Category.defaultCategory,
+            category: category ?? .default,
             importance: importance,
             modificationDate: modificationDate,
             deadline: deadline

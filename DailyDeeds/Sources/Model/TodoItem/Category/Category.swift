@@ -7,29 +7,30 @@
 
 import FileCache
 import Foundation
+import SwiftData
 
-struct Category: Identifiable, Equatable, Hashable, CSVParsable, JSONParsable {
+@Model
+final class Category: Identifiable, Equatable, Sendable, Hashable, CSVParsable, JSONParsable {
     enum CodingKeys {
         static let id = "id"
         static let name = "name"
         static let color = "color"
     }
-
+    
+    @Attribute(.unique)
     let id: String
     let name: String
     let color: String?
-
-    init(_ id: String = UUID().uuidString, name: String, color: String? = nil) {
+    
+    init(id: String = UUID().uuidString, name: String, color: String? = nil) {
         self.id = id
         self.name = name
         self.color = color
     }
 
     static func == (lhs: Category, rhs: Category) -> Bool {
-        return lhs.name == rhs.name && lhs.color == rhs.color
+        return lhs.id == rhs.id
     }
 
-    static var defaultCategory: Category {
-        return Category(name: "Без категории")
-    }
+    static let `default` = Category(name: "Без категории")
 }

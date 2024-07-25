@@ -10,7 +10,7 @@ import CocoaLumberjackSwift
 import FileCache
 import XCTest
 
-class TestNetworkingService: XCTestCase {
+final class TestNetworkingService: XCTestCase {
     var sut: DefaultNetworkingService!
     var session: URLSession!
     var mockURL: URL!
