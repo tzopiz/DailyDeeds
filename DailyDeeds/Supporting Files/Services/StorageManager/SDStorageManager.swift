@@ -63,8 +63,7 @@ final class SDStorageManager: IDataStorageManager {
     }
     
     func deleteAll() {
-        let items = fetchAll()
-        for item in items {
+        for item in fetchAll() {
             delete(item)
         }
     }

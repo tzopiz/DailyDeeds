@@ -103,6 +103,7 @@ extension TodoItemModel {
         return items.contains(where: { $0.id == id })
     }
     
+    @MainActor
     func mergeUniqueItems(
         local array1: [TodoItem],
         cloud array2: [TodoItem],
@@ -121,6 +122,11 @@ extension TodoItemModel {
         }
         
         let result = Array(uniqueItems.values)
+        if result != array2 {
+            Task {
+                updateTodoList()
+            }
+        }
         DDLogInfo("Total unique items: \(result.count). Local items: \(array1.count). Cloud items: \(array2.count)")
         return result
     }
