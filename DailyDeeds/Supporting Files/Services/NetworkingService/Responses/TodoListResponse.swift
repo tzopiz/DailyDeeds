@@ -5,6 +5,7 @@
 //  Created by Дмитрий Корчагин on 7/16/24.
 //
 
+import CocoaLumberjackSwift
 import FileCache
 import Foundation
 
@@ -33,6 +34,7 @@ extension TodoListResponse: JSONParsable {
         guard let status = json[CodingKeys.status] as? String,
               let listJson = json[CodingKeys.result] as? [JSONDictionary],
               let revision = json[CodingKeys.revision] as? Int else {
+            DDLogError("TodoListResponse.\(#function): Failed parse TodoListResponse object")
             return nil
         }
         

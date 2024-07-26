@@ -7,6 +7,7 @@
 
 @testable import DailyDeeds
 import FileCache
+import SwiftData
 import XCTest
 
 final class TodoItemModelTesting: XCTestCase {
@@ -25,7 +26,7 @@ final class TodoItemModelTesting: XCTestCase {
 
     override func setUp() async throws {
         try await super.setUp()
-        model = await TodoItemModel(items: [])
+        model = await TodoItemModel()
     }
 
     override func tearDown() {
@@ -33,9 +34,11 @@ final class TodoItemModelTesting: XCTestCase {
         model = nil
     }
 
-    @MainActor override func setUpWithError() throws {
+    @MainActor
+    override func setUpWithError() throws {
         try super.setUpWithError()
-        model = TodoItemModel(items: [])
+        model = TodoItemModel()
+        model.updateList([])
     }
 
     override func tearDownWithError() throws {
@@ -197,11 +200,11 @@ final class TodoItemModelTesting: XCTestCase {
         let url = try getDocumentsDirectory().appendingPathComponent(fileNameCSV)
         try csv.write(to: url, atomically: true, encoding: .utf8)
 
-        model.loadItems(from: fileNameCSV, format: .csv)
+        let items = model.loadItems(from: fileNameCSV, format: .csv)
 
-        XCTAssertEqual(model.items.count, 1)
-        XCTAssertEqual(model.items.first?.id, id)
-        XCTAssertNil(model.items.first?.deadline)
+        XCTAssertEqual(items?.count, 1)
+        XCTAssertEqual(items?.first?.id, id)
+        XCTAssertNil(items?.first?.deadline)
 
         try FileManager.default.removeItem(at: url)
     }

@@ -25,7 +25,7 @@ extension TodoItemModel {
                 let shouldLoad = activeRequestsCount > 0
                 
                 if isLoading != shouldLoad {
-                    isLoading = shouldLoad
+                    updateLoding(shouldLoad)
                 }
                 
                 do {
@@ -51,10 +51,11 @@ extension TodoItemModel {
         handleNetworkTask(#function, tryRetry: tryRetry) {
             try await self.networkingService.fetchTodoList()
         } onSuccess: { response in
-            self.updateList(response.result)
-        }
-        if let loadedItems = loadItems(from: defaultFileName, format: .json), isDirty {
-            let allItems = mergeUniqueItems(local: loadedItems, cloud: items)
+            let allItems = self.mergeUniqueItems(
+                local: self.items,
+                cloud: response.result,
+                saveLocalChanges: false
+            )
             self.updateList(allItems)
         }
     }
@@ -64,17 +65,17 @@ extension TodoItemModel {
         handleNetworkTask(#function, tryRetry: tryRetry) {
             try await self.networkingService.fetchTodoItem(id: id)
         } onSuccess: { response in
-            self.updateItem(with: id, item: response.result)
+            self.update(item: response.result)
         }
     }
     
     @MainActor
     func updateTodoItem(with id: String, item: TodoItem, tryRetry: Bool = true) {
-        self.updateItem(with: id, item: item)
+        self.update(item: item)
         handleNetworkTask(#function, tryRetry: tryRetry) {
             try await self.networkingService.updateTodoItem(id: id, item: item, revision: self.revision)
         } onSuccess: { response in
-            return self.updateItem(with: id, item: response.result)
+            self.update(item: response.result)
         }
     }
     
@@ -93,7 +94,7 @@ extension TodoItemModel {
         handleNetworkTask(#function, tryRetry: tryRetry) {
             try await self.networkingService.createTodoItem(item: item, revision: self.revision)
         } onSuccess: { response in
-            self.append(response.result)
+            self.update(item: item)
         }
     }
     
@@ -107,7 +108,7 @@ extension TodoItemModel {
                 self.remove(with: id)
                 DDLogInfo("TodoItem has been deleted:\n\(item.description)")
             } else {
-                DDLogError("No TodoItem with id \(id) on server")
+                DDLogError("No TodoItem with id \(id) in TodoItemModel")
             }
         }
     }
@@ -119,7 +120,8 @@ extension TodoItemModel {
         onSuccess: @escaping (T) async -> Void
     ) {
         Task {
-            for retryCount in 0..<20 {
+            outerLoop: for retryCount in 0..<20 {
+                // TODO: refreshing after offline mode
                 guard retryCount == 0 || tryRetry else { break }
                 do {
                     let response = try await task()
@@ -127,29 +129,28 @@ extension TodoItemModel {
                     self.updateRevision(to: response.revision)
                     self.makeDirty(false)
                     DDLogVerbose("TodoItemModel.\(title) finished Successfully")
-                    return
+                    break
                 } catch let error as NetworkingError {
                     DDLogError("TodoItemModel.\(title) failed with \(error.description)")
                     self.makeDirty(true)
                     switch error {
                     case .invalidResponse, .parsingError, .noInternetConnection, .httpError, .unknown:
-                        self.save(to: self.defaultFileName, format: .json)
-                        return
+                        DDLogError("Breaking outer loop due to non-recoverable error")
+                        break outerLoop
                     case .serverError, .requestTimeout:
                         let delay = exponentialBackoff(retryCount: retryCount)
                         DDLogError("Retrying TodoItemModel.\(title) after \(delay) seconds due to \(error.description)")
                         
                         if delay >= maxDelay {
                             DDLogError("Max retry limit reached for TodoItemModel.\(title)")
-                            DDLogInfo("Trying fetch latest data from server.")
-                            self.fetchTodoList(tryRetry: false)
-                            return
+                            break outerLoop
                         }
                         
                         try await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
                     }
                 } catch {
                     DDLogError("TodoItemModel.\(title) failed with unhandled error: \(error)")
+                    break outerLoop
                 }
             }
         }

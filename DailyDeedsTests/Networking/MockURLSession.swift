@@ -8,7 +8,7 @@
 import CocoaLumberjackSwift
 import Foundation
 
-class MockURLProtocol: URLProtocol {
+final class MockURLProtocol: URLProtocol {
     static var error: Error?
     static var delayTime: TimeInterval = 5 // Длительность задержки в секундах
     static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data))?

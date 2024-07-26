@@ -7,21 +7,34 @@
 
 import CocoaLumberjackSwift
 import SnapKit
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct DailyDeedsApp: App {
-
+    // TODO: Add compiler directives
+    private let container: ModelContainer
+    let model: TodoItemModel
+    
     init() {
-        configureLogs()
-        DDLogInfo("Initializing DailyDeedsApp")
+        do {
+            container = try ModelContainer(for: TodoItem.self)
+            model = TodoItemModel(modelContext: container.mainContext)
+            configureLogs()
+            DDLogInfo("Initializing DailyDeedsApp")
+        } catch {
+            DDLogError("Failed to create ModelContainer for TodoItem, \(error).")
+            fatalError()
+        }
     }
     
     var body: some Scene {
         WindowGroup {
-            TodoItemsListView(viewModel: ListTodoItemViewModel(model: TodoItemModel()))
+            TodoItemsListView(
+                viewModel: ListTodoItemViewModel(model: model)
+            )
         }
+        .modelContainer(container)
     }
     
     func configureLogs() {

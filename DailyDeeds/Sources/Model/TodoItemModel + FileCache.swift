@@ -12,7 +12,7 @@ import Foundation
 extension TodoItemModel {
     func save(to fileName: String, format type: FileFormat = .json) {
         if let error = FileService.saveToFile(items, named: fileName, format: type) {
-            DDLogError("Failed to save items to file \(fileName): \(error.localizedDescription)")
+            DDLogError("Failed to save items to file \(fileName): \(error)")
         } else {
             DDLogInfo("Successfully saved items to file \(fileName)")
         }
@@ -26,7 +26,7 @@ extension TodoItemModel {
             DDLogInfo("Successfully loaded items from file \(fileName)")
             return items
         case .failure(let error):
-            DDLogError("Failed to load items from file \(fileName): \(error.localizedDescription)")
+            DDLogError("Failed to load items from file \(fileName): \(error)")
         }
         return nil
     }

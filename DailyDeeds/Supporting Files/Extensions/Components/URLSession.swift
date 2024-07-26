@@ -37,7 +37,7 @@ extension URLSession {
                         DDLogVerbose("Request completed successfully")
                         continuation.resume(returning: (data, response))
                     } else if let error = error as? NSError {
-                        let errorMessage = "Request failed with error: \(error.localizedDescription)"
+                        let errorMessage = "Request failed with error: \(error)"
                         let infoMessage = "\nDomain: \(error.domain), Code: \(error.code)"
                         let message = DDLogMessageFormat(stringLiteral: errorMessage + infoMessage)
                         DDLogError(message)

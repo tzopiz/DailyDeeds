@@ -5,6 +5,7 @@
 //  Created by Дмитрий Корчагин on 7/18/24.
 //
 
+import CocoaLumberjackSwift
 import FileCache
 import Foundation
 
@@ -19,8 +20,10 @@ extension Category {
 
     static func parse(json dict: JSONType) -> Category? {
         guard let id = dict[CodingKeys.id] as? String,
-              let name = dict[CodingKeys.name] as? String
-        else { return Category.defaultCategory }
-        return Category(id, name: name, color: dict[CodingKeys.color] as? String)
+              let name = dict[CodingKeys.name] as? String else {
+            DDLogError("Category.\(#function): Failed parse Category object")
+            return Category.default
+        }
+        return Category(id: id, name: name, color: dict[CodingKeys.color] as? String)
     }
 }

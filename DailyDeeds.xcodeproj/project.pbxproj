@@ -14,6 +14,13 @@
 		0A13118A2C4AA52100649268 /* NetworkActivityState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1311892C4AA52100649268 /* NetworkActivityState.swift */; };
 		0A13118F2C4ADB7800649268 /* TodoItemModel + FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A13118E2C4ADB7800649268 /* TodoItemModel + FileCache.swift */; };
 		0A1311912C4ADC0100649268 /* TodoItemModel + Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A1311902C4ADC0100649268 /* TodoItemModel + Networking.swift */; };
+		0A228FF02C52B63F00CAC0AB /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FEF2C52B63F00CAC0AB /* Date.swift */; };
+		0A228FF22C52C4A100CAC0AB /* SQLStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF12C52C4A100CAC0AB /* SQLStorageManager.swift */; };
+		0A228FF52C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF42C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift */; };
+		0A228FF72C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF62C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift */; };
+		0A228FFA2C52D0D800CAC0AB /* TaskCriteria + FilterType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FF92C52D0D800CAC0AB /* TaskCriteria + FilterType.swift */; };
+		0A228FFC2C52D10200CAC0AB /* TaskCriteria + SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FFB2C52D10200CAC0AB /* TaskCriteria + SortType.swift */; };
+		0A228FFE2C52D30700CAC0AB /* StorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A228FFD2C52D30700CAC0AB /* StorageType.swift */; };
 		0A3202B82C1C67C900427B05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202B72C1C67C900427B05 /* Assets.xcassets */; };
 		0A3202BB2C1C67C900427B05 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */; };
 		0A3202CF2C1C67C900427B05 /* DailyDeedsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3202CE2C1C67C900427B05 /* DailyDeedsUITests.swift */; };
@@ -23,6 +30,7 @@
 		0A3202E22C1C6A8900427B05 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202E12C1C6A8900427B05 /* .gitignore */; };
 		0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */; };
 		0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A9B2C28BADB00A9290B /* TodoItemModel.swift */; };
+		0A51B33A2C54129200083E5E /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 0A51B3392C54129200083E5E /* SQLite */; };
 		0A54122E2C34437700B75AE1 /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A54122D2C34437700B75AE1 /* ItemSection.swift */; };
 		0A5412332C34642800B75AE1 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5412322C34642800B75AE1 /* Category.swift */; };
 		0A554E642C1ED4D30068360C /* TodoItemModelTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A554E632C1ED4D30068360C /* TodoItemModelTesting.swift */; };
@@ -34,6 +42,10 @@
 		0A63EC762C1CE320005ED49D /* TestKeyPathComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC752C1CE320005ED49D /* TestKeyPathComparable.swift */; };
 		0A63EC782C1CE34F005ED49D /* TestCSVParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */; };
 		0A63EC7A2C1CE9EF005ED49D /* TestJSONParsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */; };
+		0A64CBD42C5227A6008839AB /* Importance.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBD32C5227A6008839AB /* Importance.swift */; };
+		0A64CBD62C522F54008839AB /* SDStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBD52C522F54008839AB /* SDStorageManager.swift */; };
+		0A64CBD92C523DEA008839AB /* IDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBD82C523DE9008839AB /* IDataStorageManager.swift */; };
+		0A64CBDB2C52452C008839AB /* AnyDataStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64CBDA2C52452C008839AB /* AnyDataStorageManager.swift */; };
 		0A69086E2C467E3D0004180D /* INetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69086D2C467E3D0004180D /* INetworkingService.swift */; };
 		0A6908722C467E740004180D /* TodoItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6908712C467E740004180D /* TodoItemResponse.swift */; };
 		0A6908742C467E9A0004180D /* FileCache in Frameworks */ = {isa = PBXBuildFile; productRef = 0A6908732C467E9A0004180D /* FileCache */; };
@@ -83,7 +95,7 @@
 		0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */; };
 		0ABC266F2C3D23F3004BC47A /* URLSessionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABC266E2C3D23F3004BC47A /* URLSessionTests.swift */; };
 		0AD1BA102C2C4683002FF476 /* MutableTodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */; };
-		0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */; };
+		0AD1BA142C2C4811002FF476 /* TaskCriteria.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA132C2C4811002FF476 /* TaskCriteria.swift */; };
 		0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA162C2C4C72002FF476 /* Bool.swift */; };
 		0AD1BA322C2CC256002FF476 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA312C2CC256002FF476 /* Color.swift */; };
 		0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD1BA4B2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift */; };
@@ -136,6 +148,13 @@
 		0A1311892C4AA52100649268 /* NetworkActivityState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkActivityState.swift; sourceTree = "<group>"; };
 		0A13118E2C4ADB7800649268 /* TodoItemModel + FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItemModel + FileCache.swift"; sourceTree = "<group>"; };
 		0A1311902C4ADC0100649268 /* TodoItemModel + Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TodoItemModel + Networking.swift"; sourceTree = "<group>"; };
+		0A228FEF2C52B63F00CAC0AB /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		0A228FF12C52C4A100CAC0AB /* SQLStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLStorageManager.swift; sourceTree = "<group>"; };
+		0A228FF42C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IBaseTodoItemViewModel + Networking.swift"; sourceTree = "<group>"; };
+		0A228FF62C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IBaseTodoItemViewModel + FileCache.swift"; sourceTree = "<group>"; };
+		0A228FF92C52D0D800CAC0AB /* TaskCriteria + FilterType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskCriteria + FilterType.swift"; sourceTree = "<group>"; };
+		0A228FFB2C52D10200CAC0AB /* TaskCriteria + SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskCriteria + SortType.swift"; sourceTree = "<group>"; };
+		0A228FFD2C52D30700CAC0AB /* StorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageType.swift; sourceTree = "<group>"; };
 		0A3202B02C1C67C800427B05 /* DailyDeeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyDeeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A3202B72C1C67C900427B05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A3202BA2C1C67C900427B05 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -160,6 +179,10 @@
 		0A63EC772C1CE34F005ED49D /* TestCSVParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCSVParsable.swift; sourceTree = "<group>"; };
 		0A63EC792C1CE9EF005ED49D /* TestJSONParsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestJSONParsable.swift; sourceTree = "<group>"; };
 		0A63EC7B2C1CEEE4005ED49D /* DailyDeeds.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = DailyDeeds.xctestplan; sourceTree = "<group>"; };
+		0A64CBD32C5227A6008839AB /* Importance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importance.swift; sourceTree = "<group>"; };
+		0A64CBD52C522F54008839AB /* SDStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDStorageManager.swift; sourceTree = "<group>"; };
+		0A64CBD82C523DE9008839AB /* IDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDataStorageManager.swift; sourceTree = "<group>"; };
+		0A64CBDA2C52452C008839AB /* AnyDataStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyDataStorageManager.swift; sourceTree = "<group>"; };
 		0A69086D2C467E3D0004180D /* INetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = INetworkingService.swift; sourceTree = "<group>"; };
 		0A6908712C467E740004180D /* TodoItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemResponse.swift; sourceTree = "<group>"; };
 		0A6908752C467EB60004180D /* TodoListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListResponse.swift; sourceTree = "<group>"; };
@@ -204,7 +227,7 @@
 		0AB3E3E72C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewControllerRepresentable.swift; sourceTree = "<group>"; };
 		0ABC266E2C3D23F3004BC47A /* URLSessionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionTests.swift; sourceTree = "<group>"; };
 		0AD1BA0F2C2C4683002FF476 /* MutableTodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTodoItem.swift; sourceTree = "<group>"; };
-		0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingTodoItems.swift; sourceTree = "<group>"; };
+		0AD1BA132C2C4811002FF476 /* TaskCriteria.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCriteria.swift; sourceTree = "<group>"; };
 		0AD1BA162C2C4C72002FF476 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
 		0AD1BA312C2CC256002FF476 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		0AD1BA4B2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewTodoItemRowView.swift; sourceTree = "<group>"; };
@@ -227,6 +250,7 @@
 				0A8918132C3BF90200C330B3 /* FileCache in Frameworks */,
 				0AFA4ABE2C3BD25000C4D58A /* CocoaLumberjack in Frameworks */,
 				0A77CFBD2C32866000B2F812 /* UIComponents in Frameworks */,
+				0A51B33A2C54129200083E5E /* SQLite in Frameworks */,
 				0A6908742C467E9A0004180D /* FileCache in Frameworks */,
 				0A77CFC02C32871900B2F812 /* SnapKit in Frameworks */,
 			);
@@ -280,6 +304,26 @@
 				0A854F1C2C31D8A3008C5A43 /* CalendarViewController.swift */,
 			);
 			path = CalendarScreen;
+			sourceTree = "<group>";
+		};
+		0A228FF32C52CDC000CAC0AB /* BaseTodoItemViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0AF113042C370FFE009181F9 /* IBaseTodoItemViewModel.swift */,
+				0A228FF62C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift */,
+				0A228FF42C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift */,
+			);
+			path = BaseTodoItemViewModel;
+			sourceTree = "<group>";
+		};
+		0A228FF82C52D0BD00CAC0AB /* TaskCriteria */ = {
+			isa = PBXGroup;
+			children = (
+				0AD1BA132C2C4811002FF476 /* TaskCriteria.swift */,
+				0A228FF92C52D0D800CAC0AB /* TaskCriteria + FilterType.swift */,
+				0A228FFB2C52D10200CAC0AB /* TaskCriteria + SortType.swift */,
+			);
+			path = TaskCriteria;
 			sourceTree = "<group>";
 		};
 		0A3202A72C1C67C800427B05 = {
@@ -392,8 +436,8 @@
 			isa = PBXGroup;
 			children = (
 				0AE192062C30A97F003B8924 /* ListTodoItemViewModel.swift */,
-				0AD1BA132C2C4811002FF476 /* SortingTodoItems.swift */,
-				0AF113042C370FFE009181F9 /* IBaseTodoItemViewModel.swift */,
+				0A228FF82C52D0BD00CAC0AB /* TaskCriteria */,
+				0A228FF32C52CDC000CAC0AB /* BaseTodoItemViewModel */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -447,6 +491,18 @@
 			path = TodoItemTesting;
 			sourceTree = "<group>";
 		};
+		0A64CBD72C523DDC008839AB /* StorageManager */ = {
+			isa = PBXGroup;
+			children = (
+				0A64CBDA2C52452C008839AB /* AnyDataStorageManager.swift */,
+				0A64CBD82C523DE9008839AB /* IDataStorageManager.swift */,
+				0A64CBD52C522F54008839AB /* SDStorageManager.swift */,
+				0A228FF12C52C4A100CAC0AB /* SQLStorageManager.swift */,
+				0A228FFD2C52D30700CAC0AB /* StorageType.swift */,
+			);
+			path = StorageManager;
+			sourceTree = "<group>";
+		};
 		0A69086C2C467E240004180D /* NetworkingService */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +525,7 @@
 		0A7994F92C275CAF0097B18E /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				0A64CBD72C523DDC008839AB /* StorageManager */,
 				0A1311872C4A9B7500649268 /* FileService.swift */,
 				0A931C392C49302700C4C357 /* Categories */,
 				0A69086C2C467E240004180D /* NetworkingService */,
@@ -532,6 +589,7 @@
 		0A9230462C30AE0D00BFA4E2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				0A228FEF2C52B63F00CAC0AB /* Date.swift */,
 				0A931C3E2C49309800C4C357 /* ResultBuilders */,
 				0AF6F21C2C208F760043866B /* Collection.swift */,
 				0AD1BA162C2C4C72002FF476 /* Bool.swift */,
@@ -557,6 +615,7 @@
 				0A5412392C346BEF00B75AE1 /* Category */,
 				0AF6F2342C20B5F10043866B /* JSONParsing */,
 				0AF6F2352C20B6000043866B /* CSVParsing */,
+				0A64CBD32C5227A6008839AB /* Importance.swift */,
 				0A63EC642C1CC091005ED49D /* TodoItem.swift */,
 				0A63EC682C1CC66C005ED49D /* KeyPathComparable.swift */,
 			);
@@ -710,6 +769,7 @@
 				0A77CFBF2C32871900B2F812 /* SnapKit */,
 				0A6908732C467E9A0004180D /* FileCache */,
 				0A695BD32C47C4A800951874 /* URL */,
+				0A51B3392C54129200083E5E /* SQLite */,
 			);
 			productName = DailyDeeds;
 			productReference = 0A3202B02C1C67C800427B05 /* DailyDeeds.app */;
@@ -790,6 +850,7 @@
 				0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0AFA4ABC2C3BD25000C4D58A /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				0A695BD22C47C4A800951874 /* XCRemoteSwiftPackageReference "URL" */,
+				0A51B3382C54129200083E5E /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 			);
 			productRefGroup = 0A3202B12C1C67C800427B05 /* Products */;
 			projectDirPath = "";
@@ -867,7 +928,9 @@
 				0AE192072C30A97F003B8924 /* ListTodoItemViewModel.swift in Sources */,
 				0A8926122C28A9B0001C39F2 /* CreateTodoItemButton.swift in Sources */,
 				0AB3E3552C31DCEE00807EE0 /* CalendarCollectionViewCell.swift in Sources */,
+				0A228FF52C52CDDD00CAC0AB /* IBaseTodoItemViewModel + Networking.swift in Sources */,
 				0A04ED162C27308000AF7097 /* DetailTodoItemView.swift in Sources */,
+				0A64CBD42C5227A6008839AB /* Importance.swift in Sources */,
 				0A854F202C31DA15008C5A43 /* CalendarViewModel.swift in Sources */,
 				0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */,
 				0A7EEF2A2C31AE8D009553B7 /* DeadlineToggleView.swift in Sources */,
@@ -875,33 +938,40 @@
 				0A854F1D2C31D8A3008C5A43 /* CalendarViewController.swift in Sources */,
 				0A92304F2C30B81700BFA4E2 /* ScrollContentBackground.swift in Sources */,
 				0AE5D6A62C3481A700E27E12 /* UIColor.swift in Sources */,
+				0A64CBDB2C52452C008839AB /* AnyDataStorageManager.swift in Sources */,
 				0A7EEF212C31A7EA009553B7 /* GradientCircleView.swift in Sources */,
 				0AA5E0882C37FC1F00AE7002 /* Categories.swift in Sources */,
 				0A69087C2C4682DC0004180D /* APIEndpoint.swift in Sources */,
+				0A64CBD92C523DEA008839AB /* IDataStorageManager.swift in Sources */,
 				0AEEEE582C35BA810029438E /* DateInfo.swift in Sources */,
 				0A69087A2C46802F0004180D /* DefaultNetworkingService.swift in Sources */,
 				0AF6F22E2C20B30E0043866B /* JSONBuilder.swift in Sources */,
 				0AF113032C36F36A009181F9 /* CategoryPickerRow.swift in Sources */,
+				0A64CBD62C522F54008839AB /* SDStorageManager.swift in Sources */,
 				0A77CFC72C32A6BF00B2F812 /* CalendarTableViewCell.swift in Sources */,
 				0AD1BA322C2CC256002FF476 /* Color.swift in Sources */,
 				0A89261C2C28AE01001C39F2 /* ImportanceView.swift in Sources */,
 				0AF6F2322C20B59E0043866B /* CSVBuilder.swift in Sources */,
 				0A7EEF242C31A97B009553B7 /* ColorPickerRowView.swift in Sources */,
 				0A13118A2C4AA52100649268 /* NetworkActivityState.swift in Sources */,
+				0A228FFC2C52D10200CAC0AB /* TaskCriteria + SortType.swift in Sources */,
 				0A89CCFD2C2F7BBB006F9BF7 /* CustomSheetModifier.swift in Sources */,
+				0A228FF02C52B63F00CAC0AB /* Date.swift in Sources */,
 				0A5412332C34642800B75AE1 /* Category.swift in Sources */,
 				0A931C352C49177600C4C357 /* NetworkingError.swift in Sources */,
+				0A228FF72C52CE1B00CAC0AB /* IBaseTodoItemViewModel + FileCache.swift in Sources */,
 				0AD1BA4C2C2D5A40002FF476 /* CreateNewTodoItemRowView.swift in Sources */,
 				0A8925F42C287CBC001C39F2 /* CheckmarkView.swift in Sources */,
 				0A69087E2C469A4A0004180D /* URL.swift in Sources */,
 				0A8925FE2C28850E001C39F2 /* ImportancePicker.swift in Sources */,
+				0A228FFA2C52D0D800CAC0AB /* TaskCriteria + FilterType.swift in Sources */,
 				0AD1BA172C2C4C72002FF476 /* Bool.swift in Sources */,
 				0A931C3B2C49304500C4C357 /* Category + JSONParsable.swift in Sources */,
 				0A89CCE62C2EF847006F9BF7 /* RegularVerticalDetailView.swift in Sources */,
 				0AA5E0842C37F5AA00AE7002 /* CategoryPickerListView.swift in Sources */,
 				0A13118F2C4ADB7800649268 /* TodoItemModel + FileCache.swift in Sources */,
 				0A89CCE72C2EF847006F9BF7 /* CompactVerticalDetailView.swift in Sources */,
-				0AD1BA142C2C4811002FF476 /* SortingTodoItems.swift in Sources */,
+				0AD1BA142C2C4811002FF476 /* TaskCriteria.swift in Sources */,
 				0A1311912C4ADC0100649268 /* TodoItemModel + Networking.swift in Sources */,
 				0AF113052C370FFE009181F9 /* IBaseTodoItemViewModel.swift in Sources */,
 				0A1311882C4A9B7500649268 /* FileService.swift in Sources */,
@@ -911,6 +981,7 @@
 				0A63EC692C1CC66C005ED49D /* KeyPathComparable.swift in Sources */,
 				0AAF43FF2C27389F000FE268 /* ListRowItemView.swift in Sources */,
 				0A89CCF92C2F6B75006F9BF7 /* ColorPalette.swift in Sources */,
+				0A228FF22C52C4A100CAC0AB /* SQLStorageManager.swift in Sources */,
 				0A89CCF62C2F642C006F9BF7 /* ColorGradientCircleView.swift in Sources */,
 				0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */,
 				0A931C322C49163200C4C357 /* ITodoResponse.swift in Sources */,
@@ -919,6 +990,7 @@
 				0A6908762C467EB60004180D /* TodoListResponse.swift in Sources */,
 				0AA5E0862C37F5E600AE7002 /* CreateNewCategoryView.swift in Sources */,
 				0A7EEF282C31AB9F009553B7 /* DefaultKeyboardView.swift in Sources */,
+				0A228FFE2C52D30700CAC0AB /* StorageType.swift in Sources */,
 				0AB3E3E82C31F9B900807EE0 /* CalendarViewControllerRepresentable.swift in Sources */,
 				0A6908722C467E740004180D /* TodoItemResponse.swift in Sources */,
 				0A63EC672C1CC091005ED49D /* TodoItem + JSONParsable.swift in Sources */,
@@ -1119,7 +1191,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeeds;
+				PRODUCT_BUNDLE_IDENTIFIER = "zipozt.DailyDeeds-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1155,7 +1227,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = zipozt.DailyDeeds;
+				PRODUCT_BUNDLE_IDENTIFIER = "zipozt.DailyDeeds-";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1281,6 +1353,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A51B3382C54129200083E5E /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.3;
+			};
+		};
 		0A695BD22C47C4A800951874 /* XCRemoteSwiftPackageReference "URL" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/davidsteppenbeck/URL.git";
@@ -1316,6 +1396,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A51B3392C54129200083E5E /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A51B3382C54129200083E5E /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
 		0A6908732C467E9A0004180D /* FileCache */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */;

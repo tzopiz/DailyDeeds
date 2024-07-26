@@ -1,24 +1,13 @@
 //
-//  TodoItemCriteria.swift
+//  TaskCriteria + SortType.swift
 //  DailyDeeds
 //
-//  Created by Дмитрий Корчагин on 6/26/24.
+//  Created by Дмитрий Корчагин on 7/25/24.
 //
 
 import Foundation
 
-enum TaskCriteria {
-    case filter(FilterType)
-    case sort(SortType)
-
-    enum FilterType {
-        case notCompletedOnly
-        case all
-        var isEnabled: Bool {
-            self == .notCompletedOnly
-        }
-    }
-
+extension TaskCriteria {
     enum SortType: Hashable, CaseIterable {
 
         case byCreationDate(Order)

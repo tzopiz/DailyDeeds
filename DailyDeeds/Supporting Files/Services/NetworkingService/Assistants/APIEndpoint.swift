@@ -12,7 +12,7 @@ import URL
 enum APIEndpoint {
     private static let baseURL = #URL("https://hive.mrdekk.ru/todo")
     private static let listPathComponent = "list"
-    private static let token = "<token>"
+    private static let token = "Bereg"
     private static let threshold = 50
     
     case fetchTodoList
