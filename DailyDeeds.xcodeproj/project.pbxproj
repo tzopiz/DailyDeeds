@@ -30,6 +30,7 @@
 		0A3202E22C1C6A8900427B05 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 0A3202E12C1C6A8900427B05 /* .gitignore */; };
 		0A373A992C28BA3500A9290B /* DailyDeedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A982C28BA3500A9290B /* DailyDeedsApp.swift */; };
 		0A373A9C2C28BADB00A9290B /* TodoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A373A9B2C28BADB00A9290B /* TodoItemModel.swift */; };
+		0A51B33A2C54129200083E5E /* SQLite in Frameworks */ = {isa = PBXBuildFile; productRef = 0A51B3392C54129200083E5E /* SQLite */; };
 		0A54122E2C34437700B75AE1 /* ItemSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A54122D2C34437700B75AE1 /* ItemSection.swift */; };
 		0A5412332C34642800B75AE1 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A5412322C34642800B75AE1 /* Category.swift */; };
 		0A554E642C1ED4D30068360C /* TodoItemModelTesting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A554E632C1ED4D30068360C /* TodoItemModelTesting.swift */; };
@@ -249,6 +250,7 @@
 				0A8918132C3BF90200C330B3 /* FileCache in Frameworks */,
 				0AFA4ABE2C3BD25000C4D58A /* CocoaLumberjack in Frameworks */,
 				0A77CFBD2C32866000B2F812 /* UIComponents in Frameworks */,
+				0A51B33A2C54129200083E5E /* SQLite in Frameworks */,
 				0A6908742C467E9A0004180D /* FileCache in Frameworks */,
 				0A77CFC02C32871900B2F812 /* SnapKit in Frameworks */,
 			);
@@ -767,6 +769,7 @@
 				0A77CFBF2C32871900B2F812 /* SnapKit */,
 				0A6908732C467E9A0004180D /* FileCache */,
 				0A695BD32C47C4A800951874 /* URL */,
+				0A51B3392C54129200083E5E /* SQLite */,
 			);
 			productName = DailyDeeds;
 			productReference = 0A3202B02C1C67C800427B05 /* DailyDeeds.app */;
@@ -847,6 +850,7 @@
 				0A77CFBE2C32871900B2F812 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				0AFA4ABC2C3BD25000C4D58A /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 				0A695BD22C47C4A800951874 /* XCRemoteSwiftPackageReference "URL" */,
+				0A51B3382C54129200083E5E /* XCRemoteSwiftPackageReference "SQLite.swift" */,
 			);
 			productRefGroup = 0A3202B12C1C67C800427B05 /* Products */;
 			projectDirPath = "";
@@ -1349,6 +1353,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A51B3382C54129200083E5E /* XCRemoteSwiftPackageReference "SQLite.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stephencelis/SQLite.swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.15.3;
+			};
+		};
 		0A695BD22C47C4A800951874 /* XCRemoteSwiftPackageReference "URL" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/davidsteppenbeck/URL.git";
@@ -1384,6 +1396,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A51B3392C54129200083E5E /* SQLite */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A51B3382C54129200083E5E /* XCRemoteSwiftPackageReference "SQLite.swift" */;
+			productName = SQLite;
+		};
 		0A6908732C467E9A0004180D /* FileCache */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0A77CFBB2C32866000B2F812 /* XCRemoteSwiftPackageReference "UIComponents" */;
